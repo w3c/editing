@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Commands Explainer</title>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "ED"
+          ,   shortName:    "commands-explainer"
+          ,   editors:      [{     name: "Ben Peters", 
+                                mailto: "BenjamP@microsoft.com",
+                                company: "Microsoft", 
+                                companyURL: "http://www.microsoft.com" }]
+          ,   wg:           ""
+          ,   wgURI:        ""
+          ,   wgPublicList: "public-webapps"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
+          ,   edDraftURI:   ""
+          ,   license:      "cc-by"
+        };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This document is a non-normative reference, which provides an overview of <code>CommandEvent</code> and <code>contenteditable="minimal"</code>. 
+        It summarizes the normative information in the each respective specification in easy-to-digest prose with illustrations.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+        
+      </p>
+    </section>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        <a href="http://www.w3.org/TR/html5/editing.html#attr-contenteditable">contenteditable</a> is used extensively on the web to enable users to directly edit HTML content. 
+        However, it is very complex and its behavior is often largely overwritten by sites or javascript frameworks. 
+        Completely overwriting it is very difficult because it requires overwriting all keyboard shortcuts that perform commands like bold and undo, 
+        as well as the context menu. Further, this must be done in all supported languages. 
+        A <a href="https://medium.com/medium-eng/122d8a40e480">post</a> on Medium tells one perspective of why it should be changed.
+        </p><p>
+        To simplify this, a new level of abstraction is described in the <code>CommandEvent</code> specification (coming soon), 
+        which allows overwriting the behavior of individual user intentions.
+        </p><p>
+        To further simplify the work for sites and frameworks that wish to override functionality for the majority of commands, 
+        the Minimal ContentEditable specification (coming soon) disables all commands by default, including text input. 
+        This allows sites to easily provide their own implementations of commands as well as opt in to commands that they prefer the browser to handle,
+        without having to worry about what they might have missed.
+      </p>
+    </section>
+    <section>
+      <h2>Framing the Problem</h2>
+        <section>
+        <h3>Ways a User Can Indicate Their Intentions</h3>
+        <p>
+        There are several different ways users can indicate that they are trying to perform a given action. 
+        For instance, a user may press control-z on a Windows English keyboard to indicate that they would like to undo the latest action in the current context. 
+        They may also use an undo item in a context menu for this. 
+        In other languages, the keyboard shortcut for undo may differ. 
+        There may also be gestures for these intentions on various platforms, such as 'shake' on iOS. 
+        </p><p>
+        Shown below are some input methods and theoretical ways they could be used to select a word:
+        </p><p>
+        <img src="images/input_methods.png">
+        </p>
+        </section><section>
+        <h3>Default Handling of User Intentions</h3>
+        <p>
+        By default, browsers handle a large number of user intentions, like typing and formatting text in editable regions, clipboard operations, and selection.
+        Browsers have the built-in capability to understand a user's intention based on their localized input. 
+        Browsers then use that understanding to perform the associated action, such as actually selecting the word in the example above.
+        </p>
+        </section><section>
+        <h3>Difficulty in Overriding Default Handling in Script</h3>
+        In order to override default handling of an intention, a site must be aware of that intention.
+        Today, it is very difficult for a website to detect a user's intention directly. 
+        Instead, they must infer it based on keyboard, pointer, input, mutation, or other events. 
+        Keyboard events must be understood in a localized context. 
+        And in some cases, such as actions on the browser's context menu, the user's intention can't be inferred because script is not made aware of the intention at all.  
+        </p>
+        </section>
+    </section>
+    <section>
+      <h2>Intention Events</h2>
+        <section>
+        <h3>Overview</h3>
+        <p>In order to solve this problem, JavaScript needs a new level of abstraction for user intentions. 
+        Intention Events are that abstraction. 
+        There are several types of Intention Events, including Clipboard, Selection, and Command. 
+        Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://w3c.github.io/selection-api/">Selection API</a>,
+        we complete the picture with CommandEvent.
+        The picture now looks like this:
+        </p><p>
+            <img src="images/intention_events_concept.png">
+        </p>
+        </section><section>
+        <h3>Clipboard Events</h3>
+        In order to assist in determining what a user intends, browsers already fire some events for user intentions, like Clipboard Events. 
+        The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's intention.
+        </section><section>
+        <h3>Selection Events</h3>
+        <code>BeforeSelectionChange</code> events will also help determine a user's intention. They are being considered for the Selection API spec.
+        A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
+        <p class="issue">This doesn't exist yet. Need to work with Ryosuke on this</p>
+        </section><section>
+        <h3>Command Events</h3>
+        Just like for Clipboard and Selection, a user's intention to execute commands (like those found on a toolbar) should be easily understandable by script.
+        This allows sites to override behavior as they see fit.
+        For instance, if a site wants to manage the way bolding text works, they can list for a <code>CommandEvent</code> of type="bold",
+        execute their own custom bold functionality, and <code>preventDefault()</code>.
+        They no longer need to listen for control+b on English keyboards or something else in other locales.
+        Any platform-specific bold toolbars or gestures just work with their <code>CommandEvent</code> implementation as well.
+        <p class=issue>Should we use <code>BeforeInputEvent</code> instead of <code>CommandEvent</code>?<br>
+        Argument For: <code>InputEvent</code> already exists and tracks input. <code>BeforeInputEvent</code> has been discussed already.<br>
+        Argument Against: With <code>contenteditable="minimal"</code>, nothing is actually going to be inserted, so <code>BeforeInputEvent</code> is not correctly named. 
+        <code>BeforeInputEvent</code> fires after other Intention Events like <code>ClipboardEvent</code>, so it will be double-handled. 
+        And it's not a clear corollary to the invoke side, which is currently <code>execCommand</code>.</p>
+        <p class=issue>Should typing be handled by <code>CommandEvent</code>, or should we use something else? 
+        Does the fact that "insertText" is available in <code>execCommand</code> mean that a <code>CommandEvent</code> with <code>commandType="insertText"</code> should be used for typing?</p>
+        <p class=issue>How do IMEs (Input Method Editors) fit in here?</p>
+        </section><section>
+        <h3>Ways to Fire Intention Events</h3>
+        <section>
+        <h3>Well-known Sources</h3>
+        Intention Events will be fired by browsers for all well-known ways a user would indicate their intention. 
+        For instance, control+c would fire the required <code>KeyboardEvent</code>s, and if preventDefault() is not called on them,
+        it would then fire a <code>ClipboardEvent</code> of type "copy". 
+        Similarly, the "shake" gesture on iOS would fire a <code>CommandEvent</code> with <code>commandType="undo"</code>.
+        </section><section>
+        <h3>Custom Sources with <code>execCommand</code></h3>
+        <p>
+        Different sites and apps have different ways that users indicate their intentions.
+        For instance, a toolbar on an email site might have formatting buttons,
+        or a code editor app might have different keyboard shortcuts.
+        In order to enable web developers to fire their own Intention Events when their users are indicating an intention,
+        <code>execCommand</code> will cause Intention Events to be fired. 
+        </p><p>
+        For example, clicking the following button would fire a <code>CommandEvent</code> of type "bold", 
+        and if preventDefault is not called on that <code>CommandEvent</code>,
+        then the browser would perform its default action for bold.
+        <code class="highlight"><pre class="example">&lt;input type="button" onclick="execCommand('bold')" value="b"&gt;</pre></code>
+
+        </p><p>
+        Further, if a keyboard shortcut indicates a different intention for a given site or app,
+        it can be overwritten like this:<br>
+        <code class="highlight"><pre class="example">function handleKeydown(evt) {
+    if (evt.ctrlKey && evt.key === "s") {
+        document.execCommand('strikeThrough');
+        evt.preventDefault();
+    }
+}</pre></code>
+        Now control+s is bound to strikeThrough instead of its default.        
+        </p><p>
+        <p class=issue>Is <code>execCommand</code> the right answer here, or should we have a new API?</p>        
+        </p>
+        </section><section>
+        <h3>The <code>CommandData</code> Object</h3>
+        <p>
+        Some Intention Events will have more information than just a <code>commandType</code>. 
+        In order to encapsulate this data, a new object called <code>CommandData</code> will be used, 
+        which has a <code>value</code> attribute.
+        It can be extended for a given Command that needs more data than just a <code>value</code>.
+        </p><p>
+        Further, an update to <code>execCommand</code> will allow an alternative signature for this method, as follows:
+        <code class="highlight"><pre>execCommand (DOMString commandId, optional CommandData commandData)</pre></code>
+        </p><p>
+        Each Intention Event type (Clipboard, Selection, and Command) will have a new property for getting this object, <code>commandData</code>.
+        </p><p>
+        For example, a bold intention that specifies the target value of bold can be initiated like this:
+        <code><pre>document.execCommand('bold', {"value":"true"});</pre></code>
+        When the associated CommandEvent is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
+        </p>        
+        <p class=issue>Should we include the default result in the <code>Command</code> object? For instance, a <code>Range</code> that represents what the selection would be after a Selection event?<br>
+        From: Piotrek Koszuliński, CKEditor JavaScript Lead Developer</p>
+        </section>
+        </section><section>
+        <h3>Custom Intention Events</h3>
+        This functionality is fully extensible. If a site wishes to fire a custom command, it can do so by using any DOMString for the commandType of execCommand.
+        This will generate a CommandEvent with the same commandType, which will have no default action by definition.
+        But listening to for the CommandEvent will allow the site to handle this custom intention in the same way it handles well-known intentions. 
+        See <a href='#use-cases-and-samples'>the example</a> at the bottom for more details.
+        </section>
+    </section><section>
+      <h2>Minimal default handling with <code>contenteditable="minimal"</code></h2>
+        <p>
+        It is a pattern in web editors that are built on top of <code>contenteditable</code> to disable some commanding functionality. 
+        The reason for this is that consistency for WYSIWYG editors is very hard, and requirements vary greatly from one app to the next.
+        Disabling all functionality is very difficult, however.
+        </p><p>
+        In order to make it easier, <code>contenteditable="minimal"</code> on an element will fire all Intention Events (Selection, Clipboard, and Command),
+        but only Selection events will have a default action.
+        As is always the case with Intention Events, the default action for Selection events can be cancelled with <code>preventDefault()</code>.
+        The browser's typical handling of Clipboard and Command events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
+        </p>
+        <p class=issue>Which Intention Events should have default actions in <code>contenteditable="minimal"</code>? 
+        Just selection events, or other events like typing characters? 
+        What about inserting newlines? Backspace/delete?</p>
+        <p>
+        The browser's typical handling of Clipboard and Command events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
+        </p>
+        <p class=issue><code>execCommand</code> here will cause another Intention Event to be fired. How should we handle this?</p>
+    </section><section>
+    <h2>Use Cases And Samples</h2>
+    <section>
+    <h3>Use Case 1: Override Basic Functionality</h3>
+    <p>
+    With the following code, a site can handle several different custom commanding scenarios in a consistent way. 
+    First, it is able to perform a custom bold command that will work with any method of invoking bold, 
+    including different keyboard shortcuts in different localizations, and different input modalities on different devices. 
+    Second, it can perform some new functionalities- "grammarCheck" and "markCode"- using the same code path as its custom bold. 
+    The definition of the custom functions is omitted because the goal here is to show how simple it is to do command routing.
+    </p><p>
+    <code class="highlight"><pre class="example">var editRegion = document.getElementById("editRegion");
+editRegion.addEventListener("keydown", handleKeyDown);
+editRegion.addEventListener("command", handleCommand);
+
+function handleKeyDown(evt){
+    switch (evt.key){
+    case "g":
+        if (evt.ctrlKey){
+            document.execCommand("grammarCheck");
+            evt.preventDefault();
+        }
+        break;
+    }
+    case "c":
+        if (evt.ctrlKey && evt.shiftKey){
+            document.execCommand("markCode");
+            evt.preventDefault();
+        }
+        break;
+    }
+}
+
+function handleCommand(evt){
+    switch (evt.commandType){
+    case "bold":
+        customBold();
+        break;
+    case "grammarCheck":
+        customGrammerCheck();
+        break;
+    case "markCode":
+        customMarkAsCode();
+        break;
+    }
+}</pre></code>
+    </p>
+    </section><section>
+    <h3>Example Intention Events</h3>
+    </section>
+        Here a list of some sample Intention Events:<br>
+        <code>CommandEvent</code>; <code>commandType="insertText"</code>; used for typing text<br>
+        <code>CommandEvent</code>; <code>commandType="insertNewline"</code> <br>
+        <code>CommandEvent</code>; <code>commandType="italic"</code><br>
+        <code>ClipboardEvent</code>; <code>type="copy"</code><br>
+        <code>BeforeSelectionChangeEvent</code>; <code>commandType="extendSelection"</code>; similar to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection.extend"><code>Selection.extend()</code></a>, works with keyboard/pointer input<br>        
+        </section>
+  </body>
+</html>
