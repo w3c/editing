@@ -104,7 +104,7 @@
         <h3>Selection Events</h3>
         <code>BeforeSelectionChange</code> events will also help determine a user's intention. They are being considered for the Selection API spec.
         A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
-        <p class="issue">This doesn't exist yet. Need to work with Ryosuke on this</p>
+        <p class="issue">This doesn't exist yet. Need to work with Ryosuke Niwa and Selection API on this</p>
         </section><section>
         <h3>Command Events</h3>
         Just like for Clipboard and Selection, a user's intention to execute commands (like those found on a toolbar) should be easily understandable by script.
@@ -201,7 +201,19 @@
         <p>
         The browser's typical handling of Clipboard and Command events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
         </p>
-        <p class=issue><code>execCommand</code> here will cause another Intention Event to be fired. How should we handle this?</p>
+        <p class=issue><code>execCommand</code> here will cause another Intention Event to be fired. How should we handle this?<br>
+		Be careful with having events fire before the DOM is updated—at a minimum you’ll want to consider whether 
+		you will allow dangerous situations like the legacy MutationEvents could cause 
+		(start a change -> pre-change notification -> make another change -> pre-change notification … 
+		unexpected things can happen (can be especially challenging to implement securely).<br>
+		HTML5’s focus event model nicely prevents these recursions from looping. 
+		Similar mitigation for the “beforeinput” event of DOM Level 3 Events: https://www.w3.org/Bugs/Public/show_bug.cgi?id=25683<br>
+		From Travis Leithead
+		</p>
+		<p class=issue>Without default text input, the current proposal for contentEditable="minimal" is essentially just enabling cursors (drawing them, dispatching events, performing default actions).  Rather than calling the mode "minimal", which is ill-defined, why not explicitly call it what it is: "cursor-only"?  Or, have contentEditable take a list of features to turn enable: contentEditable="enable-cursors enable-CommandEvents".<br>
+		Or, rather than tying this concept to contentEditable, with all the assumptions and complications that brings up, why not expose this building block as a completely separate attribute?<br>
+		From Julie Parent</p>
+		<p class=issue>We may not need contentEditable=minimal. The same thing can be accomplished by listening for commands and calling preventDefault on all of them.</p>
     </section><section>
     <h2>Use Cases And Samples</h2>
     <section>
