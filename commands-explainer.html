@@ -96,6 +96,7 @@
         </p><p>
             <img src="images/intention_events_concept.png">
         </p>
+		<p class=issue>What low-level APIs do we need to enable to allow sites/frameworks to build their own intention handlers effectively?</p>
         </section><section>
         <h3>Clipboard Events</h3>
         In order to assist in determining what a user intends, browsers already fire some events for user intentions, like Clipboard Events. 
@@ -214,6 +215,8 @@
 		Or, rather than tying this concept to contentEditable, with all the assumptions and complications that brings up, why not expose this building block as a completely separate attribute?<br>
 		From Julie Parent</p>
 		<p class=issue>We may not need contentEditable=minimal. The same thing can be accomplished by listening for commands and calling preventDefault on all of them.</p>
+		<p class=issue>How can we integrate with rich forms and validation?<br>
+		From Robin Berjon, W3C</p>
     </section><section>
     <h2>Use Cases And Samples</h2>
     <section>
