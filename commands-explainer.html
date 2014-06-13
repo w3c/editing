@@ -101,7 +101,10 @@
         <h3>Clipboard Events</h3>
         In order to assist in determining what a user intends, browsers already fire some events for user intentions, like Clipboard Events. 
         The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's intention.
-        </section><section>
+        <p class=issue>While BeforeSelectionChange and Command events can be handled all at once and preventDefault() can be called to prevent all current and future events of those types,
+		ClipboardEvent doesn't have a generic listener. Should we provide one? Or disallow new ClipboardEvent types?</p>
+        <p class=issue>Do we need DragEvents also?</p>
+		</section><section>
         <h3>Selection Events</h3>
         <code>BeforeSelectionChange</code> events will also help determine a user's intention. They are being considered for the Selection API spec.
         A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
