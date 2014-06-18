@@ -269,7 +269,7 @@ function handleCommand(evt){
     </p>
     </section><section>
     <h3>Example Intention Events</h3>
-    </section>
+    
         Here a list of some sample Intention Events:<br>
         <code>CommandEvent</code>; <code>commandType="insertText"</code>; used for typing text<br>
         <code>CommandEvent</code>; <code>commandType="insertNewline"</code> <br>
@@ -277,5 +277,19 @@ function handleCommand(evt){
         <code>ClipboardEvent</code>; <code>type="copy"</code><br>
         <code>BeforeSelectionChangeEvent</code>; <code>commandType="extendSelection"</code>; similar to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection.extend"><code>Selection.extend()</code></a>, works with keyboard/pointer input<br>        
         </section>
+	</section><section>
+	<h2>Relationship to IndieUI</h2>
+		<p><a href="http://www.w3.org/TR/indie-ui-events/">IndieUI: Events 1.0</a> is solving a similar problem. 
+		The abstract of that spec says "This provides an intermediate layer between device- and modality-specific user interaction events, 
+		and the basic user interface functionality used by web applications."
+		The list of intentions it handles is given in the <a href="http://www.w3.org/TR/indie-ui-events/#eventslist">Event List</a> of that document.
+		A great deal of effort and work has gone into that document, and it has many valuable insights.
+		</p><p>
+		The Commands Explainer is solving this problem by starting with concepts that the Editor uses today, such as Commands, Selection, and contentEditable. 
+		IndieUI appears to be starting with concepts from Accessibility. 
+		It is important for these two efforts to come together and solve these problems for both of these scenarios. 
+		Understanding a user's intentions is crucial when there are so many ways that a user can declare them.
+		</p>
+	</section>
   </body>
 </html>
