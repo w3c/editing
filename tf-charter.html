@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>HTML Editing Task Force Charter</title>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "base"
+          // ,   shortName:    "html-editing-explainer"
+          ,   editors:      [{ name: "Robin Berjon", url: "http://berjon.com/",
+                               company: "W3C", companyURL: "http://w3.org/" }]
+          ,   wg:           ["HTML Working Group", "Web Applications Working Group"]
+          ,   wgURI:        ["http://www.w3.org/html/wg/", "http://www.w3.org/2008/webapps/"]
+          ,   wgPublicList: "public-editing"
+          ,   wgPatentURI:  ["http://www.w3.org/2004/01/pp-impl/40318/status", "http://www.w3.org/2004/01/pp-impl/42538/status"]
+          // ,   edDraftURI:   "http://darobin.github.com/editing-explainer/"
+          ,   license:      "cc-by"
+        };
+    </script>
+    <style>
+      #sotd {
+          display:  none;
+      }
+    </style>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        Editing on the Web, currently done through hacks sitting on top of <code>contentEditable</code>,
+        is generally acknowledged by all practitioners as a nightmare.
+      </p>
+      <p>
+        The goal of this task force is to split the work that is required into small, manageable
+        chunks that can be developed as primitives useful on their own, and used together to create
+        editing systems.
+      </p>
+    </section>
+    <section>
+      <h2>Objectives</h2>
+      <p>
+        The endgame for this group is to produce primitives that enable the creation of useful editing
+        systems on the Web, without requiring the many ugly hacks that are in common use today.
+      </p>
+      <p>
+        This covers multiple aspects, which include most notably:
+      </p>
+      <ul>
+        <li>
+          An API to capture selections and cursor position, certainly as an evolution of the existing
+          Selection API.
+        </li>
+        <li>
+          An event or event-like system to convey the user's intent in editing a piece of content.
+          This is most likely to build atop DOM events.
+        </li>
+        <li>
+          Integration of the above into HTML, which may happen for instance through
+          <code>contentEditable=minimal</code> (but a variety of options are being considered).
+        </li>
+      </ul>
+      <p>
+        Deliverables are expected to be shipped as joint publications by both groups.
+      </p>
+    </section>
+    <section>
+      <h2>Participation</h2>
+      <p>
+        This task force is separated from its parent Web Apps and HTML WGs for two reasons. First,
+        making participation easier for people not currently involved in the standards process
+        (typically, developers of editing tool libraries) who may not be amenable to signing up to
+        the sort of "firehose" discussion that can be found for instance on the primary WebApps
+        list. Also, since the deliverables fall under the responsibility of both groups, using a
+        single discussion venue is simpler than trying to coordinate the various moving parts
+        across groups.
+      </p>
+      <p>
+        The decision policy is the same as that which applies in the WebApps WG.
+      </p>
+      <p>
+        This group is distinct from the Editing Community Group, the focus of which is on making
+        the existing editing system full described. This group is looking for new solutions, though
+        of course there is expected to be some degree of overlap.
+      </p>
+    </section>
+  </body>
+</html>
