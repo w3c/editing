@@ -79,20 +79,41 @@
         Today, it is very difficult for a website to detect a user's intention directly. 
         Instead, they must infer it based on keyboard, pointer, input, mutation, or other events. 
         Keyboard events must be understood in a localized context. 
-        And in some cases, such as actions on the browser's context menu, the user's intention can't be inferred because script is not made aware of the intention at all.  
+        And in some cases, such as actions on the browser's context menu, 
+        the user's intention can't be inferred because script is not made aware of the intention at all.  
         </p>
+        </section><section>
+        <h3>Accessibility Tools</h3>
+        Interactions with web content can take place in a variety of different ways.
+        Some Accessibility Tools (ATs) can read web content to a user and allow them to take action on that content.
+        In order to provide this functionality, ATs inform the user what actions can be taken.
         </section>
+    </section>
+    <section>
+        <h2>Definitions and Goals</h2>
+        <p>Definitions:</p>
+        <b>Action:</b> any way a user interacts with a webpage, including click, type, touch, and gesture<br>
+        <b>Intention:</b> what a user is trying to do by performing an action, including select, undo, insert text, and delete<br>
+        <b>Behavior:</b> the result of an intention being fulfilled, including feedback to the user or service
+        <p>Goals:</p>
+        <ul><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
+        </li><li>Enumerate available actions in a given context
+        </li></ul>
+    </section>
+    <section>
+        <h2>Use Cases</h2>
+        TODO
     </section>
     <section>
       <h2>Intention Events</h2>
         <section>
         <h3>Overview</h3>
         <p>In order to solve this problem, JavaScript needs a new level of abstraction for user intentions. 
-        Intention Events are that abstraction. 
+        Intention Events are one option for that abstraction. 
         There are several types of Intention Events, including Clipboard, Selection, and Command. 
         Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://w3c.github.io/selection-api/">Selection API</a>,
         we complete the picture with CommandEvent.
-        The picture now looks like this:
+        The picture would look like this:
         </p><p>
             <img src="images/intention_events_concept.png">
         </p>
@@ -221,9 +242,9 @@
 		<p class=issue>How can we integrate with rich forms and validation?<br>
 		From Robin Berjon, W3C</p>
     </section><section>
-    <h2>Use Cases And Samples</h2>
+    <h2>Samples</h2>
     <section>
-    <h3>Use Case 1: Override Basic Functionality</h3>
+    <h3>Override Basic Functionality</h3>
     <p>
     With the following code, a site can handle several different custom commanding scenarios in a consistent way. 
     First, it is able to perform a custom bold command that will work with any method of invoking bold, 
