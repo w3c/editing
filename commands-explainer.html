@@ -52,9 +52,9 @@
       </p>
     </section>
     <section>
-      <h2>Framing the Problem</h2>
+      <!--
         <section>
-        <h3>Ways a User Can Indicate Their Intentions</h3>
+        <h3>There are many ways a user can indicate their intentions</h3>
         <p>
         There are several different ways users can indicate that they are trying to perform a given action. 
         For instance, a user may press control-z on a Windows English keyboard to indicate that they would like to undo the latest action in the current context. 
@@ -88,6 +88,51 @@
         Some Accessibility Tools (ATs) can read web content to a user and allow them to take action on that content.
         In order to provide this functionality, ATs inform the user what actions can be taken.
         </section>
+        -->
+      <h2>Framing the Problem</h2>
+        <ul><li>ContentEditable is <b>too complex and buggy</b> to be usable as-is
+        <br>While we could solve this by spec'ing contentEditable's behavior, the remaining issues here cause us to look in a new direction instead.
+        </li><li>ContentEditable <b>does not easily enable the wide range of editing scenarios</b>. 
+            It is high-level and not supportive of <a href="http://extensiblewebmanifesto.org/">http://extensiblewebmanifesto.org/</a>.
+        </li><li>There are <b>many ways to indicate user intentions</b> and no clean way to understand them all
+        </li><li>Accessibility tools have <b>difficulty understanding available actions</b>
+        </li><li>Frameworks and sites may have <b>difficulty understanding what is implemented</b>, what should show up on toolbars and menus, and what needs to be polyfilled in editing scenarios
+        </li></ul>        
+    </section>
+    <section>
+        <h2>Use Cases</h2>
+        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform.
+        <br>Info: The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
+            Headings are to be marked up with h1. h2, etc... and each acronyms, abbreviations, and so forth are marked up with respective HTML elements.
+            However, the editor also supports visual annotations such as bolding, italicizing, and enlarging text, 
+            each of which will be interpreted by the editor to respective underlying semantics in HTML.
+        <br>More Info: Yes, and in order to keep things consistent he may want to disallow certain types of styling. 
+            A few years ago it was common to see people with Joomla sites who just pasted the text into the editor after copying it from a word processor. 
+            Each blog post therefore ended up having very different styling.
+        </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>.
+        <br>We do that in Fidus Writer.  
+            Part of the point is to keep the structure of the document semantically defined. 
+            Users can't change font sizes of individual words, etc.
+            This is because one of the main tasks of scientific journal editors who currently receive drafts in Word or Libreoffice 
+            format have to undo all the manual styling the writers have added in order to get everything to look in a similar way. 
+            We simply take those styling possibilities away so that we can define the entire design through one stylesheet as well as easily convert to other formats, 
+            such as LaTex or an Epub, and be sure that we cover all formatting tags that were used.
+        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.)
+        <br>We also do that - for example in the case of formulas. 
+            Generally the text is editable near-Wysiwyg style. 
+            But when it comes to formulas, we let the user enter them in Latex format and display the result using mathjax. 
+            Each formula object within the text is a noneditable island. If the user clicks on it with the mouse, he can change the formula.
+        <br>Another example are figures: We want them to always be block elements and to have exactly one caption without styling. 
+            They are therefore non-editable islands and if the user clicks on them he can change the figure's display and the caption text.
+        </li><li>Web-based <b>code editor</b> with syntax highlighting, etc.
+        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;.
+        </li><li><b>Track changes</b> functionality within an editor (like <a href="https://github.com/NYTimes/ice">https://github.com/NYTimes/ice</a> )
+        <br>(really should be run MVC in order to keep the code somewhat readable. Currently ICE breaks whenever any of the browser makers decide to change anything about contenteditable.)
+        </li><li><b>Web-based DTP application</b>
+        <br>The app can creates a document that contains pagination, columns, and a complex illustrations.
+            It needs to let users edit any text that appears in the document.  
+            Each editable text needs to be accessible, and styles applied to text need to be backed by the application's internal model of the document.        
+        </li></ul>
     </section>
     <section>
         <h2>Definitions and Goals</h2>
@@ -96,13 +141,12 @@
         <b>Intention:</b> what a user is trying to do by performing an action, including select, undo, insert text, and delete<br>
         <b>Behavior:</b> the result of an intention being fulfilled, including feedback to the user or service
         <p>Goals:</p>
-        <ul><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
-        </li><li>Enumerate available actions in a given context
+        <ul><li>Empower authors with the right set of baseline behavior to enable creating complex editors
+        </li><li>Make it easy to implement custom behavior with appropriate APIs
+        </li><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
+        </li><li>Enumerate the possible behaviors in a given context such that toolbars and Accessiblity tools can inform users what's available
+        </li><li>Empower complex editors to be accessible by enabling users to understand available behaviors with little accessibility-specific work from the framework or site
         </li></ul>
-    </section>
-    <section>
-        <h2>Use Cases</h2>
-        TODO
     </section>
     <section>
       <h2>Intention Events</h2>
