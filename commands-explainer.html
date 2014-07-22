@@ -101,7 +101,7 @@
     </section>
     <section>
         <h2>Use Cases</h2>
-        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform.
+        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform. (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
         <br>Info: The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
             Headings are to be marked up with h1. h2, etc... and each acronyms, abbreviations, and so forth are marked up with respective HTML elements.
             However, the editor also supports visual annotations such as bolding, italicizing, and enlarging text, 
@@ -109,7 +109,7 @@
         <br>More Info: Yes, and in order to keep things consistent he may want to disallow certain types of styling. 
             A few years ago it was common to see people with Joomla sites who just pasted the text into the editor after copying it from a word processor. 
             Each blog post therefore ended up having very different styling.
-        </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>.
+        </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         <br>We do that in Fidus Writer.  
             Part of the point is to keep the structure of the document semantically defined. 
             Users can't change font sizes of individual words, etc.
@@ -117,18 +117,18 @@
             format have to undo all the manual styling the writers have added in order to get everything to look in a similar way. 
             We simply take those styling possibilities away so that we can define the entire design through one stylesheet as well as easily convert to other formats, 
             such as LaTex or an Epub, and be sure that we cover all formatting tags that were used.
-        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.)
+        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.) (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         <br>We also do that - for example in the case of formulas. 
             Generally the text is editable near-Wysiwyg style. 
             But when it comes to formulas, we let the user enter them in Latex format and display the result using mathjax. 
             Each formula object within the text is a noneditable island. If the user clicks on it with the mouse, he can change the formula.
         <br>Another example are figures: We want them to always be block elements and to have exactly one caption without styling. 
             They are therefore non-editable islands and if the user clicks on them he can change the figure's display and the caption text.
-        </li><li>Web-based <b>code editor</b> with syntax highlighting, etc.
-        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;.
+        </li><li>Web-based <b>code editor</b> with syntax highlighting, etc. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         </li><li><b>Track changes</b> functionality within an editor (like <a href="https://github.com/NYTimes/ice">https://github.com/NYTimes/ice</a> )
         <br>(really should be run MVC in order to keep the code somewhat readable. Currently ICE breaks whenever any of the browser makers decide to change anything about contenteditable.)
-        </li><li><b>Web-based DTP application</b>
+        </li><li><b>Web-based DTP application</b> (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
         <br>The app can creates a document that contains pagination, columns, and a complex illustrations.
             It needs to let users edit any text that appears in the document.  
             Each editable text needs to be accessible, and styles applied to text need to be backed by the application's internal model of the document.        
