@@ -136,9 +136,7 @@
         <h3>Clipboard Events</h3>
         In order to assist in determining what a user intends, browsers already fire some events for user intentions, like Clipboard Events. 
         The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's intention.
-        <p class=issue>While BeforeSelectionChange and Command events can be handled all at once and preventDefault() can be called to prevent all current and future events of those types,
-		ClipboardEvent doesn't have a generic listener. Should we provide one? Or disallow new ClipboardEvent types?</p>
-		</section><section>
+        </section><section>
         <h3>Selection Events</h3>
         <code>BeforeSelectionChange</code> events will also help determine a user's intention. They are being considered for the Selection API spec.
         A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
@@ -151,13 +149,6 @@
         execute their own custom bold functionality, and <code>preventDefault()</code>.
         They no longer need to listen for control+b on English keyboards or something else in other locales.
         Any platform-specific bold toolbars or gestures just work with their <code>CommandEvent</code> implementation as well.
-        <p class=issue>Should we use <code>BeforeInputEvent</code> instead of <code>CommandEvent</code>?<br>
-        Argument For: <code>InputEvent</code> already exists and tracks input. <code>BeforeInputEvent</code> has been discussed already.<br>
-        Argument Against: With <code>contenteditable="minimal"</code>, nothing is actually going to be inserted, so <code>BeforeInputEvent</code> is not correctly named. 
-        <code>BeforeInputEvent</code> fires after other Intention Events like <code>ClipboardEvent</code>, so it will be double-handled. 
-        And it's not a clear corollary to the invoke side, which is currently <code>execCommand</code>.</p>
-        <p class=issue>Should typing be handled by <code>CommandEvent</code>, or should we use something else? 
-        Does the fact that "insertText" is available in <code>execCommand</code> mean that a <code>CommandEvent</code> with <code>commandType="insertText"</code> should be used for typing?</p>
         <p class=issue>How do IMEs (Input Method Editors) fit in here?</p>
         </section><section>
         <h3>Ways to Fire Intention Events</h3>
@@ -191,8 +182,6 @@
     }
 }</pre></code>
         Now control+s is bound to strikeThrough instead of its default.        
-        </p><p>
-        <p class=issue>Is <code>execCommand</code> the right answer here, or should we have a new API?</p>        
         </p>
         </section><section>
         <h3>The <code>CommandData</code> Object</h3>
@@ -210,9 +199,7 @@
         For example, a bold intention that specifies the target value of bold can be initiated like this:
         <code><pre>document.execCommand('bold', {"value":"true"});</pre></code>
         When the associated CommandEvent is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
-        </p>        
-        <p class=issue>Should we include the default result in the <code>Command</code> object? For instance, a <code>Range</code> that represents what the selection would be after a Selection event?<br>
-        From: Piotrek Koszuliński, CKEditor JavaScript Lead Developer</p>
+        </p>
         </section>
         </section><section>
         <h3>Custom Intention Events</h3>
