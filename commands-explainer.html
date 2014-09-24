@@ -42,47 +42,10 @@
       <p>
         Today, sites mostly respond to user Actions directly, causing several issues including difficultly understanding what a user intends, complexity in building Accessible sites, and complex localization.
         In addition, while some areas like Clipboard already support User Intensions, it is important that all such areas share a common API shape.
-        This document is meant to describe the path forward for User Intentions across multiple areas so that sites can be written more simply and Intensions APIs can have a unified shape.
+        This document is meant to describe the path forward for User Intentions across multiple areas so that sites can be written more simply and Intentions APIs can have a unified shape.
       </p>
     </section>
     <section>
-      <!--
-        <section>
-        <h3>There are many ways a user can indicate their intentions</h3>
-        <p>
-        There are several different ways users can indicate that they are trying to perform a given action. 
-        For instance, a user may press control-z on a Windows English keyboard to indicate that they would like to undo the latest action in the current context. 
-        They may also use an undo item in a context menu for this. 
-        In other languages, the keyboard shortcut for undo may differ. 
-        There may also be gestures for these intentions on various platforms, such as 'shake' on iOS. 
-        </p><p>
-        Shown below are some input methods and theoretical ways they could be used to select a word:
-        </p><p>
-        <img src="images/input_methods.png">
-        </p>
-        </section><section>
-        <h3>Default Handling of User Intentions</h3>
-        <p>
-        By default, browsers handle a large number of user intentions, like typing and formatting text in editable regions, clipboard operations, and selection.
-        Browsers have the built-in capability to understand a user's intention based on their localized input. 
-        Browsers then use that understanding to perform the associated action, such as actually selecting the word in the example above.
-        </p>
-        </section><section>
-        <h3>Difficulty in Overriding Default Handling in Script</h3>
-        In order to override default handling of an intention, a site must be aware of that intention.
-        Today, it is very difficult for a website to detect a user's intention directly. 
-        Instead, they must infer it based on keyboard, pointer, input, mutation, or other events. 
-        Keyboard events must be understood in a localized context. 
-        And in some cases, such as actions on the browser's context menu, 
-        the user's intention can't be inferred because script is not made aware of the intention at all.  
-        </p>
-        </section><section>
-        <h3>Accessibility Tools</h3>
-        Interactions with web content can take place in a variety of different ways.
-        Some Accessibility Tools (ATs) can read web content to a user and allow them to take action on that content.
-        In order to provide this functionality, ATs inform the user what actions can be taken.
-        </section>
-        -->
       <h2>Framing the Problem</h2>
         <ul><li>There are <b>many ways to indicate user intentions</b> and no clean way to understand them all
         </li><li>Accessibility tools have <b>difficulty understanding available actions</b>
@@ -102,8 +65,8 @@
         <b>Behavior:</b> the result of an intention being fulfilled, including feedback to the user or service
         <p>Goals:</p>
         <ul><li>Make it easy to implement custom Behavior for a given Intention with appropriate APIs
-        </li><li>Allow overwrite of behavior for a user Intention from all actions that indicate that intention
-        </li><li>Enumerate the possible Behaviors in a given context such that toolbars and Accessiblity tools can inform users what's available
+        </li><li>Allow overwrite of Behavior for a user Intention from all actions that indicate that intention
+        </li><li>Enumerate the possible Behaviors in a given context such that toolbars and Accessiblity tools can inform users what's available and what has occurred
         </li><li>Empower complex sites to be accessible by enabling users to understand available Behaviors with little accessibility-specific work from the framework or site
         </li></ul>
     </section>
@@ -114,8 +77,8 @@
         The following diagram shows how sites try to determine what a user wants to do:</br>
         <img src="images/Intensions_Present.png"><br>
         Ideally, sites should have a more direct way of understanding what a user is trying to do. 
-        Additionally, Accessibility Tools and other input modalities should be able to understand a user's 
-        intentions so they can list available behaviors and provide feedback to users about what has occurred.
+        Additionally, Accessibility Tools and other input modalities should be able to list available Intentions
+        and understand what has occurred in order to provide feedback to users.
         The following diagram shows how this could work better:<br>
         <img src="images/Intentions_Goal.png"><br>
     </section>
@@ -125,9 +88,9 @@
         <h3>Overview</h3>
         <p>In order to solve this problem, JavaScript needs a new level of abstraction for user intentions. 
         Intention Events are one option for that abstraction. 
-        There are several types of Intention Events, including Clipboard, Selection, and Command. 
+        There are several types of Intention Events, including text input (hereafter called BeforeInput events), Clipboard, Selection. 
         Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://w3c.github.io/selection-api/">Selection API</a>,
-        we complete the picture with CommandEvent.
+        we unify the story across other Intentions types such as BeforeInput event.
         The picture would look like this:
         </p><p>
             <img src="images/intention_events_concept.png">
@@ -138,46 +101,46 @@
         The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's intention.
         </section><section>
         <h3>Selection Events</h3>
-        <code>BeforeSelectionChange</code> events will also help determine a user's intention. They are being considered for the Selection API spec.
+        <code>BeforeSelectionChange</code> events will also help determine a user's Intention. They are being considered for the Selection API spec.
         A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
         <p class="issue">This doesn't exist yet. Need to work with Ryosuke Niwa and Selection API on this</p>
         </section><section>
-        <h3>Command Events</h3>
-        Just like for Clipboard and Selection, a user's intention to execute commands (like those found on a toolbar) should be easily understandable by script.
-        This allows sites to override behavior as they see fit.
-        For instance, if a site wants to manage the way bolding text works, they can list for a <code>CommandEvent</code> of type="bold",
-        execute their own custom bold functionality, and <code>preventDefault()</code>.
+        <h3>BeforeInput Events</h3>
+        Just like for Clipboard and Selection, a user's Intention to do various input (like typing or formatting text) should be easily understandable by script.
+        This allows sites to override Behaviors as they see fit.
+        For instance, if a site wants to manage the way bolding text works, they can list for a <code>BeforeInput</code> with commandType="bold",
+        execute their own custom bold Behavior, and <code>preventDefault()</code>.
         They no longer need to listen for control+b on English keyboards or something else in other locales.
-        Any platform-specific bold toolbars or gestures just work with their <code>CommandEvent</code> implementation as well.
-        <p class=issue>How do IMEs (Input Method Editors) fit in here?</p>
+        Any platform-specific bold toolbars or gestures just work with their <code>BeforeInput</code> implementation as well.
+        <p class=issue>How do IMEs (Input Method Editors) fit in here? Are CompositionEvents a type of Intention?</p>
         </section><section>
         <h3>Ways to Fire Intention Events</h3>
         <section>
         <h3>Well-known Sources</h3>
-        Intention Events will be fired by browsers for all well-known ways a user would indicate their intention. 
-        For instance, control+c would fire the required <code>KeyboardEvent</code>s, and if preventDefault() is not called on them,
+        Intention Events may be fired by browsers for all well-known ways a user would indicate their intention. 
+        For instance, control+c should fire the required <code>KeyboardEvent</code>s, and if preventDefault() is not called on them,
         it would then fire a <code>ClipboardEvent</code> of type "copy". 
-        Similarly, the "shake" gesture on iOS would fire a <code>CommandEvent</code> with <code>commandType="undo"</code>.
+        Similarly, the "shake" gesture on iOS would fire a <code>BeforeInput</code> with <code>commandType="undo"</code>.
         </section><section>
-        <h3>Custom Sources with <code>execCommand</code></h3>
+        <h3>Custom Sources</h3>
         <p>
         Different sites and apps have different ways that users indicate their intentions.
         For instance, a toolbar on an email site might have formatting buttons,
         or a code editor app might have different keyboard shortcuts.
         In order to enable web developers to fire their own Intention Events when their users are indicating an intention,
-        <code>execCommand</code> will cause Intention Events to be fired. 
+        a new function (as yet unnamed, but here referred to as declareIntention()) will cause Intention Events to be fired. 
         </p><p>
-        For example, clicking the following button would fire a <code>CommandEvent</code> of type "bold", 
-        and if preventDefault is not called on that <code>CommandEvent</code>,
+        For example, clicking the following button would fire a <code>beforeInput</code> event with commandType "bold". 
+        If preventDefault is not called on that event,
         then the browser would perform its default action for bold.
-        <code class="highlight"><pre class="example">&lt;input type="button" onclick="execCommand('bold')" value="b"&gt;</pre></code>
+        <code class="highlight"><pre class="example">&lt;input type="button" onclick="declareIntention('bold')" value="b"&gt;</pre></code>
 
         </p><p>
         Further, if a keyboard shortcut indicates a different intention for a given site or app,
         it can be overwritten like this:<br>
         <code class="highlight"><pre class="example">function handleKeydown(evt) {
     if (evt.ctrlKey && evt.key === "s") {
-        document.execCommand('strikeThrough');
+        document.declareIntention('strikeThrough');
         evt.preventDefault();
     }
 }</pre></code>
@@ -189,24 +152,26 @@
         Some Intention Events will have more information than just a <code>commandType</code>. 
         In order to encapsulate this data, a new object called <code>CommandData</code> will be used, 
         which has a <code>value</code> attribute.
-        It can be extended for a given Command that needs more data than just a <code>value</code>.
+        It can be extended for a given Intention that needs more data than just a <code>value</code>.
         </p><p>
-        Further, an update to <code>execCommand</code> will allow an alternative signature for this method, as follows:
-        <code class="highlight"><pre>execCommand (DOMString commandId, optional CommandData commandData)</pre></code>
+        A possible signature for declareIntention might be the following:
+        <code class="highlight"><pre>declareIntention (DOMString commandId, optional CommandData commandData)</pre></code>
         </p><p>
-        Each Intention Event type (Clipboard, Selection, and Command) will have a new property for getting this object, <code>commandData</code>.
+        Each Intention Event type (Clipboard, Selection, and BeforeInput) will have a new property for getting this object, <code>commandData</code>.
         </p><p>
         For example, a bold intention that specifies the target value of bold can be initiated like this:
-        <code><pre>document.execCommand('bold', {"value":"true"});</pre></code>
-        When the associated CommandEvent is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
+        <code><pre>document.declareIntention('bold', {"value":"true"});</pre></code>
+        When the associated BeforeInput event is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
         </p>
         </section>
         </section><section>
         <h3>Custom Intention Events</h3>
-        This functionality is fully extensible. If a site wishes to fire a custom command, it can do so by using any DOMString for the commandType of execCommand.
+        This functionality is fully extensible. If a site wishes to fire a custom command, it can do so by using any DOMString for the commandType of declareIntention.
         This will generate a CommandEvent with the same commandType, which will have no default action by definition.
         But listening to for the CommandEvent will allow the site to handle this custom intention in the same way it handles well-known intentions. 
         See <a href='#use-cases-and-samples'>the example</a> at the bottom for more details.
+        <p class="issue">Need to figure out if we can do custom when using beforeInput instead of Command. Seems odd. Maybe we need Command for non-text things? 
+        Also, how can a custom Intention know if it is text input or seletion or something else?</p>
         </section>
     </section><section>
     <h2>Samples</h2>
@@ -221,27 +186,27 @@
     </p><p>
     <code class="highlight"><pre class="example">var editRegion = document.getElementById("editRegion");
 editRegion.addEventListener("keydown", handleKeyDown);
-editRegion.addEventListener("command", handleCommand);
+editRegion.addEventListener("beforeInput", handleBeforeInput);
 
 function handleKeyDown(evt){
     switch (evt.key){
     case "g":
         if (evt.ctrlKey){
-            document.execCommand("grammarCheck");
+            document.declareIntention("grammarCheck");
             evt.preventDefault();
         }
         break;
     }
     case "c":
         if (evt.ctrlKey && evt.shiftKey){
-            document.execCommand("markCode");
+            document.declareIntention("markCode");
             evt.preventDefault();
         }
         break;
     }
 }
 
-function handleCommand(evt){
+function handleBeforeInput(evt){
     switch (evt.commandType){
     case "bold":
         customBold();
@@ -259,13 +224,12 @@ function handleCommand(evt){
     <h3>Example Intention Events</h3>
     
         Here a list of some sample Intention Events:<br>
-        <code>CommandEvent</code>; <code>commandType="insertText"</code>; used for typing text<br>
-        <code>CommandEvent</code>; <code>commandType="insertNewline"</code> <br>
-        <code>CommandEvent</code>; <code>commandType="italic"</code><br>
+        <code>BeforeInput</code>; <code>commandType="insertText"</code>; used for typing text<br>
+        <code>BeforeInput</code>; <code>commandType="insertNewline"</code> <br>
+        <code>Beforeinput</code>; <code>commandType="italic"</code><br>
         <code>ClipboardEvent</code>; <code>type="copy"</code><br>
         <code>BeforeSelectionChangeEvent</code>; <code>commandType="extendSelection"</code>; similar to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection.extend"><code>Selection.extend()</code></a>, works with keyboard/pointer input<br>        
-        </section>
-	</section><section>
+    </section></section><section>
 	<h2>Relationship to IndieUI</h2>
 		<p><a href="http://www.w3.org/TR/indie-ui-events/">IndieUI: Events 1.0</a> is solving a similar problem. 
 		The abstract of that spec says "This provides an intermediate layer between device- and modality-specific user interaction events, 
@@ -273,7 +237,7 @@ function handleCommand(evt){
 		The list of intentions it handles is given in the <a href="http://www.w3.org/TR/indie-ui-events/#eventslist">Event List</a> of that document.
 		A great deal of effort and work has gone into that document, and it has many valuable insights.
 		</p><p>
-		The Commands Explainer is solving this problem by starting with concepts that the Editor uses today, such as Commands, Selection, and contentEditable. 
+		This Intentions Explainer is solving this problem by starting with concepts that the Editor uses today, such as Input, Selection, and contentEditable. 
 		IndieUI appears to be starting with concepts from Accessibility. 
 		It is important for these two efforts to come together and solve these problems for both of these scenarios. 
 		Understanding a user's intentions is crucial when there are so many ways that a user can declare them.

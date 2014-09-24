@@ -46,22 +46,24 @@
         as well as the context menu. Further, this must be done in all supported languages. 
         A <a href="https://medium.com/medium-eng/122d8a40e480">post</a> on Medium tells one perspective of why it should be changed.
         </p><p>
-        To simplify this, a new level of abstraction is described in the User Intentions Explainer specification, 
+        To simplify this, a new level of abstraction is described in the <a href="http://w3c.github.io/editing-explainer/commands-explainer.html">User Intentions Explainer</a> specification, 
         which allows overwriting the behavior of individual user intentions.
         </p><p>
         To further simplify the work for sites and frameworks that wish to override functionality for the majority of commands, 
-        the Minimal ContentEditable specification (coming soon) disables all commands by default, including text input. 
+        a new extension to contentEditable allows disabling many defaults including text input. 
         This allows sites to easily provide their own implementations of commands as well as opt in to commands that they prefer the browser to handle,
-        without having to worry about what they might have missed.
+        without concern for the large range of default behavior for contentEditable.
       </p>
     </section>
     <section>
       <h2>Framing the Problem</h2>
-        <ul><li>ContentEditable is <b>too complex and buggy</b> to be usable as-is
-        <br>While we could solve this by spec'ing contentEditable's behavior, the remaining issues here cause us to look in a new direction instead.
-        </li><li>ContentEditable <b>does not easily enable the wide range of editing scenarios</b>. 
-            It is high-level and not supportive of <a href="http://extensiblewebmanifesto.org/">http://extensiblewebmanifesto.org/</a>.
-        </li></ul>        
+        <ul>
+            <li>ContentEditable is <b>too complex and buggy</b> to be usable as-is
+            <br>While we could solve this by spec'ing contentEditable's behavior, the remaining issues here cause us to look in a new direction instead.
+            </li><li>ContentEditable <b>does not easily enable the wide range of editing scenarios</b>. 
+                It is high-level and not supportive of <a href="http://extensiblewebmanifesto.org/">http://extensiblewebmanifesto.org/</a>.
+            </li>
+        </ul>        
     </section>
     <section>
         <h2>Use Cases</h2>
@@ -102,7 +104,9 @@
         <h2>Goals</h2>
         <ul><li>Empower authors with the right set of baseline behavior to enable creating complex editors
         </li><li>Make it easy to implement custom behavior with appropriate APIs
-        </li><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention using the User Intentions guidelines
+        </ul>
+        <p>In addition, when paired with the User Intentions Explainer, the following can also be accomplished:</p>
+        <ul><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
         </li><li>Empower complex editors to be accessible by enabling users to understand available behaviors with little accessibility-specific work from the framework or site
         </li></ul>
     </section>
@@ -113,17 +117,15 @@
         The reason for this is that consistency for WYSIWYG editors is very hard, and requirements vary greatly from one app to the next.
         Disabling all functionality is very difficult, however.
         </p><p>
-        In order to make it easier, <code>contenteditable="minimal"</code> on an element will fire all Intention Events (Selection, Clipboard, and Command),
+        In order to make it easier, <code>contenteditable="minimal"</code> on an element will fire all Intention Events (Selection, Clipboard, and BeforeInput),
         but only Selection events will have a default action.
         As is always the case with Intention Events, the default action for Selection events can be cancelled with <code>preventDefault()</code>.
-        The browser's typical handling of Clipboard and Command events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
-        </p><p>
-        The browser's typical handling of Clipboard and Command events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
+        The browser's typical handling of Clipboard and BeforeInput events can also be enabled per command by calling <code>document.execCommand(evt.commandName)</code>.
         </p>
     </section>
     <section>
         <h2>Implementing Custom Behavior</h2>
-        We will create new APIs as needed to make editing more extensible. Details coming soon.
+        We will create new APIs as needed to make editing more extensible. The exact shape of these APIs will need more input from framework and site developers, as well as live demos.
     </section>
     <section>
       <h2>Acknowledgements</h2>
