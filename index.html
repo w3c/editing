@@ -111,6 +111,19 @@
         </li></ul>
     </section>
     <section>
+      <h2>Roadmap</h2>
+      <p>The following roadmap explains what we believe is necessary to accomplish our goals.</p>
+      <ol>
+      <li>Gain Support<p>This is under way. We are gathering support from browsers, sites, and frameworks.</p></li>
+      <li>Frame the problem<p>We have a draft of this above, including use cases.</p></li>
+      <li>Determine a possible solution<p>Our current thoughts on this are around a new type of contentEditable, as described below. We need to determine the shape of this API next, as described on <a href="https://github.com/w3c/editing-explainer/issues/4">GitHub</a>.</p></li>
+      <li>Create a prototype of the solution<p>A first-draft prototype is linked below. It needs a lot more before it can be adequately tested.</p></li>
+      <li>Try to solve the initial problems using the prototype<p>This is the next big step.</p></li>
+      <li>Refine our solution based on this testing<p>Coming soon.</p></li>
+      <li>Implement the solution in browsers for further testing<p>We hope to begin this with a simple subset of our behavior, for instance contentEditable="cursor". As we spec additional functionality like formatting, typing, newlines, and deletion, those can also be added to implementation.</li>
+      </ol>
+	</section>
+    <section>
       <h2>Minimal default handling with <code>contenteditable="minimal"</code></h2>
         <p>
         It is a pattern in web editors that are built on top of <code>contenteditable</code> to disable some commanding functionality. 
@@ -126,6 +139,10 @@
     <section>
         <h2>Implementing Custom Behavior</h2>
         We will create new APIs as needed to make editing more extensible. The exact shape of these APIs will need more input from framework and site developers, as well as live demos.
+    </section>
+    <section>
+    <h2>Prototype</h2>
+    <p>A prototype is available <a href="http://w3c.github.io/editing-explainer/demos/CEcursor-demo.html">here</a>.</p>
     </section>
     <section>
       <h2>Acknowledgements</h2>
