@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" typeof="bibo:Document " about="" property="dcterms:language" content="en">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="intentions-polyfill.js"></script>
+	<script type="text/javascript">
+		function setup(){
+			var editArea = document.getElementById("editArea");
+			editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
+			editArea.addEventListener("beforeInput", logIntentionEvent);
+		}
+		function logIntentionEvent(evt){
+			if ("format" == evt.intention || "insertText" == evt.intention)
+			{
+				evt.preventDefault();
+			}
+			document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\"}\n";
+			document.getElementById("log").scrollTop = 99999;
+		}
+	</script>
+</head>
+<body onload="setup()"> 
+	<div contentEditable id="editArea">
+		<br />
+	</div>
+	<div>Log:</div>
+	<textarea id="log" style="width:600px;height:400px"></textarea>
+</body></html>
