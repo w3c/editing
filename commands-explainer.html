@@ -82,6 +82,19 @@
         The following diagram shows how this could work better:<br>
         <img src="images/Intentions_Goal.png"><br>
     </section>
+	<section>
+      <h2>Roadmap</h2>
+      <p>The following roadmap explains what we believe is necessary to accomplish our goals.</p>
+      <ol>
+      <li>Gain Support<p>This is under way. We are gathering support from browsers, sites, and frameworks.</p></li>
+      <li>Frame the problem<p>We have a draft of this above, including use cases.</p></li>
+      <li>Determine a possible solution<p>Our current thoughts on this are around an eventing system, as described below. It will need to be refined with more detailed shape, more thorough API, and further developer input.</p></li>
+      <li>Create a prototype of the solution<p>A first-draft prototype is linked below. It needs a lot more before it can be adequately tested.</p></li>
+      <li>Try to solve the initial problems using the prototype<p>This is the next big step.</p></li>
+      <li>Refine our solution based on this testing<p>Coming soon.</p></li>
+      <li>Work with other specs like Clipboard, Selection, DOM Events, and IndieUI<p>This is an ongoing process, but the final goal is to ensure that all (or most) Intention-style events share a common shape.</p></li>      
+      </ol>
+	</section>
     <section>
       <h2>Intention Events</h2>
         <section>
@@ -143,7 +156,7 @@
         document.declareIntention('strikeThrough');
         evt.preventDefault();
     }
-}</pre></code>
+}</pre></code> 
         Now control+s is bound to strikeThrough instead of its default.        
         </p>
         </section><section>
@@ -173,7 +186,12 @@
         <p class="issue">Need to figure out if we can do custom when using beforeInput instead of Command. Seems odd. Maybe we need Command for non-text things? 
         Also, how can a custom Intention know if it is text input or seletion or something else?</p>
         </section>
-    </section><section>
+    </section>
+    <section>
+    <h2>Prototype</h2>
+    <p>A prototype is available <a href="http://w3c.github.io/editing-explainer/demos/intentions-demo.html">here</a>.</p>
+    </section>
+    <section>
     <h2>Samples</h2>
     <section>
     <h3>Override Basic Functionality</h3>
