@@ -81,7 +81,24 @@
 					});
                 var ceElement = document.querySelector('[contenteditable]');
                 var ceAttribute = ceElement.getAttribute("contenteditable");
-                if (ceAttribute.indexOf('cursor') >= 0)
+                if (ceAttribute.indexOf('typing') >= 0) 
+                {
+                    ceElement.setAttribute('contenteditable', 'true');
+                    ceElement.addEventListener("beforeInput", 
+                        function (evt) 
+                        {
+                            if (evt.intention != "insertText")
+                            {
+                                evt.preventDefault();
+                            }
+                        });
+                }
+                else if (ceAttribute.indexOf('selection') >= 0)
+                {
+                    ceElement.setAttribute('contenteditable', 'true');
+                    ceElement.addEventListener("beforeInput", function (evt) {evt.preventDefault()});
+                }
+                else if (ceAttribute.indexOf('cursor') >= 0)
                 {
                     ceElement.setAttribute('contenteditable', 'true');
                     ceElement.addEventListener("beforeSelectionChange", function (evt) {evt.preventDefault()});
