@@ -10,17 +10,13 @@
 			editArea.addEventListener("beforeInput", logIntentionEvent);
 		}
 		function logIntentionEvent(evt){
-			if ("format" == evt.intention || "insertText" == evt.intention)
-			{
-				evt.preventDefault();
-			}
 			document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\"}\n";
 			document.getElementById("log").scrollTop = 99999;
 		}
 	</script>
 </head>
 <body onload="setup()"> 
-	<div contentEditable id="editArea">
+	<div contentEditable="cursor" id="editArea">
 		<br />
 	</div>
 	<div>Log:</div>
