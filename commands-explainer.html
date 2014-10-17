@@ -47,7 +47,7 @@
     </section>
     <section>
       <h2>Framing the Problem</h2>
-        <ul><li>There are <b>many ways to indicate user intentions</b> and no clean way to understand them all
+        <ul><li>There are <b>many ways to indicate user Intentions</b> and no clean way to understand them all
         </li><li>Accessibility tools have <b>difficulty understanding available actions</b>
         </li><li>Frameworks and sites may have <b>difficulty understanding what is implemented</b>, what should show up on toolbars and menus, and what needs to be polyfilled in editing scenarios
         </li></ul>        
@@ -61,26 +61,29 @@
         <h2>Definitions and Goals</h2>
         <p>Definitions:</p>
         <b>Action:</b> any way a user interacts with a webpage, including click, type, touch, and gesture<br>
+        <b>Action Event:</b> a script event that is fired before a user Action takes effect
         <b>Intention:</b> what a user is trying to do by performing an action, including select, undo, insert text, and delete<br>
-        <b>Behavior:</b> the result of an intention being fulfilled, including feedback to the user or service
+        <b>Intention Event:</b> a script event that is fired before a user Intention takes effect
+        <b>Behavior:</b> the result of an Intention in a browser, framework, or site
         <p>Goals:</p>
         <ul><li>Make it easy to implement custom Behavior for a given Intention with appropriate APIs
-        </li><li>Allow overwrite of Behavior for a user Intention from all actions that indicate that intention
+        </li><li>Allow overwrite of Behavior for a user Intention from all actions that indicate that Intention
         </li><li>Enumerate the possible Behaviors in a given context such that toolbars and Accessiblity tools can inform users what's available and what has occurred
         </li><li>Empower complex sites to be accessible by enabling users to understand available Behaviors with little accessibility-specific work from the framework or site
         </li></ul>
     </section>
     <section>
         <h2>Visualizing User Intentions</h2>
-        Today, user intentions can only be inferred in most cases. 
-        Frameworks and sites have trouble implementing behaviors if they cannot tell in all cases what a user intends.
-        The following diagram shows how sites try to determine what a user wants to do:</br>
-        <img src="images/Intensions_Present.png"><br>
+        Today, user Intentions can only be inferred from user Actions and the resulting Action Events in most cases.
+        Frameworks and sites have trouble changing browser Behaviors and implementing custom Behaviors because of this inference-based sysmtem.
+        Accessibility tools and toolbars also have trouble understanding what is site is doing because the inference-based system does not clearly 
+        articulate what type of Behavior has occurred. The following diagram shows how sites try to determine what a user wants to do:</br>
+        <img alt="Image depicting current state described above." src="images/Intensions_Present.png"><br>
         Ideally, sites should have a more direct way of understanding what a user is trying to do. 
         Additionally, Accessibility Tools and other input modalities should be able to list available Intentions
         and understand what has occurred in order to provide feedback to users.
         The following diagram shows how this could work better:<br>
-        <img src="images/Intentions_Goal.png"><br>
+        <img alt="Image depicting ideal state described above." src="images/Intentions_Goal.png"><br>
     </section>
 	<section>
       <h2>Roadmap</h2>
@@ -99,23 +102,23 @@
       <h2>Intention Events</h2>
         <section>
         <h3>Overview</h3>
-        <p>In order to solve this problem, JavaScript needs a new level of abstraction for user intentions. 
+        <p>In order to solve this problem, JavaScript needs a new level of abstraction for user Intentions. 
         Intention Events are one option for that abstraction. 
-        There are several types of Intention Events, including text input (hereafter called BeforeInput events), Clipboard, Selection. 
-        Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://w3c.github.io/selection-api/">Selection API</a>,
-        we unify the story across other Intentions types such as BeforeInput event.
-        The picture would look like this:
+        There are several types of Intention Events, including text input (beforeInput events), Clipboard, and Selection (beforeSelectionChange events). 
+        Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://www.w3.org/TR/selection-api/">Selection API</a>,
+        we unify the story across other Intentions types such as the beforeInput event.
+        The picture would look like this, where Actions cause Action Events, which may result in Intention Events from browsers or sites, which may result in implemented Behaviors from browsers or sites:
         </p><p>
-            <img src="images/intention_events_concept.png">
+            <img alt="Image depicting range of Actions, Action Events, Intention Events, and default handling of those events, as described above." src="images/intention_events_concept.png">
         </p>
 		</section><section>
         <h3>Clipboard Events</h3>
         In order to assist in determining what a user intends, browsers already fire some events for user intentions, like Clipboard Events. 
-        The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's intention.
+        The <code>type</code> of a <code>ClipboardEvent</code> indicates the user's Intention.
         </section><section>
         <h3>Selection Events</h3>
         <code>BeforeSelectionChange</code> events will also help determine a user's Intention. They are being considered for the Selection API spec.
-        A <code>commandType</code> property of a Selection event can indicate the user's intention, such as extendSelection.
+        A <code>commandType</code> property of a Selection event can indicate the user's Intention, such as extendSelection.
         <p class="issue">This doesn't exist yet. Need to work with Ryosuke Niwa and Selection API on this</p>
         </section><section>
         <h3>BeforeInput Events</h3>
@@ -130,17 +133,17 @@
         <h3>Ways to Fire Intention Events</h3>
         <section>
         <h3>Well-known Sources</h3>
-        Intention Events may be fired by browsers for all well-known ways a user would indicate their intention. 
+        Intention Events may be fired by browsers for all well-known ways a user would indicate their Intention. 
         For instance, control+c should fire the required <code>KeyboardEvent</code>s, and if preventDefault() is not called on them,
         it would then fire a <code>ClipboardEvent</code> of type "copy". 
         Similarly, the "shake" gesture on iOS would fire a <code>BeforeInput</code> with <code>commandType="undo"</code>.
         </section><section>
         <h3>Custom Sources</h3>
         <p>
-        Different sites and apps have different ways that users indicate their intentions.
+        Different sites and apps have different ways that users indicate their Intentions.
         For instance, a toolbar on an email site might have formatting buttons,
         or a code editor app might have different keyboard shortcuts.
-        In order to enable web developers to fire their own Intention Events when their users are indicating an intention,
+        In order to enable web developers to fire their own Intention Events when their users are indicating an Intention,
         a new function (as yet unnamed, but here referred to as declareIntention()) will cause Intention Events to be fired. 
         </p><p>
         For example, clicking the following button would fire a <code>beforeInput</code> event with commandType "bold". 
@@ -149,7 +152,7 @@
         <code class="highlight"><pre class="example">&lt;input type="button" onclick="declareIntention('bold')" value="b"&gt;</pre></code>
 
         </p><p>
-        Further, if a keyboard shortcut indicates a different intention for a given site or app,
+        Further, if a keyboard shortcut indicates a different Intention for a given site or app,
         it can be overwritten like this:<br>
         <code class="highlight"><pre class="example">function handleKeydown(evt) {
     if (evt.ctrlKey && evt.key === "s") {
@@ -172,7 +175,7 @@
         </p><p>
         Each Intention Event type (Clipboard, Selection, and BeforeInput) will have a new property for getting this object, <code>commandData</code>.
         </p><p>
-        For example, a bold intention that specifies the target value of bold can be initiated like this:
+        For example, a bold Intention that specifies the target value of bold can be initiated like this:
         <code><pre>document.declareIntention('bold', {"value":"true"});</pre></code>
         When the associated BeforeInput event is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
         </p>
@@ -181,7 +184,7 @@
         <h3>Custom Intention Events</h3>
         This functionality is fully extensible. If a site wishes to fire a custom command, it can do so by using any DOMString for the commandType of declareIntention.
         This will generate a CommandEvent with the same commandType, which will have no default action by definition.
-        But listening to for the CommandEvent will allow the site to handle this custom intention in the same way it handles well-known intentions. 
+        But listening to for the CommandEvent will allow the site to handle this custom Intention in the same way it handles well-known Intentions. 
         See <a href='#use-cases-and-samples'>the example</a> at the bottom for more details.
         <p class="issue">Need to figure out if we can do custom when using beforeInput instead of Command. Seems odd. Maybe we need Command for non-text things? 
         Also, how can a custom Intention know if it is text input or seletion or something else?</p>
@@ -252,13 +255,13 @@ function handleBeforeInput(evt){
 		<p><a href="http://www.w3.org/TR/indie-ui-events/">IndieUI: Events 1.0</a> is solving a similar problem. 
 		The abstract of that spec says "This provides an intermediate layer between device- and modality-specific user interaction events, 
 		and the basic user interface functionality used by web applications."
-		The list of intentions it handles is given in the <a href="http://www.w3.org/TR/indie-ui-events/#eventslist">Event List</a> of that document.
+		The list of Intentions it handles is given in the <a href="http://www.w3.org/TR/indie-ui-events/#eventslist">Event List</a> of that document.
 		A great deal of effort and work has gone into that document, and it has many valuable insights.
 		</p><p>
 		This Intentions Explainer is solving this problem by starting with concepts that the Editor uses today, such as Input, Selection, and contentEditable. 
 		IndieUI appears to be starting with concepts from Accessibility. 
 		It is important for these two efforts to come together and solve these problems for both of these scenarios. 
-		Understanding a user's intentions is crucial when there are so many ways that a user can declare them.
+		Understanding a user's Intentions is crucial when there are so many ways that a user can declare them.
 		</p>
 	</section>
   </body>
