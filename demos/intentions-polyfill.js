@@ -208,8 +208,11 @@
             ["insertText", "shift", 89, "beforeInput"],
             ["selectall", "control", 65, "beforeSelectionChange"], 
             ["format", "control", 66, "beforeInput"], 
+            ["copy", "control", 67, "beforeInput"], 
             ["format", "control", 73, "beforeInput"], 
             ["format", "control", 85, "beforeInput"], 
+            ["paste", "control", 86, "beforeInput"], 
+            ["cut", "control", 88, "beforeInput"],
             ["redo", "control", 89, "beforeInput"], 
             ["undo", "control", 90, "beforeInput"]];	
             

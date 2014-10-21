@@ -8,7 +8,7 @@
 			var editArea = document.getElementById("editArea");
 			editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
 			editArea.addEventListener("beforeInput", logIntentionEvent);
-			editArea.addEventListener("focus", function(){editArea.textContent = "";});
+			editArea.addEventListener("focus", function(){editArea.innerHTML = "<br>";});
 		}
 		function logIntentionEvent(evt){
 			document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\"}\n";

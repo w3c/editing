@@ -8,7 +8,7 @@
 			var editArea = document.getElementById("editArea");
 			editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
 			editArea.addEventListener("beforeInput", logIntentionEvent);
-			editArea.addEventListener("focus", function(){editArea.textContent = "";});
+			editArea.addEventListener("focus", function(){editArea.innerHTML = "<br>";});
 		}
 		function logIntentionEvent(evt){
 			document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\"}\n";
@@ -17,7 +17,7 @@
 	</script>
 </head>
 <body onload="setup()"> 
-	<div contentEditable id="editArea" title="type here">
+	<div contentEditable="true" id="editArea" title="type here">
 		Type Here
 	</div>
     <div>Currently supports typing letters numers and some symbols. Also supports moving caret and selection with arrow keys, select all with control+a, and some formatting like control+b.</div>
