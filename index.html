@@ -67,14 +67,25 @@
     </section>
     <section>
         <h2>Use Cases</h2>
-        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform. (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
-        <br>Info: The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
+        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform or email. (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
+        <p>The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
             Headings are to be marked up with h1. h2, etc... and each acronyms, abbreviations, and so forth are marked up with respective HTML elements.
             However, the editor also supports visual annotations such as bolding, italicizing, and enlarging text, 
             each of which will be interpreted by the editor to respective underlying semantics in HTML.
-        <br>More Info: Yes, and in order to keep things consistent he may want to disallow certain types of styling. 
+        </p><p>More Info: In order to keep things consistent he may want to disallow certain types of styling. 
             A few years ago it was common to see people with Joomla sites who just pasted the text into the editor after copying it from a word processor. 
             Each blog post therefore ended up having very different styling.
+         </p><p>More thoughts (From Microsoft):
+        <br>In addition to the functionality mentioned above, the editor should support more advanced markup operations like handling bullets/indentation, 
+            tables, and clear formatting (in heavily nested HTML) that are not consistent across browsers today.
+        <br>Scenarios:
+        <ul><li>Prevent style bleeding between the app and the body of the draft mail
+        </li><li>Remember cursor position (or selected range) when focus is out of editor - formatting bar buttons, or insert image cases 
+        </li><li>Extensible and consistent paste mode across browsers - e.g. paste AS-IS HTML, paste clean HTML (aka merge formatting), and paste text only 
+        </li><li>Extensibility for formatting commands - e.g. when browser handles the bullets it allows callback to javascript to define customized behavior; 
+        on <Enter> under a nested bullet structure, some browsers add a new bullet, others create a new line without bullet and delete the previous bullet;
+        Merge two lists using delete/backspace, instead of keeping two different list structures
+        </p></li></ul>        
         </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         <br>We do that in Fidus Writer.  
             Part of the point is to keep the structure of the document semantically defined. 
@@ -98,6 +109,10 @@
         <br>The app can creates a document that contains pagination, columns, and a complex illustrations.
             It needs to let users edit any text that appears in the document.  
             Each editable text needs to be accessible, and styles applied to text need to be backed by the application's internal model of the document.        
+        </li><li>Surface for <b>plain text editing</b> (From Microsoft)
+        <br>Plain-text emails require a formatting surface that strips out any HTML tags, and prevents them from being entered (e.g. via copy paste)        
+        </li><li><b>Style read-only text</b> (From Microsoft)
+        <br>The sample text is read only, but is possible to change the format of the text. This is used to select default compose font properties (text font, size, color, BIU).        
         </li></ul>
     </section>
     <section>
