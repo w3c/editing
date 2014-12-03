@@ -49,10 +49,10 @@
         To simplify this, a new level of abstraction is described in the <a href="http://w3c.github.io/editing-explainer/commands-explainer.html">User Intentions Explainer</a> specification, 
         which allows overwriting the behavior of individual user intentions.
         </p><p>
-        To further simplify the work for sites and frameworks that wish to override functionality for the majority of commands, 
-        a new extension to contentEditable allows disabling many defaults including text input. 
-        This allows sites to easily provide their own implementations of commands as well as opt in to commands that they prefer the browser to handle,
-        without concern for the large range of default behavior for contentEditable.
+        To further simplify the work of sites and frameworks, 
+        a new type of contentEditable simplifies default behavior to text input only, while providing local-specific information on what a user intends 
+        such as to create newlines, delete content, or format it. This allows sites to easily provide their own behaviors without needing to handle complex text input 
+        like <a href="http://en.wikipedia.org/wiki/Input_method">IMEs</a>.
       </p>
     </section>
     <section>
@@ -94,7 +94,8 @@
             format have to undo all the manual styling the writers have added in order to get everything to look in a similar way. 
             We simply take those styling possibilities away so that we can define the entire design through one stylesheet as well as easily convert to other formats, 
             such as LaTex or an Epub, and be sure that we cover all formatting tags that were used.
-        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.) (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.) 
+        (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         <br>We also do that - for example in the case of formulas. 
             Generally the text is editable near-Wysiwyg style. 
             But when it comes to formulas, we let the user enter them in Latex format and display the result using mathjax. 
@@ -102,7 +103,8 @@
         <br>Another example are figures: We want them to always be block elements and to have exactly one caption without styling. 
             They are therefore non-editable islands and if the user clicks on them he can change the figure's display and the caption text.
         </li><li>Web-based <b>code editor</b> with syntax highlighting, etc. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
-        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;. 
+        (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
         </li><li><b>Track changes</b> functionality within an editor (like <a href="https://github.com/NYTimes/ice">https://github.com/NYTimes/ice</a> )
         <br>(really should be run MVC in order to keep the code somewhat readable. Currently ICE breaks whenever any of the browser makers decide to change anything about contenteditable.)
         </li><li><b>Web-based DTP application</b> (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
@@ -131,11 +133,13 @@
       <ol>
       <li>Gain Support<p>This is under way. We are gathering support from browsers, sites, and frameworks.</p></li>
       <li>Frame the problem<p>We have a draft of this above, including use cases.</p></li>
-      <li>Determine a possible solution<p>Our current thoughts on this are around a new type of contentEditable, as described below. We need to determine the shape of this API next, as described on <a href="https://github.com/w3c/editing-explainer/issues/4">GitHub</a>.</p></li>
+      <li>Determine a possible solution<p>Our current thoughts on this are around a new type of contentEditable, as described below. 
+      We need to determine the shape of this API next, as described on <a href="https://github.com/w3c/editing-explainer/issues/4">GitHub</a>.</p></li>
       <li>Create a prototype of the solution<p>A first-draft prototype is linked below. It needs a lot more before it can be adequately tested.</p></li>
       <li>Try to solve the initial problems using the prototype<p>This is the next big step.</p></li>
       <li>Refine our solution based on this testing<p>Coming soon.</p></li>
-      <li>Implement the solution in browsers for further testing<p>We hope to begin this with a simple subset of our behavior, for instance contentEditable="cursor". As we spec additional functionality like formatting, typing, newlines, and deletion, those can also be added to implementation.</li>
+      <li>Implement the solution in browsers for further testing<p>We hope to begin this with a simple subset of our behavior, 
+      for instance contentEditable="cursor". As we spec additional functionality like formatting, typing, newlines, and deletion, those can also be added to implementation.</li>
       </ol>
 	</section>
     <section>
@@ -145,17 +149,13 @@
         The reason for this is that consistency for Rich Text Editors is very hard, and requirements vary greatly from one app to the next.
         Disabling all functionality is very difficult, however.
         </p>
-        <p>PROPOSAL FOR REVIEW BY TASK FORCE: In order to make it easier, we are redifining the capabilities of <code>contenteditable</code>. The new version will take a space-delimited list of tokens, each with varying levels of capability.</p>
-        <p><code>contentEditable="cursor"</code> will be the most basic version, which will enable the blinking cursor and fire all kinds of Intention Events (beforeSelectionChange, beforeInput, etc). 
-        This will allow sites and frameworks to implement their own editor from scratch in javascript while getting User Intention Events and a cursor for free.</p>
-        <p><code>contentEditable="typing"</code> will enable inserting characters including IME input, but not including newlines. 
-        It will also not include deletion of characters or overwriting an uncollapsed selection.</p>
-        <p><code>contentEditable="newlines"</code> will enable creating newline characters</p>
-        <p><code>contentEditable="deletion"</code> will enable clearing the selection and the use of backspace and delete.</p>
-        <p><code>contentEditable="formatting"</code> will enable formatting text using bold, italic, underline, etc keyboard shortcuts.</p>
-        <p><code>contentEditable="true"</code> and <code>contentEditable="false"</code> will override any other settings.</p>
-        <p>For instance, <code>contentEditable="cursor typing"</code> will enable the blinking cursor, typing, and IMEs. 
-        It will not enable deleting character, clearing the selection, bolding text automatically, etc. Those functions can be implemented in script by responding to Intention Events.</p>
+        <p>In order to make it easier, we are redifining the capabilities of <code>contenteditable</code>. 
+        The new version will be enabled with <code>contentEditable="typing"</code>. It will enable inserting characters including IME input, 
+        but not including newlines, deletion of characters. or overwriting an uncollapsed selection. 
+        It will also fire all kinds of Intention Events (beforeSelectionChange, beforeInput, etc). 
+        This will allow sites and frameworks to implement their own editor behaviors.
+        Note that since it does not support overwriting uncollapsed selection, this new form of contenteditable will only make sense when it has a javascript editor implementation powering it.
+        <p>Because they are widely used, <code>contentEditable="true"</code> and <code>contentEditable="plaintext-only"</code> will continue to be supported and implementation specific.</p>
     </section>
     <section>
         <h2>Implementing Custom Behavior</h2>
