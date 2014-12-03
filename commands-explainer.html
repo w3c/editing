@@ -50,19 +50,24 @@
         <ul><li>There are <b>many ways to indicate user Intentions</b> and no clean way to understand them all
         </li><li>Accessibility tools have <b>difficulty understanding available actions</b>
         </li><li>Frameworks and sites may have <b>difficulty understanding what is implemented</b>, what should show up on toolbars and menus, and what needs to be polyfilled in editing scenarios
-        </li></ul>        
+        </li><li>There is no uniform way for a component or a script to issue an application-independent request to provoke some change on the UI (e.g. scroll or zoom)</li>
+        </ul>        
     </section>
-    <!--
     <section>
         <h2>Use Cases</h2>
+        <ul><li>Rich Editor<br/>
+            in terms of editing, it is preferrable to have the intents abstracted from the device events to ensure cross-device
+            </li><li>Assistive technology<br/>
+            when using assitive technology, an abstracton from device events is crucial.
+        </li><li>Dashboard<br/>in a  dashboard application the UI reacts to external events in order to guide the operators attention. E.g. scrolling/zooming to a peticular item (such as a traffic accident in a map). This would be preferrable to be done by well-known intents rather than map-api specifics.
+        </li></ul>
     </section>
-    -->
     <section>
         <h2>Definitions and Goals</h2>
         <p>Definitions:</p>
         <b>Action:</b> any way a user interacts with a webpage, including click, type, touch, and gesture<br>
         <b>Action Event:</b> a script event that is fired before a user Action takes effect
-        <b>Intention:</b> what a user is trying to do by performing an action, including select, undo, insert text, and delete<br>
+        <b>Intention:</b> what a user/component is trying to do by performing an action, including select, undo, insert text, and delete<br>
         <b>Intention Event:</b> a script event that is fired before a user Intention takes effect
         <b>Behavior:</b> the result of an Intention in a browser, framework, or site
         <p>Goals:</p>
@@ -70,7 +75,9 @@
         </li><li>Allow overwrite of Behavior for a user Intention from all actions that indicate that Intention
         </li><li>Enumerate the possible Behaviors in a given context such that toolbars and Accessiblity tools can inform users what's available and what has occurred
         </li><li>Empower complex sites to be accessible by enabling users to understand available Behaviors with little accessibility-specific work from the framework or site
-        </li></ul>
+        </li><li>Enable components and scripts to interact with the UI on an abstract level, thus imporving reuse
+        </li>
+        </ul>
     </section>
     <section>
         <h2>Visualizing User Intentions</h2>
