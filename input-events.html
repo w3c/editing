@@ -350,32 +350,19 @@
 
     <section>
     <h2>Default action for beforeInput</h2>
-    <p>The default action of a given beforeinput event depends on the value of the intention property on the event. All of this can be prevented with preventDefault(). 
-    For all beforeInput events, if the location of targetRange is not Editable, abort these steps.
-    <p>
+    <p>The default action of a given beforeinput event depends on the value of the intention property on the event and the value of contentEditable for the current active element. All of this can be prevented with preventDefault(). 
+    For all beforeInput events, if the current active element has a contentEditable value of false, abort these steps.
+    </p>
     <p>The default action of a beforeInput event with intention="insertText" shall be as follows:
     <ol><li>If targetRange is not collapsed, abort these steps
+    </li><li>If targetRange.startContainer is not a text node, abort these steps
     </li><li>If data is not a string, abort these steps
     </li><li>Insert data at the location of targetRange in the document
     </li></ol>
-    </p><p>The default action of a beforeInput event with intention="insertNewline" shall be as follows:
-    <ol><li>If targetRange is not collapsed, abort these steps
-    </li><li>If data is not a known paragraph separator ("div", "p", or "br"), abort these steps.
-    </li><li>NEED ALGORITHM to split nodes
-    </li><li>Wrap the beforeNode and afterNode in the tag given by data
-    </li><li>NEED ALGORITHM to simplify nodes for both beforeNode and afterNode
-    </li></ol>
-    </p><p>The default action of a beforeInput event with intention="delete" shall be as follows:
-    <ol><li>NEED ALGORITHM to split nodes
-    </li><li>Remove the contents of targetRange from the document
-    </li><li>NEED ALGORITHM to merge nodes
-    </li></ol>
-    </p><p>The default action of a beforeInput event with intention="format" is unspecified
-    </p><p>The default action of a beforeInput event with intention="undo" or "redo" shall be as follows. 
-    Note that this may not be completely interoperable in the size of the undo unit.
-    However, browsers must reset to a state that previously existed in the document, and X undo operations
-    followed by X redo operations must return to the original state, and vice versa. 
-    <ol><li>Undo or redo as appropriate based on the browser's undo stack.
+    </p><p>The default action of a beforeInput event with intention="undo" or "redo" shall be as follows. NOT YET DETERMINED.
+    </p><p>The default behavior for all other beforeInput Events shall be as follows:
+    <ol><li>If the current active element has a contentEditable value of typing, abort these steps.
+    </li><li>Otherwise, the current active element has a contentEditable value of either true or plaintext-only, and the behavior is implementation specific.
     </li></ol>
     </p>
     </section>
