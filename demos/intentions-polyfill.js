@@ -4,81 +4,102 @@
 // This file works in IE9+, Chrome, and Firefox
 
 (function(){
-	var IntentionEventsEnabled = false;
-	// [Intention, modifier_key, keycode, event]
-	var uaSupportedIntentionNames = [];
-    populateUaSupportedIntentionNames();
-	
-	(function () {
-		function CustomEvent ( event, params ) {
-	    	params = params || { bubbles: false, cancelable: false, detail: undefined };
-		    var evt = document.createEvent( 'CustomEvent' );
-		    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-		    return evt;
-	    };
-		if (window.CustomEvent) {
-			CustomEvent.prototype = window.CustomEvent.prototype;
-		}
-     	window.CustomEvent = CustomEvent;
-	})();
-	
-	//intententionEvents
-	if (document){
-		IntentionEventsEnabled = true;
-		document.declareIntention = 
-			function (name, arg){
-				var intentionDetails = uaSupportedIntentionNames.getIntentionDetails(name);
-				var intentionEvent;
-				if (null != intentionDetails)
-				{
-					eventType = intentionDetails[3];
-					switch (eventType)
-					{
-					default:
-						intentionEvent = new CustomEvent(eventType, {"cancelable":true, "detail":{"intention":name}});
-					}
-				}
-				return document.activeElement.dispatchEvent(intentionEvent);
-			};
-	}
-	
-	if (Object.defineProperty && CustomEvent && CustomEvent.prototype) {
-		Object.defineProperty(CustomEvent.prototype, "intention",	
-			{ enumerable: true, configurable: true, 
-				get: function() {
-					var result = null; 
-					if (this.detail.intention) { 
-						result = this.detail.intention; 
-					} 
-					return result; 
-				} 
-			});
-	}
-	
-	//Post Page-Load Functionality
-	window.addEventListener(
-		'load',function (evt) {
-			//intententionEvents Post-Load
-			if (IntentionEventsEnabled){
-				document.body.addEventListener(
-					"keydown",
-					function (evt)
-					{
-						for (var i = 0; i < uaSupportedIntentionNames.length; i++)
-						{
-							if ((uaSupportedIntentionNames[i][2] == evt.keyCode) &&
-								((uaSupportedIntentionNames[i][1] == "control") == evt.ctrlKey) &&
-								((uaSupportedIntentionNames[i][1] == "shift") == evt.shiftKey))
-							{
-								var cancelled = !document.declareIntention(uaSupportedIntentionNames[i][0]);
-								if (cancelled)
-								{
-									evt.preventDefault();
-								}
-								break;
-							}
-						}							
-					});
+    // [[Intention, modifier_key, keycode, event], ...]
+    var supportedIntentions = [];
+    populateSupportedIntentions();
+    var handleDefaultsInScript = true;
+    
+    (function () {
+        function CustomEvent ( event, params ) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent( 'CustomEvent' );
+            evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+            return evt;
+        };
+        if (window.CustomEvent) {
+            CustomEvent.prototype = window.CustomEvent.prototype;
+        }
+         window.CustomEvent = CustomEvent;
+    })();
+    
+    function fireIntentionEvent (intentionDetails){
+        var intentionEvent;
+        var intention = intentionDetails[0];
+        var eventType = intentionDetails[3];
+        switch (intention)
+        {
+        default:
+            intentionEvent = new CustomEvent(eventType, {"cancelable":true, "detail":{"intention":intention}});
+        }
+        return document.activeElement.dispatchEvent(intentionEvent);
+    };
+    
+    function handleIntention (intentionDetails){
+        var intention = intentionDetails[0];
+        var retVal = false;
+        switch (intention) {
+        default:
+            break;
+        }
+        return retVal;
+    };
+    
+    if (Object.defineProperty && CustomEvent && CustomEvent.prototype) {
+        Object.defineProperty(CustomEvent.prototype, "intention",    
+            { enumerable: true, configurable: true, 
+                get: function() {
+                    var result = null; 
+                    if (this.detail.intention) { 
+                        result = this.detail.intention; 
+                    } 
+                    return result; 
+                } 
+            });
+    }
+    
+    //Post Page-Load Functionality
+    window.addEventListener(
+        'load',function (evt) {
+            //intententionEvents Post-Load
+                document.body.addEventListener(
+                    "keydown",
+                    function (evt)
+                    {
+                        for (var i = 0; i < supportedIntentions.length; i++)
+                        {
+                            if ((supportedIntentions[i][2] == evt.keyCode) &&
+                                ((supportedIntentions[i][1] == "control") == evt.ctrlKey) &&
+                                ((supportedIntentions[i][1] == "shift") == evt.shiftKey))
+                            {
+                                var cancelled = !fireIntentionEvent(supportedIntentions[i]);
+                                if (cancelled)
+                                {
+                                    evt.preventDefault(); // Prevent browser default behavior for this Action event
+                                } else if(handleDefaultsInScript && handleIntention(supportedIntentions[i])) {
+                                    evt.preventDefault(); // Prevent browser default if this was handled by script above
+                                }
+                                break;
+                            }
+                        }
+                    });
+                document.testIntention = 
+                    function(intention)
+                    {
+                        for (var i = 0; i < supportedIntentions.length; i++)
+                        {
+                            if (supportedIntentions[i][0] == intention)
+                            {
+                                var cancelled = !fireIntentionEvent(supportedIntentions[i]);
+                                if (cancelled)
+                                {
+                                    evt.preventDefault(); // Prevent browser default behavior for this Action event
+                                } else if(handleDefaultsInScript && handleIntention(supportedIntentions[i])) {
+                                    evt.preventDefault(); // Prevent browser default if this was handled by script above
+                                }
+                                break;
+                            }
+                        } 
+                    }
                 var ceElement = document.querySelector('[contenteditable]');
                 var ceAttribute = ceElement.getAttribute("contenteditable");
                 if (ceAttribute.indexOf('typing') >= 0) 
@@ -104,13 +125,12 @@
                     ceElement.addEventListener("beforeSelectionChange", function (evt) {evt.preventDefault()});
                     ceElement.addEventListener("beforeInput", function (evt) {evt.preventDefault()});
                 }
-			}
-		}
-	);
+        }
+    );
     
-    function populateUaSupportedIntentionNames()
+    function populateSupportedIntentions()
     {
-        uaSupportedIntentionNames = 
+        supportedIntentions = 
            [["delete", "none", 8, "beforeInput"],
             ["newline", "none", 13, "beforeInput"],
             ["moveCaret", "none", 37, "beforeSelectionChange"],
@@ -214,16 +234,16 @@
             ["paste", "control", 86, "beforeInput"], 
             ["cut", "control", 88, "beforeInput"],
             ["redo", "control", 89, "beforeInput"], 
-            ["undo", "control", 90, "beforeInput"]];	
+            ["undo", "control", 90, "beforeInput"]];    
             
-        uaSupportedIntentionNames.getIntentionDetails = 
+        supportedIntentions.getIntentionDetails = 
             function(name)
             {
-                for (var i = 0; i < uaSupportedIntentionNames.length; i++)
+                for (var i = 0; i < supportedIntentions.length; i++)
                 {
-                    if (uaSupportedIntentionNames[i][0] == name)
+                    if (supportedIntentions[i][0] == name)
                     {
-                        return uaSupportedIntentionNames[i];
+                        return supportedIntentions[i];
                     }
                 }
                 return null;
