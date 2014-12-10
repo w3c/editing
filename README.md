@@ -5,7 +5,7 @@ The Editing Task Force can be followed on our [mailing list](http://lists.w3.org
 
 High level explainers covering the way in which we are addressing editing. Currently, there are two explainer documents:
 
-* [W3C Editing Explainer] (http://w3c.github.io/editing-explainer/)
+* [Editing Explainer] (http://w3c.github.io/editing-explainer/)
 * [Responsive Input Explainer] (http://w3c.github.io/editing-explainer/responsive-input-explainer.html)
 * [Input Events] (http://w3c.github.io/editing-explainer/input-events.html)
 
