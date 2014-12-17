@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Input Events</title>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "unofficial"
+          ,   shortName:    "ContentEditable"
+          ,   editors:      [{ name: "Ben Peters", 
+                               mailto: "BenjamP@microsoft.com",
+                               company: "Microsoft", 
+                               companyURL: "http://www.microsoft.com" }]
+          ,   wg:           "Web Applications Working Group"
+          ,   wgURI:        "http://www.w3.org/2008/webapps/"
+          ,   wgPublicList: "public-webapps"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
+          ,   edDraftURI:   "http://w3c.github.io/editing-explainer/contentEditable.html"
+          ,   license:      "cc-by"
+        };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+       This specification defines allowed values and expected behaviors for the contenteditable attribute.
+       This specification builds on HTML5.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+      </p>
+    </section>
+    <section>
+      <h2>Problem and Use Cases</h2>
+        The problems solved by and use cases for this document by this document are tracked in the <a href="http://w3c.github.io/editing-explainer/">Editing Explainer</a> document.
+    </section>
+    <section>
+        <h2>contenteditable</h2>
+        <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "plaintext-only", "typing", "true", and "false". 
+        The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.
+        There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).
+        The behaviors of the <code>true</code> state and the <code>plaintext-only</code> state are unspecified and the use of the "true" and "plaintext-only" keywords is deprecated.
+        The <code>false</code> state indicates that the element is not editable.
+        The <code>typing</code> state is specified below. 
+        The <code>inherit</code> state indicates that the element has the state of its parent. 
+        </p><p>
+        The contentEditable IDL attribute, on getting, must return the string "true" if the content attribute is set to the <code>true</code> state, 
+        "false" if the content attribute is set to the <code>false</code> state, "plaintext-only" if the content attribute is set to the <code>plaintext-only</code> state, 
+        "typing" if the content attribute is set to the <code>typing</code> state, and "inherit" otherwise. 
+        On setting, if the new value is an ASCII case-insensitive match for the string "inherit" then the content attribute must be removed, 
+        if the new value is an ASCII case-insensitive match for the string "true" then the content attribute must be set to the string "true", 
+        if the new value is an ASCII case-insensitive match for the string "false" then the content attribute must be set to the string "false", 
+        and otherwise the attribute setter must throw a SyntaxError exception.
+
+        The isContentEditable IDL attribute, on getting, must return true if the element is either an editing host or editable, and false otherwise.
+        </p>
+        <section>
+        <h2>contenteditable="typing"</h2>
+        <p>
+        The <code>typing</code> state is the foundation of rich text editing on the web, 
+        and designed to be used only with a script-based editor implementation. It is not meant to be a stand-alone solution.
+        </p><p>
+        INSERT SPECIFICS HERE.
+        </p>
+        </section>
+    </section>
+    <section>
+      <h2>Acknowledgements</h2>
+    </section>
+  </body>
+</html>
