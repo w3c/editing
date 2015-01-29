@@ -8,5 +8,5 @@ High level explainers covering the way in which we are addressing editing. Curre
 * [Editing Explainer] (http://w3c.github.io/editing-explainer/)
 * [Responsive Input Explainer] (http://w3c.github.io/editing-explainer/responsive-input-explainer.html)
 * [Input Events] (http://w3c.github.io/editing-explainer/input-events.html)
-* [ContentEditable] (w3c.github.io/editing-explainer/contentEditable.html)
+* [ContentEditable] (http://w3c.github.io/editing-explainer/contentEditable.html)
 
