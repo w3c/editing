@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Device-Independent Events Explainer</title>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "unofficial"
+          ,   shortName:    "Device-Independent-Events"
+          ,   editors:      [{ name: "Ben Peters", 
+                               mailto: "BenjamP@microsoft.com",
+                               company: "Microsoft", 
+                               companyURL: "http://www.microsoft.com" }]
+          ,   wg:           ""
+          ,   wgURI:        ""
+          ,   wgPublicList: "public-webapps"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
+          ,   edDraftURI:   ""
+          ,   license:      "cc-by"
+        };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This document is a non-normative reference, which provides an overview of the various ways to understand and respond to Device-Independent Events on a site or app. 
+        It summarizes the normative information in the each respective specification in easy-to-digest prose with illustrations.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+        This specification is an 
+        <a href='http://dev.w3.org/html5/decision-policy/html5-2014-plan.html#extension-specs'>extension
+        specification</a> to HTML.
+      </p>
+    </section>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        Today, sites mostly respond to Device-Specific Input directly, causing several issues including difficultly understanding what a user intends, complexity in building Accessible sites, and complex localization.
+        This document is meant to describe the path forward for Device-Independent Events across multiple areas so that sites can be written more simply across devices and input modalities in an Accessible and future-ready way.
+      </p>
+    </section>
+    <section>
+      <h2>Framing the Problem</h2>
+        <ul><li>There are <b>many device-specific ways to do input</b> and no responsive way to hanldle them
+        </li><li>Accessibility tools have <b>difficulty interpreting device-specific input</b>
+        </li><li>Frameworks and sites may have <b>difficulty understanding what is implemented</b>, what should show up on toolbars and menus, and what needs to be polyfilled in editing scenarios
+        </li></ul>        
+    </section>
+    <section>
+        <h2>Definitions and Goals</h2>
+        <p>Definitions:</p>
+        <b>Device-Specific Input:</b> the specific ways a user interacts with a webpage, including click, type, touch, and gesture<br>
+        <b>Device-Independent Input:</b> Platform/modality-agnostic input that indicates what a user is trying to do, including select, undo, insert text, and delete<br>
+        <p>Goals:</p>
+        <ul><li>Make it easy to implement custom behavior for a given Device-Independent Input with appropriate APIs
+        </li><li>Allow overwrite of behavior for Device-Independent Input regardless of the device-specific source
+        </li><li>Enumerate the available Device-Independent Inputs in a given context such that toolbars and Accessiblity tools can inform users what's available and what has occurred
+        </li><li>Empower complex sites to be accessible by enabling users to understand available Device-Independent Inputs with little accessibility-specific work from the framework or site
+        </li></ul>
+    </section>
+    <section>
+        <h2>Visualizing Device-Independent Input</h2>
+        Today, Device-Specific Input must be interpreted by frameworks and sites. This means they have to directly handle all current and future forms of input, 
+        including keyboard, mouse, touch, gestures, speech, and more. Further, they have to handle internationalization for many of these methods.
+        Frameworks and sites also have trouble changing browser behavior in some cases because there are no Device-Specific Input Events for the built-in context menu, gestures, and more.
+        Accessibility tools and toolbars also have trouble understanding what is site is doing because there is not a 1:1 mapping between Device-Specific Input and expected behavior across sites, and
+        sites have no clear way to articulate what behavior has occurred. The following diagram shows this visually:</br>
+        <img alt="Image depicting current state described above." src="images/Intentions_Present.png"><br>
+        Ideally, sites should have a more direct way of understanding what a user is trying to do. 
+        Additionally, Accessibility Tools and other input modalities should be able to understand what has occurred in order to provide feedback to users. 
+        This can be solved with Device-Independent Events, which allow a site to respond to a user's intention instead of the device-specific way they
+        indicated that intention. The following diagram shows this improvement visually:<br>
+        <img alt="Image depicting ideal state described above." src="images/Intentions_Goal.png"><br>
+    </section>
+	<section>
+      <h2>Roadmap</h2>
+      <p>The following roadmap explains what we believe is necessary to accomplish our goals.</p>
+      <ol>
+      <li>Gain Support<p>We have several javascript frameworks and browsers involved. If you would like to join, please see our <a href="https://github.com/w3c/editing-explainer">GitHub readme</a>.</p></li>
+      <li>Frame the problem<p>We have a draft of this above.</p></li>
+      <li>Determine a possible solution<p>Our current thoughts on this are around an eventing system, as described below. It will need to be refined with more detailed shape, more thorough API, and further developer input.</p></li>
+      <li>Create a prototype of the solution<p>A first-draft prototype is linked below. It needs a lot more before it can be adequately tested.</p></li>
+      <li>Try to solve the initial problems using the prototype<p>This is the next big step.</p></li>
+      <li>Refine our solution based on this testing<p>Coming soon.</p></li>
+      <li>Work with other specs like Clipboard, Selection, DOM Events, and IndieUI<p>This is an ongoing process. The goal is to ensure that Device-Independent Events share a common design pattern.</p></li>      
+      </ol>
+	</section>
+    <section>
+      <h2>Device-Independent Events</h2>
+        <section>
+        <h3>Overview</h3>
+        <p>In order to solve this problem, JavaScript needs a new level of abstraction for user input. 
+        Device-Independent Events are that abstraction. 
+        There are several types of Device-Independent Events, including text input (beforeInput events), Clipboard, and Selection (beforeSelectionChange events). 
+        Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://www.w3.org/TR/selection-api/">Selection API</a>,
+        we unify the story across other Device-Independent Event types such as the beforeInput event.
+        The picture would look like this, where Device-Specific Inputs Events may result in Device-Independent Events from browsers or sites, which may result in implemented behaviors from browsers or sites:
+        </p><p>
+            <img alt="Image depicting range of Actions, Action Events, Device-Independent Events, and default handling of those events, as described above." src="images/intention_events_concept.png">
+        </p>
+		</section><section>
+        <h3>Selection Events</h3>
+        <code>BeforeSelectionChange</code> events will allow sites to manage the selection. They are being considered for the Selection API spec.
+        </section><section>
+        <h3>BeforeInput Events</h3>
+        These events allow user input (regardless of modality) to be managed by script.
+        For instance, if a site wants to manage the way bolding text works, they can listen for a <code>beforeInput</code> with commandType="bold",
+        execute their own custom bold behavior, and <code>preventDefault()</code>.
+        They no longer need to listen for control+b on English keyboards or something else in other locales or modalities.
+        Any platform-specific bold toolbars or gestures just work with the <code>beforeInput</code> handler as well.
+        </section><section>
+        <h3>Ways to Device-Independent Events</h3>
+        <section>
+        <h3>Well-known Sources</h3>
+        Device-Independent Events may be fired by browsers for all well-known sources.
+        For instance, control+b should fire the required <code>KeyboardEvent</code>, and if preventDefault() is not called on that event,
+        it would then fire a <code>beforeInput</code> with commandType="bold". 
+        Similarly, the "shake" gesture on iOS would fire a <code>beforeInput</code> with <code>commandType="undo"</code>.
+        </section><section>
+        <h3>Custom Sources</h3>
+        <p>
+        Different sites and apps have different ways that users perform input.
+        For instance, a toolbar on an email site might have formatting buttons,
+        or a code editor app might have different keyboard shortcuts than a blog.
+        In order to enable web developers to fire Device-Independent Events when their users interact with these controls,
+        a new function called declareIntention() will cause Device-Independent Events to be fired. 
+        </p><p>
+        For example, clicking the following button would fire a <code>beforeInput</code> event with commandType="bold". 
+        If preventDefault is not called on that event then the browser would perform its default action for bold.
+        <code class="highlight"><pre class="example">&lt;input type="button" onclick="function (evt) { evt.declareIntention('bold') }" value="b"&gt;</pre></code>
+
+        </p><p>
+        Further, if a keyboard shortcut should be mapped to a different Device-Independent Event for a given site or app,
+        it can be overwritten like this:<br>
+        <code class="highlight"><pre class="example">function handleKeydown(evt) {
+    if (evt.ctrlKey && evt.key === "s") {
+        evt.declareIntention('strikeThrough');
+        evt.preventDefault();
+    }
+}</pre></code> 
+        Now control+s is bound to strikeThrough instead of its default.        
+        </p>
+        </section><section>
+        <h3>The <code>CommandData</code> Object</h3>
+        <p>
+        Some Device-Independent Events will have more information than just a <code>commandType</code>. 
+        In order to encapsulate this data, a new object called <code>CommandData</code> will be used, 
+        which has a <code>value</code> attribute.
+        It can be extended for a given Device-Independent Event that needs more data than just a <code>value</code>.
+        </p><p>
+        A possible signature for declareIntention is:
+        <code class="highlight"><pre>declareIntention (DOMString commandId, optional CommandData commandData)</pre></code>
+        </p><p>
+        Each Device-Independent Event type will have a new property for getting this object, <code>commandData</code>.
+        </p><p>
+        For example, a bold Device-Independent Event that specifies the target value of bold can be initiated like this:
+        <code><pre>document.declareIntention('bold', {"value":"true"});</pre></code>
+        When the associated BeforeInput event is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
+        </p>
+        </section>
+        </section>
+    </section>
+    <section>
+    <h2>Prototype</h2>
+    <p>A prototype is available <a href="http://w3c.github.io/editing-explainer/demos/intentions-demo.html">here</a>.</p>
+    </section><section>
+    <h3>Example Device-Independent Events</h3>
+    
+        Here a list of some sample Device-Independent Events:<br>
+        <code>BeforeInput</code>; <code>commandType="insertText"</code>; used for typing text<br>
+        <code>BeforeInput</code>; <code>commandType="insertNewline"</code> <br>
+        <code>Beforeinput</code>; <code>commandType="format"</code><br>
+        <code>BeforeSelectionChangeEvent</code>; <code>commandType="extendSelection"</code>; similar to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection.extend"><code>Selection.extend()</code></a>, works with keyboard/pointer input<br>        
+    </section></section><section>
+	<h2>Relationship to IndieUI</h2>
+		<p><a href="http://www.w3.org/TR/indie-ui-events/">IndieUI: Events 1.0</a> is solving a similar problem. 
+		The abstract of that spec says "This provides an intermediate layer between device- and modality-specific user interaction events, 
+		and the basic user interface functionality used by web applications."
+		The list of Device-Independent Events it handles is given in the <a href="http://www.w3.org/TR/indie-ui-events/#eventslist">Event List</a> of that document.
+		A great deal of effort and work has gone into that document, and it has many valuable insights.
+		</p><p>
+		This Device-Independent Events Explainer is solving this problem by starting with concepts that the Editor uses today, such as Input, Selection, and contentEditable. 
+		IndieUI appears to be starting with concepts from Accessibility. 
+		It is important for these two efforts to come together and solve these problems for both of these scenarios.
+		</p>
+	</section>
+  </body>
+</html>
