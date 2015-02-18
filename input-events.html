@@ -56,7 +56,7 @@
 						<p><code>inputType</code> holds the type of input.
 							Allowed values include replaceText, insertNewline, formatContent, deleteContent, undo, redo. During initialization,
                             The user agent is responsible for populating this field as follows:
-                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, the <b>inputType MUST</b> be replaceText.
+                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, the inputType MUST be <b>replaceText</b>.
                                 <ol><li>Set the value of data to be the plain text string to be inserted.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
