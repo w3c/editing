@@ -56,15 +56,16 @@
 						<p><code>inputType</code> holds the type of input.
 							Allowed values include replaceText, insertNewline, formatContent, deleteContent, undo, redo. During initialization,
                             The user agent is responsible for populating this field as follows:
-                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, the inputType MUST be replaceText.
+                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, the <b>inputType MUST</b> be replaceText.
                                 <ol><li>Set the value of data to be the plain text string to be inserted.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is inserting a newline using a keyboard, IME, speech, or similar method, the inputType MUST be insertNewline
+                            </li><li>If the user is inserting a newline using a keyboard, IME, speech, or similar method, the inputType MUST be <b>insertNewline</b>
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention() method [NEEDS A NEW NAME] with a formatting command, inputType MUST be formatContent
+                            </li><li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention() 
+                            method [NEEDS A NEW NAME] with a formatting command, inputType MUST be <b>formatContent</b>
                                 <ol><li>If decalareIntention was called, let formatType be the value of commandId given in declareIntention.
                                 </li><li>Otherwise, let formatType be one of the following values (the value to use is unspecified and left up to the user agent): "bold", "italic", "underline", NEED MORE.
                                 </li><li>If decalareIntention was called, let formatValue be the value of commandData given in declareIntention.
@@ -72,15 +73,15 @@
                                 </li><li>Set the value of data to be a string of the form formatType, followed by a colon, folowed by formatValue, for instance "bold:toggle".
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is deleting content using a keyboard, IME, speech, or similar method, the inputType MUST be deleteContent
+                            </li><li>If the user is deleting content using a keyboard, IME, speech, or similar method, the inputType MUST be <b>deleteContent</b>
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is undo using a keyboard, IME, speech, or similar method, the inputType MUST be undo
+                            </li><li>If the user is undo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>undo</b>
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0); MAYBE THIS SHOULD BE NULL?
                                 </li></ol>
-                            </li><li>If the user is redo using a keyboard, IME, speech, or similar method, the inputType MUST be redo
+                            </li><li>If the user is redo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>redo</b>
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0); MAYBE THIS SHOULD BE NULL?
                                 </li></ol>
