@@ -384,11 +384,12 @@
     <ol><li>If the value of contentEditable is "true" or "plaintext-only", the behavior is undefined. Abort these steps.
     </li><li>If the value of cotentEditable is "typing", the default behavior shall be as follows:
     <ol><li>If the inputType="replaceText", perform the following steps:
-    </li><li>Let targetStartContainer be targetRange.startContainer
+    <ol><li>Let targetStartContainer be targetRange.startContainer
     </li><li>If targetStartContainer is not a text node, abort these steps.
     </li><li>If targetRange.endContainer is not equal to targetStartContainer, abort these steps.
     </li><li>Remove the text in targetRange from the document and collapse targetRange
     </li><li>Insert data as plain text at the location of targetRange in the document
+    </li></ol>
     </li></ol>
     </li><li>If the inputType is any other value, there is no default behavior. Abort these steps.
     </li></ol>
