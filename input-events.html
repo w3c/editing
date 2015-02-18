@@ -54,7 +54,15 @@
 					<dt>readonly attribute DOMString inputType</dt>
 					<dd>
 						<p><code>inputType</code> holds the type of input.
-							Allowed values include insertText, insertNewline, insertHTML, delete, undo, redo.
+							Allowed values include replaceText, insertNewline, formatContent, deleteContent, undo, redo.
+                            <ul><li>replaceText is used to insert text into a textnode. targetRange may or may not be empty.
+                            </li><li>insertNewline is self-explainatory
+                            </li><li>formatContent indicates formatting the content of targetRange given the additional information detailed below.
+                            targetRange may or may not be empty. If it is empty, formatContent MAY indicate springloading, where the next text inserted
+                            would use the given format. In contentEditable=typing, the user agent is not responsible for this springloading.
+                            </li><li>deleteContent indicates deleting the content in the targetRange.
+                            </li><li>undo and redo are self-explainatory.
+                            </li></ol>
 							</p>
 
 						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this attribute
@@ -63,8 +71,8 @@
 					</dd>
                     <dt>readonly attribute DOMString data</dt>
 					<dd>
-						<p>If the inputType is additive (insertText, for instance), <code>data</code> holds the value that would be inserted.
-							The value depends on the inputType, such as plain text for insertText. It is described in the default behavior section.
+						<p>If the inputType is additive (replaceText, for instance), <code>data</code> holds the value that would be inserted.
+							The value depends on the inputType, such as plain text for replaceText. It is described in the default behavior section.
 							</p>
 
 						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this attribute
@@ -347,19 +355,21 @@
 
     <section>
     <h2>Default action for beforeInput</h2>
-    <p>The default action of a given beforeinput event depends on the value of the inputType property on the event and the value of contentEditable for the current active element. All of this can be prevented with preventDefault(). 
-    For all beforeInput events, if the current active element has a contentEditable value of false, abort these steps.
+    <p>The default action of a given beforeinput event in an element with a given value of contentEditable is given below. Note that if the value of contentEditable is false,
+    there should be no beforeInput event at all, so there this algorithm does not need to include that possibility.
     </p>
-    <p>The default action of a beforeInput event with inputType="insertText" shall be as follows:
-    <ol><li>If targetRange is not collapsed, abort these steps
-    </li><li>If targetRange.startContainer is not a text node, abort these steps
-    </li><li>If data is not a string, abort these steps
-    </li><li>Insert data at the location of targetRange in the document
+    <p>
+    <ol><li>If the value of contentEditable is "true" or "plaintext-only", the behavior is undefined. Abort these steps.
+    </li><li>If the value of cotentEditable is "typing", the default behavior shall be as follows:
+    <ol><li>If the inputType="replaceText", perform the following steps:
+    </li><li>Let targetStartContainer be targetRange.startContainer
+    </li><li>If targetStartContainer is not a text node, abort these steps.
+    </li><li>If targetRange.endContainer is not equal to targetStartContainer, abort these steps.
+    </li><li>Remove the text in targetRange from the document and collapse targetRange
+    </li><li>Insert data as plain text at the location of targetRange in the document
     </li></ol>
-    </p><p>The default action of a beforeInput event with inputType="undo" or "redo" shall be as follows. NOT YET DETERMINED.
-    </p><p>The default behavior for all other beforeInput Events shall be as follows:
-    <ol><li>If the current active element has a contentEditable value of typing, abort these steps.
-    </li><li>Otherwise, the current active element has a contentEditable value of either true or plaintext-only, and the behavior is implementation specific.
+    </li><li>If the inputType is any other value, there is no default behavior. Abort these steps.
+    </li></ol>
     </li></ol>
     </p>
     </section>
