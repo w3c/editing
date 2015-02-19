@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" typeof="bibo:Document " about="" property="dcterms:language" content="en">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="intentions-polyfill.js"></script>
+    <script type="text/javascript">
+        function setup(){
+            var editArea = document.getElementById("editArea");
+            editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
+            editArea.addEventListener("beforeInput", logIntentionEvent);
+        }
+        function logIntentionEvent(evt){
+            document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", inputType : \"" + evt.detail.inputType + "\", data : \"" + evt.detail.data + "\"}\n";
+            document.getElementById("log").scrollTop = 99999;
+        }
+    </script>
+</head>
+<body onload="setup()"> 
+    <div contentEditable="typing" id="editArea" title="type here">
+        Type Here Node1 <span>Node2</span>
+    </div>
+    <div style="height:30px"></div>
+    <div>This demo shows default browser behavior for typing in contentEditable=typing divs. It currently supports typing letters, numbers, and some symbols. Also supports moving the caret and selection with arrow keys, select all with control+a, and some formatting like control+b. The log below shows what events are firing and their context. Overtype across nodes does not work, but it works within a node</div>
+    <div>Log:</div>
+    <textarea readonly id="log" style="width:800px;height:400px"></textarea>
+</body></html>

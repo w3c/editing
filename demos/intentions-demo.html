@@ -1,36 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" typeof="bibo:Document " about="" property="dcterms:language" content="en">
 <head>
-    <meta charset="utf-8">
-    <script type="text/javascript" src="intentions-polyfill.js"></script>
-    <script type="text/javascript">
-        function setup(){
-            var editArea = document.getElementById("editArea");
-            editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
-            editArea.addEventListener("beforeInput", logIntentionEvent);
-            //editArea.addEventListener("focus", function(){editArea.innerHTML = "<br>";});
-        }
-        function logIntentionEvent(evt){
-            var msg;
-            switch (evt.intention) {
-            case "delete":
-                msg = "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\", targetRange : \"" + evt.detail.targetRange + "\"}\n";
-                break;
-            default: 
-                msg = "event : { type : \"" + evt.type + "\", intention : \"" + evt.intention + "\"}\n";
-            }
-            document.getElementById("log").textContent += msg;
-            document.getElementById("log").scrollTop = 99999;
-            
-            
-        }
-    </script>
+	<meta charset="utf-8">
 </head>
-<body onload="setup()"> 
-    <div contentEditable="true" id="editArea" title="type here">
-        Type Here
-    </div>
-    <div>Currently supports typing letters numers and some symbols. Also supports moving caret and selection with arrow keys, select all with control+a, and some formatting like control+b.</div>
-    <div>Log:</div>
-    <textarea readonly id="log" style="width:600px;height:400px"></textarea>
+<body onload="window.location = 'http://w3c.github.io/editing-explainer/demos/CEtyping.html'"> 
+If not redirected, please click <a href="http://w3c.github.io/editing-explainer/demos/CEtyping.html">http://w3c.github.io/editing-explainer/demos/CEtyping.html</a>
 </body></html>
