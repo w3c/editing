@@ -44,19 +44,25 @@
     <section>
       <h2>Introduction</h2>
       <p>
-        <a href="http://www.w3.org/TR/html5/editing.html#attr-contenteditable">contenteditable</a> is used extensively on the web to enable users to directly edit HTML content.
-        However, it is very complex and its behavior is often largely overwritten by sites or javascript frameworks.
-        Completely overwriting it is very difficult because it requires overwriting all keyboard shortcuts that perform commands like bold and undo,
-        as well as the context menu. Further, this must be done in all supported languages.
+        <a href="http://www.w3.org/TR/html5/editing.html#attr-contenteditable">contenteditable</a>
+        is used extensively on the web to enable users to directly edit HTML content.
+        However, it is very complex and its behavior is often largely overwritten
+        by sites or javascript frameworks. Completely overwriting it is very difficult
+        because it requires overwriting all keyboard shortcuts that perform commands
+        like bold and undo, as well as the context menu. Further, this must be done
+        in all supported languages.
         A <a href="https://medium.com/medium-eng/122d8a40e480">post</a> on Medium tells one perspective of why it should be changed.
         </p><p>
-        To simplify this, a new level of abstraction is described in the <a href="http://w3c.github.io/editing-explainer/commands-explainer.html">User Intentions Explainer</a> specification,
+        To simplify this, a new level of abstraction is described in the
+        <a href="http://w3c.github.io/editing-explainer/commands-explainer.html">User Intentions Explainer</a> specification,
         which allows overwriting the behavior of individual user intentions.
         </p><p>
-        To further simplify the work of sites and frameworks,
-        a new type of contentEditable simplifies default behavior to text input only, while providing local-specific information on what a user intends
-        such as to create newlines, delete content, or format it. This allows sites to easily provide their own behaviors without needing to handle complex text input
-        like <a href="http://en.wikipedia.org/wiki/Input_method">IMEs</a>.
+        To further simplify the work of sites and frameworks, a new type of contentEditable
+        simplifies default behavior to text input only, while providing local-specific
+        information on what a user intends such as to create newlines, delete content,
+        or format it. This allows sites to easily provide their own behaviors without
+        needing to handle complex text input like
+        <a href="http://en.wikipedia.org/wiki/Input_method">IMEs</a>.
       </p>
     </section>
     <section>

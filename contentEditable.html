@@ -61,17 +61,25 @@
         The isContentEditable IDL attribute, on getting, must return true if the element is either an editing host or editable, and false otherwise.
         </p>
         <section>
-        <h2>contenteditable="typing"</h2>
-        <p><i>This section is non-normative</i></p>
-        <p>
-        The <code>typing</code> state is the foundation of rich text editing on the web,
-        and designed to be used only with a script-based editor implementation. It is not meant to be a stand-alone solution.
-        </p><p>
-        Other than inserting and overwriting strings within a single text node, there is no default browser behavior for user input
-        in contenteditable="typing". Intead, it fires Device-Independent Events that can be handled by script. Details on those events
-        can be found in the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and <a href="http://w3c.github.io/editing-explainer/input-events.html">Input Events</a> specifications.
-        Input Events also contains information on default handling of text input inside a single text node.
-        </p>
+          <h2>contenteditable="typing"</h2>
+          <p><i>This section is non-normative</i></p>
+          <p>
+          The <code>typing</code> state is the foundation of rich text editing on the web,
+          and designed to be used only with a script-based editor implementation. It is not meant to be a stand-alone solution.
+          </p><p>
+          Other than inserting and overwriting strings within a single text node, there is no default browser behavior for user input
+          in contenteditable="typing". Intead, it fires Device-Independent Events that can be handled by script. Details on those events
+          can be found in the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and
+          <a href="http://w3c.github.io/editing-explainer/input-events.html">Input Events</a> specifications.
+          Input Events also contains information on default handling of text input inside a single text node.
+          </p>
+          <p class="note">
+            When the selections contain `contentEditable=typing`, `execCommand`,
+            `queryCommand` may not work as they do in other editable elements, or
+            may even fail to execute. These methods are not interoperable nor
+            guaranteed to work against `contentEditable=typing`, and their uses are
+            strongly discouraged.
+          </p>
         </section>
     </section>
     <section>
