@@ -8,10 +8,14 @@
       var respecConfig = {
               specStatus:   "unofficial"
           ,   shortName:    "input-events"
-          ,   editors:      [{ name: "Ben Peters", 
+          ,   editors:      [{ name: "Johannes Wilm",
+                               mailto: "johannes@fiduswriter.org",
+                               company: "Invited Expert"},
+                             { name: "Ben Peters",
                                mailto: "BenjamP@microsoft.com",
-                               company: "Microsoft", 
-                               companyURL: "http://www.microsoft.com" }]
+                               company: "Microsoft",
+                               companyURL: "http://www.microsoft.com",
+                               note: "until <time>2015-02-23</time>" }]
           ,   wg:           "Web Applications Working Group"
           ,   wgURI:        "http://www.w3.org/2008/webapps/"
           ,   wgPublicList: "public-webapps"
@@ -24,7 +28,7 @@
   <body>
     <section id='abstract'>
       <p>
-       This specification defines events for text and related input and provides relavant contextual information for each event. 
+       This specification defines events for text and related input and provides relavant contextual information for each event.
        This specification builds on the Document Object Model Events Level 3.
       </p>
     </section>
@@ -35,7 +39,7 @@
     <section>
       <h2>Introduction</h2>
       <p>
-        This documen describes 2 events- Input (which already exists and is being extended) and beforeInput (which is newly defined here). 
+        This documen describes 2 events- Input (which already exists and is being extended) and beforeInput (which is newly defined here).
         The goal of these events is to allow authors to understand and/or override default input behavior both before and after input occurs.
       </p>
     </section>
@@ -46,7 +50,7 @@
     <section id="events-inputevents">
 			<h3>Input Event Types</h3>
 			<p>Input events are sent when before (beforeInputEvent) and after (inputEvent) a user attempts to input anything into the markup. This includes characters, deletions, and other related input.</p>
-			
+
 			<section id="interface-InputEvent">
 				<h4>Interface InputEvent</h4>
 
@@ -64,7 +68,7 @@
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention() 
+                            </li><li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention()
                             method [NEEDS A NEW NAME] with a formatting command, inputType MUST be <b>formatContent</b>
                                 <ol><li>If decalareIntention was called, let formatType be the value of commandId given in declareIntention.
                                 </li><li>Otherwise, let formatType be one of the following values (the value to use is unspecified and left up to the user agent): "bold", "italic", "underline", NEED MORE.
@@ -101,7 +105,7 @@
 						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this attribute
 							MUST be <code>""</code> NULL.
 							</p>
-					</dd>                    
+					</dd>
 					<dt>readonly attribute boolean isComposing</dt>
 					<dd>
 						<p><code>true</code> if the input event occurs as part of a composition session, i.e., after a
@@ -121,7 +125,7 @@
 							</p>
 					</dd>
 				</dl>
-				
+
 				<dl class="idl" title="dictionary InputEventInit : UIEventInit">
 					<dt>DOMString data = ""</dt>
 					<dd>
@@ -162,7 +166,7 @@
 				</table>
 
 			</section>  <!-- events-inputevent-event-order -->
-			
+
 			<p>The Input event types are listed below.</p>
 
 			<!-- beforeinput -->
@@ -189,7 +193,7 @@
 							</tr>
 							<tr>
 								<th>Trusted Targets</th>
-								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with 
+								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with
 									<code>contenteditable</code> attribute enabled.</td>
 							</tr>
 							<tr>
@@ -215,8 +219,8 @@
 											which MAY be the <a class="def" href="#glossary-empty-string">empty string</a> if the content has been deleted,
                                             or NULL if it doesn't apply.</li>
 										<li><a href="#widl-InputEvent-isComposing"><code class="attribute-name">InputEvent.isComposing</code></a>:
-											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an 
-											<a href="#glossary-ime">input method editor</a> is active (such that 
+											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an
+											<a href="#glossary-ime">input method editor</a> is active (such that
 											<a href="#events-compositionevents">composition events</a> are being dispatched); <code>false</code> otherwise.</li>
 									</ul>
 								</td>
@@ -252,7 +256,7 @@
 							</tr>
 							<tr>
 								<th>Trusted Targets</th>
-								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with 
+								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with
 									<code>contenteditable</code> attribute enabled.</td>
 							</tr>
 							<tr>
@@ -278,8 +282,8 @@
 											which MAY be the <a class="def" href="#glossary-empty-string">empty string</a> if the content has been deleted,
                                             or NULL if it doesn't apply.</li>
 										<li><a href="#widl-InputEvent-isComposing"><code class="attribute-name">InputEvent.isComposing</code></a>:
-											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an 
-											<a href="#glossary-ime">input method editor</a> is active (such that 
+											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an
+											<a href="#glossary-ime">input method editor</a> is active (such that
 											<a href="#events-compositionevents">composition events</a> are being dispatched); <code>false</code> otherwise.</li>
 									</ul>
 								</td>
@@ -295,8 +299,8 @@
 
         <section id="events-composition-event-input-events">
 				<h4>Input Events During Composition</h4>
-				
-				<p>During the composition session, the 
+
+				<p>During the composition session, the
 					<a class="eventtype" href="#event-type-compositionupdate"><code>compositionupdate</code></a> MUST be dispatched
 					before the <a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a> and <code>input</code> events are sent.
 					</p>
@@ -333,9 +337,9 @@
 					during a composition session.
 					</p>
 
-				<p>When a composition session is finished, any 
-					<a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a> and 
-					<a class="eventtype" href="#event-type-input"><code>input</code></a> events MUST be dispatched after the 
+				<p>When a composition session is finished, any
+					<a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a> and
+					<a class="eventtype" href="#event-type-input"><code>input</code></a> events MUST be dispatched after the
 					<a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a> event.
 					</p>
 
@@ -367,7 +371,7 @@
 						<td></td>
 					</tr>
 				</table>
-				
+
 				<p class="note"><strong>Note:</strong> Some IMEs update the DOM before the
 					<a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a> event is dispatched.
 					In this case, canceling the <a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a>
