@@ -117,14 +117,14 @@
             anyway. Previous principles take precedence over this one,
             however.</li>
         </ul>
-
+      </section>
+      <section>
         <h2 id='tests'>Tests</h2>
-
+        <section>
         <h3 id="general-remarks">General remarks</h3>
 
         <p>There are two groups of tests currently associated with this
-        document: selection tests, and command tests. These tests are a
-        non-<a href="#normative">normative</a> part of this specification. The
+        document: selection tests, and command tests. The
         command tests are available in two formats, development tests and
         conformance tests. This has a lot to do with the history of how the
         specification was developed: selection was originally part of the
@@ -257,7 +257,8 @@
         work right, but it's certainly not going to be very useful on
         real-world sites, since there's no way any of this stuff will work in
         IE8.</p>
-
+      </section>
+      <section>
         <h3 id="development-tests">Command development tests</h3>
 
         <p>The development tests are mostly useful for developing the spec
@@ -371,6 +372,8 @@
         are still useful for reviewing the browser output, but spec output in
         those browsers should be sanity-checked and compared against another
         browser's spec output in case of doubt.</p>
+      </section>
+      <section>
 
         <h3 id="conformance-tests">Command conformance tests</h3>
 
@@ -448,11 +451,10 @@
         <a href="conformancetest/event.html">event.html</a>. In the long term,
         this will probably be merged into runtest.html so that it's tested more
         thoroughly.</p>
-
+      </section>
+      </section>
+      <section>
         <h2 id="issues">Issues</h2>
-
-        <p style="font-style: italic">This section is not <a href=
-        "#normative">normative</a>.</p>
 
         <p>This specification is mostly feature-complete. It's more or less
         fully implemented in JavaScript, and has been tested on a fairly
@@ -647,7 +649,8 @@
 
         <p>Things that would be useful to address for the future but aren't
         important to fix right now are in comments prefixed with "TODO".</p>
-
+      </section>
+      <section>
         <h2 id="selections">Selections</h2>
 
         <div class="comments">
@@ -1786,8 +1789,10 @@ partial interface <a class="external" data-anolis-spec="html" href=
         "dom-document-0"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#dom-document-0">
         document</a></code> property.</p>
-
+      </section>
+      <section>
         <h2 id="commands">Commands</h2>
+        <section>
 
         <h3 id="properties-of-commands">Properties of commands</h3>
 
@@ -1907,7 +1912,8 @@ partial interface <a class="external" data-anolis-spec="html" href=
                 it defaults to null.
             </li>
         </ul>
-
+      </section>
+      <section>
         <h3 id="supported-commands">Supported commands</h3>
 
         <p class="comments">If you try doing anything with an unrecognized
@@ -1971,7 +1977,7 @@ partial interface <a class="external" data-anolis-spec="html" href=
         <p>Authors can tell whether a <a href="#command">command</a> is
         <a href="#supported">supported</a> using <code><a href=
         "#querycommandsupported()">queryCommandSupported()</a></code>.</p>
-
+      </section><section>
         <h3 id="enabled-commands">Enabled commands</h3>
 
         <p>At any given time, a <a href="#supported">supported</a> command can
@@ -2051,7 +2057,9 @@ partial interface <a class="external" data-anolis-spec="html" href=
         data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-range-end-node" title=
         "concept-range-end-node">end node</a>.</p>
-
+      </section>
+      </section>
+      <section>
         <h2 id="methods-to-query-and-execute-commands">Methods to query and
         execute commands</h2>
 
@@ -2561,7 +2569,8 @@ data-anolis-spec="dom" href=
             "justify", "left", or "right"). Any other deviations from these
             invariants are bugs in the specification.</p>
         </div>
-
+      </section>
+      <section>
         <h2 id="common-definitions">Common definitions</h2>
 
         <p>An <dfn id="html-element">HTML element</dfn> is an <code class=
@@ -3144,9 +3153,11 @@ data-anolis-spec="dom" href=
         don't share a root, the order will be specified.) When the user agent
         is instructed to run particular steps for each member of a list, it
         must do so sequentially in the list's order.</p>
-
+      </section>
+      <section>
         <h2 id="common-algorithms">Common algorithms</h2>
 
+        <section>
         <h3 id="assorted-common-algorithms">Assorted common algorithms</h3>
 
         <p>To move a <a class="external" data-anolis-spec="dom" href=
@@ -3458,7 +3469,7 @@ data-anolis-spec="dom" href=
         before</a> it, then <a href=
         "#remove-extraneous-line-breaks-at-the-end-of">remove extraneous line
         breaks at the end of</a> it.</p>
-
+      </section><section>
         <h3 id="wrapping-a-list-of-nodes">Wrapping a list of nodes</h3>
 
         <p>To <dfn id="wrap">wrap</dfn> a list <var title="">node list</var> of
@@ -3929,7 +3940,8 @@ data-anolis-spec="dom" href=
 
             <li>Return <var title="">new parent</var>.</li>
         </ol>
-
+      </section>
+      <section>
         <h3 id="allowed-children">Allowed children</h3>
 
         <div class="comments">
@@ -4223,9 +4235,13 @@ data-anolis-spec="dom" href=
 
             <li>Return true.</li>
         </ol>
+      </section>
+      </section>
+      <section>
 
         <h2 id="inline-formatting-commands">Inline formatting commands</h2>
 
+        <section>
         <h3 id="inline-formatting-command-definitions">Inline formatting
         command definitions</h3>
 
@@ -4737,6 +4753,8 @@ data-anolis-spec="dom" href=
         <p class="note">The notions of inline command activated values and
         standard inline value commands are mostly just shorthand to avoid
         repeating the same boilerplate half a dozen times.</p>
+      </section>
+      <section>
 
         <h3 id="assorted-inline-formatting-command-algorithms">Assorted inline
         formatting command algorithms</h3>
@@ -5271,6 +5289,7 @@ data-anolis-spec="dom" href=
                 </ol>
             </li>
         </ol>
+      </section><section>
 
         <h3 id="clearing-an-element's-value">Clearing an element's value</h3>
 
@@ -5411,6 +5430,7 @@ data-anolis-spec="dom" href=
                 "concept-node">node</a> list consisting of the result.
             </li>
         </ol>
+      </section><section>
 
         <h3 id="pushing-down-values">Pushing down values</h3>
 
@@ -5661,7 +5681,7 @@ data-anolis-spec="dom" href=
                 </ol>
             </li>
         </ol>
-
+      </section><section>
         <h3 id="forcing-the-value-of-a-node">Forcing the value of a node</h3>
 
         <p>To <dfn id="force-the-value">force the value</dfn> of a <a class=
@@ -6305,6 +6325,8 @@ data-anolis-spec="dom" href=
             <a href="#preserving-ranges">preserving ranges</a>.
             </li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="setting-the-selection's-value">Setting the selection's
         value</h3>
@@ -6631,6 +6653,8 @@ data-anolis-spec="dom" href=
                 </ol>
             </li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-backcolor-command"><dfn>The <code title="">backColor</code>
         command</dfn></h3>
@@ -6705,7 +6729,7 @@ data-anolis-spec="dom" href=
         <p><a href="#equivalent-values">Equivalent values</a>: Either both
         strings are valid CSS colors and have the same red, green, blue, and
         alpha components, or neither string is a valid CSS color.</p>
-
+      </section><section>
         <h3 id="the-bold-command"><dfn>The <code title="">bold</code>
         command</dfn></h3>
 
@@ -6752,6 +6776,7 @@ data-anolis-spec="dom" href=
         <p><a href="#equivalent-values">Equivalent values</a>: Either the two
         strings are equal, or one is "bold" and the other is "700", or one is
         "normal" and the other is "400".</p>
+      </section><section>
 
         <h3 id="the-createlink-command"><dfn>The <code title=
         "">createLink</code> command</dfn></h3>
@@ -6855,6 +6880,7 @@ data-anolis-spec="dom" href=
 
             <li>Return true.</li>
         </ol>
+      </section><section>
 
         <h3 id="the-fontname-command"><dfn>The <code title="">fontName</code>
         command</dfn></h3>
@@ -6939,6 +6965,7 @@ data-anolis-spec="dom" href=
 
         <p><a href="#relevant-css-property">Relevant CSS property</a>:
         "font-family"</p>
+      </section><section>
 
         <h3 id="the-fontsize-command"><dfn>The <code title="">fontSize</code>
         command</dfn></h3>
@@ -7218,6 +7245,7 @@ data-anolis-spec="dom" href=
 
             <li>Return "7".</li>
         </ol>
+      </section><section>
 
         <h3 id="the-forecolor-command"><dfn>The <code title="">foreColor</code>
         command</dfn></h3>
@@ -7709,6 +7737,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <li>Return true.</li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-strikethrough-command"><dfn>The <code title=
         "">strikethrough</code> command</dfn></h3>
@@ -7777,6 +7807,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
         <p><a href="#inline-command-activated-values">Inline command activated
         values</a>: "subscript"</p>
+      </section><section>
 
         <h3 id="the-superscript-command"><dfn>The <code title=
         "">superscript</code> command</dfn></h3>
@@ -7889,6 +7920,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
         <p><a href="#inline-command-activated-values">Inline command activated
         values</a>: "underline"</p>
+      </section>
+      <section>
 
         <h3 id="the-unlink-command"><dfn>The <code title="">unlink</code>
         command</dfn></h3>
@@ -7936,9 +7969,11 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <li>Return true.</li>
         </ol>
-
+      </section>
+      </section>
+      <section>
         <h2 id="block-formatting-commands">Block formatting commands</h2>
-
+        <section>
         <h3 id="block-formatting-command-definitions">Block formatting command
         definitions</h3>
 
@@ -8041,6 +8076,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <p class="note">All block commands preserve overrides except <a href=
         "#the-inserttext-command">the <code title="">insertText</code>
         command</a>, which treats overrides specially.</p>
+      </section>
+      <section>
 
         <h3 id="assorted-block-formatting-command-algorithms">Assorted block
         formatting command algorithms</h3>
@@ -9011,7 +9048,8 @@ output is null.
   <li>Return true if <var title>A</var> is the same as <var title>B</var>, otherwise false.
 </ol>
 -->
-
+        </section>
+        <section>
         <h3 id="block-extending-a-range">Block-extending a range</h3>
 
         <p>A <a class="external" data-anolis-spec="dom" href=
@@ -9392,6 +9430,7 @@ output is null.
 
             <li>Return true.</li>
         </ol>
+      </section><section>
 
         <h3 id="recording-and-restoring-overrides">Recording and restoring
         overrides</h3><!--@{-->
@@ -9656,7 +9695,7 @@ output is null.
                 </ol>
             </li>
         </ol><!--@}-->
-
+      </section><section>
         <h3 id="deleting-the-selection">Deleting the selection</h3>
 
         <p class="comments">TODO: Consider what should happen for block merging
@@ -10801,6 +10840,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 values</a> from <var title="">overrides</var>.
             </li>
         </ol>
+      </section><section>
 
         <h3 id="splitting-a-node-list's-parent">Splitting a node list's
         parent</h3>
@@ -11118,6 +11158,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-tree-parent" title=
         "concept-tree-parent">parent</a>.</p>
+      </section><section>
 
         <h3 id="canonical-space-sequences">Canonical space sequences</h3>
 
@@ -11672,6 +11713,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </ol>
             </li>
         </ol>
+      </section><section>
 
         <h3 id="indenting-and-outdenting">Indenting and outdenting</h3>
 
@@ -12291,6 +12333,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 ancestor</var>.
             </li>
         </ol>
+      </section><section>
 
         <h3 id="toggling-lists">Toggling lists</h3>
 
@@ -14096,6 +14139,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </ol>
             </li>
         </ol>
+      </section><section>
 
         <h3 id="justifying-the-selection">Justifying the selection</h3>
 
@@ -14337,6 +14381,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </ol>
             </li>
         </ol>
+      </section><section>
 
         <h3 id="automatic-linking">Automatic linking</h3>
 
@@ -14571,6 +14616,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 range</a> to <var title="">original range</var>.
             </li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-delete-command"><dfn>The <code title="">delete</code>
         command</dfn></h3>
@@ -15560,6 +15607,8 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
 
             <li>Return true.</li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-formatblock-command"><dfn>The <code title=
         "">formatBlock</code> command</dfn></h3>
@@ -16155,6 +16204,7 @@ foo&lt;br&gt;bar
 
             <li>Return the empty string.</li>
         </ol>
+      </section><section>
 
         <h3 id="the-forwarddelete-command"><dfn>The <code title=
         "">forwardDelete</code> command</dfn></h3>
@@ -16672,6 +16722,7 @@ foo&lt;br&gt;bar
                 <a href="#delete-the-selection">Delete the selection</a>.
             </li>
         </ol>
+        <section></section>
 
         <h3 id="the-indent-command"><dfn>The <code title="">indent</code>
         command</dfn></h3>
@@ -16877,7 +16928,7 @@ foo&lt;br&gt;bar
                 </ol>
             </li>
         </ol>
-
+      </section><section>
         <h3 id="the-inserthorizontalrule-command"><dfn>The <code title=
         "">insertHorizontalRule</code> command</dfn></h3>
 
@@ -17092,6 +17143,7 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
+      </section><section>
 
         <h3 id="the-inserthtml-command"><dfn>The <code title=
         "">insertHTML</code> command</dfn></h3>
@@ -17333,7 +17385,7 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
-
+      </section><section>
         <h3 id="the-insertimage-command"><dfn>The <code title=
         "">insertImage</code> command</dfn></h3>
 
@@ -17460,6 +17512,7 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
+      </section><section>
 
         <h3 id="the-insertlinebreak-command"><dfn>The <code title=
         "">insertLineBreak</code> command</dfn></h3>
@@ -17663,6 +17716,7 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
+      </section><section>
 
         <h3 id="the-insertorderedlist-command"><dfn>The <code title=
         "">insertOrderedList</code> command</dfn></h3>
@@ -17691,6 +17745,8 @@ foo&lt;br&gt;bar
         <p><a href="#state">State</a>: True if the <a href=
         "#selection's-list-state">selection's list state</a> is "ol", false
         otherwise.</p>
+      </section>
+      <section>
 
         <h3 id="the-insertparagraph-command"><dfn>The <code title=
         "">insertParagraph</code> command</dfn></h3>
@@ -18528,6 +18584,8 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-inserttext-command"><dfn>The <code title=
         "">insertText</code> command</dfn></h3>
@@ -18948,6 +19006,8 @@ foo&lt;br&gt;bar
 
             <li>Return true.</li>
         </ol>
+      </section>
+      <section>
 
         <h3 id="the-insertunorderedlist-command"><dfn>The <code title=
         "">insertUnorderedList</code> command</dfn></h3>
@@ -18967,6 +19027,7 @@ foo&lt;br&gt;bar
         <p><a href="#state">State</a>: True if the <a href=
         "#selection's-list-state">selection's list state</a> is "ul", false
         otherwise.</p>
+      </section><section>
 
         <h3 id="the-justifycenter-command"><dfn>The <code title=
         "">justifyCenter</code> command</dfn></h3>
@@ -19072,7 +19133,7 @@ foo&lt;br&gt;bar
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a>, return "left".</p>
-
+      </section><section>
         <h3 id="the-justifyfull-command"><dfn>The <code title=
         "">justifyFull</code> command</dfn></h3>
 
@@ -19128,7 +19189,7 @@ foo&lt;br&gt;bar
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a>, return "left".</p>
-
+      </section><section>
         <h3 id="the-justifyleft-command"><dfn>The <code title=
         "">justifyLeft</code> command</dfn></h3>
 
@@ -19184,7 +19245,7 @@ foo&lt;br&gt;bar
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a>, return "left".</p>
-
+      </section><section>
         <h3 id="the-justifyright-command"><dfn>The <code title=
         "">justifyRight</code> command</dfn></h3>
 
@@ -19240,7 +19301,7 @@ foo&lt;br&gt;bar
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a>, return "left".</p>
-
+      </section><section>
         <h3 id="the-outdent-command"><dfn>The <code title="">outdent</code>
         command</dfn></h3>
 
@@ -19433,9 +19494,12 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
 
             <li>Return true.</li>
         </ol>
+      </section>
+      </section>
+      <section>
 
         <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
-
+      <section>
         <h3 id="the-copy-command"><dfn>The <code title="">copy</code>
         command</dfn></h3>
 
@@ -19484,7 +19548,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         exception for non-whitelisted sites, or it may act as though the
         <a href="#command">command</a> is <a href="#supported" title=
         "supported">unsupported</a> on those sites.</p>
-
+      </section><section>
         <h3 id="the-cut-command"><dfn>The <code title="">cut</code>
         command</dfn></h3>
 
@@ -19520,7 +19584,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         exception for non-whitelisted sites, or it may act as though the
         <a href="#command">command</a> is <a href="#supported" title=
         "supported">unsupported</a> on those sites.</p>
-
+      </section><section>
         <h3 id="the-defaultparagraphseparator-command"><dfn>The <code title=
         "">defaultParagraphSeparator</code> command</dfn></h3>
 
@@ -19546,7 +19610,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "http://dom.spec.whatwg.org/#context-object">context object</a>'s
         <a href="#default-single-line-container-name">default single-line
         container name</a>.</p>
-
+      </section><section>
         <h3 id="the-paste-command"><dfn>The <code title="">paste</code>
         command</dfn></h3>
 
@@ -19582,14 +19646,14 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         exception for non-whitelisted sites, or it may act as though the
         <a href="#command">command</a> is <a href="#supported" title=
         "supported">unsupported</a> on those sites.</p>
-
+      </section><section>
         <h3 id="the-redo-command"><dfn>The <code title="">redo</code>
         command</dfn></h3>
 
         <p><a href="#action">Action</a>: As defined by the <a href=
         "http://rniwa.com/editing/undomanager.html">UndoManager</a>
         specification.</p>
-
+      </section><section>
         <h3 id="the-selectall-command"><dfn>The <code title="">selectAll</code>
         command</dfn></h3>
 
@@ -19688,7 +19752,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
 
             <li>Return true.</li>
         </ol>
-
+      </section><section>
         <h3 id="the-stylewithcss-command"><dfn>The <code title=
         "">styleWithCSS</code> command</dfn></h3>
 
@@ -19726,14 +19790,14 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
 
         <p><a href="#state">State</a>: True if the <a href=
         "#css-styling-flag">CSS styling flag</a> is true, otherwise false.</p>
-
+      </section><section>
         <h3 id="the-undo-command"><dfn>The <code title="">undo</code>
         command</dfn></h3>
 
         <p><a href="#action">Action</a>: As defined by the <a href=
         "http://rniwa.com/editing/undomanager.html">UndoManager</a>
         specification.</p>
-
+      </section><section>
         <h3 id="the-usecss-command"><dfn>The <code title="">useCSS</code>
         command</dfn></h3>
 
@@ -19773,7 +19837,9 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         styling flag</a>'s current value, authors have to use <a href=
         "#the-stylewithcss-command">the <code title="">styleWithCSS</code>
         command</a>.</p>
-
+      </section>
+      </section>
+      <section>
         <h2 id="additional-requirements">Additional requirements</h2>
 
         <p class="XXX">It has been <a href=
@@ -19864,11 +19930,10 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "#command" title="command">commands</a> defined in this specification
         if possible, and otherwise must be a <a href=
         "#vendor-specific-command">vendor-specific command</a>.</p>
+      </section>
+      <section>
 
         <h2 class="no-num" id="acknowledgements">Acknowledgements</h2>
-
-        <p style="font-style: italic">This section is not <a href=
-        "#normative">normative</a>.</p>
 
         <p>Thanks to:</p>
 
@@ -19895,33 +19960,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             Henri Sivonen, Smylers, Hallvord R. M. Steen, Roland Steiner, Annie
             Sullivan, timeless, Ojan Vafai, Brett Zamir, and Boris Zbarsky for
             their feedback, participation, or other helpful contributions</li>
-        </ul><script>
-
-        [].forEach.call(document.querySelectorAll(".comments"), function(node) {
-        var button = document.createElement("button");
-        button.textContent = "View comments";
-        button.onclick = function() {
-        node.className = node.className == "comments" ? "comments-expanded" : "comments";
-        };
-
-        var wrapper = document.createElement("div");
-        wrapper.className = "comments-wrapper";
-        node.parentNode.insertBefore(wrapper, node);
-
-        wrapper.appendChild(button);
-        wrapper.appendChild(node);
-        });
-        document.body.onclick = function(e) {
-        [].forEach.call(document.querySelectorAll(".comments-expanded"), function(node) {
-        if (e.target != node.parentNode
-        && !(e.target.compareDocumentPosition(node.parentNode) & Node.DOCUMENT_POSITION_CONTAINS)) {
-        node.className = "comments";
-        }
-        });
-        };
-
-        </script> <script src=
-        "https://www.whatwg.org/specs/web-apps/current-work/dfn.js"></script>
+        </ul>
     </section>
 </body>
 </html>
