@@ -31,15 +31,17 @@
         is generally acknowledged by all practitioners as a nightmare.
       </p>
       <p>
-        The goal of this task force is to split the work that is required into small, manageable
-        chunks that can be developed as primitives useful on their own, and used together to create
-        editing systems.
+        The goal of this task force is:
+      <p>To spec and standardize the behavior of <code>contenteditable=true</code> and existing editing APIs.
+      </p>
+      <p>To create a simpler alternative to <code>contentEditable=true</code>, which
+        creates primitives to allow for the creation of full-featured editing systems using JavaScript.
       </p>
     </section>
     <section>
       <h2>Objectives</h2>
       <p>
-        The endgame for this group is to produce primitives that enable the creation of useful editing
+        The endgame for this group is to produce specifications that enable the creation of useful editing
         systems on the Web, without requiring the many ugly hacks that are in common use today.
       </p>
       <p>
@@ -56,7 +58,14 @@
         </li>
         <li>
           Integration of the above into HTML, which may happen for instance through
-          <code>contentEditable=minimal</code> (but a variety of options are being considered).
+          <code>contentEditable=typing</code> (but a variety of options are being considered).
+        </li>
+        <li>
+          Reusing or discarding parts of or entire pre-existing editing APIs to serve as
+          primitives of editing systems.
+        </li>
+        <li>
+          Documentation of pre-existing editing APIs.
         </li>
       </ul>
       <p>
@@ -80,12 +89,6 @@
       <p>
         The group will use the Consortium's <a href="http://lists.w3.org/Archives/Public/public-editing-tf/">public-editing-tf</a>
         mail list for techical discussions.
-      </p>
-      <p>
-        This group is distinct from the <a href="http://www.w3.org/community/editing/">HTML Editing APIs Community Group]</a>, 
-        the focus of which is on making
-        the existing editing system full described. This group is looking for new solutions, though
-        of course there is expected to be some degree of overlap.
       </p>
     </section>
   </body>

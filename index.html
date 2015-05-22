@@ -1,192 +1,28 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <meta charset='utf-8'>
-    <title>Editing Explainer</title>
-    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
-    <script class='remove'>
-      var respecConfig = {
-              specStatus:   "unofficial"
-          ,   shortName:    "html-editing-explainer"
-          ,   editors:      [{ name: "Robin Berjon", url: "http://berjon.com/",
-                               company: "W3C", companyURL: "http://w3.org/" },
-                             { name: "Johannes Wilm",
-                               mailto: "johannes@fiduswriter.org",
-                               company: "Invited Expert"},
-                             { name: "Ben Peters",
-                               mailto: "BenjamP@microsoft.com",
-                               company: "Microsoft",
-                               companyURL: "http://www.microsoft.com",
-                               note: "until <time>2015-02-23</time>"}]
-          ,   wg:           "HTML Working Group"
-          ,   wgURI:        "http://www.w3.org/html/wg/"
-          ,   wgPublicList: "public-html"
-          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
-          ,   edDraftURI:   "http://w3c.github.io/editing-explainer/"
-          ,   license:      "cc-by"
-        };
-    </script>
-  </head>
-  <body>
-    <section id='abstract'>
-      <p>
-        This document is a non-normative reference, which provides an overview of the future of Rich Text Editing on the web.
-        It summarizes the normative information in related specifications in easy-to-digest prose with illustrations.
-      </p>
-    </section>
-    <section id='sotd'>
-      <p>
-        This specification is an
-        <a href='http://dev.w3.org/html5/decision-policy/html5-2014-plan.html#extension-specs'>extension
-        specification</a> to HTML.
-      </p>
-    </section>
-    <section>
-      <h2>Introduction</h2>
-      <p>
-        <a href="http://www.w3.org/TR/html5/editing.html#attr-contenteditable">contenteditable</a>
-        is used extensively on the web to enable users to directly edit HTML content.
-        However, it is very complex and its behavior is often largely overwritten
-        by sites or javascript frameworks. Completely overwriting it is very difficult
-        because it requires overwriting all keyboard shortcuts that perform commands
-        like bold and undo, as well as the context menu. Further, this must be done
-        in all supported languages.
-        A <a href="https://medium.com/medium-eng/122d8a40e480">post</a> on Medium tells one perspective of why it should be changed.
-        </p><p>
-        To simplify this, a new level of abstraction is described in the
-        <a href="http://w3c.github.io/editing-explainer/commands-explainer.html">User Intentions Explainer</a> specification,
-        which allows overwriting the behavior of individual user intentions.
-        </p><p>
-        To further simplify the work of sites and frameworks, a new type of contentEditable
-        simplifies default behavior to text input only, while providing local-specific
-        information on what a user intends such as to create newlines, delete content,
-        or format it. This allows sites to easily provide their own behaviors without
-        needing to handle complex text input like
-        <a href="http://en.wikipedia.org/wiki/Input_method">IMEs</a>.
-      </p>
-    </section>
-    <section>
-      <h2>Framing the Problem</h2>
-        <ul>
-            <li>ContentEditable is <b>too complex and buggy</b> to be usable as-is
-            <br>While we could solve this by spec'ing contentEditable's behavior, the remaining issues here cause us to look in a new direction instead.
-            </li><li>ContentEditable <b>does not easily enable the wide range of editing scenarios</b>.
-                It is high-level and not supportive of <a href="http://extensiblewebmanifesto.org/">http://extensiblewebmanifesto.org/</a>.
-            </li>
-        </ul>
-    </section>
-    <section>
-        <h2>Use Cases</h2>
-        <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform or email. (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
-        <p>The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
-            Headings are to be marked up with h1. h2, etc... and each acronyms, abbreviations, and so forth are marked up with respective HTML elements.
-            However, the editor also supports visual annotations such as bolding, italicizing, and enlarging text,
-            each of which will be interpreted by the editor to respective underlying semantics in HTML.
-        </p><p>More Info: In order to keep things consistent he may want to disallow certain types of styling.
-            A few years ago it was common to see people with Joomla sites who just pasted the text into the editor after copying it from a word processor.
-            Each blog post therefore ended up having very different styling.
-         </p><p>More thoughts (From Microsoft):
-        <br>In addition to the functionality mentioned above, the editor should support more advanced markup operations like handling bullets/indentation,
-            tables, and clear formatting (in heavily nested HTML) that are not consistent across browsers today.
-        <br>Scenarios:
-        <ul><li>Prevent style bleeding between the app and the body of the draft mail
-        </li><li>Remember cursor position (or selected range) when focus is out of editor - formatting bar buttons, or insert image cases
-        </li><li>Extensible and consistent paste mode across browsers - e.g. paste AS-IS HTML, paste clean HTML (aka merge formatting), and paste text only
-        </li><li>Extensibility for formatting commands - e.g. when browser handles the bullets it allows callback to javascript to define customized behavior;
-        on <Enter> under a nested bullet structure, some browsers add a new bullet, others create a new line without bullet and delete the previous bullet;
-        Merge two lists using delete/backspace, instead of keeping two different list structures
-        </p></li></ul>
-        </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
-        <br>We do that in Fidus Writer.
-            Part of the point is to keep the structure of the document semantically defined.
-            Users can't change font sizes of individual words, etc.
-            This is because one of the main tasks of scientific journal editors who currently receive drafts in Word or Libreoffice
-            format have to undo all the manual styling the writers have added in order to get everything to look in a similar way.
-            We simply take those styling possibilities away so that we can define the entire design through one stylesheet as well as easily convert to other formats,
-            such as LaTex or an Epub, and be sure that we cover all formatting tags that were used.
-        </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see fiduswriter.org, and what CKEditor are doing with widgets.)
-        (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
-        <br>We also do that - for example in the case of formulas.
-            Generally the text is editable near-Wysiwyg style.
-            But when it comes to formulas, we let the user enter them in Latex format and display the result using mathjax.
-            Each formula object within the text is a noneditable island. If the user clicks on it with the mouse, he can change the formula.
-        <br>Another example are figures: We want them to always be block elements and to have exactly one caption without styling.
-            They are therefore non-editable islands and if the user clicks on them he can change the figure's display and the caption text.
-        </li><li>Web-based <b>code editor</b> with syntax highlighting, etc. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
-        </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;.
-        (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
-        </li><li><b>Track changes</b> functionality within an editor (like <a href="https://github.com/NYTimes/ice">https://github.com/NYTimes/ice</a> )
-        <br>(really should be run MVC in order to keep the code somewhat readable. Currently ICE breaks whenever any of the browser makers decide to change anything about contenteditable.)
-        </li><li><b>Web-based DTP application</b> (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
-        <br>The app can creates a document that contains pagination, columns, and a complex illustrations.
-            It needs to let users edit any text that appears in the document.
-            Each editable text needs to be accessible, and styles applied to text need to be backed by the application's internal model of the document.
-        </li><li>Surface for <b>plain text editing</b> (From Microsoft)
-        <br>Plain-text emails require a formatting surface that strips out any HTML tags, and prevents them from being entered (e.g. via copy paste)
-        </li><li><b>Style read-only text</b> (From Microsoft)
-        <br>The sample text is read only, but is possible to change the format of the text. This is used to select default compose font properties (text font, size, color, BIU).
-        </li></ul>
-    </section>
-    <section>
-        <h2>Goals</h2>
-        <ul><li>Empower authors with the right set of baseline behavior to enable creating complex editors
-        </li><li>Make it easy to implement custom behavior with appropriate APIs
-        </ul>
-        <p>In addition, when paired with the User Intentions Explainer, the following can also be accomplished:</p>
-        <ul><li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
-        </li><li>Empower complex editors to be accessible by enabling users to understand available behaviors with little accessibility-specific work from the framework or site
-        </li></ul>
-    </section>
-    <section>
-      <h2>Roadmap</h2>
-      <p>The following roadmap explains what we believe is necessary to accomplish our goals.</p>
-      <ol>
-      <li>Gain Support<p>This is under way. We are gathering support from browsers, sites, and frameworks.</p></li>
-      <li>Frame the problem<p>We have a draft of this above, including use cases.</p></li>
-      <li>Determine a possible solution<p>Our current thoughts on this are around a new type of contentEditable, as described below.
-      We need to determine the shape of this API next, as described on <a href="https://github.com/w3c/editing-explainer/issues/4">GitHub</a>.</p></li>
-      <li>Create a prototype of the solution<p>A first-draft prototype is linked below. It needs a lot more before it can be adequately tested.</p></li>
-      <li>Try to solve the initial problems using the prototype<p>This is the next big step.</p></li>
-      <li>Refine our solution based on this testing<p>Coming soon.</p></li>
-      <li>Implement the solution in browsers for further testing<p>We hope to begin this with a simple subset of our behavior,
-      for instance contentEditable="cursor". As we spec additional functionality like formatting, typing, newlines, and deletion, those can also be added to implementation.</li>
-      </ol>
-	</section>
-    <section>
-      <h2>Customizable default handling with <code>contenteditable</code></h2>
-        <p>
-        It is a pattern in web editors that are built on top of <code>contenteditable</code> to disable some commanding functionality.
-        The reason for this is that consistency for Rich Text Editors is very hard, and requirements vary greatly from one app to the next.
-        Disabling all functionality is very difficult, however.
-        </p>
-        <p>In order to make it easier, we are redifining the capabilities of <code>contenteditable</code>.
-        The new version will be enabled with <code>contentEditable="typing"</code>. It will enable inserting characters including IME input,
-        but not including newlines, deletion of characters. or overwriting an uncollapsed selection.
-        It will also fire all kinds of Intention Events (beforeSelectionChange, beforeInput, etc).
-        This will allow sites and frameworks to implement their own editor behaviors.
-        Note that since it does not support overwriting uncollapsed selection, this new form of contenteditable will only make sense when it has a javascript editor implementation powering it.
-        <p>Because they are widely used, <code>contentEditable="true"</code> and <code>contentEditable="plaintext-only"</code> will continue to be supported and implementation specific.</p>
-    </section>
-    <section>
-        <h2>Implementing Custom Behavior</h2>
-        We will create new APIs as needed to make editing more extensible. The exact shape of these APIs will need more input from framework and site developers, as well as live demos.
-    </section>
-    <section>
-    <h2>Prototype</h2>
-    <p>A prototype is available <a href="http://w3c.github.io/editing-explainer/demos/CEcursor-demo.html">here</a>.</p>
-    </section>
-    <section>
-      <h2>Acknowledgements</h2>
-      <p>
-        Many thanks to:
-      </p>
-      <p>
-        Adrian Bateman,
-        Michael Aufreiter,
-        Oliver Buchtala,
-        Ryosuke Niwa,
-        Julie Parent.
-      </p>
-    </section>
-  </body>
+<head>
+  <meta charset='utf-8'>
+  <title>Editing Explainer</title>
+</head>
+<body>
+<h1>editing-explainer</h1>
+
+<p>The Editing Task Force can be followed on our [mailing list](http://lists.w3.org/Archives/Public/public-editing-tf/). We track issues in [GitHub Issues](https://github.com/w3c/editing-explainer/issues) as well. See the Task Force's [charter] (tf-charter.html) for more information about the group.</p>
+
+<h2>High level explainers<h2> 
+<p>These explainers cover the way in which we are addressing editing:</p>
+<ul>
+<li><a href="editing-explainer.html">Editing Explainer</a></li>
+<li><a href="responsive-input-explainer.html">Responsive Input Explainer</a></li>
+</ul>
+
+<h2>Specifications</h2>
+
+<ul>
+<li><a href="input-events.html">Input Events</a></li>
+<li><a href="contentEditable.html">ContentEditable</a></li>
+<li><a href="contentEditableTrue.html">ContentEditableTrue</a></li>
+<li><a href="contentEditableTyping.html">ContentEditableTyping</a></li>
+</ul>
+</body>
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>ContentEditableTyping</title>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "unofficial"
+          ,   shortName:    "ContentEditable"
+          ,   editors:      [{ name: "Johannes Wilm",
+                               mailto: "johannes@fiduswriter.org",
+                               company: "Invited Expert"},
+                             { name: "Ben Peters",
+                               mailto: "BenjamP@microsoft.com",
+                               company: "Microsoft",
+                               companyURL: "http://www.microsoft.com",
+                               note: "until <time>2015-02-23</time>"},]
+          ,   wg:           "Web Applications Working Group"
+          ,   wgURI:        "http://www.w3.org/2008/webapps/"
+          ,   wgPublicList: "public-webapps"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
+          ,   edDraftURI:   "http://w3c.github.io/editing-explainer/contentEditableTyping.html"
+        };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+       This specification defines the expected behaviors for for elements with the contenteditable attribute set to typing.
+       This specification builds on HTML5.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+      </p>
+    </section>
+    <section>
+      <h2>Problem and Use Cases</h2>
+        The problems solved by and use cases for this document by this document are tracked in the <a href="http://w3c.github.io/editing-explainer/">Editing Explainer</a> document.
+    </section>
+    <section>
+      <h2>contenteditable="typing"</h2>
+      <p><i>This section is non-normative</i></p>
+      <p>
+      The <code>typing</code> state is the foundation of rich text editing on the web,
+      and designed to be used only with a script-based editor implementation. It is not meant to be a stand-alone solution.
+      </p><p>
+      Other than inserting and overwriting strings within a single text node, there is no default browser behavior for user input
+      in contenteditable="typing". Intead, it fires Device-Independent Events that can be handled by script. Details on those events
+      can be found in the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and
+      <a href="http://w3c.github.io/editing-explainer/input-events.html">Input Events</a> specifications.
+      Input Events also contains information on default handling of text input inside a single text node.
+      </p>
+      <p class="note">
+        When the selections contain `contentEditable=typing`, `execCommand`,
+        `queryCommand` may not work as they do in other editable elements, or
+        may even fail to execute. These methods are not interoperable nor
+        guaranteed to work against `contentEditable=typing`, and their uses are
+        strongly discouraged.
+      </p>
+      <section>
+        <h3>Cutting and pasting</h3>
+        <p>Cutting and pasting events as used in other editable elements are disabled for contenteditable=typing elements.</p>
+      </section>
+    </section>
+    <section>
+      <h2>Acknowledgements</h2>
+    </section>
+  </body>
+</html>

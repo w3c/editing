@@ -21,7 +21,6 @@
           ,   wgPublicList: "public-webapps"
           ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
           ,   edDraftURI:   "http://w3c.github.io/editing-explainer/contentEditable.html"
-          ,   license:      "cc-by"
         };
     </script>
   </head>
@@ -45,9 +44,9 @@
         <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "plaintext-only", "typing", "true", and "false".
         The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.
         There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).
-        The behaviors of the <code>true</code> state and the <code>plaintext-only</code> state are unspecified and the use of the "true" and "plaintext-only" keywords is deprecated.
+        The behaviors of the <code>true</code> state and the <code>plaintext-only</code> state are documented in the <a href="contentEditableTrue.html">ContentEditableTrue specification</a>.
+        The behaviors of the <code>typing</code> state are documented in the <a href="contentEditableTyping.html">ContentEditableTyping specification</a>.
         The <code>false</code> state indicates that the element is not editable.
-        The <code>typing</code> state is specified below.
         The <code>inherit</code> state indicates that the element has the state of its parent.
         </p><p>
         The contentEditable IDL attribute, on getting, must return the string "true" if the content attribute is set to the <code>true</code> state,
@@ -60,31 +59,6 @@
 
         The isContentEditable IDL attribute, on getting, must return true if the element is either an editing host or editable, and false otherwise.
         </p>
-        <section>
-          <h2>contenteditable="typing"</h2>
-          <p><i>This section is non-normative</i></p>
-          <p>
-          The <code>typing</code> state is the foundation of rich text editing on the web,
-          and designed to be used only with a script-based editor implementation. It is not meant to be a stand-alone solution.
-          </p><p>
-          Other than inserting and overwriting strings within a single text node, there is no default browser behavior for user input
-          in contenteditable="typing". Intead, it fires Device-Independent Events that can be handled by script. Details on those events
-          can be found in the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and
-          <a href="http://w3c.github.io/editing-explainer/input-events.html">Input Events</a> specifications.
-          Input Events also contains information on default handling of text input inside a single text node.
-          </p>
-          <p class="note">
-            When the selections contain `contentEditable=typing`, `execCommand`,
-            `queryCommand` may not work as they do in other editable elements, or
-            may even fail to execute. These methods are not interoperable nor
-            guaranteed to work against `contentEditable=typing`, and their uses are
-            strongly discouraged.
-          </p>
-          <section>
-            <h3>Cutting and pasting</h3>
-            <p>Cutting and pasting events as used in other editable elements are disabled for contenteditable=typing elements.</p>
-          </section>
-        </section>
     </section>
     <section>
       <h2>Acknowledgements</h2>
