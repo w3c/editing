@@ -1,246 +1,38 @@
-<!DOCTYPE html><meta charset=utf-8>
-<title>HTML Editing APIs</title>
-<link href=https://www.whatwg.org/style/specification rel=stylesheet>
-<style>
-pre, code, xmp { font-family:monospace, sans-serif; }
-h2 code, h3 code, h3 code,
-h2 :link, h3 :link, h3 :link,
-h2 :visited, h3 :visited, h3 :visited
-{ font:inherit; color:inherit; font-style:italic; }
-@media print {
-  :not([data-anolis-spec]) > [data-anolis-spec]::after {
-    content: "[" attr(data-anolis-spec) "]";
-    font-size: 0.6em;
-    vertical-align: super;
-    text-transform: uppercase;
-  }
-}
-xmp {
-  font-size: inherit;
-  font-variant: normal;
-  margin-left: 2em;
-  white-space: pre-wrap;
-}
-div.note > p:first-child::before,
-li.note > p:first-child::before { content: 'Note: ' }
-.note var { font-style: normal }
-li.note { display: block }
-.XXX > :last-child { margin-bottom: 0 }
-.XXX li {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-dd .XXX p { margin: 1em 0 }
-ol li { margin: 1em 0 }
-li li, li li > p { margin: 0 }
-li p + * > li:first-child { margin-top: -1em }
-li li > p + * > li:first-child { margin-top: 0 }
-table { margin: 1em 0 }
-.toc, .toc li { list-style-type: disc }
-.toc li li { list-style-type: circle }
-/* Overwrite the underline so it's orange instead of blue, thus looks less
- * silly */
-a code { text-decoration: underline }
-/* Comments stuff */
-.comments { display: none }
-.comments-wrapper {
-  font-size: small;
-  color: #333;
-}
-.comments-wrapper > button {
-  float: right;
-  margin-left: 0.3em;
-}
-.comments-expanded {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  width: 50%;
-  background: white;
-  border: 1px solid gray;
-  padding: 0.5em;
-  margin-top: 2em;
-}
-.comments-expanded :first-child { margin-top: 0 }
-.comments-expanded :last-child { margin-bottom: 0 }
-</style>
-<body class=draft>
-<div class=head id=head>
-<p><a href=https://www.w3.org/><img alt=W3C height=48 src=https://www.w3.org/Icons/w3c_home width=72></a></p>
-<h1>HTML Editing APIs</h1>
-<h2 class="no-num no-toc" id=work-in-progress-&mdash;-last-update-13-february-2014>Work in Progress &mdash; Last Update 13 February 2014</h2>
-<dl>
- <dt>Editor
- <dd>Aryeh Gregor &lt;<a href=mailto:ayg@aryeh.name>ayg@aryeh.name</a>&gt;
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Historic Editing APIs</title>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "unofficial"
+          ,   shortName:    "historic-editing-apis"
+          ,   editors:      [{ name: "Johannes Wilm",
+                               mailto: "johannes@fiduswriter.org",
+                               company: "Invited Expert"},
+                             { name: "Aryeh Gregor",
+                               mailto: "ayg@aryeh.name",
+                               note: "until <time>2014-02-13</time>"}]
+          ,   wg:           "HTML Working Group"
+          ,   wgURI:        "http://www.w3.org/html/wg/"
+          ,   wgPublicList: "public-html"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
+          ,   edDraftURI:   "http://w3c.github.io/editing-explainer/historic-editing-apis.html"
+        };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This document is a non-normative reference, which provides an overview of historic Rich Text Editing APIs on the web.
+      </p>
+    </section>
+    <section>
+<h2 id='introduction'>Introduction</h2>
 
- <dt>Latest version
- <dd><a href=https://dvcs.w3.org/hg/editing/raw-file/tip/editing.html>W3C Mercurial</a>
-
- <dt>Version history
- <dd><a href=https://dvcs.w3.org/hg/editing>W3C Mercurial</a>
- <dd><a href=https://github.com/ayg/editing>github mirror</a>
-
- <dt>Issue tracker
- <dd><a href="https://www.w3.org/Bugs/Public/buglist.cgi?component=HTML+Editing+APIs&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED">All open issues</a>
- <dd><a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=WebAppsWG&amp;component=HTML+Editing+APIs">File an issue</a>
-
- <dt>Mailing list
- <dd><a href="mailto:public-webapps@w3.org?cc=ayg@aryeh.name&amp;subject=%5Bediting%5D%20">public-webapps</a> (<a href=https://lists.w3.org/Archives/Public/public-webapps/>archive</a>;
- include "[editing]" in the subject)
-
- <dt>IRC chat
- <dd><a href=irc://irc.freenode.net/whatwg>#whatwg on freenode</a>
-</dl>
-</div>
-
-
-<h2 class=no-num id=status-of-this-document>Status of this Document</h2>
-
-<p>This document is a preliminary draft of a specification for HTML editing
-APIs, mainly defining <a href=#concept-selection title=concept-selection>selections</a>, <code><a href=#execcommand()>execCommand()</a></code> and related
-functionality.  It replaces a couple of old sections of the <a href=https://www.whatwg.org/html>HTML</a> specification, and the <a href=#concept-selection title=concept-selection>selection</a>
-part of the old DOM Range specification.  Issues that don't necessarily need
-discussion should preferably be <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=WebAppsWG&amp;component=HTML+Editing+APIs">filed
-in the issue tracker</a>.  Feedback that needs discussion should preferably be
-sent to <a href="mailto:public-webapps@w3.org?cc=ayg@aryeh.name&amp;subject=%5Bediting%5D%20">the
-public-webapps list</a>, with the string "[editing]" somewhere in the subject,
-CC'd to <a href=mailto:ayg@aryeh.name>ayg@aryeh.name</a> to make sure I see it.
-I will handle all feedback I'm aware of, either addressing it immediately or
-filing a bug if it needs longer-term consideration and is not already filed.
-
-<p>Copyright &copy; 2014 the Contributors to the HTML Editing APIs Specification,
-published by the <a href=https://www.w3.org/community/editing/>W3C Editing
-APIs Community Group</a> under the <a href=https://www.w3.org/community/about/agreements/cla/>W3C Community
-Contributor License Agreement (CLA)</a>. A human-readable <a href=https://www.w3.org/community/about/agreements/cla-deed/>summary</a> is
-available.
-
-<p>This specification, along with the accompanying JavaScript implementation
-and tests, may also be used under the terms of the <a href=https://creativecommons.org/publicdomain/zero/1.0/>CC0 1.0 Universal
-License</a>.  Thus anyone may reuse, modify, and redistribute them without
-restriction.
-
-<p>This specification was published by the <a href=https://www.w3.org/community/editing/>W3C Editing APIs Community Group</a>.
-It is not a W3C Standard nor is it on the W3C Standards Track. Please note that
-under the <a href=https://www.w3.org/community/about/agreements/cla/>W3C
-Community Contributor License Agreement (CLA)</a> there is a limited opt-out
-and other conditions apply. Learn more about <a href=https://www.w3.org/community/>W3C Community and Business Groups</a>.
-
-
-<h2 class=no-num id=table-of-contents>Table of contents</h2>
-
-<!--begin-toc-->
-<ol class=toc>
- <li><a class=no-num href=#status-of-this-document>Status of this Document</a></li>
- <li><a class=no-num href=#table-of-contents>Table of contents</a></li>
- <li><a href=#introduction>Introduction</a></li>
- <li><a href=#tests>Tests</a>
-  <ol>
-   <li><a href=#general-remarks>General remarks</a></li>
-   <li><a href=#development-tests>Command development tests</a></li>
-   <li><a href=#conformance-tests>Command conformance tests</a></ol></li>
- <li><a href=#issues>Issues</a></li>
- <li><a href=#selections>Selections</a></li>
- <li><a href=#commands>Commands</a>
-  <ol>
-   <li><a href=#properties-of-commands>Properties of commands</a></li>
-   <li><a href=#supported-commands>Supported commands</a></li>
-   <li><a href=#enabled-commands>Enabled commands</a></ol></li>
- <li><a href=#methods-to-query-and-execute-commands>Methods to query and execute commands</a></li>
- <li><a href=#common-definitions>Common definitions</a></li>
- <li><a href=#common-algorithms>Common algorithms</a>
-  <ol>
-   <li><a href=#assorted-common-algorithms>Assorted common algorithms</a></li>
-   <li><a href=#wrapping-a-list-of-nodes>Wrapping a list of nodes</a></li>
-   <li><a href=#allowed-children>Allowed children</a></ol></li>
- <li><a href=#inline-formatting-commands>Inline formatting commands</a>
-  <ol>
-   <li><a href=#inline-formatting-command-definitions>Inline formatting command definitions</a></li>
-   <li><a href=#assorted-inline-formatting-command-algorithms>Assorted inline formatting command algorithms</a></li>
-   <li><a href="#clearing-an-element's-value">Clearing an element's value</a></li>
-   <li><a href=#pushing-down-values>Pushing down values</a></li>
-   <li><a href=#forcing-the-value-of-a-node>Forcing the value of a node</a></li>
-   <li><a href="#setting-the-selection's-value">Setting the selection's value</a></li>
-   <li><a href=#the-backcolor-command>The <code title="">backColor</code> command</a></li>
-   <li><a href=#the-bold-command>The <code title="">bold</code> command</a></li>
-   <li><a href=#the-createlink-command>The <code title="">createLink</code> command</a></li>
-   <li><a href=#the-fontname-command>The <code title="">fontName</code> command</a></li>
-   <li><a href=#the-fontsize-command>The <code title="">fontSize</code> command</a></li>
-   <li><a href=#the-forecolor-command>The <code title="">foreColor</code> command</a></li>
-   <li><a href=#the-hilitecolor-command>The <code title="">hiliteColor</code> command</a></li>
-   <li><a href=#the-italic-command>The <code title="">italic</code> command</a></li>
-   <li><a href=#the-removeformat-command>The <code title="">removeFormat</code> command</a></li>
-   <li><a href=#the-strikethrough-command>The <code title="">strikethrough</code> command</a></li>
-   <li><a href=#the-subscript-command>The <code title="">subscript</code> command</a></li>
-   <li><a href=#the-superscript-command>The <code title="">superscript</code> command</a></li>
-   <li><a href=#the-underline-command>The <code title="">underline</code> command</a></li>
-   <li><a href=#the-unlink-command>The <code title="">unlink</code> command</a></ol></li>
- <li><a href=#block-formatting-commands>Block formatting commands</a>
-  <ol>
-   <li><a href=#block-formatting-command-definitions>Block formatting command definitions</a></li>
-   <li><a href=#assorted-block-formatting-command-algorithms>Assorted block formatting command algorithms</a></li>
-   <li><a href=#block-extending-a-range>Block-extending a range</a></li>
-   <li><a href=#recording-and-restoring-overrides>Recording and restoring overrides</a></li>
-   <li><a href=#deleting-the-selection>Deleting the selection</a></li>
-   <li><a href="#splitting-a-node-list's-parent">Splitting a node list's parent</a></li>
-   <li><a href=#canonical-space-sequences>Canonical space sequences</a></li>
-   <li><a href=#indenting-and-outdenting>Indenting and outdenting</a></li>
-   <li><a href=#toggling-lists>Toggling lists</a></li>
-   <li><a href=#justifying-the-selection>Justifying the selection</a></li>
-   <li><a href=#automatic-linking>Automatic linking</a></li>
-   <li><a href=#the-delete-command>The <code title="">delete</code> command</a></li>
-   <li><a href=#the-formatblock-command>The <code title="">formatBlock</code> command</a></li>
-   <li><a href=#the-forwarddelete-command>The <code title="">forwardDelete</code> command</a></li>
-   <li><a href=#the-indent-command>The <code title="">indent</code> command</a></li>
-   <li><a href=#the-inserthorizontalrule-command>The <code title="">insertHorizontalRule</code> command</a></li>
-   <li><a href=#the-inserthtml-command>The <code title="">insertHTML</code> command</a></li>
-   <li><a href=#the-insertimage-command>The <code title="">insertImage</code> command</a></li>
-   <li><a href=#the-insertlinebreak-command>The <code title="">insertLineBreak</code> command</a></li>
-   <li><a href=#the-insertorderedlist-command>The <code title="">insertOrderedList</code> command</a></li>
-   <li><a href=#the-insertparagraph-command>The <code title="">insertParagraph</code> command</a></li>
-   <li><a href=#the-inserttext-command>The <code title="">insertText</code> command</a></li>
-   <li><a href=#the-insertunorderedlist-command>The <code title="">insertUnorderedList</code> command</a></li>
-   <li><a href=#the-justifycenter-command>The <code title="">justifyCenter</code> command</a></li>
-   <li><a href=#the-justifyfull-command>The <code title="">justifyFull</code> command</a></li>
-   <li><a href=#the-justifyleft-command>The <code title="">justifyLeft</code> command</a></li>
-   <li><a href=#the-justifyright-command>The <code title="">justifyRight</code> command</a></li>
-   <li><a href=#the-outdent-command>The <code title="">outdent</code> command</a></ol></li>
- <li><a href=#miscellaneous-commands>Miscellaneous commands</a>
-  <ol>
-   <li><a href=#the-copy-command>The <code title="">copy</code> command</a></li>
-   <li><a href=#the-cut-command>The <code title="">cut</code> command</a></li>
-   <li><a href=#the-defaultparagraphseparator-command>The <code title="">defaultParagraphSeparator</code> command</a></li>
-   <li><a href=#the-paste-command>The <code title="">paste</code> command</a></li>
-   <li><a href=#the-redo-command>The <code title="">redo</code> command</a></li>
-   <li><a href=#the-selectall-command>The <code title="">selectAll</code> command</a></li>
-   <li><a href=#the-stylewithcss-command>The <code title="">styleWithCSS</code> command</a></li>
-   <li><a href=#the-undo-command>The <code title="">undo</code> command</a></li>
-   <li><a href=#the-usecss-command>The <code title="">useCSS</code> command</a></ol></li>
- <li><a href=#additional-requirements>Additional requirements</a></li>
- <li><a class=no-num href=#acknowledgements>Acknowledgements</a></ol>
-<!--end-toc-->
-
-<h2 id=introduction>Introduction</h2>
-
-<p class=comments>
-<a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=16206">Bug 16206</a>.
-
-<p>A piece of software that claims to implement this specification must follow
-every <dfn id=normative>normative</dfn> requirement in it.  Every requirement in this
-specification is <a href=#normative>normative</a> unless stated otherwise.
-
-<p class=comments>These are comments.  All comments other than this one are
-non-<a href=#normative>normative</a>.
-
-<p class=note>This is a note.  All notes other than this one are
-non-<a href=#normative>normative</a>.
-
-<p class=XXX>This is an open issue.  All issues other than this one are
-non-<a href=#normative>normative</a>.
-
-<p>The remainder of this section is not <a href=#normative>normative</a>, and nor is any
-preceding section.
-
-<p>This specification defines commands to edit HTML documents programmatically.
+<p>This reference lists commands to edit HTML documents programmatically as they
+  have existed in browsers historically.
 The APIs specified here were originally introduced in Microsoft's Internet
 Explorer, but have subsequently been copied by other browsers in a haphazard
 and imprecise fashion.  Although the behavior specified here does not exactly
@@ -254,7 +46,7 @@ If you have questions about why the specification says something, check the
 comments first.  They're sometimes longer than the specification text itself,
 and commonly record what the major browsers do and other essential information.
 
-<p>The principles I've used for writing this specification so far are:
+<p>The principles used for writing this reference list are:
 
 <ul>
   <li>If all browsers that implement a particular feature agree on some detail
@@ -311,9 +103,7 @@ and commonly record what the major browsers do and other essential information.
 </ul>
 
 
-<h2 id=tests>Tests</h2>
-
-<p><i title="">This section is not <a href=#normative>normative</a>.</i>
+<h2 id='tests'>Tests</h2>
 
 <h3 id=general-remarks>General remarks</h3>
 
@@ -10452,7 +10242,7 @@ defined in this specification if possible, and otherwise must be a
 <p>Thanks to:
 
 <ul>
-  <li>Google and Mozilla, for funding this work
+  <li>Google and Mozilla, for initially funding this work
   <li>Ian Hickson, for overseeing it initially
   <li>Ian Hickson and Ms2ger, for starting the selection work
   <li>Julie Parent, Ojan Vafai, Alex Russel, and Eric Seidel for their <a href=http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-December/024627.html>research</a>
