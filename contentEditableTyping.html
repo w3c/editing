@@ -50,36 +50,38 @@ var respecConfig = {
         <h2 id="terms">Terminology</h2>
 
         <dl>
-            <dt>
-                <dfn>CE Typing Container</dfn>
+            <dt><dfn>CE Typing Container</dfn></dt>
 
-                <dd>An element which has the contentEditable attribute set to
-                  `typing` which does not have it's css-display value set to `none` nor does it have any ancestors that do.</dd>
-            </dt>
+            <dd>An element which has the contentEditable attribute set to
+            `typing` which does not have it's css-display value set to `none`
+            nor does it have any ancestors that do.</dd>
 
-            <dt><dfn>CE False Element</dfn>
+            <dt><dfn>CE False Element</dfn></dt>
 
             <dd>Any element that has the contentEditable attribute set to
             `false`.</dd>
-          </dt>
 
-            <dt><dfn>CE Typing Node</dfn>
+            <dt><dfn>CE Typing Node</dfn></dt>
 
             <dd>
                 Any descendant text node element of a <a>CE Typing
                 Container</a> that does not have a ancestor element that is a
                 <a>CE False Element</a> that is closer to it than the closest
-                ancestor <a>CE Typing Container</a> nor does it have any ancestors that have their css-display value set to `none`.
-            </dd></dt>
-            <dt><dfn>Legal Caret Positions</dfn>
+                ancestor <a>CE Typing Container</a> nor does it have any
+                ancestors that have their css-display value set to `none`.
+            </dd>
+
+            <dt><dfn>Legal Caret Positions</dfn></dt>
 
             <dd>
                 All positions in which the caret can be placed programmtically.
-                The placement is restricted to before and after any character in any <a>CE Typing Node</a>.
-                If a <a>CE Typing Node</a> is an empty text node, only one position is legal inside of that
-                node and this position is calculated for all purposes as being both before the first character and after the last character in the <a>CE Typing Node</a>.
-            </dd></dt>
-
+                The placement is restricted to before and after any character
+                in any <a>CE Typing Node</a>. If a <a>CE Typing Node</a> is an
+                empty text node, only one position is legal inside of that node
+                and this position is calculated for all purposes as being both
+                before the first character and after the last character in the
+                <a>CE Typing Node</a>.
+            </dd>
         </dl>
     </section>
 
@@ -135,26 +137,34 @@ var respecConfig = {
             <h3>Caret modes</h3>
 
             <dl>
-                <dt>
-                    <dfn>inline</dfn>
-                    <dd>The caret is displayed as a line. The <a>Legal Caret Positions</dd> for the caret when it is in the inline-mode </dd>
-                </dt>
-                <dt>
-                    <dfn>overwrite</dfn>
-                    <dd>The caret is displayed as an overlay over the character that follows it within the <a>CE Typing Node</a>.
-                      If the caret is at the end of a <a>CE Typing Node</a>, so that no character within the same node follows it, it is displayed as a line, as if it were in inline-mode.</dd>
+                <dt><dfn>inline</dfn></dt>
+
+                <dd>
+                    The caret is displayed as a line. The <a>Legal Caret
+                    Positions</a>
+                </dd>
+
+                <dt>for the caret when it is in the inline-mode </dt>
+
+                <dt><dfn>overwrite</dfn></dt>
+
+                <dd>
+                    The caret is displayed as an overlay over the character
+                    that follows it within the <a>CE Typing Node</a>. If the
+                    caret is at the end of a <a>CE Typing Node</a>, so that no
+                    character within the same node follows it, it is displayed
+                    as a line, as if it were in inline-mode.
+                </dd>
             </dl>
 
             <p>The caret is initially of type `insert`, but can be modified to
             be of type `overtype`. The caret of type `insert` is displayed as a
-            line at the beginning of the text character node where it is placed.
-            The caret of type `overtype` overlays the text node character where
-            it is placed fully.</p>
+            line at the beginning of the text character node where it is
+            placed. The caret of type `overtype` overlays the text node
+            character where it is placed fully.</p>
 
-            <p class="issue">
-              We need a method to switch from one type of caret to the other
-            </p>
-
+            <p class="issue">We need a method to switch from one type of caret
+            to the other</p>
         </section>
 
         <section>
@@ -167,9 +177,10 @@ var respecConfig = {
         <section>
             <h3>Caret movement</h3>
 
-            <p>Any movement of the caret will have to end with the caret being placed in an already existing <a>CE Typing
-            Node</a>. No text nodes are created, changed or removed
-            automatically due to caret movement.</p>
+            <p>Any movement of the caret will have to end with the caret being
+            placed in an already existing <a>CE Typing Node</a>. No text nodes
+            are created, changed or removed automatically due to caret
+            movement.</p>
 
             <section>
                 <h3>Caret movement by mouse/finger clicks</h3>
@@ -240,41 +251,46 @@ var respecConfig = {
     <section>
         <h2>Text Node Editing</h2>
 
-        <p>When the user indicates that new content should be added to the <a>CE Typing Node</a>
-          in which the caret is currently place, no content is actually added,
-          but a `beforeInput` event is triggered with `inputType` set to `insertCharacter` or `overwriteCharacter`, depending on the current mode of the caret.</p>
+        <p>When the user indicates that new content should be added to the
+        <a>CE Typing Node</a> in which the caret is currently place, no content
+        is actually added, but a `beforeInput` event is triggered with
+        `inputType` set to `insertCharacter` or `overwriteCharacter`, depending
+        on the current mode of the caret.</p>
 
         <section>
             <h3>Adding characters by means of composition/IME</h3>
 
-            <p>If a caret is present, and composition of a character through IME is initiated,
-              composition visually is shown inline at the location of the caret.
-              The composition takes place within the Shadow DOM, using the <a>CE
-              Typing Node</a> as a shadow root, with no changes occuring at the DOM level.
-              When the composition of the character has finished, a beforeInput event is triggered
-              as if the character had been entered via the keyboard.</p>
-            <p>If the caret is in <a>overwrite</a>-mode at the time the character composition is
-              initiated, and the caret is not placed behind the last character within a
-              <a>CE Typing Node</a>, the character that follows the caret is hidden during composition.</p>
+            <p>If a caret is present, and composition of a character through
+            IME is initiated, composition visually is shown inline at the
+            location of the caret. The composition takes place within the
+            Shadow DOM, using the <a>CE Typing Node</a> as a shadow root, with
+            no changes occuring at the DOM level. When the composition of the
+            character has finished, a beforeInput event is triggered as if the
+            character had been entered via the keyboard.</p>
+
+            <p>If the caret is in <a>overwrite</a>-mode at the time the
+            character composition is initiated, and the caret is not placed
+            behind the last character within a <a>CE Typing Node</a>, the
+            character that follows the caret is hidden during composition.</p>
         </section>
 
         <section>
             <h2>Replacing text</h2>
 
-            <p>When the user indicates he wants to replace part of the contents of a
-              <a>CE Typing Node</a> by means of a browser-builtin spell cehcker or
-              alike, a `beforeInput` input with `inputType` set to `replaceText` is
-              triggered.</p>
+            <p>When the user indicates he wants to replace part of the contents
+            of a <a>CE Typing Node</a> by means of a browser-builtin spell
+            cehcker or alike, a `beforeInput` input with `inputType` set to
+            `replaceText` is triggered.</p>
         </section>
     </section>
 
     <section>
         <h3>Removal of content</h3>
 
-        <p>Content is not removed automatically through user input.
-        Instead, Del/Backspace key presses, etc. trigger user beforeInput events with `inputType` set to `deleteContent`.</p>
+        <p>Content is not removed automatically through user input. Instead,
+        Del/Backspace key presses, etc. trigger user beforeInput events with
+        `inputType` set to `deleteContent`.</p>
     </section>
-
 
     <section>
         <h2>Acknowledgements</h2>

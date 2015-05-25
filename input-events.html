@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+
 <html lang='en'>
-  <head>
+<head>
     <meta charset='utf-8'>
+
     <title>Input Events</title>
-    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script async="" class='remove' src=
+    '//www.w3.org/Tools/respec/respec-w3c-common'></script>
     <script class='remove'>
-      var respecConfig = {
+  var respecConfig = {
               specStatus:   "unofficial"
           ,   shortName:    "input-events"
           ,   editors:      [{ name: "Johannes Wilm",
@@ -23,59 +26,112 @@
           ,   edDraftURI:   "http://w3c.github.io/editing-explainer/input-events.html"
         };
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <section id='abstract'>
-      <p>
-       This specification defines events for text and related input and provides relavant contextual information for each event.
-       This specification builds on the Document Object Model Events Level 3.
-      </p>
+        <p>This specification defines events for text and related input and
+        provides relavant contextual information for each event. This
+        specification builds on the Document Object Model Events Level 3.</p>
     </section>
+
     <section id='sotd'>
-      <p>
-      </p>
+        <p></p>
     </section>
+
     <section>
-      <h2>Introduction</h2>
-      <p>
-        This document describes 2 events- Input (which already exists and is being extended) and beforeInput (which is newly defined here).
-        The goal of these events is to allow authors to understand and/or override default input behavior both before and after input occurs.
-      </p>
+        <h2>Introduction</h2>
+
+        <p>This document describes 2 events- Input (which already exists and is
+        being extended) and beforeInput (which is newly defined here). The goal
+        of these events is to allow authors to understand and/or override
+        default input behavior both before and after input occurs.</p>
     </section>
+
     <section>
-      <h2>Problem and Use Cases</h2>
-        The problems solved by and use cases for this document by this document are tracked in the <a href="http://w3c.github.io/editing-explainer/">Editing Explainer</a> document.
+        <h2>Problem and Use Cases</h2>The problems solved by and use cases for
+        this document by this document are tracked in the <a href=
+        "http://w3c.github.io/editing-explainer/">Editing Explainer</a>
+        document.
     </section>
+
     <section id="events-inputevents">
-			<h3>Input Event Types</h3>
-			<p>Input events are sent when before (beforeInputEvent) and after (inputEvent) a user attempts to input anything into the markup. This includes characters, deletions, and other related input.</p>
+        <h3>Input Event Types</h3>
 
-			<section id="interface-InputEvent">
-				<h4>Interface InputEvent</h4>
+        <p>Input events are sent when before (beforeInputEvent) and after
+        (inputEvent) a user attempts to input anything into the markup. This
+        includes characters, deletions, and other related input.</p>
 
-				<dl class="idl" title="[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
-					<dt>readonly attribute DOMString inputType</dt>
-					<dd>
-						<p><code>inputType</code> holds the type of input.
-							Allowed values include insertCharacter, overwriteCharacter, replaceText, insertNewline, formatContent, deleteContent, undo, redo, setInsertCaret, setOverwriteCaret. During initialization,
-                            The user agent is responsible for populating this field as follows:
-                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, and the caret is in insert-mode the inputType MUST be <b>insertCharacter</b>.
-                                <ol><li>Set the value of data to be the plain text string to be inserted.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
-                                </li></ol>
-                            </li><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, and the caret is in overwrite-mode, the inputType MUST be <b>overwriteCharacter</b>.
-                                <ol><li>Set the value of data to be the plain text string to be inserted.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
-                                </li></ol>
-                            </li><li>If the user is replacing plain text using a keyboard, IME, speech, or similar method, the inputType MUST be <b>replaceText</b>.
-                                <ol><li>Set the value of data to be the plain text string to be inserted.
-                                </li><li>Set the value of targetRange to a new range that covers the text that is to be replaced.
-                                </li></ol>
-                            </li><li>If the user is inserting a newline using a keyboard, IME, speech, or similar method, the inputType MUST be <b>insertNewline</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
-                                </li></ol>
-                            </li><!--li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention()
+        <section id="interface-InputEvent">
+            <h4>Interface InputEvent</h4>
+
+            <dl class="idl" title=
+            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
+            <dt>readonly attribute DOMString inputType</dt>
+
+                <dd>
+                    <p><code>inputType</code> holds the type of input. Allowed
+                    values include insertCharacter, overwriteCharacter,
+                    replaceText, insertNewline, formatContent, deleteContent,
+                    undo, redo, setInsertCaret, setOverwriteCaret. During
+                    initialization, The user agent is responsible for
+                    populating this field as follows:</p>
+
+                    <ol>
+                        <li>If the user is inserting plain text using a
+                        keyboard, IME, speech, or similar method, and the caret
+                        is in insert-mode the inputType MUST be
+                        <b>insertCharacter</b>.
+
+                            <ol>
+                                <li>Set the value of data to be the plain text
+                                string to be inserted.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user is inserting plain text using a
+                        keyboard, IME, speech, or similar method, and the caret
+                        is in overwrite-mode, the inputType MUST be
+                        <b>overwriteCharacter</b>.
+
+                            <ol>
+                                <li>Set the value of data to be the plain text
+                                string to be inserted.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user is replacing plain text using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>replaceText</b>.
+
+                            <ol>
+                                <li>Set the value of data to be the plain text
+                                string to be inserted.</li>
+
+                                <li>Set the value of targetRange to a new range
+                                that covers the text that is to be
+                                replaced.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user is inserting a newline using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>insertNewline</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+                        <!--li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention()
                             method [NEEDS A NEW NAME] with a formatting command, inputType MUST be <b>formatContent</b>
                                 <ol><li>If decalareIntention was called, let formatType be the value of commandId given in declareIntention.
                                 </li><li>Otherwise, let formatType be one of the following values (the value to use is unspecified and left up to the user agent): "bold", "italic", "underline", NEED MORE.
@@ -84,319 +140,560 @@
                                 </li><li>Set the value of data to be a string of the form formatType, followed by a colon, folowed by formatValue, for instance "bold:toggle".
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li--><li>If the user is deleting content using a keyboard, IME, speech, or similar method, the inputType MUST be <b>deleteContent</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
-                                </li></ol>
-                            </li><li>If the user is undo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>undo</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to NULL.
-                                </li></ol>
-                            </li><li>If the user is redo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>redo</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to NULL.
-                                </li></ol>
-                            </li><li>If the user indicates a switch to insert-mode for the caret using a keyboard, IME, speech, or similar method, the inputType MUST be <b>setInsertCaret</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to NULL.
-                                </li></ol>
-                            </li><li>If the user indicates a switch to overwrite-mode for the caret using a keyboard, IME, speech, or similar method, the inputType MUST be <b>setOverwriteCaret</b>
-                                <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to NULL.
-                                </li></ol>
-                            </li></ol>
-							</p>
+                            </li-->
 
-						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this attribute
-							MUST be <code>""</code> (the empty string).
-							</p>
-					</dd>
-                    <dt>readonly attribute DOMString data</dt>
-					<dd>
-						<p>If the inputType is additive (replaceText, for instance), <code>data</code> holds the value that would be inserted.
-							The value depends on the inputType, such as plain text for replaceText. It is described in the default behavior section.
-							</p>
+                        <li>If the user is deleting content using a keyboard,
+                        IME, speech, or similar method, the inputType MUST be
+                        <b>deleteContent</b>
 
-						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this attribute
-							MUST be <code>""</code> NULL.
-							</p>
-					</dd>
-					<dt>readonly attribute boolean isComposing</dt>
-					<dd>
-						<p><code>true</code> if the input event occurs as part of a composition session, i.e., after a
-							<a class="eventtype" href="#event-type-compositionstart"><code>compositionstart</code></a>
-							event and before the corresponding
-							<a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a>
-							event.
-							</p>
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
-						<p>The <a class="def" href="http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">un-initialized value</a> of this
-							attribute MUST be <code>false</code>.
-							</p>
-					</dd>
-                    <dt>readonly attribute Range targetRange</dt>
-					<dd>
-						<p>the Range in the document that is affected by this event. Typically the primary Range on the document's Selection.
-							</p>
-					</dd>
-				</dl>
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
 
-				<dl class="idl" title="dictionary InputEventInit : UIEventInit">
-					<dt>DOMString data = ""</dt>
-					<dd>
-						<p>Initializes the <code>data</code> attribute of the InputEvent object.
-							</p>
-					</dd>
+                        <li>If the user is undo using a keyboard, IME, speech,
+                        or similar method, the inputType MUST be <b>undo</b>
 
-					<dt>boolean isComposing = false</dt>
-					<dd>
-						<p>Initializes the <code>isComposing</code> attribute of the InputEvent object.
-							</p>
-					</dd>
-				</dl>
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
-			</section>  <!-- interface-InputEvent -->
+                                <li>Set the value of targetRange to NULL.</li>
+                            </ol>
+                        </li>
 
-			<section id="events-inputevent-event-order">
-				<h4>Input Event Order</h4>
+                        <li>If the user is redo using a keyboard, IME, speech,
+                        or similar method, the inputType MUST be <b>redo</b>
 
-				<p>The input events defined in this specification MUST occur in a set order relative to one another.
-					</p>
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
-				<table class="event-sequence-table">
-					<tr>
-						<td class="cell-number">1.</td>
-						<td><a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="cell-number"></td>
-						<td colspan="2"><em>DOM element is updated</em></td>
-					</tr>
-					<tr>
-						<td class="cell-number">2.</td>
-						<td><a class="eventtype" href="#event-type-input"><code>input</code></a></td>
-						<td></td>
-					</tr>
-				</table>
+                                <li>Set the value of targetRange to NULL.</li>
+                            </ol>
+                        </li>
 
-			</section>  <!-- events-inputevent-event-order -->
+                        <li>If the user indicates a switch to insert-mode for
+                        the caret using a keyboard, IME, speech, or similar
+                        method, the inputType MUST be <b>setInsertCaret</b>
 
-			<p>The Input event types are listed below.</p>
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
-			<!-- beforeinput -->
-			<div class="event-definition">
-				<dl>
-					<dt id="event-type-beforeinput"><dfn><a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a></dfn></dt>
-					<dd>
-						<table border="0" summary="This table contains information about the semantics of the given event type" cellpadding="2" cellspacing="0">
-							<tr>
-								<th>Type</th>
-								<td><strong><code>beforeinput</code></strong></td>
-							</tr>
-							<tr>
-								<th>Interface</th>
-								<td><a href="#interface-InputEvent"><code>InputEvent</code></a></td>
-							</tr>
-							<tr>
-								<th>Sync / Async</th>
-								<td>Sync</td>
-							</tr>
-							<tr>
-								<th>Bubbles</th>
-								<td>Yes</td>
-							</tr>
-							<tr>
-								<th>Trusted Targets</th>
-								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with
-									<code>contenteditable</code> attribute enabled.</td>
-							</tr>
-							<tr>
-								<th>Cancelable</th>
-								<td>Yes</td>
-							</tr>
-							<tr>
-								<th>Default action</th>
-								<td>None</td>
-							</tr>
-							<tr>
-								<th>Context<br/>(trusted events)</th>
-								<td>
-									<ul>
-										<li><a href="#widl-Event-target"><code class="attribute-name">Event.target</code></a>:
-											<a class="def" href="#glossary-event-target">event target</a> that is about to be updated</li>
-										<li><a href="#widl-UIEvent-view"><code class="attribute-name">UIEvent.view</code></a>:
-											<a class="def" href="#glossary-window"><code>Window</code></a></li>
-										<li><a href="#widl-UIEvent-detail"><code class="attribute-name">UIEvent.detail</code></a>:
-											<code>0</code></li>
-										<li><a href="#widl-InputEvent-data"><code class="attribute-name">InputEvent.data</code></a>:
-											the string containing the data that will be added to the element,
-											which MAY be the <a class="def" href="#glossary-empty-string">empty string</a> if the content has been deleted,
-                                            or NULL if it doesn't apply.</li>
-										<li><a href="#widl-InputEvent-isComposing"><code class="attribute-name">InputEvent.isComposing</code></a>:
-											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an
-											<a href="#glossary-ime">input method editor</a> is active (such that
-											<a href="#events-compositionevents">composition events</a> are being dispatched); <code>false</code> otherwise.</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
+                                <li>Set the value of targetRange to NULL.</li>
+                            </ol>
+                        </li>
 
-						<p>A <a class="def" href="#glossary-user-agent">user agent</a> MUST dispatch this event when the user has attempted input in an element that accepts input. It does not necessarily mean the user agent will then update the DOM.</p>
-            <p>A <a class="def" href="#glossary-user-agent">user agent</a> MUST NOT dispatch this event due to events that are not caused by attempted user input, such as system events.</p>
-					</dd>
-				</dl>
-			</div><!-- beforeinput -->
+                        <li>If the user indicates a switch to overwrite-mode
+                        for the caret using a keyboard, IME, speech, or similar
+                        method, the inputType MUST be <b>setOverwriteCaret</b>
 
-			<!-- input -->
-			<div class="event-definition">
-				<dl>
-					<dt id="event-type-input"><dfn><a class="eventtype" href="#event-type-input"><code>input</code></a></dfn></dt>
-					<dd>
-						<table border="0" summary="This table contains information about the semantics of the given event type" cellpadding="2" cellspacing="0">
-							<tr>
-								<th>Type</th>
-								<td><strong><code>input</code></strong></td>
-							</tr>
-							<tr>
-								<th>Interface</th>
-								<td><a href="#interface-InputEvent"><code>InputEvent</code></a></td>
-							</tr>
-							<tr>
-								<th>Sync / Async</th>
-								<td>Sync</td>
-							</tr>
-							<tr>
-								<th>Bubbles</th>
-								<td>Yes</td>
-							</tr>
-							<tr>
-								<th>Trusted Targets</th>
-								<td><code>Element</code> (specifically: control types such as <code>HTMLInputElement</code>, etc.) or any <code>Element</code> with
-									<code>contenteditable</code> attribute enabled.</td>
-							</tr>
-							<tr>
-								<th>Cancelable</th>
-								<td>No</td>
-							</tr>
-							<tr>
-								<th>Default action</th>
-								<td>None</td>
-							</tr>
-							<tr>
-								<th>Context<br/>(trusted events)</th>
-								<td>
-									<ul>
-										<li><a href="#widl-Event-target"><code class="attribute-name">Event.target</code></a>:
-											<a class="def" href="#glossary-event-target">event target</a> that was just updated</li>
-										<li><a href="#widl-UIEvent-view"><code class="attribute-name">UIEvent.view</code></a>:
-											<a class="def" href="#glossary-window"><code>Window</code></a></li>
-										<li><a href="#widl-UIEvent-detail"><code class="attribute-name">UIEvent.detail</code></a>:
-											<code>0</code></li>
-										<li><a href="#widl-InputEvent-data"><code class="attribute-name">InputEvent.data</code></a>:
-											the string containing the data that was added to the element,
-											which MAY be the <a class="def" href="#glossary-empty-string">empty string</a> if the content has been deleted,
-                                            or NULL if it doesn't apply.</li>
-										<li><a href="#widl-InputEvent-isComposing"><code class="attribute-name">InputEvent.isComposing</code></a>:
-											<code>true</code> if this event is dispatched during a <a href="#keys-dead">dead key</a> sequence or while an
-											<a href="#glossary-ime">input method editor</a> is active (such that
-											<a href="#events-compositionevents">composition events</a> are being dispatched); <code>false</code> otherwise.</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
-						<p>A <a class="def" href="#glossary-user-agent">user agent</a> MUST dispatch this event immediately after the DOM has been updated.</p>
-					</dd>
-				</dl>
-			</div><!-- input -->
+                                <li>Set the value of targetRange to NULL.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                    <p>
 
-		</section>  <!-- events-inputevents -->
+                    <p>The <a class="def" href=
+                    "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
+                    un-initialized value</a> of this attribute MUST be
+                    <code>""</code> (the empty string).</p>
+                </dd>
 
-        <section id="events-composition-event-input-events">
-				<h4>Input Events During Composition</h4>
+                <dt>readonly attribute DOMString data</dt>
 
-				<p>During the composition session, the
-					<a class="eventtype" href="#event-type-compositionupdate"><code>compositionupdate</code></a> MUST be dispatched
-					before the <a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a> and <code>input</code> events are sent.
-					</p>
+                <dd>
+                    <p>If the inputType is additive (replaceText, for
+                    instance), <code>data</code> holds the value that would be
+                    inserted. The value depends on the inputType, such as plain
+                    text for replaceText. It is described in the default
+                    behavior section.</p>
 
-				<table class="event-sequence-table">
-					<tr>
-						<td class="cell-number"></td>
-						<th>Event Name</th>
-						<th>Notes</th>
-					</tr>
-					<tr>
-						<td class="cell-number">1.</td>
-						<td><a class="eventtype" href="#event-type-compositionupdate"><code>compositionupdate</code></a></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="cell-number">2.</td>
-						<td><a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="cell-number"></td>
-						<td></td>
-						<td><em>Any DOM updates occur at this point.</em></td>
-					</tr>
-					<tr>
-						<td class="cell-number">3.</td>
-						<td><a class="eventtype" href="#event-type-input"><code>input</code></a></td>
-						<td></td>
-					</tr>
-				</table>
+                    <p>The <a class="def" href=
+                    "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
+                    un-initialized value</a> of this attribute MUST be
+                    <code>""</code> NULL.</p>
+                </dd>
 
-				<p class="note"><strong>Note:</strong> Most IMEs do not support canceling updates
-					during a composition session.
-					</p>
+                <dt>readonly attribute boolean isComposing</dt>
 
-				<p>When a composition session is finished, any
-					<a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a> and
-					<a class="eventtype" href="#event-type-input"><code>input</code></a> events MUST be dispatched after the
-					<a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a> event.
-					</p>
+                <dd>
+                    <p><code>true</code> if the input event occurs as part of a
+                    composition session, i.e., after a <a class="eventtype"
+                    href=
+                    "#event-type-compositionstart"><code>compositionstart</code></a>
+                    event and before the corresponding <a class="eventtype"
+                    href=
+                    "#event-type-compositionend"><code>compositionend</code></a>
+                    event.</p>
 
-				<table class="event-sequence-table">
-					<tr>
-						<td class="cell-number"></td>
-						<th>Event Name</th>
-						<th>Notes</th>
-					</tr>
-					<tr>
-						<td class="cell-number">1.</td>
-						<td><a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="cell-number">2.</td>
-						<td><a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a></td>
-						<td><em>Canceling this will prevent any DOM update and therefore the
-							<a class="eventtype" href="#event-type-input"><code>input</code></a> event.</em></td>
-					</tr>
-					<tr>
-						<td class="cell-number"></td>
-						<td></td>
-						<td><em>Any DOM updates occur at this point.</em></td>
-					</tr>
-					<tr>
-						<td class="cell-number">3.</td>
-						<td><a class="eventtype" href="#event-type-input"><code>input</code></a></td>
-						<td></td>
-					</tr>
-				</table>
+                    <p>The <a class="def" href=
+                    "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
+                    un-initialized value</a> of this attribute MUST be
+                    <code>false</code>.</p>
+                </dd>
 
-				<p class="note"><strong>Note:</strong> Some IMEs update the DOM before the
-					<a class="eventtype" href="#event-type-compositionend"><code>compositionend</code></a> event is dispatched.
-					In this case, canceling the <a class="eventtype" href="#event-type-beforeinput"><code>beforeinput</code></a>
-					event will have no effect (i.e., the <a class="eventtype" href="#event-type-input"><code>input</code></a>
-					event will still fire).</p>
+                <dt>readonly attribute Range targetRange</dt>
 
-			</section>  <!-- events-composition-event-input-events -->
+                <dd>
+                    <p>the Range in the document that is affected by this
+                    event. Typically the primary Range on the document's
+                    Selection.</p>
+                </dd>
+            </dl>
+
+            <dl class="idl" title="dictionary InputEventInit : UIEventInit">
+                <dt>DOMString data = ""</dt>
+
+                <dd>
+                    <p>Initializes the <code>data</code> attribute of the
+                    InputEvent object.</p>
+                </dd>
+
+                <dt>boolean isComposing = false</dt>
+
+                <dd>
+                    <p>Initializes the <code>isComposing</code> attribute of
+                    the InputEvent object.</p>
+                </dd>
+            </dl>
+        </section><!-- interface-InputEvent -->
+
+        <section id="events-inputevent-event-order">
+            <h4>Input Event Order</h4>
+
+            <p>The input events defined in this specification MUST occur in a
+            set order relative to one another.</p>
+
+            <table class="event-sequence-table">
+                <tr>
+                    <td class="cell-number">1.</td>
+
+                    <td>
+                        <a class="eventtype" href=
+                        "#event-type-beforeinput"><code>beforeinput</code></a>
+                    </td>
+
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="cell-number"></td>
+
+                    <td colspan="2"><em>DOM element is updated</em></td>
+                </tr>
+
+                <tr>
+                    <td class="cell-number">2.</td>
+
+                    <td>
+                        <a class="eventtype" href=
+                        "#event-type-input"><code>input</code></a>
+                    </td>
+
+                    <td></td>
+                </tr>
+            </table>
+        </section><!-- events-inputevent-event-order -->
+
+        <p>The Input event types are listed below.</p><!-- beforeinput -->
+
+        <div class="event-definition">
+            <dl>
+                <dt id="event-type-beforeinput"><dfn><a class="eventtype" href=
+                "#event-type-beforeinput"><code>beforeinput</code></a></dfn></dt>
+
+                <dd>
+                    <table border="0" cellpadding="2" cellspacing="0" summary=
+                    "This table contains information about the semantics of the given event type">
+                    <tr>
+                            <th>Type</th>
+
+                            <td><strong><code>beforeinput</code></strong></td>
+                        </tr>
+
+                        <tr>
+                            <th>Interface</th>
+
+                            <td>
+                                <a href=
+                                "#interface-InputEvent"><code>InputEvent</code></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Sync / Async</th>
+
+                            <td>Sync</td>
+                        </tr>
+
+                        <tr>
+                            <th>Bubbles</th>
+
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr>
+                            <th>Trusted Targets</th>
+
+                            <td><code>Element</code> (specifically: control
+                            types such as <code>HTMLInputElement</code>, etc.)
+                            or any <code>Element</code> with
+                            <code>contenteditable</code> attribute
+                            enabled.</td>
+                        </tr>
+
+                        <tr>
+                            <th>Cancelable</th>
+
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr>
+                            <th>Default action</th>
+
+                            <td>None</td>
+                        </tr>
+
+                        <tr>
+                            <th>Context<br>
+                            (trusted events)</th>
+
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href=
+                                        "#widl-Event-target"><code class=
+                                        "attribute-name">Event.target</code></a>:
+                                        <a class="def" href=
+                                        "#glossary-event-target">event
+                                        target</a> that is about to be updated
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-UIEvent-view"><code class=
+                                        "attribute-name">UIEvent.view</code></a>:
+                                        <a class="def" href=
+                                        "#glossary-window"><code>Window</code></a>
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-UIEvent-detail"><code class=
+                                        "attribute-name">UIEvent.detail</code></a>:
+                                        <code>0</code>
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-InputEvent-data"><code class=
+                                        "attribute-name">InputEvent.data</code></a>:
+                                        the string containing the data that
+                                        will be added to the element, which MAY
+                                        be the <a class="def" href=
+                                        "#glossary-empty-string">empty
+                                        string</a> if the content has been
+                                        deleted, or NULL if it doesn't apply.
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
+                                        InputEvent.isComposing</code></a>:
+                                        <code>true</code> if this event is
+                                        dispatched during a <a href=
+                                        "#keys-dead">dead key</a> sequence or
+                                        while an <a href="#glossary-ime">input
+                                        method editor</a> is active (such that
+                                        <a href=
+                                        "#events-compositionevents">composition
+                                        events</a> are being dispatched);
+                                        <code>false</code> otherwise.
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p>A <a class="def" href="#glossary-user-agent">user
+                    agent</a> MUST dispatch this event when the user has
+                    attempted input in an element that accepts input. It does
+                    not necessarily mean the user agent will then update the
+                    DOM.</p>
+
+                    <p>A <a class="def" href="#glossary-user-agent">user
+                    agent</a> MUST NOT dispatch this event due to events that
+                    are not caused by attempted user input, such as system
+                    events.</p>
+                </dd>
+            </dl>
+        </div><!-- beforeinput -->
+        <!-- input -->
+
+        <div class="event-definition">
+            <dl>
+                <dt id="event-type-input"><dfn><a class="eventtype" href=
+                "#event-type-input"><code>input</code></a></dfn></dt>
+
+                <dd>
+                    <table border="0" cellpadding="2" cellspacing="0" summary=
+                    "This table contains information about the semantics of the given event type">
+                    <tr>
+                            <th>Type</th>
+
+                            <td><strong><code>input</code></strong></td>
+                        </tr>
+
+                        <tr>
+                            <th>Interface</th>
+
+                            <td>
+                                <a href=
+                                "#interface-InputEvent"><code>InputEvent</code></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Sync / Async</th>
+
+                            <td>Sync</td>
+                        </tr>
+
+                        <tr>
+                            <th>Bubbles</th>
+
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr>
+                            <th>Trusted Targets</th>
+
+                            <td><code>Element</code> (specifically: control
+                            types such as <code>HTMLInputElement</code>, etc.)
+                            or any <code>Element</code> with
+                            <code>contenteditable</code> attribute
+                            enabled.</td>
+                        </tr>
+
+                        <tr>
+                            <th>Cancelable</th>
+
+                            <td>No</td>
+                        </tr>
+
+                        <tr>
+                            <th>Default action</th>
+
+                            <td>None</td>
+                        </tr>
+
+                        <tr>
+                            <th>Context<br>
+                            (trusted events)</th>
+
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href=
+                                        "#widl-Event-target"><code class=
+                                        "attribute-name">Event.target</code></a>:
+                                        <a class="def" href=
+                                        "#glossary-event-target">event
+                                        target</a> that was just updated
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-UIEvent-view"><code class=
+                                        "attribute-name">UIEvent.view</code></a>:
+                                        <a class="def" href=
+                                        "#glossary-window"><code>Window</code></a>
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-UIEvent-detail"><code class=
+                                        "attribute-name">UIEvent.detail</code></a>:
+                                        <code>0</code>
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-InputEvent-data"><code class=
+                                        "attribute-name">InputEvent.data</code></a>:
+                                        the string containing the data that was
+                                        added to the element, which MAY be the
+                                        <a class="def" href=
+                                        "#glossary-empty-string">empty
+                                        string</a> if the content has been
+                                        deleted, or NULL if it doesn't apply.
+                                    </li>
+
+                                    <li>
+                                        <a href=
+                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
+                                        InputEvent.isComposing</code></a>:
+                                        <code>true</code> if this event is
+                                        dispatched during a <a href=
+                                        "#keys-dead">dead key</a> sequence or
+                                        while an <a href="#glossary-ime">input
+                                        method editor</a> is active (such that
+                                        <a href=
+                                        "#events-compositionevents">composition
+                                        events</a> are being dispatched);
+                                        <code>false</code> otherwise.
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p>A <a class="def" href="#glossary-user-agent">user
+                    agent</a> MUST dispatch this event immediately after the
+                    DOM has been updated.</p>
+                </dd>
+            </dl>
+        </div><!-- input -->
+    </section><!-- events-inputevents -->
+
+    <section id="events-composition-event-input-events">
+        <h4>Input Events During Composition</h4>
+
+        <p>During the composition session, the <a class="eventtype" href=
+        "#event-type-compositionupdate"><code>compositionupdate</code></a> MUST
+        be dispatched before the <a class="eventtype" href=
+        "#event-type-beforeinput"><code>beforeinput</code></a> and
+        <code>input</code> events are sent.</p>
+
+        <table class="event-sequence-table">
+            <tr>
+                <td class="cell-number"></td>
+
+                <th>Event Name</th>
+
+                <th>Notes</th>
+            </tr>
+
+            <tr>
+                <td class="cell-number">1.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-compositionupdate"><code>compositionupdate</code></a>
+                </td>
+
+                <td></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number">2.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-beforeinput"><code>beforeinput</code></a>
+                </td>
+
+                <td></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number"></td>
+
+                <td></td>
+
+                <td><em>Any DOM updates occur at this point.</em></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number">3.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-input"><code>input</code></a>
+                </td>
+
+                <td></td>
+            </tr>
+        </table>
+
+        <p class="note"><strong>Note:</strong> Most IMEs do not support
+        canceling updates during a composition session.</p>
+
+        <p>When a composition session is finished, any <a class="eventtype"
+        href="#event-type-beforeinput"><code>beforeinput</code></a> and
+        <a class="eventtype" href="#event-type-input"><code>input</code></a>
+        events MUST be dispatched after the <a class="eventtype" href=
+        "#event-type-compositionend"><code>compositionend</code></a> event.</p>
+
+        <table class="event-sequence-table">
+            <tr>
+                <td class="cell-number"></td>
+
+                <th>Event Name</th>
+
+                <th>Notes</th>
+            </tr>
+
+            <tr>
+                <td class="cell-number">1.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-compositionend"><code>compositionend</code></a>
+                </td>
+
+                <td></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number">2.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-beforeinput"><code>beforeinput</code></a>
+                </td>
+
+                <td><em>Canceling this will prevent any DOM update and
+                therefore the <a class="eventtype" href=
+                "#event-type-input"><code>input</code></a> event.</em></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number"></td>
+
+                <td></td>
+
+                <td><em>Any DOM updates occur at this point.</em></td>
+            </tr>
+
+            <tr>
+                <td class="cell-number">3.</td>
+
+                <td>
+                    <a class="eventtype" href=
+                    "#event-type-input"><code>input</code></a>
+                </td>
+
+                <td></td>
+            </tr>
+        </table>
+
+        <p class="note"><strong>Note:</strong> Some IMEs update the DOM before
+        the <a class="eventtype" href=
+        "#event-type-compositionend"><code>compositionend</code></a> event is
+        dispatched. In this case, canceling the <a class="eventtype" href=
+        "#event-type-beforeinput"><code>beforeinput</code></a> event will have
+        no effect (i.e., the <a class="eventtype" href=
+        "#event-type-input"><code>input</code></a> event will still fire).</p>
+    </section><!-- events-composition-event-input-events -->
+
     <section>
-      <h2>Acknowledgements</h2>
+        <h2>Acknowledgements</h2>
     </section>
-  </body>
+</body>
 </html>
