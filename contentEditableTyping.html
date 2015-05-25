@@ -265,13 +265,18 @@ var respecConfig = {
             location of the caret. The composition takes place within the
             Shadow DOM, using the <a>CE Typing Node</a> as a shadow root, with
             no changes occuring at the DOM level. When the composition of the
-            character has finished, a beforeInput event is triggered as if the
-            character had been entered via the keyboard.</p>
+            character(s) has finished, a beforeInput event is triggered for each
+            generated character in the order they are to be added as if the
+            character(s) had been entered via the keyboard.</p>
 
             <p>If the caret is in <a>overwrite</a>-mode at the time the
             character composition is initiated, and the caret is not placed
             behind the last character within a <a>CE Typing Node</a>, the
             character that follows the caret is hidden during composition.</p>
+
+            <p>If the user cancels character composition before it has finished,
+            the inline composition is cleared and the caret is returned to the
+            state it had before composition was initiated.</p>
         </section>
 
         <section>
