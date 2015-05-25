@@ -57,11 +57,19 @@
 					<dt>readonly attribute DOMString inputType</dt>
 					<dd>
 						<p><code>inputType</code> holds the type of input.
-							Allowed values include replaceText, insertNewline, formatContent, deleteContent, undo, redo. During initialization,
+							Allowed values include insertCharacter, overwriteCharacter, replaceText, insertNewline, formatContent, deleteContent, undo, redo. During initialization,
                             The user agent is responsible for populating this field as follows:
-                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, the inputType MUST be <b>replaceText</b>.
+                            <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, and the caret is in insert-mode the inputType MUST be <b>insertCharacter</b>.
                                 <ol><li>Set the value of data to be the plain text string to be inserted.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
+                                </li></ol>
+                            </li><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, and the caret is in overwrite-mode, the inputType MUST be <b>overwriteCharacter</b>.
+                                <ol><li>Set the value of data to be the plain text string to be inserted.
+                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
+                                </li></ol>
+                            </li><li>If the user is replacing plain text using a keyboard, IME, speech, or similar method, the inputType MUST be <b>replaceText</b>.
+                                <ol><li>Set the value of data to be the plain text string to be inserted.
+                                </li><li>Set the value of targetRange to a new range that covers the text that is to be replaced.
                                 </li></ol>
                             </li><li>If the user is inserting a newline using a keyboard, IME, speech, or similar method, the inputType MUST be <b>insertNewline</b>
                                 <ol><li>Set the value of data to be NULL.

@@ -150,6 +150,11 @@ var respecConfig = {
             line at the beginning of the text character node where it is placed.
             The caret of type `overtype` overlays the text node character where
             it is placed fully.</p>
+
+            <p class="issue">
+              We need a method to switch from one type of caret to the other
+            </p>
+
         </section>
 
         <section>
@@ -237,7 +242,7 @@ var respecConfig = {
 
         <p>When the user indicates that new content should be added to the <a>CE Typing Node</a>
           in which the caret is currently place, no content is actually added,
-          but a corresponding `beforeInput` event is triggered.</p>
+          but a `beforeInput` event is triggered with `inputType` set to `insertCharacter` or `overwriteCharacter`, depending on the current mode of the caret.</p>
 
         <section>
             <h3>Adding characters by means of composition/IME</h3>
@@ -254,13 +259,22 @@ var respecConfig = {
         </section>
 
         <section>
-            <h3>Removal of content</h3>
+            <h2>Replacing text</h2>
 
-            <p>Content is not removed automatically through user input.
-            Instead, Del/Backspace key presses, etc. trigger user intention
-            events.</p>
+            <p>When the user indicates he wants to replace part of the contents of a
+              <a>CE Typing Node</a> by means of a browser-builtin spell cehcker or
+              alike, a `beforeInput` input with `inputType` set to `replaceText` is
+              triggered.</p>
         </section>
     </section>
+
+    <section>
+        <h3>Removal of content</h3>
+
+        <p>Content is not removed automatically through user input.
+        Instead, Del/Backspace key presses, etc. trigger user beforeInput events with `inputType` set to `deleteContent`.</p>
+    </section>
+
 
     <section>
         <h2>Acknowledgements</h2>
