@@ -57,7 +57,7 @@
 					<dt>readonly attribute DOMString inputType</dt>
 					<dd>
 						<p><code>inputType</code> holds the type of input.
-							Allowed values include insertCharacter, overwriteCharacter, replaceText, insertNewline, formatContent, deleteContent, undo, redo. During initialization,
+							Allowed values include insertCharacter, overwriteCharacter, replaceText, insertNewline, formatContent, deleteContent, undo, redo, setInsertCaret, setOverwriteCaret. During initialization,
                             The user agent is responsible for populating this field as follows:
                             <ol><li>If the user is inserting plain text using a keyboard, IME, speech, or similar method, and the caret is in insert-mode the inputType MUST be <b>insertCharacter</b>.
                                 <ol><li>Set the value of data to be the plain text string to be inserted.
@@ -75,7 +75,7 @@
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention()
+                            </li><!--li>If the user is formatting content using a keyboard, IME, speech, or similar method, or the evt.declareIntention()
                             method [NEEDS A NEW NAME] with a formatting command, inputType MUST be <b>formatContent</b>
                                 <ol><li>If decalareIntention was called, let formatType be the value of commandId given in declareIntention.
                                 </li><li>Otherwise, let formatType be one of the following values (the value to use is unspecified and left up to the user agent): "bold", "italic", "underline", NEED MORE.
@@ -84,17 +84,25 @@
                                 </li><li>Set the value of data to be a string of the form formatType, followed by a colon, folowed by formatValue, for instance "bold:toggle".
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
-                            </li><li>If the user is deleting content using a keyboard, IME, speech, or similar method, the inputType MUST be <b>deleteContent</b>
+                            </li--><li>If the user is deleting content using a keyboard, IME, speech, or similar method, the inputType MUST be <b>deleteContent</b>
                                 <ol><li>Set the value of data to be NULL.
                                 </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0);
                                 </li></ol>
                             </li><li>If the user is undo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>undo</b>
                                 <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0); MAYBE THIS SHOULD BE NULL?
+                                </li><li>Set the value of targetRange to NULL.
                                 </li></ol>
                             </li><li>If the user is redo using a keyboard, IME, speech, or similar method, the inputType MUST be <b>redo</b>
                                 <ol><li>Set the value of data to be NULL.
-                                </li><li>Set the value of targetRange to the active document.getSelection().getRangeAt(0); MAYBE THIS SHOULD BE NULL?
+                                </li><li>Set the value of targetRange to NULL.
+                                </li></ol>
+                            </li><li>If the user indicates a switch to insert-mode for the caret using a keyboard, IME, speech, or similar method, the inputType MUST be <b>setInsertCaret</b>
+                                <ol><li>Set the value of data to be NULL.
+                                </li><li>Set the value of targetRange to NULL.
+                                </li></ol>
+                            </li><li>If the user indicates a switch to overwrite-mode for the caret using a keyboard, IME, speech, or similar method, the inputType MUST be <b>setOverwriteCaret</b>
+                                <ol><li>Set the value of data to be NULL.
+                                </li><li>Set the value of targetRange to NULL.
                                 </li></ol>
                             </li></ol>
 							</p>
