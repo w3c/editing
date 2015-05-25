@@ -201,7 +201,7 @@
 							</tr>
 							<tr>
 								<th>Default action</th>
-								<td>Update the DOM according to the <a href="#default-action-for-beforeinput">algorithms below</a>.</td>
+								<td>None</td>
 							</tr>
 							<tr>
 								<th>Context<br/>(trusted events)</th>
@@ -378,28 +378,6 @@
 					event will still fire).</p>
 
 			</section>  <!-- events-composition-event-input-events -->
-
-    <section>
-    <h2>Default action for beforeInput</h2>
-    <p>The default action of a given beforeinput event in an element with a given value of contentEditable is given below. Note that if the value of contentEditable is false,
-    there should be no beforeInput event at all, so there this algorithm does not need to include that possibility.
-    </p>
-    <p>
-    <ol><li>If the value of contentEditable is "true" or "plaintext-only", the behavior is undefined. Abort these steps.
-    </li><li>If the value of cotentEditable is "typing", the default behavior shall be as follows:
-    <ol><li>If the inputType="replaceText", perform the following steps:
-    <ol><li>Let targetStartContainer be targetRange.startContainer
-    </li><li>If targetStartContainer is not a text node, abort these steps.
-    </li><li>If targetRange.endContainer is not equal to targetStartContainer, abort these steps.
-    </li><li>Remove the text in targetRange from the document and collapse targetRange
-    </li><li>Insert data as plain text at the location of targetRange in the document
-    </li></ol>
-    </li></ol>
-    </li><li>If the inputType is any other value, there is no default behavior. Abort these steps.
-    </li></ol>
-    </li></ol>
-    </p>
-    </section>
     <section>
       <h2>Acknowledgements</h2>
     </section>

@@ -235,32 +235,23 @@ var respecConfig = {
     <section>
         <h2>Text Node Editing</h2>
 
-        <p>The only type of change of content within a <a>CE Typing Node</a>
-        that is triggered directly by the browser is in all cases contained to
-        the change of the contents of a single text node. Such a change may
-        cause the movement of the caret as specified below.</p>
+        <p>When the user indicates that new content should be added to the <a>CE Typing Node</a>
+          in which the caret is currently place, no content is actually added,
+          but a corresponding `beforeInput` event is triggered.</p>
 
         <section>
-            <h3>Adding of a character by means of a keypress on the
-            keyboard</h3>
+            <h3>Adding characters by means of composition/IME</h3>
 
-            <p>If a caret is currently present, and a character is entered via
-            a keyboard, a beforeInput event is triggered with attributes `data` to the character, `inputType` to `replaceText` and targetRange to the active `document.getSelection().getRangeAt(0);``.
-            Unless the event is canceled, the character is added to the <a>CE Typing Node</a> in
-            which the caret is currently placed, and the caret is placed beyond
-            the newly added character.</p>
-
-            <p>An input event is triggered on the <a>CE Typing Node</a>.</p>
+            <p>If a caret is present, and composition of a character through IME is initiated,
+              composition visually is shown inline at the location of the caret.
+              The composition takes place within the Shadow DOM, using the <a>CE
+              Typing Node</a> as a shadow root, with no changes occuring at the DOM level.
+              When the composition of the character has finished, a beforeInput event is triggered
+              as if the character had been entered via the keyboard.</p>
+            <p>If the caret is in <a>overwrite</a>-mode at the time the character composition is
+              initiated, and the caret is not placed behind the last character within a
+              <a>CE Typing Node</a>, the character following the caret is hidden during composition.</p>
         </section>
-
-        <section>
-            <h3>Adding a character by means of composition/IME</h3>
-
-            <p>If a caret is currently present, and composition of a character through IME or alike is initiated,
-              composition visually takes place inline. However, the inline composition takes place within the Shadow DOM with no changes occuring in the DOM and only when composition has finished,
-              the final character is inserted into the <a>CE Typing Node</a> as if it had been entered via the keyboard.</p>
-        </section>
-
 
         <section>
             <h3>Removal of content</h3>
