@@ -94,10 +94,9 @@ var respecConfig = {
         on the web, and designed to be used only with a script-based editor
         implementation. It is not meant to be a stand-alone solution.</p>
 
-        <p>Other than inserting and overwriting strings within a single <a>CE
-        Typing Node</a>. there is no default browser behavior for user input in
+        <p>There is no default browser behavior for user input in
         contenteditable="typing". Intead, it fires Device-Independent Events
-        that can be handled by script. Details on those events can be found in
+        that can be handled by scripts. Details on those events can be found in
         the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and
         <a href=
         "http://w3c.github.io/editing-explainer/input-events.html">Input
@@ -115,10 +114,8 @@ var respecConfig = {
     <section>
         <h2>Cutting and pasting</h2>
 
-        <p>Normal cutting and pasting events as used in other editable elements
-        are disabled if the element is a <a>CE Typing Container</a>. Instead,
-        the input events specification defines events to handle cut and paste
-        intentions.</p>
+        <p>With a <a>CE Typing Container</a>, normal cutting and pasting events
+        as used in other editable elements are disabled.</p>
     </section>
 
     <section>
