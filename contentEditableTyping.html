@@ -204,6 +204,13 @@ var respecConfig = {
             <p>The caret is not moved by defualt, but `beforeInput` events are
             triggered when the user indicates an intention to move the
             caret.</p>
+
+            <p class="issue">Moving the caret within the line is not that
+            difficult to do in JavaScript. Moving it in the block direction (or
+            180 degrees in the opposite direction) is much more difficult. It
+            would help a lot if the browser could expose something about where
+            the caret would be if it were to go one line into either direction.
+            But what could the browser expose that would give us that?</p>
         </section>
     </section>
 
