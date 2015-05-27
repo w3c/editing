@@ -56,14 +56,16 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Problem and Use Cases</h2>The problems solved by and use cases for
-        this document by this document are tracked in the <a href=
+        <h2 id="problems_and_use_cases">Problem and Use Cases</h2>
+
+        <p>The problems solved by and use cases for this document by this
+        document are tracked in the <a href=
         "http://w3c.github.io/editing-explainer/">Editing Explainer</a>
-        document.
+        document.</p>
     </section>
 
     <section>
-        <h2 id="terms">Terminology</h2>
+        <h2 id="terminology">Terminology</h2>
 
         <dl>
             <dt><dfn>CE Typing Container</dfn></dt>
@@ -113,7 +115,7 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Introduction</h2>
+        <h2 id="introduction">Introduction</h2>
 
         <p style="font-style: italic">This section is non-normative</p>
 
@@ -139,7 +141,7 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Cutting, pasting and copying</h2>
+        <h2 id="cutting_and_pasting">Cutting and pasting</h2>
 
         <p>Within a <a>CE Typing Container</a>, cutting and pasting is
         disabled. However, `beforecut` and `beforepaste` events are still
@@ -147,10 +149,10 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Caret drawing and movement</h2>
+        <h2 id="caret_darin_and_movement">Caret drawing and movement</h2>
 
         <section>
-            <h3>Drawing of caret</h3>
+            <h3 id="caret_drawing">Caret drawing</h3>
 
             <p>A caret is drawn in any <a>CE Typing Container</a> that is
             focused, that does not hold any other selections and contains at
@@ -159,7 +161,7 @@ var respecConfig = {
         </section>
 
         <section>
-            <h3>Caret modes</h3>
+            <h3 id="caret_modes">Caret modes</h3>
 
             <dl>
                 <dt><dfn>inline</dfn></dt>
@@ -190,14 +192,14 @@ var respecConfig = {
         </section>
 
         <section>
-            <h3>Initial caret placement</h3>
+            <h3 id="initial_caret_placement">Initial caret placement</h3>
 
             <p>Carets are initially placed at the first possible position
             within the <a>CE Typing Container</a>.</p>
         </section>
 
         <section>
-            <h3>Caret movement</h3>
+            <h3 id="caret_movement">Caret movement</h3>
 
             <p>The caret is not moved by defualt, but `beforeInput` events are
             triggered when the user indicates an intention to move the
@@ -206,7 +208,7 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Text Node Editing</h2>
+        <h2 id="text_node_editing">Text Node Editing</h2>
 
         <p>When the user indicates that new content should be added to the
         <a>CE Typing Node</a> in which the caret is currently place, no content
@@ -215,7 +217,8 @@ var respecConfig = {
         on the current mode of the caret.</p>
 
         <section>
-            <h3>Adding characters by means of composition/IME</h3>
+            <h3 id="add_with_composition">Adding characters by means of
+            composition/IME</h3>
 
             <p>If a caret is present, and composition of a character through
             IME is initiated, composition visually is shown inline at the
@@ -244,7 +247,7 @@ var respecConfig = {
         </section>
 
         <section>
-            <h2>Replacing text</h2>
+            <h3 id="replacing_text">Replacing text</h3>
 
             <p>When the user indicates the wish to replace part of the contents
             of a <a>CE Typing Node</a> by means of a browser-builtin spell
@@ -254,7 +257,7 @@ var respecConfig = {
     </section>
 
     <section>
-        <h3>Removal of content</h3>
+        <h2 id="removal">Removal of content</h2>
 
         <p>Content is not removed automatically through user input. Instead,
         Del/Backspace key presses, etc. trigger user `beforeInput` events with
@@ -262,20 +265,20 @@ var respecConfig = {
     </section>
 
     <section>
-        <h3>Context menu</h3>
+        <h2 id="context_menu">Context menu</h2>
 
         <p>If the implementation provides a `context menu`, this `context menu`
         SHOULD contain items for editing operations such as `paste`, `cut`,
-        `copy`, `delete` and CAN contain items for spellchecking for any
-        <a>CE Typing Container</a>. Triggering any of `context menu` items
-        MUST NOT by default cause any change to the DOM,
-        `beforepaste`, `beforecut` and beforeInput events SHOULD be
-        triggered. Menu items in a `context menu` that do not cause DOM changes
-        by default SHOULD function as in any other editing context.</p>
+        `copy`, `delete` and CAN contain items for spellchecking for any <a>CE
+        Typing Container</a>. Triggering any of `context menu` items MUST NOT
+        by default cause any change to the DOM, `beforepaste`, `beforecut` and
+        beforeInput events SHOULD be triggered. Menu items in a `context menu`
+        that do not cause DOM changes by default SHOULD function as in any
+        other editing context.</p>
     </section>
 
     <section>
-        <h2>Acknowledgements</h2>
+        <h2 id="acknowledgements">Acknowledgements</h2>
 
         <p>Thanks to: Robin Berjon, Olivier Forget, Koji Ishii, Frederico
         Caldeira Knabben, Ryosuke Niwa, Joanmarie ... and everyone in the
