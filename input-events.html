@@ -5,9 +5,10 @@
     <meta charset='utf-8'>
 
     <title>Input Events</title>
-    <script async="" class='remove' src='https://www.w3.org/Tools/respec/respec-w3c-common'></script>
+    <script async="" class='remove' src=
+    'https://www.w3.org/Tools/respec/respec-w3c-common'></script>
     <script class='remove'>
-     var respecConfig = {
+ var respecConfig = {
               specStatus:   "ED"
           ,   shortName:    "input-events"
           ,   editors:      [{ name: "Johannes Wilm",
@@ -20,7 +21,7 @@
                                note: "until <time>2015-02-23</time>" }]
           ,   wg:           "Web Applications Working Group"
           ,   wgURI:        "http://www.w3.org/2008/webapps/"
-	  ,   otherLinks: [{
+      ,   otherLinks: [{
                   key: 'Participate',
                   data: [{
                       value: 'We are on GitHub.',
@@ -87,10 +88,12 @@
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
                     values include insertCharacter, overwriteCharacter,
-                    replaceText, insertNewline, deleteContent, 
-                    undo, redo, setInsertCaret, setOverwriteCaret. During
-                    initialization, The user agent is responsible for
-                    populating this field as follows:</p>
+                    replaceText, insertNewline, deleteContent, paste, cut, undo,
+                    redo, caretUp, caretDown, caretRight, caretLeft,
+                    caretStartLine, caretEndLine, caretStartPreviousWord,
+                    caretEndNextWord, setInsertCaret, setOverwriteCaret. During
+                    initialization, the user agent is responsible for populating
+                    this field as follows:</p>
 
                     <ol>
                         <li>If the user is inserting plain text using a
@@ -157,7 +160,7 @@
                                 </li></ol>
                             </li-->
 
-                        <li>If the user is deleting content using a keyboard,
+                        <li>If the user indicated deletion of content using a keyboard,
                         IME, speech, or similar method, the inputType MUST be
                         <b>deleteContent</b>
 
@@ -169,8 +172,9 @@
                             </ol>
                         </li>
 
-                        <li>If the user is undo using a keyboard, IME, speech,
-                        or similar method, the inputType MUST be <b>undo</b>
+                        <li>If the user indicates undo using a keyboard, IME,
+                        speech, or similar method, the inputType MUST be <b>
+                            undo</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -179,13 +183,111 @@
                             </ol>
                         </li>
 
-                        <li>If the user is redo using a keyboard, IME, speech,
-                        or similar method, the inputType MUST be <b>redo</b>
+                        <li>If the user indicates redo using a keyboard, IME,
+                        speech, or similar method, the inputType MUST be <b>
+                            redo</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
 
                                 <li>Set the value of targetRange to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret right movement using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>caretRight</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret left movement using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>caretLeft</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret up movement using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>caretUp</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret down movement using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>caretDown</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret to the start of the
+                        line movement using a keyboard, IME, speech, or similar
+                        method, the inputType MUST be <b>caretStartLine</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret to the end of the line
+                        movement using a keyboard, IME, speech, or similar
+                        method, the inputType MUST be <b>caretEndLine</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret to the end of the next
+                        word movement using a keyboard, IME, speech, or similar
+                        method, the inputType MUST be <b>caretEndNextWord</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret to the start of the
+                        previous movement using a keyboard, IME, speech, or
+                        similar method, the inputType MUST be
+                        <b>caretStartPreviousWord</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
                             </ol>
                         </li>
 
@@ -211,7 +313,8 @@
                             </ol>
                         </li>
                     </ol>
-                    <p>
+
+                    <p></p>
 
                     <p>The <a class="def" href=
                     "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
