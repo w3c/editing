@@ -8,7 +8,7 @@
     <script async="" class='remove' src=
     'https://www.w3.org/Tools/respec/respec-w3c-common'></script>
     <script class='remove'>
- var respecConfig = {
+var respecConfig = {
               specStatus:   "ED"
           ,   shortName:    "input-events"
           ,   editors:      [{ name: "Johannes Wilm",
@@ -88,12 +88,12 @@
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
                     values include insertCharacter, overwriteCharacter,
-                    replaceText, insertNewline, deleteContent, paste, cut, undo,
-                    redo, caretUp, caretDown, caretRight, caretLeft,
-                    caretStartLine, caretEndLine, caretStartPreviousWord,
-                    caretEndNextWord, setInsertCaret, setOverwriteCaret. During
-                    initialization, the user agent is responsible for populating
-                    this field as follows:</p>
+                    replaceText, insertNewline, deleteContent, undo, redo,
+                    caretUp, caretDown, caretRight, caretLeft, caretStartLine,
+                    caretEndLine, caretStartPreviousWord, caretEndNextWord,
+                    setInsertCaret, setOverwriteCaret. During initialization,
+                    the user agent is responsible for populating this field as
+                    follows:</p>
 
                     <ol>
                         <li>If the user is inserting plain text using a
@@ -160,9 +160,9 @@
                                 </li></ol>
                             </li-->
 
-                        <li>If the user indicated deletion of content using a keyboard,
-                        IME, speech, or similar method, the inputType MUST be
-                        <b>deleteContent</b>
+                        <li>If the user indicated deletion of content using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>deleteContent</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
