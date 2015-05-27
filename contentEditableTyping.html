@@ -262,6 +262,19 @@ var respecConfig = {
     </section>
 
     <section>
+        <h3>Context menu</h3>
+
+        <p>If the implementation provides a `context menu`, this `context menu`
+        SHOULD contain items for editing operations such as `paste`, `cut`,
+        `copy`, `delete` and CAN contain items for spellchecking for any
+        <a>CE Typing Container</a>. Triggering any of `context menu` items
+        MUST NOT by default cause any change to the DOM,
+        `beforepaste`, `beforecut` and beforeInput events SHOULD be
+        triggered. Menu items in a `context menu` that do not cause DOM changes
+        by default SHOULD function as in any other editing context.</p>
+    </section>
+
+    <section>
         <h2>Acknowledgements</h2>
 
         <p>Thanks to: Robin Berjon, Olivier Forget, Koji Ishii, Frederico
