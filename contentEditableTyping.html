@@ -92,8 +92,9 @@ var respecConfig = {
             <dt><dfn>Legal Caret Positions</dfn></dt>
 
             <dd>
-                All positions in which the caret can be placed programmtically.
-                The placement is restricted to be in one of these positions:
+                <p>All positions in which the caret can be placed
+                programmatically. The placement is restricted to be in one of
+                these positions:</p>
 
                 <ol>
                     <li>Before or after any character in any text node.</li>
@@ -103,13 +104,33 @@ var respecConfig = {
                     <li>Before any inline element that is not a text node and
                     that does not have a `previousSibling`.</li>
 
-                    <li>Inside any empty inline or block element or inside any
-                    empty text node.</li>
-                </ol>If a <a>CE Typing Node</a> is an empty text node, only one
+                    <li>Inside any empty inline or block element that is not a
+                    stub-element or inside any empty text node.</li>
+
+                    <li>Before or after a block element that is also a stub
+                    element.</li>
+
+                    <li>In the <a>CE Typing Container</a>itself, if it is
+                    empty.
+                    </li>
+                </ol>
+
+                <p>There are two exceptions to these rules:</p>
+
+                <ol>
+                    <li>Within a table, the caret can only be placed inside
+                    `TH` and `TD` elements.</li>
+
+                    <li>The caret cannot be placed inside, before or after a
+                    `comment node` or a node that has it's display-value set to
+                    `none`.</li>
+                </ol>
+
+                <p>If a <a>CE Typing Node</a> is an empty text node, only one
                 position is legal inside of that node and this position is
                 calculated for all purposes as being both before the first
                 character and after the last character in the <a>CE Typing
-                Node</a>.
+                Node</a>.</p>
             </dd>
         </dl>
     </section>
@@ -117,7 +138,7 @@ var respecConfig = {
     <section>
         <h2 id="introduction">Introduction</h2>
 
-        <p style="font-style: italic">This section is non-normative</p>
+        <p style="font-style: italic">This section is not normative</p>
 
         <p>The <code>typing</code> state is the foundation of rich text editing
         on the web, and designed to be used only with a script-based editor
@@ -161,135 +182,148 @@ var respecConfig = {
         </section>
 
         <section>
-            <h3 id="caret_modes">Caret modes</h3>
+            <h3 id="caret_positions">Caret positions</h3>
 
-            <dl>
-                <dt><dfn>inline</dfn></dt>
+            <p>It MUST be possible to put the caret in any of the <a>Legal
+            Caret Positions</a> programatically and for the caret to be visible
+            in these.</p>
 
-                <dd>The caret is displayed as a line.</dd>
+            <section>
+                <h3 id="caret_modes">Caret modes</h3>
 
-                <dt><dfn>overwrite</dfn></dt>
+                <dl>
+                    <dt><dfn>inline</dfn></dt>
 
-                <dd>
-                    The caret is displayed as an overlay over the character
-                    that follows it within the <a>CE Typing Node</a>. If the
-                    caret is at the end of a <a>CE Typing Node</a>, so that no
-                    character within the same node follows it, or it is in
-                    befor or after an element or inside an empty element or
-                    text node, it is displayed as a line, as if it were in
-                    inline-mode.
-                </dd>
-            </dl>
+                    <dd>The caret is displayed as a line.</dd>
 
-            <p>The caret is initially of type `insert`, but can be modified to
-            be of type `overtype`. The caret of type `insert` is displayed as a
-            line at the beginning of the text character node where it is
-            placed. The caret of type `overtype` overlays the text node
-            character where it is placed fully.</p>
+                    <dt><dfn>overwrite</dfn></dt>
 
-            <p class="issue">We need a method to switch from one type of caret
-            to the other</p>
+                    <dd>
+                        The caret is displayed as an overlay over the character
+                        that follows it within the <a>CE Typing Node</a>. If
+                        the caret is at the end of a <a>CE Typing Node</a>, so
+                        that no character within the same node follows it, or
+                        it is placed before or after an element or inside an
+                        empty element or text node, it is displayed as a line,
+                        as if it were in inline-mode.
+                    </dd>
+                </dl>
+
+                <p>The caret is initially of type `insert`, but can be modified
+                to be of type `overtype`. The caret of type `insert` is
+                displayed as a line at the beginning of the text character node
+                where it is placed. The caret of type `overtype` overlays the
+                text node character where it is placed fully.</p>
+
+                <p class="issue">We need a method to switch from one type of
+                caret to the other</p>
+            </section>
+
+            <section>
+                <h3 id="initial_caret_placement">Initial caret placement</h3>
+
+                <p>Carets are initially placed at the first possible position
+                within the <a>CE Typing Container</a>.</p>
+            </section>
+
+            <section>
+                <h3 id="caret_movement">Caret movement</h3>
+
+                <p>The caret is not moved by default, but `beforeInput` events
+                are triggered when the user indicates an intention to move the
+                caret.</p>
+
+                <p class="issue">Moving the caret within the line is not that
+                difficult to do in JavaScript. Moving it in the block direction
+                (or 180 degrees in the opposite direction) is much more
+                difficult. It would help a lot if the browser could expose
+                something about where the caret would be if it were to go one
+                line into either direction. But what could the browser expose
+                that would give us that?</p>
+            </section>
         </section>
 
         <section>
-            <h3 id="initial_caret_placement">Initial caret placement</h3>
+            <h2 id="text_node_editing">Text Node Editing</h2>
 
-            <p>Carets are initially placed at the first possible position
-            within the <a>CE Typing Container</a>.</p>
+            <p>When the user indicates that new content should be added to the
+            <a>CE Typing Node</a> in which the caret is currently place, no
+            content is actually added, but a `beforeInput` event is triggered
+            with `inputType` set to `insertCharacter` or `overwriteCharacter`,
+            depending on the current mode of the caret.</p>
+
+            <section>
+                <h3 id="add_with_composition">Adding characters by means of
+                composition/IME</h3>
+
+                <p>If a caret is present, and composition of a character
+                through IME is initiated, composition visually is shown inline
+                at the location of the caret. The composition takes place
+                within the Shadow DOM, using the node the lowest level node the
+                caret is contained in as a shadow root, with no changes
+                occuring at the DOM level. If the caret is inside a <a>CE
+                Typing Node</a> it acts as the `shadow root`. Otherwise the
+                lowest level inline or block node acts as the shadow root. When
+                the composition of the character(s) has finished, a
+                `beforeInput` event is triggered for each generated character
+                in the order they are to be added as if the character(s) had
+                been entered via the keyboard.</p>
+
+                <p>If the caret is in <a>overwrite</a>-mode at the time the
+                character composition is initiated, and the caret is not placed
+                behind the last character within a <a>CE Typing Node</a>, the
+                character that follows the caret is hidden during
+                composition.</p>
+
+                <p>If the user cancels character composition before it has
+                finished, the inline composition is cleared and the caret is
+                returned to the state it had before composition was
+                initiated.</p>
+
+                <p class="issue">Do we know if it is actually possible that
+                block- inline and text nodes serve as shadow roots the way we
+                imagine here?</p>
+            </section>
+
+            <section>
+                <h3 id="replacing_text">Replacing text</h3>
+
+                <p>When the user indicates the wish to replace part of the
+                contents of a <a>CE Typing Node</a> by means of a
+                browser-builtin spell checker or alike, a `beforeInput` input
+                with `inputType` set to `replaceText` is triggered.</p>
+            </section>
         </section>
 
         <section>
-            <h3 id="caret_movement">Caret movement</h3>
+            <h2 id="removal">Removal of content</h2>
 
-            <p>The caret is not moved by defualt, but `beforeInput` events are
-            triggered when the user indicates an intention to move the
-            caret.</p>
-
-            <p class="issue">Moving the caret within the line is not that
-            difficult to do in JavaScript. Moving it in the block direction (or
-            180 degrees in the opposite direction) is much more difficult. It
-            would help a lot if the browser could expose something about where
-            the caret would be if it were to go one line into either direction.
-            But what could the browser expose that would give us that?</p>
-        </section>
-    </section>
-
-    <section>
-        <h2 id="text_node_editing">Text Node Editing</h2>
-
-        <p>When the user indicates that new content should be added to the
-        <a>CE Typing Node</a> in which the caret is currently place, no content
-        is actually added, but a `beforeInput` event is triggered with
-        `inputType` set to `insertCharacter` or `overwriteCharacter`, depending
-        on the current mode of the caret.</p>
-
-        <section>
-            <h3 id="add_with_composition">Adding characters by means of
-            composition/IME</h3>
-
-            <p>If a caret is present, and composition of a character through
-            IME is initiated, composition visually is shown inline at the
-            location of the caret. The composition takes place within the
-            Shadow DOM, using the node the lowest level node the caret is
-            contained in as a shadow root, with no changes occuring at the DOM
-            level. If the caret is inside a <a>CE Typing Node</a> it acts as
-            the `shadow root`. Otherwise the lowest level inline or block node
-            acts as the shadow root. When the composition of the character(s)
-            has finished, a `beforeInput` event is triggered for each generated
-            character in the order they are to be added as if the character(s)
-            had been entered via the keyboard.</p>
-
-            <p>If the caret is in <a>overwrite</a>-mode at the time the
-            character composition is initiated, and the caret is not placed
-            behind the last character within a <a>CE Typing Node</a>, the
-            character that follows the caret is hidden during composition.</p>
-
-            <p>If the user cancels character composition before it has
-            finished, the inline composition is cleared and the caret is
-            returned to the state it had before composition was initiated.</p>
-
-            <p class="issue">Do we know if it is actually possible that block-
-            inline and text nodes serve as shadow roots the way we imagine
-            here?</p>
+            <p>Content is not removed automatically through user input.
+            Instead, Del/Backspace key presses, etc. trigger user `beforeInput`
+            events with `inputType` set to `deleteContent`.</p>
         </section>
 
         <section>
-            <h3 id="replacing_text">Replacing text</h3>
+            <h2 id="context_menu">Context menu</h2>
 
-            <p>When the user indicates the wish to replace part of the contents
-            of a <a>CE Typing Node</a> by means of a browser-builtin spell
-            checker or alike, a `beforeInput` input with `inputType` set to
-            `replaceText` is triggered.</p>
+            <p>If the implementation provides a `context menu`, this `context
+            menu` SHOULD contain items for editing operations such as `paste`,
+            `cut`, `copy`, `delete` and CAN contain items for spellchecking for
+            any <a>CE Typing Container</a>. Triggering any of `context menu`
+            items MUST NOT by default cause any change to the DOM,
+            `beforepaste`, `beforecut` and beforeInput events SHOULD be
+            triggered. Menu items in a `context menu` that do not cause DOM
+            changes by default SHOULD function as in any other editing
+            context.</p>
         </section>
-    </section>
 
-    <section>
-        <h2 id="removal">Removal of content</h2>
+        <section>
+            <h2 id="acknowledgements">Acknowledgements</h2>
 
-        <p>Content is not removed automatically through user input. Instead,
-        Del/Backspace key presses, etc. trigger user `beforeInput` events with
-        `inputType` set to `deleteContent`.</p>
-    </section>
-
-    <section>
-        <h2 id="context_menu">Context menu</h2>
-
-        <p>If the implementation provides a `context menu`, this `context menu`
-        SHOULD contain items for editing operations such as `paste`, `cut`,
-        `copy`, `delete` and CAN contain items for spellchecking for any <a>CE
-        Typing Container</a>. Triggering any of `context menu` items MUST NOT
-        by default cause any change to the DOM, `beforepaste`, `beforecut` and
-        beforeInput events SHOULD be triggered. Menu items in a `context menu`
-        that do not cause DOM changes by default SHOULD function as in any
-        other editing context.</p>
-    </section>
-
-    <section>
-        <h2 id="acknowledgements">Acknowledgements</h2>
-
-        <p>Thanks to: Robin Berjon, Olivier Forget, Koji Ishii, Frederico
-        Caldeira Knabben, Ryosuke Niwa, Joanmarie ... and everyone in the
-        Editing Taskforce for their input and feedback.</p>
+            <p>Thanks to: Robin Berjon, Olivier Forget, Koji Ishii, Frederico
+            Caldeira Knabben, Ryosuke Niwa, Joanmarie ... and everyone in the
+            Editing Taskforce for their input and feedback.</p>
+        </section>
     </section>
 </body>
 </html>
