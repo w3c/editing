@@ -67,8 +67,8 @@ var respecConfig = {
     <section>
         <h2>Problem and Use Cases</h2>The problems solved by and use cases for
         this document by this document are tracked in the <a href=
-        "http://w3c.github.io/editing/editing-explainer.html">Editing Explainer</a>
-        document.
+        "http://w3c.github.io/editing/editing-explainer.html">Editing
+        Explainer</a> document.
     </section>
 
     <section id="events-inputevents">
@@ -87,34 +87,18 @@ var respecConfig = {
 
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertCharacter, overwriteCharacter,
-                    replaceText, insertNewline, deleteContentForward,
-                    deleteContentBackward, deleteContent, undo, redo, caretUp,
-                    caretDown, caretRight, caretLeft, caretStartLine,
-                    caretEndLine, caretStartPreviousWord, caretEndNextWord,
-                    setInsertCaret, setOverwriteCaret. During initialization,
-                    the user agent is responsible for populating this field as
-                    follows:</p>
+                    values include insertCharacter, replaceText, insertNewline,
+                    deleteContentForward, deleteContentBackward, deleteContent,
+                    undo, redo, caretUp, caretDown, caretRight, caretLeft,
+                    caretStartLine, caretEndLine, caretStartPreviousWord,
+                    caretEndNextWord, setInsertCaret, setOverwriteCaret. During
+                    initialization, the user agent is responsible for
+                    populating this field as follows:</p>
 
                     <ol>
                         <li>If the user is inserting plain text using a
-                        keyboard, IME, speech, or similar method, and the caret
-                        is in insert-mode the inputType MUST be
-                        <b>insertCharacter</b>.
-
-                            <ol>
-                                <li>Set the value of data to be the plain text
-                                string to be inserted.</li>
-
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user is inserting plain text using a
-                        keyboard, IME, speech, or similar method, and the caret
-                        is in overwrite-mode, the inputType MUST be
-                        <b>overwriteCharacter</b>.
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>insertCharacter</b>.
 
                             <ol>
                                 <li>Set the value of data to be the plain text

@@ -60,8 +60,8 @@ var respecConfig = {
 
         <p>The problems solved by and use cases for this document by this
         document are tracked in the <a href=
-        "http://w3c.github.io/editing/editing-explainer.html">Editing Explainer</a>
-        document.</p>
+        "http://w3c.github.io/editing/editing-explainer.html">Editing
+        Explainer</a> document.</p>
     </section>
 
     <section>
@@ -123,7 +123,6 @@ var respecConfig = {
 
                     <li>The caret cannot be placed inside invisible nodes.</li>
                 </ol>
-
             </dd>
         </dl>
     </section>
@@ -141,8 +140,7 @@ var respecConfig = {
         contenteditable="typing". Intead, it fires Device-Independent Events
         that can be handled by scripts. Details on those events can be found in
         the <a href="http://www.w3.org/TR/selection-api/">Selection API</a> and
-        <a href=
-        "http://w3c.github.io/editing/input-events.html">Input
+        <a href="http://w3c.github.io/editing/input-events.html">Input
         Events</a> specifications. Input Events also contains information on
         default handling of text input inside a single <a>CE Typing
         Node</a>.</p>
@@ -181,37 +179,6 @@ var respecConfig = {
             in these.</p>
 
             <section>
-                <h3 id="caret_modes">Caret modes</h3>
-
-                <dl>
-                    <dt><dfn>inline</dfn></dt>
-
-                    <dd>The caret is displayed as a line.</dd>
-
-                    <dt><dfn>overwrite</dfn></dt>
-
-                    <dd>
-                        The caret is displayed as an overlay over the character
-                        that follows it within the <a>CE Typing Node</a>. If
-                        the caret is at the end of a <a>CE Typing Node</a>, so
-                        that no character within the same node follows it, or
-                        it is placed before or after an element or inside an
-                        empty element or text node, it is displayed as a line,
-                        as if it were in inline-mode.
-                    </dd>
-                </dl>
-
-                <p>The caret is initially of type `insert`, but can be modified
-                to be of type `overtype`. The caret of type `insert` is
-                displayed as a line at the beginning of the text character node
-                where it is placed. The caret of type `overtype` overlays the
-                text node character where it is placed fully.</p>
-
-                <p class="issue">We need a method to switch from one type of
-                caret to the other</p>
-            </section>
-
-            <section>
                 <h3 id="initial_caret_placement">Initial caret placement</h3>
 
                 <p>Carets are initially placed at the first possible position
@@ -241,8 +208,12 @@ var respecConfig = {
             <p>When the user indicates that new content should be added to the
             <a>CE Typing Node</a> in which the caret is currently place, no
             content is actually added, but a `beforeInput` event is triggered
-            with `inputType` set to `insertCharacter` or `overwriteCharacter`,
-            depending on the current mode of the caret.</p>
+            with `inputType` set to `insertCharacter`.</p>
+
+            <p class="issue">Do we need to provide anything extra for overtype
+            writing here, or can this be dealt with entirely in JS? See
+            discussion: <a href=
+            "https://github.com/w3c/editing/issues/55">https://github.com/w3c/editing/issues/55</a></p>
 
             <section>
                 <h3 id="add_with_composition">Adding characters by means of
@@ -260,12 +231,6 @@ var respecConfig = {
                 `beforeInput` event is triggered for each generated character
                 in the order they are to be added as if the character(s) had
                 been entered via the keyboard.</p>
-
-                <p>If the caret is in <a>overwrite</a>-mode at the time the
-                character composition is initiated, and the caret is not placed
-                behind the last character within a <a>CE Typing Node</a>, the
-                character that follows the caret is hidden during
-                composition.</p>
 
                 <p>If the user cancels character composition before it has
                 finished, the inline composition is cleared and the caret is
