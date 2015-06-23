@@ -226,26 +226,32 @@ var respecConfig = {
                 composition/IME</h3>
 
                 <p>If a caret is present, and composition of a character
-                through IME is initiated, composition visually is shown inline
-                at the location of the caret. The composition takes place
-                within the Shadow DOM, using the node the lowest level node the
-                caret is contained in as a shadow root, with no changes
-                occuring at the DOM level. If the caret is inside a <a>CE
-                Typing Node</a> it acts as the `shadow root`. Otherwise the
-                lowest level inline or block node acts as the shadow root. When
-                the composition of the character(s) has finished, a
-                `beforeInput` event is triggered for each generated character
-                in the order they are to be added as if the character(s) had
-                been entered via the keyboard.</p>
+                through IME is initiated, composition visually CAN be shown
+                inline at the location of the caret or in a separate box. The
+                DOM MUST NOT be affected by the character composition, even if
+                composition is taking place inline.</p>
 
                 <p>If the user cancels character composition before it has
                 finished, the inline composition is cleared and the caret is
                 returned to the state it had before composition was
                 initiated.</p>
 
-                <p class="issue">Do we know if it is actually possible that
-                block- inline and text nodes serve as shadow roots the way we
-                imagine here? See discussion: <a href=
+                <p>When the composition of the character(s) has finished, a
+                `beforeInput` event is triggered for each generated character
+                in the order they are to be added as if the character(s) had
+                been entered via the keyboard.</p>
+
+                <p class="note">One way of implementing inline composition is
+                to make composition take place within the Shadow DOM, using the
+                lowest level ancestor inline or block node as the `shadow
+                root`, copying all their child nodes into the `shadow root`
+                before composition begins and after composition has been
+                finished or canceled, the `shadow tree` is removed. The removal
+                of the `shadow tree` takes place before any possible
+                `beforeInput` event.</p>
+
+                <p class="issue">How do we word this to take advantage of the
+                Shadow DOM? See discussion: <a href=
                 "https://github.com/w3c/editing/issues/57">https://github.com/w3c/editing/issues/57</a>.</p>
             </section>
 
