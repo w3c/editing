@@ -90,10 +90,11 @@ var respecConfig = {
                     values include insertCharacter, replaceText, insertNewline,
                     deleteContentForward, deleteContentBackward, deleteContent,
                     undo, redo, caretUp, caretDown, caretRight, caretLeft,
-                    caretStartLine, caretEndLine, caretStartPreviousWord,
-                    caretEndNextWord. During
-                    initialization, the user agent is responsible for
-                    populating this field as follows:</p>
+                    caretPageUp, caretPageDown, caretStartLine, caretEndLine,
+                    caretStartPreviousWord, caretEndNextWord, selectAll,
+                    selectWord, selectBlock. During initialization, the user
+                    agent is responsible for populating this field as follows:
+                    </p>
 
                     <ol>
                         <li>If the user is inserting plain text using a
@@ -245,6 +246,30 @@ var respecConfig = {
                             </ol>
                         </li>
 
+                        <li>If the user indicates caret page up movement using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>caretPageUp</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates caret page down movement using
+                        a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>caretPageDown</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
                         <li>If the user indicates caret to the start of the
                         line movement using a keyboard, IME, speech, or similar
                         method, the inputType MUST be <b>caretStartLine</b>
@@ -285,6 +310,43 @@ var respecConfig = {
                         previous movement using a keyboard, IME, speech, or
                         similar method, the inputType MUST be
                         <b>caretStartPreviousWord</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates selection of all contents of
+                        the editing host using a keyboard, IME, speech, or
+                        similar method, the inputType MUST be
+                        <b>selectAll</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates selection of a word using a
+                        keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>selectWord</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates selection of a block node
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>selectBlock</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
