@@ -87,7 +87,8 @@ var respecConfig = {
 
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertCharacter, replaceText, insertNewline,
+                    values include insertCharacter, replaceText, replaceContent,
+                    insertNewline,
                     deleteContentForward, deleteContentBackward, deleteContent,
                     undo, redo, caretUp, caretDown, caretRight, caretLeft,
                     caretPageUp, caretPageDown, caretStartLine, caretEndLine,
@@ -110,9 +111,10 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user is replacing plain text using a
-                        keyboard, IME, speech, or similar method, the inputType
-                        MUST be <b>replaceText</b>.
+                        <li>If the user indicates replacement of plain text
+                        with different plain text using a keyboard, IME, speech,
+                        or similar method, the  inputType MUST be
+                        <b>replaceText</b>.
 
                             <ol>
                                 <li>Set the value of data to be the plain text
@@ -120,6 +122,25 @@ var respecConfig = {
 
                                 <li>Set the value of targetRange to a new range
                                 that covers the text that is to be
+                                replaced.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicates replacement of existing
+                        content that is more than just part of a text node OR
+                        the user indicates replacement of plain text with new
+                        content that consists of content that is more than just
+                        text, structure of using a keyboard, IME, speech, or
+                        similar method, the inputType MUST be
+                        <b>replaceContent</b>.
+
+                            <ol>
+                                <li>Set the value of data to be a document
+                                fragment containing the new content that is to
+                                be inserted.</li>
+
+                                <li>Set the value of targetRange to a new range
+                                that covers the content that is to be
                                 replaced.</li>
                             </ol>
                         </li>
