@@ -216,17 +216,12 @@ var respecConfig = {
             content is actually added, but a `beforeInput` event is triggered
             with `inputType` set to `insertCharacter`.</p>
 
-            <p class="issue">Do we need to provide anything extra for overtype
-            writing here, or can this be dealt with entirely in JS? See
-            discussion: <a href=
-            "https://github.com/w3c/editing/issues/55">https://github.com/w3c/editing/issues/55</a>.</p>
-
             <section>
                 <h3 id="add_with_composition">Adding characters by means of
                 composition/IME</h3>
 
                 <p>If a caret is present, and composition of a character
-                through IME is initiated, composition visually CAN be shown
+                through IME is initiated. Composition CAN be shown visually
                 inline at the location of the caret or in a separate box. The
                 DOM MUST NOT be affected by the character composition, even if
                 composition is taking place inline.</p>
@@ -241,18 +236,15 @@ var respecConfig = {
                 in the order they are to be added as if the character(s) had
                 been entered via the keyboard.</p>
 
-                <p class="note">One way of implementing inline composition is
-                to make composition take place within the Shadow DOM, using the
-                lowest level ancestor inline or block node as the `shadow
+                <p class="note">One possible way of implementing inline
+                composition is to make composition take place within the Shadow
+                DOM, using the lowest level ancestor inline or block node as the `shadow
                 root`, copying all their child nodes into the `shadow root`
                 before composition begins and after composition has been
                 finished or canceled, the `shadow tree` is removed. The removal
                 of the `shadow tree` takes place before any possible
                 `beforeInput` event.</p>
 
-                <p class="issue">How do we word this to take advantage of the
-                Shadow DOM? See discussion: <a href=
-                "https://github.com/w3c/editing/issues/57">https://github.com/w3c/editing/issues/57</a>.</p>
             </section>
 
             <section>

@@ -91,7 +91,7 @@ var respecConfig = {
                     deleteContentForward, deleteContentBackward, deleteContent,
                     undo, redo, caretUp, caretDown, caretRight, caretLeft,
                     caretStartLine, caretEndLine, caretStartPreviousWord,
-                    caretEndNextWord, setInsertCaret, setOverwriteCaret. During
+                    caretEndNextWord. During
                     initialization, the user agent is responsible for
                     populating this field as follows:</p>
 
@@ -294,27 +294,6 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicates a switch to insert-mode for
-                        the caret using a keyboard, IME, speech, or similar
-                        method, the inputType MUST be <b>setInsertCaret</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRange to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user indicates a switch to overwrite-mode
-                        for the caret using a keyboard, IME, speech, or similar
-                        method, the inputType MUST be <b>setOverwriteCaret</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRange to NULL.</li>
-                            </ol>
-                        </li>
                     </ol>
 
                     <p></p>
