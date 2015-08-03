@@ -89,39 +89,73 @@ var respecConfig = {
                 ancestors that have their css-display value set to `none`.
             </dd>
 
+            <dt><dfn>Inline elements</dfn></dt>
+
+            <dd>
+                All elements which after the application of CSS are displayed inline.
+            </dd>
+
+            <dt><dfn>Block elements</dfn></dt>
+
+            <dd>
+                All elements which after the application of CSS are displayed as blocks.
+            </dd>
+
+            <dt><dfn>Stub elements</dfn></dt>
+
+            <dd>
+                All elements that are <a>void elements</a> OR root elements using
+                a different namespace than their parent elements (such as SVGs).
+            </dd>
+
+            <dt><dfn>Invisible elements</dfn></dt>
+
+            <dd>
+                All elements that after the application of CSS are invisible,
+                either due to CSS properties or because the type of element
+                would not have been rendered even without CSS.
+            </dd>
+
+
             <dt><dfn>Legal Caret Positions</dfn></dt>
 
             <dd>
                 <p>All positions in which the caret can be placed
-                programmatically. The placement is restricted to be in one of
-                these positions:</p>
+                programmatically. The placement is restricted to the following
+                positions. Implementations MUST be able to place the caret in
+                all of the following positions:</p>
 
                 <ol>
                     <li>Before or after any character in any text node.</li>
 
-                    <li>After any inline element that is not a text node.</li>
+                    <li>After <a>inline elements</a> that are not text nodes.</li>
 
-                    <li>Before any inline element that is not a text node and
-                    that does not have a `previousSibling`.</li>
+                    <li>Before <a>inline elements</a> that are not text nodes and
+                    that do not have a `previousSibling`.</li>
 
-                    <li>Inside any empty inline or block element that is not a
-                    stub-element or inside any empty text node.</li>
+                    <li>Inside empty <a>inline elements</a> and <a>block elements</a> that are not
+                    <a>stub elements</a>.</li>
 
-                    <li>Before or after a block element that is also a stub
-                    element.</li>
+                    <li>Inside empty text nodes.</li>
+
+                    <li>Before or after <a>block elements</a> that are also <a>stub
+                    elements</a>.</li>
 
                     <li>In the <a>CE Intentions Container</a>itself, if it is
                     empty.
                     </li>
                 </ol>
 
-                <p>There are two exceptions to these rules:</p>
+                <p>There are some exceptions to these rules:</p>
 
                 <ol>
                     <li>Within a table, the caret can only be placed inside
                     `TH` and `TD` elements.</li>
 
-                    <li>The caret cannot be placed inside invisible nodes.</li>
+                    <li>The caret cannot be placed inside <a>invisible nodes</a>.</li>
+
+                    <li>The caret cannot be placed inside elements who's
+                    contentEditable attribute returns `false`.</li>
                 </ol>
             </dd>
         </dl>
