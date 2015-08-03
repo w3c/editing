@@ -158,9 +158,8 @@
         Disabling all functionality is very difficult, however.
         </p>
         <p>In order to make it easier, we are redifining the capabilities of <code>contenteditable</code>.
-        The new version will be enabled with <code>contentEditable="typing"</code>. It will enable inserting characters including IME input,
-        but not including newlines, deletion of characters. or overwriting an uncollapsed selection.
-        It will also fire all kinds of Intention Events (beforeSelectionChange, beforeInput, etc).
+        The new version will be enabled with <code>contentEditable="intentions"</code>.
+        It will fire all kinds of Intention Events (beforeSelectionChange, beforeInput, etc).
         This will allow sites and frameworks to implement their own editor behaviors.
         Note that since it does not support overwriting uncollapsed selection, this new form of contenteditable will only make sense when it has a javascript editor implementation powering it.
         <p>Because they are widely used, <code>contentEditable="true"</code> and <code>contentEditable="plaintext-only"</code> will continue to be supported and implementation specific.</p>
