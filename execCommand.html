@@ -19108,7 +19108,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
     </section>
 
     <section>
-        <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
+        <h2 id="clipboard-commands">Clipboard commands</h2>
 
         <section>
             <h3 id="the-copy-command"><dfn>The <code title="">copy</code>
@@ -19202,34 +19202,6 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         </section>
 
         <section>
-            <h3 id="the-defaultparagraphseparator-command"><dfn>The
-            <code title="">defaultParagraphSeparator</code> command</dfn></h3>
-
-            <p class="XXX">This is a new feature, added by request in <a href=
-            "https://www.w3.org/Bugs/Public/show_bug.cgi?id=15527">bug
-            15527</a>. (Opera already had an o-defaultblock command that worked
-            similarly.) <strong>If you are implementing this, please make sure
-            to file any feedback as bugs. The spec is not finalized yet and can
-            still be easily changed.</strong></p>
-
-            <p><a href="#action">Action</a>: Let <var title="">value</var> be
-            <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#converted-to-ascii-lowercase">converted
-            to ASCII lowercase</a>. If <var title="">value</var> is then equal
-            to "p" or "div", set the <a class="external" data-anolis-spec="dom"
-            href="http://dom.spec.whatwg.org/#context-object">context
-            object</a>'s <a href="#default-single-line-container-name">default
-            single-line container name</a> to <var title="">value</var>, then
-            return true. Otherwise, return false.</p>
-
-            <p><a href="#value">Value</a>: Return the <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#context-object">context object</a>'s
-            <a href="#default-single-line-container-name">default single-line
-            container name</a>.</p>
-        </section>
-
-        <section>
             <h3 id="the-paste-command"><dfn>The <code title="">paste</code>
             command</dfn></h3>
 
@@ -19266,6 +19238,40 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             exception for non-whitelisted sites, or it may act as though the
             <a href="#command">command</a> is <a href="#supported" title=
             "supported">unsupported</a> on those sites.</p>
+        </section>
+
+    </section>
+
+    <section>
+        <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
+
+
+        <section>
+            <h3 id="the-defaultparagraphseparator-command"><dfn>The
+            <code title="">defaultParagraphSeparator</code> command</dfn></h3>
+
+            <p class="XXX">This is a new feature, added by request in <a href=
+            "https://www.w3.org/Bugs/Public/show_bug.cgi?id=15527">bug
+            15527</a>. (Opera already had an o-defaultblock command that worked
+            similarly.) <strong>If you are implementing this, please make sure
+            to file any feedback as bugs. The spec is not finalized yet and can
+            still be easily changed.</strong></p>
+
+            <p><a href="#action">Action</a>: Let <var title="">value</var> be
+            <a class="external" data-anolis-spec="dom" href=
+            "http://dom.spec.whatwg.org/#converted-to-ascii-lowercase">converted
+            to ASCII lowercase</a>. If <var title="">value</var> is then equal
+            to "p" or "div", set the <a class="external" data-anolis-spec="dom"
+            href="http://dom.spec.whatwg.org/#context-object">context
+            object</a>'s <a href="#default-single-line-container-name">default
+            single-line container name</a> to <var title="">value</var>, then
+            return true. Otherwise, return false.</p>
+
+            <p><a href="#value">Value</a>: Return the <a class="external"
+            data-anolis-spec="dom" href=
+            "http://dom.spec.whatwg.org/#context-object">context object</a>'s
+            <a href="#default-single-line-container-name">default single-line
+            container name</a>.</p>
         </section>
 
         <section>
