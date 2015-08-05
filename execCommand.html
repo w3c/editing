@@ -575,7 +575,7 @@ var respecConfig = {
         <p class="XXX">A variety of other issues are also noted in the text,
         formatted like this. Feedback would be appreciated on all of them.</p>
 
-        <div class="comments">
+        <div class="note">
             <p>TODO:</p>
 
             <ul>
@@ -818,7 +818,7 @@ var respecConfig = {
         <section>
             <h3 id="supported-commands">Supported commands</h3>
 
-            <p class="comments">If you try doing anything with an unrecognized
+            <p class="note">If you try doing anything with an unrecognized
             command (except queryCommandSupported), IE10 Developer Preview
             throws an "Invalid argument" exception. Firefox 15.0a1 throws
             NS_ERROR_NOT_IMPLEMENTED on querying indeterm/state/value, and
@@ -853,7 +853,7 @@ var respecConfig = {
             names with a vendor-specific string (e.g., "ms", "moz", "webkit",
             "opera").</p>
 
-            <p class="comments">I.e., no trying to look good on lazy
+            <p class="note">I.e., no trying to look good on lazy
             conformance tests by just sticking in a stub implementation that
             does nothing.</p>
 
@@ -900,7 +900,7 @@ var respecConfig = {
             of the various methods that invoke <a href="#command" title=
             "command">commands</a>.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Testing with bold:</p>
 
                 <p>IE10PP2 seems to return true if the active range's start
@@ -1047,7 +1047,7 @@ data-anolis-spec="dom" href=
         both be initialized to the empty string, unless otherwise
         specified.</p>
 
-        <p class="comments">TODO: Define behavior for <var title="">show
+        <p class="note">TODO: Define behavior for <var title="">show
         UI</var>.</p>
 
         <p>When the <dfn id="execcommand()" title=
@@ -1066,7 +1066,7 @@ data-anolis-spec="dom" href=
             "">value</var> be the empty string.</li>
 
             <li>
-                <div class="comments">
+                <div class="note">
                     <p>For supported: see comment before <a href=
                     "#supported-commands">Supported commands</a>.</p>
 
@@ -1269,7 +1269,7 @@ data-anolis-spec="dom" href=
 
         <ol>
             <li>
-                <p class="comments">See comment before <a href=
+                <p class="note">See comment before <a href=
                 "#supported-commands">Supported commands</a>.</p>
             </li>
 
@@ -1289,7 +1289,7 @@ data-anolis-spec="dom" href=
 
         <ol>
             <li>
-                <div class="comments">
+                <div class="note">
                     <p>For supported: see comment before <a href=
                     "#supported-commands">Supported commands</a>.</p>
 
@@ -1352,7 +1352,7 @@ data-anolis-spec="dom" href=
 
         <ol>
             <li>
-                <p class="comments">See comment on the comparable line for
+                <p class="note">See comment on the comparable line for
                 <a href=
                 "#querycommandindeterm()">queryCommandIndeterm()</a>.</p>
 
@@ -1370,7 +1370,7 @@ data-anolis-spec="dom" href=
             </li>
         </ol>
 
-        <div class="comments">
+        <div class="note">
             <p>Firefox 6.0a2 always throws an exception when this is called.
             Opera 11.11 seems to return false if there's nothing editable on
             the page, which is unhelpful. The spec follows IE9 and Chrome 14
@@ -1407,7 +1407,7 @@ data-anolis-spec="dom" href=
 
         <ol>
             <li>
-                <p class="comments">This is what Firefox 6.0a2 and Opera 11.11
+                <p class="note">This is what Firefox 6.0a2 and Opera 11.11
                 seem to do when the command isn't enabled. Chrome 14 dev seems
                 to return the string "false", and IE9 seems to return boolean
                 false. For the case where there's no value, or the command
@@ -1421,7 +1421,7 @@ data-anolis-spec="dom" href=
             </li>
 
             <li>
-                <p class="comments">Yuck. This is incredibly messy, as are lots
+                <p class="note">Yuck. This is incredibly messy, as are lots
                 of other fontSize-related things, but I don't want to define a
                 whole second notion of value for the sake of a single command .
                 . .</p>
@@ -1506,7 +1506,7 @@ data-anolis-spec="dom" href=
         "summary", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "ul",
         or "xmp".</p>
 
-        <p class="comments">These are all the things that will close a
+        <p class="note">These are all the things that will close a
         &lt;p&gt; if found as a descendant. I think. Plus table stuff, since
         that can't be a descendant of a p either, although it won't auto-close
         it.</p>
@@ -1519,7 +1519,7 @@ data-anolis-spec="dom" href=
         "#prohibited-paragraph-child-name">prohibited paragraph child
         name</a>.</p>
 
-        <p class="comments">The block/inline node definitions are CSS-based.
+        <p class="note">The block/inline node definitions are CSS-based.
         "Prohibited paragraph child" is conceptually similar to "block node",
         but based on the element name. Generally we want to use block/inline
         node when we're interested in the visual effect, and prohibited
@@ -1648,7 +1648,7 @@ data-anolis-spec="dom" href=
         its ancestor has a fixed height? Would it be better to use some
         DOM-based definition?</p>
 
-        <p class="comments">TODO: The thing about li is a not very nice hack.
+        <p class="note">TODO: The thing about li is a not very nice hack.
         The issue is that an li won't collapse even if it has no children at
         all, but that's not true in all browsers (at least not in Opera 11.11),
         and also it breaks assumptions elsewhere. E.g., if it gets turned into
@@ -1757,7 +1757,7 @@ data-anolis-spec="dom" href=
             </li>
 
             <li>
-                <div class="comments">
+                <div class="note">
                     <p>At this point we know <var title="">node</var> consists
                     of some whitespace, of a sort that will collapse if it's at
                     the start or end of a line. We go backwards until we find
@@ -1817,7 +1817,7 @@ data-anolis-spec="dom" href=
             </li>
 
             <li>
-                <p class="comments">We found something before our text node on
+                <p class="note">We found something before our text node on
                 (probably) the same line, so presumably it's not at the line's
                 start. Now we need to look forward and see if we're at the
                 line's end. If we aren't there either, then we assume we're not
@@ -1868,7 +1868,7 @@ data-anolis-spec="dom" href=
             <li>Return false.</li>
         </ol>
 
-        <p class="comments">TODO: Consider whether we really want to depend on
+        <p class="note">TODO: Consider whether we really want to depend on
         img specifically here. It seems more likely that we want something like
         "any replaced content that has nonzero height and width" or such. When
         fixing this, make sure to audit for other occurrences of this
@@ -1912,7 +1912,7 @@ data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a> that is not <a href="#visible">visible</a>.</p>
 
-        <p class="comments">TODO: Reconsider whether we want to lump invisible
+        <p class="note">TODO: Reconsider whether we want to lump invisible
         nodes in here. If we don't and change the definition, make sure to
         audit all callers, since then a block could have collapsed block prop
         descendants that aren't children.</p>
@@ -1943,7 +1943,7 @@ data-anolis-spec="dom" href=
         other contents, but serve no purpose and should be removed once the
         block has other contents that stop it from collapsing.</p>
 
-        <p class="comments">TODO: I say "first range" because I think that's
+        <p class="note">TODO: I say "first range" because I think that's
         what Gecko actually does, and Gecko is the only one that allows
         multiple ranges in a selection. This is keeping in mind that it stores
         ranges sorted by start, not by the order the user added them, and
@@ -2025,7 +2025,7 @@ data-anolis-spec="dom" href=
         "#the-delete-command"><code title="">delete</code></a> also interact
         with overrides.</p>
 
-        <p class="comments">See <a href=
+        <p class="note">See <a href=
         "https://www.w3.org/Bugs/Public/show_bug.cgi?id=16207">bug
         16207</a>.</p>
 
@@ -2127,7 +2127,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">This is actually implicit, but I state
+                    <p class="note">This is actually implicit, but I state
                     it anyway for completeness.</p>
 
                     <p>If a <a class="external" data-anolis-spec="dom" href=
@@ -2194,7 +2194,7 @@ data-anolis-spec="dom" href=
                 </li>
             </ol>
 
-            <p class="comments">TODO: Do we want to get rid of attributes that
+            <p class="note">TODO: Do we want to get rid of attributes that
             are no longer allowed here?</p>
 
             <p>To <dfn id="set-the-tag-name">set the tag name</dfn> of an
@@ -2360,7 +2360,7 @@ data-anolis-spec="dom" href=
 
                     <ol>
                         <li>
-                            <p class="comments">If the block ends with
+                            <p class="note">If the block ends with
                             <code title=
                             "">&lt;span&gt;&lt;br&gt;&lt;/span&gt;</code>, for
                             instance, we want to remove the span too.</p>
@@ -2436,7 +2436,7 @@ data-anolis-spec="dom" href=
 
             <ol>
                 <li>
-                    <p class="comments">We need to treat <code class="external"
+                    <p class="note">We need to treat <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
                     br</a></code>s as visible here even if they're not, because
@@ -2460,7 +2460,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">Trailing br's like this always need to
+                    <p class="note">Trailing br's like this always need to
                     go along with their line. Otherwise they'll create an extra
                     line if we wrap in a block element, instead of vanishing as
                     they should.</p>
@@ -2484,7 +2484,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">See <a href=
+                    <p class="note">See <a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13811">bug
                     13811</a>, <a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14231">bug
@@ -2549,7 +2549,7 @@ data-anolis-spec="dom" href=
                 and let <var title="">new parent</var> be the result.</li>
 
                 <li>
-                    <p class="comments">This can only happen if <var title=
+                    <p class="note">This can only happen if <var title=
                     "">new parent instructions</var> is run and it returns
                     null. This can be used to only merge with adjacent
                     siblings, in case you don't want to create a new parent if
@@ -2560,7 +2560,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">Most callers will create a new element
+                    <p class="note">Most callers will create a new element
                     to return in <var title="">new parent instructions</var>,
                     whose parent will therefore be null. But they can also
                     return an existing node if that makes sense, so the nodes
@@ -2583,7 +2583,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <div class="comments">
+                            <div class="note">
                                 <p>Basically, we want any boundary points
                                 around the wrapped nodes to go inside the
                                 wrapper. Without this step, wrapping
@@ -2788,7 +2788,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">This could happen if <var title="">new
+                    <p class="note">This could happen if <var title="">new
                     parent instructions</var> returned a node whose parent
                     wasn't null.</p>
 
@@ -2803,7 +2803,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">Probably because both the previous and
+                    <p class="note">Probably because both the previous and
                     next sibling met them. We want to merge them in this
                     case.</p>
 
@@ -2897,7 +2897,7 @@ data-anolis-spec="dom" href=
         <section>
             <h3 id="allowed-children">Allowed children</h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>List is mostly based on current HTML5, together with
                 obsolete elements. I mostly got the obsolete element list by
                 testing what Firefox 5.0a2 splits when you do
@@ -2925,7 +2925,7 @@ data-anolis-spec="dom" href=
             "#name-of-an-element-with-inline-contents">name of an element with
             inline contents</a>.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>TODO: This list doesn't currently match HTML's validity
                 requirements for a few reasons:</p>
 
@@ -3000,7 +3000,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">Actually, no node can occur in the DOM
+                    <p class="note">Actually, no node can occur in the DOM
                     after plaintext, generally. But let's not get too carried
                     away.</p>
 
@@ -3043,7 +3043,7 @@ data-anolis-spec="dom" href=
 
                     <ol>
                         <li>
-                            <p class="comments">Cannot be serialized as
+                            <p class="note">Cannot be serialized as
                             text/html. In some cases it can, like
                             &lt;a&gt;foo&lt;table&gt;&lt;td&gt;&lt;a&gt;bar&lt;/a&gt;&lt;/td&gt;&lt;/table&gt;baz&lt;/a&gt;,
                             but it's invalid in those cases too, so no need for
@@ -3062,7 +3062,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">This generally cannot be
+                            <p class="note">This generally cannot be
                             serialized either, for p. For other elements with
                             inline contents, this serves to prevent things like
                             &lt;span&gt;&lt;p&gt;foo&lt;/p&gt;&lt;/span&gt;,
@@ -3082,7 +3082,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">Also can't be serialized as
+                            <p class="note">Also can't be serialized as
                             text/html.</p>
 
                             <p>If <var title="">child</var> is "h1", "h2",
@@ -3101,7 +3101,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">Further requirements only care
+                            <p class="note">Further requirements only care
                             about the parent itself, not ancestors, so we don't
                             need to know the node itself.</p>
 
@@ -3125,7 +3125,7 @@ data-anolis-spec="dom" href=
                 false.</li>
 
                 <li>
-                    <p class="comments">We allow children even where some
+                    <p class="note">We allow children even where some
                     intervening nodes will be inserted, like tr as a child of
                     table.</p>
 
@@ -3157,7 +3157,7 @@ data-anolis-spec="dom" href=
                 "tfoot", "th", "thead", or "tr", return false.</li>
 
                 <li>
-                    <p class="comments">dd/dt/li will serialize fine as the
+                    <p class="note">dd/dt/li will serialize fine as the
                     child of random stuff, but it makes no sense at all, so we
                     want to avoid it anyway.</p>
 
@@ -3209,7 +3209,7 @@ data-anolis-spec="dom" href=
             <h3 id="inline-formatting-command-definitions">Inline formatting
             command definitions</h3>
 
-            <p class="comments">The difference between "contained" and
+            <p class="note">The difference between "contained" and
             "effectively contained" is basically that 1) in
             &lt;b&gt;[foo]&lt;/b&gt;, the text node and the &lt;b&gt; are
             effectively contained but not contained; and 2) in
@@ -3238,7 +3238,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">So like &lt;b&gt;f[oo]&lt;/b&gt; or
+                    <p class="note">So like &lt;b&gt;f[oo]&lt;/b&gt; or
                     &lt;b&gt;f[o]o&lt;/b&gt; or &lt;b&gt;f[oo&lt;/b&gt;}, but
                     not &lt;b&gt;foo[&lt;/b&gt;} or
                     &lt;b&gt;f[]oo&lt;/b&gt;.</p>
@@ -3272,7 +3272,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">Basically, anything whose children are
+                    <p class="note">Basically, anything whose children are
                     all effectively contained should be effectively contained
                     itself, except that in a case like &lt;b&gt;f[o]o&lt;/b&gt;
                     we don't want &lt;b&gt; to be effectively contained even
@@ -3657,7 +3657,7 @@ data-anolis-spec="dom" href=
             <a href="#effective-command-value">effective command value</a> is
             not one of the given values.</p>
 
-            <p class="comments">For bold and similar commands, IE 9 RC seems to
+            <p class="note">For bold and similar commands, IE 9 RC seems to
             consider the state true or false depending on the first element.
             All other browsers follow the same general idea as the spec,
             considering a range bold only if all text in it is bold, and this
@@ -3687,7 +3687,7 @@ data-anolis-spec="dom" href=
             "#effective-command-value">effective command value</a> equal to one
             of the given values.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Testing with hiliteColor: Opera 11.11 seems to always return
                 the effective command value of the active range's start node.
                 Chrome 14 dev returns boolean false consistently, bizarrely
@@ -3829,7 +3829,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <div class="comments">
+                            <div class="note">
                                 <p>What happens if everything's background is
                                 fully transparent? See <a href=
                                 "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14068">
@@ -3882,7 +3882,7 @@ data-anolis-spec="dom" href=
 
                             <ol>
                                 <li>
-                                    <p class="comments">Firefox 6.0a2 ignores
+                                    <p class="note">Firefox 6.0a2 ignores
                                     vertical-align for this purpose, and only
                                     cares about &lt;sub&gt; and &lt;sup&gt;
                                     tags themselves. Opera 11.11 is similar,
@@ -4172,7 +4172,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">As with removeFormat, we put subscript
+                    <p class="note">As with removeFormat, we put subscript
                     first so it doesn't interfere with fontSize, and omit
                     superscript because it's redundant with subscript.</p>
 
@@ -4321,7 +4321,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">We want to abort early so that we don't
+                    <p class="note">We want to abort early so that we don't
                     try unsetting background-color on a non-inline element.</p>
 
                     <p>If <var title="">element</var>'s <a href=
@@ -4419,7 +4419,7 @@ data-anolis-spec="dom" href=
                 href</a></code> property of <var title="">element</var>.</li>
 
                 <li>
-                    <p class="comments">If we get past this step, we're
+                    <p class="note">If we get past this step, we're
                     something like &lt;b class=foo&gt; where we want to keep
                     the extra attributes, so we stick them on a span.</p>
 
@@ -4442,7 +4442,7 @@ data-anolis-spec="dom" href=
         <section>
             <h3 id="pushing-down-values">Pushing down values</h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>This algorithm goes up to just below the nearest ancestor
                 with the right style, then re-applies the bad styles repeatedly
                 going down, omitting the things we want to have the new style.
@@ -4498,7 +4498,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">E.g., a text node child of a document
+                    <p class="note">E.g., a text node child of a document
                     fragment.</p>
 
                     <p>If <var title="">node</var>'s <a class="external"
@@ -4555,7 +4555,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">We can only remove specified values, so
+                    <p class="note">We can only remove specified values, so
                     if the value isn't specified, give up. Unless we're
                     actually trying to push down a null specified value, like
                     for unlink.</p>
@@ -4566,7 +4566,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>If we go all the way up to the root and still don't
                         have the desired value, pushing down values is
                         pointless. It will create extra markup for no purpose.
@@ -4655,7 +4655,7 @@ data-anolis-spec="dom" href=
                                 <var title="">child</var>.</li>
 
                                 <li>
-                                    <p class="comments">TODO: This will be
+                                    <p class="note">TODO: This will be
                                     incorrect for relative font sizes. If the
                                     font size on the parent was removed and the
                                     font size on the child is in ems or
@@ -4733,7 +4733,7 @@ data-anolis-spec="dom" href=
 
                     <ol>
                         <li>
-                            <div class="comments">
+                            <div class="note">
                                 <p>Even if the value matches, we stick it in a
                                 preceding sibling if possible. This ensures
                                 "a&lt;cite&gt;b&lt;/cite&gt;c" -&gt;
@@ -4775,7 +4775,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">The <var title="">new parent
+                            <p class="note">The <var title="">new parent
                             instructions</var> we'd want are too complicated to
                             reasonably feed into the wrap algorithm, so we just
                             let them return null and do the wrapping ourselves
@@ -4805,7 +4805,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments"><a href=
+                    <p class="note"><a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13996">Bug
                     13996</a>.</p>
 
@@ -4840,7 +4840,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">This means that if it has no
+                            <p class="note">This means that if it has no
                             children, we do nothing. IE9 inserts an empty
                             wrapper element in that case, but I'm not sure what
                             the point is, and no one else does, so I don't.
@@ -4900,7 +4900,7 @@ data-anolis-spec="dom" href=
                         of <var title="">node</var>.</li>
 
                         <li>
-                            <p class="comments">TODO: Actual UAs use strike,
+                            <p class="note">TODO: Actual UAs use strike,
                             not s, but s is shorter and HTML5 makes strike
                             invalid. I've gone with s for now, but maybe we
                             want to change the spec to require strike.</p>
@@ -4933,7 +4933,7 @@ data-anolis-spec="dom" href=
                         of <var title="">node</var>.</li>
 
                         <li>
-                            <p class="comments">See comment for foreColor for
+                            <p class="note">See comment for foreColor for
                             discussion. TODO: Define more carefully what
                             happens when things are out of range or not
                             integers or whatever.</p>
@@ -5013,7 +5013,7 @@ data-anolis-spec="dom" href=
                         parent</var> to <var title="">new value</var>.</li>
 
                         <li>
-                            <p class="comments">Nested a elements are bad,
+                            <p class="note">Nested a elements are bad,
                             because they can't be serialized to text/html.
                             hrefs should already have been cleared in a
                             previous step, but we might have &lt;a name&gt; or
@@ -5030,7 +5030,7 @@ data-anolis-spec="dom" href=
 
                             <ol>
                                 <li>
-                                    <p class="comments">TODO: This will mean
+                                    <p class="note">TODO: This will mean
                                     any link-specific attributes will be
                                     transferred, which makes them both invalid
                                     and useless. Is that okay? I don't really
@@ -5059,7 +5059,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">WebKit is the only engine that ever
+                    <p class="note">WebKit is the only engine that ever
                     outputs anything but font tags for fontSize. For size=7, it
                     uses font-size: -webkit-xxx-large. We just output a font
                     tag no matter what for size=7.</p>
@@ -5102,7 +5102,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">We always use sup/sub elements, even in
+                    <p class="note">We always use sup/sub elements, even in
                     CSS mode, following Gecko and contradicting WebKit. This is
                     because &lt;span value="vertical-align: sub/super"&gt;, the
                     obvious equivalent (and what WebKit uses), behaves quite
@@ -5145,7 +5145,7 @@ data-anolis-spec="dom" href=
                 of <var title="">node</var>.</li>
 
                 <li>
-                    <p class="comments">This preserves boundary points
+                    <p class="note">This preserves boundary points
                     correctly, as usual.</p>
 
                     <p>Insert <var title="">new parent</var> in <var title=
@@ -5311,7 +5311,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>If candidate had no children, any boundary point
                         inside it will get moved to its parent here, which is
                         okay. We don't want to preserve ranges, because that
@@ -5480,7 +5480,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">IE9 seems to wrap the whole line
+                    <p class="note">IE9 seems to wrap the whole line
                     instead, or something like that, although it does nothing
                     for createLink. We follow all other browsers' general
                     behavior: change the state/value, and then make sure that
@@ -5526,7 +5526,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">The last sentence here just prettifies
+                    <p class="note">The last sentence here just prettifies
                     the resulting range a bit.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
@@ -5611,7 +5611,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>We skip non-editable nodes.</p>
 
                         <dl>
@@ -5680,7 +5680,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This is inefficient. It would be
+                    <p class="note">TODO: This is inefficient. It would be
                     most efficient to only push down values on the
                     highest-level effectively contained nodes, and to batch
                     operations so we handle runs of adjacent siblings at once.
@@ -5696,7 +5696,7 @@ data-anolis-spec="dom" href=
                         </li>
 
                         <li>
-                            <p class="comments">If the node isn't an allowed
+                            <p class="note">If the node isn't an allowed
                             child of "span", forcing its value will just force
                             its children's value, which is redundant. So
                             don't.</p>
@@ -5718,7 +5718,7 @@ data-anolis-spec="dom" href=
             <p class="note">For historical reasons, backColor and hiliteColor
             behave identically.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>We have three behaviors to choose from for this one:</p>
 
                 <ol>
@@ -5794,7 +5794,7 @@ data-anolis-spec="dom" href=
             <h3 id="the-bold-command"><dfn>The <code title="">bold</code>
             command</dfn></h3>
 
-            <p class="comments">If the selection is collapsed (but not if it
+            <p class="note">If the selection is collapsed (but not if it
             contains nothing but is not collapsed), IE9 wraps the whole line in
             a &lt;strong&gt;. This seems bizarre and no one else does it, so I
             don't do it. It's a similar story for similar commands (fontName,
@@ -5810,7 +5810,7 @@ data-anolis-spec="dom" href=
             "#set-the-selection's-value">set the selection's value</a> to
             "bold". Either way, return true.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>The cutoff of 600 matches Chrome 14 dev. The cutoff used by
                 IE9 and Firefox 6.0a2 seems to be 500, and the distinction
                 isn't relevant for Opera 11.11 (it doesn't use CSS here at all
@@ -5845,7 +5845,7 @@ data-anolis-spec="dom" href=
             <h3 id="the-createlink-command"><dfn>The <code title=
             "">createLink</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>If the selection doesn't contain anything (meaning, e.g.,
                 deleteContents() doesn't change anything), then Chrome 12 dev
                 inserts a link at the selection start, with the text equal to
@@ -5869,7 +5869,7 @@ data-anolis-spec="dom" href=
 
             <ol>
                 <li>
-                    <p class="comments">Firefox 4b11 and Chrome 11 dev both
+                    <p class="note">Firefox 4b11 and Chrome 11 dev both
                     silently do nothing in this case. IE 9 RC and Opera 11 both
                     treat the request literally. Gecko and WebKit probably have
                     it right here: users who enter no URL are very unlikely to
@@ -5883,7 +5883,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>There are three approaches here. For instance, if
                         you ask browsers to create a link to
                         "http://example.org" on the "b" here:</p>
@@ -5953,7 +5953,7 @@ data-anolis-spec="dom" href=
             <h3 id="the-fontname-command"><dfn>The <code title=
             "">fontName</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>UAs differ a bit in the details here:</p>
 
                 <dl>
@@ -5995,7 +5995,7 @@ data-anolis-spec="dom" href=
             "#set-the-selection's-value">Set the selection's value</a> to
             <var title="">value</var>, then return true.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>The value is complicated.</p>
 
                 <dl>
@@ -6041,7 +6041,7 @@ data-anolis-spec="dom" href=
             <h3 id="the-fontsize-command"><dfn>The <code title=
             "">fontSize</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <dl>
                     <dt>IE 9</dt>
 
@@ -6146,7 +6146,7 @@ data-anolis-spec="dom" href=
                 <li>Set <var title="">value</var> to the string here
                 corresponding to <var title="">number</var>:
 
-                    <p class="comments">The entry for 7 here is an issue:
+                    <p class="note">The entry for 7 here is an issue:
                     there's no CSS value that corresponds to it. Even if we got
                     one added to the drafts, it wouldn't be backward-compatible
                     to use it. WebKit is the only engine that supports CSS
@@ -6181,7 +6181,7 @@ data-anolis-spec="dom" href=
                 <li>Return true.</li>
             </ol>
 
-            <p class="comments">This follows Firefox 6.0a2. Chrome 14 dev
+            <p class="note">This follows Firefox 6.0a2. Chrome 14 dev
             always returns false. Note that indeterminacy here keys off the
             effective command value, while the value is based only on an
             approximation (a number from one to seven). Thus it's possible for
@@ -6198,7 +6198,7 @@ data-anolis-spec="dom" href=
             title="effective command value">effective command values</a>.
             Otherwise false.</p>
 
-            <div class="comments">
+            <div class="note">
                 <dl>
                     <dt>IE9</dt>
 
@@ -6244,7 +6244,7 @@ data-anolis-spec="dom" href=
                 </li>
 
                 <li>
-                    <p class="comments">See comment for standard inline value
+                    <p class="note">See comment for standard inline value
                     commands on how I decided on this choice of node.</p>
 
                     <p>Let <var title="">pixel size</var> be the <a href=
@@ -6330,7 +6330,7 @@ data-anolis-spec="dom" href=
             <h3 id="the-forecolor-command"><dfn>The <code title=
             "">foreColor</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>Color interpretations:
                 <!-- I wanted the table to stretch out to the left.  CSS doesn't support this
 directly, but where there's a will, there's a way! --></p>
@@ -6427,7 +6427,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <ol>
                 <li>
-                    <p class="comments">TODO: Define "valid CSS color" (here
+                    <p class="note">TODO: Define "valid CSS color" (here
                     and in other color places).</p>
 
                     <p>If <var title="">value</var> is not a valid CSS color,
@@ -6435,7 +6435,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">currentColor is bad for the same reason
+                    <p class="note">currentColor is bad for the same reason
                     as relative font sizes. It will confuse the algorithm, and
                     doesn't seem very useful anyway.</p>
 
@@ -6451,7 +6451,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Return true.</li>
             </ol>
 
-            <div class="comments">
+            <div class="note">
                 <p>Opera 11 seems to return true for the state if there's some
                 color style applied, false otherwise, which seems fairly
                 useless; authors want to use value here, not state. So I'll
@@ -6483,7 +6483,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <p class="note">For historical reasons, backColor and hiliteColor
             behave identically.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>IE 9 RC doesn't support this. It uses backColor instead, but
                 Gecko and Opera treat that differently, while all non-IE
                 browsers treat hiliteColor the same, so I'm standardizing
@@ -6517,7 +6517,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 prepend "#" to it.</li>
 
                 <li>
-                    <p class="comments">currentColor is bad for the same reason
+                    <p class="note">currentColor is bad for the same reason
                     as relative font sizes. It will confuse the algorithm, and
                     doesn't seem very useful anyway. For hiliteColor you could
                     conceive of it being useful, but it will still confuse the
@@ -6535,7 +6535,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Return true.</li>
             </ol>
 
-            <p class="comments">For indeterminacy, this follows no one. Firefox
+            <p class="note">For indeterminacy, this follows no one. Firefox
             6.0a2 and Chrome 14 dev both always return false. However, the spec
             makes sense, since it's consistent with other commands.</p>
 
@@ -6569,7 +6569,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <h3 id="the-removeformat-command"><dfn>The <code title=
             "">removeFormat</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>See <a href=
                 "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13632">bug</a>,
                 and also <a href=
@@ -6695,7 +6695,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">The last sentence just prettifies the
+                    <p class="note">The last sentence just prettifies the
                     resulting range a bit.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
@@ -6776,7 +6776,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">TODO: Splitting the parent is really a
+                    <p class="note">TODO: Splitting the parent is really a
                     block algorithm. It's not clear whether it's desirable to
                     use for inline nodes. Perhaps it's okay, but it makes me a
                     little uneasy.</p>
@@ -6797,7 +6797,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">This step is for cases like &lt;p
+                    <p class="note">This step is for cases like &lt;p
                     style=font-weight:bold&gt;foo[bar]baz&lt;/p&gt;, where
                     splitting/removing tags won't help. We don't need to run
                     superscript, since subscript does the same thing here. We
@@ -6838,7 +6838,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <h3 id="the-strikethrough-command"><dfn>The <code title=
             "">strikethrough</code> command</dfn></h3>
 
-            <p class="comments">TODO: See underline TODO.</p>
+            <p class="note">TODO: See underline TODO.</p>
 
             <p><a href="#action">Action</a>: If <code title=
             "queryCommandState()"><a href=
@@ -6888,7 +6888,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             "#effective-command-value">effective command value</a> "mixed".
             Otherwise false.</p>
 
-            <p class="comments">For
+            <p class="note">For
             &lt;sup&gt;&lt;sub&gt;foo&lt;/sub&gt;&lt;/sup&gt;, Firefox 6.0a2
             and Opera 11.11 say the state is true for both superscript and
             subscript, and indeterminate is false; Chrome 14 dev says it's true
@@ -6949,7 +6949,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <h3 id="the-underline-command"><dfn>The <code title=
             "">underline</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>TODO: There are a lot of problems with underline color and
                 thickness, because text-decoration in CSS is horrible. These
                 aren't prohibitive for normal use and existing browsers don't
@@ -7027,7 +7027,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <h3 id="the-unlink-command"><dfn>The <code title="">unlink</code>
             command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>IE 9 RC unlinks the whole link you're pointing at, while
                 others only unlink the current text. The latter behavior seems
                 less expected, as with createLink, although I can't articulate
@@ -7093,7 +7093,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             style</a></code> attribute that sets "margin" or some subproperty
             of it.</p>
 
-            <p class="comments">We need to allow stuff that sets border/padding
+            <p class="note">We need to allow stuff that sets border/padding
             because WebKit (Chrome 12 dev) sets "border: none; padding: 0px"
             when indenting. We need to allow stuff that sets classes because
             WebKit sets class="webkit-indent-blockquote". We need to allow
@@ -7124,7 +7124,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             "#modifiable-element">modifiable element</a> and <a href=
             "#simple-modifiable-element">simple modifiable element</a>.</p>
 
-            <p class="comments">listing and xmp are included because otherwise
+            <p class="note">listing and xmp are included because otherwise
             insertParagraph inside them won't work, since paragraphs aren't an
             allowed child.</p>
 
@@ -7161,7 +7161,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Return <var title="">node</var>.</li>
             </ol>
 
-            <p class="comments"><a href=
+            <p class="note"><a href=
             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14062">Bug
             14062</a>. See also <a href=
             "https://bugzilla.mozilla.org/show_bug.cgi?id=590640">Mozilla bug
@@ -7188,7 +7188,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             <h3 id="assorted-block-formatting-command-algorithms">Assorted
             block formatting command algorithms</h3>
 
-            <p class="comments">TODO: When breaking a non-inline element out of
+            <p class="note">TODO: When breaking a non-inline element out of
             an inline element, like p in b or whatever, it would make sense to
             re-wrap the contents in the inline tag.</p>
 
@@ -7206,7 +7206,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">This case is really intended to handle
+                    <p class="note">This case is really intended to handle
                     stuff like list items or table cells that wander outside
                     their proper place. We generally convert them into
                     <code class="external" data-anolis-spec="html" title=
@@ -7256,7 +7256,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                         </li>
 
                         <li>
-                            <p class="comments">There's no reason to change the
+                            <p class="note">There's no reason to change the
                             node to a paragraph if that won't make it an
                             allowed child anyway.</p>
 
@@ -7280,7 +7280,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                         </li>
 
                         <li>
-                            <p class="comments">Because maybe it somehow wound
+                            <p class="note">Because maybe it somehow wound
                             up as the child of a p, like via insertHTML.</p>
 
                             <p><a href="#fix-disallowed-ancestors">Fix
@@ -7360,7 +7360,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
             </ol>
 
-            <div class="comments">
+            <div class="note">
                 <p>This algorithm implies that we don't support a sublist in
                 the middle of an item, only at the end. For instance,</p>
                 <pre>
@@ -7667,7 +7667,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 "none".</li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>The child-of-child case is necessary right now
                         because of the following:</p>
                         <pre>
@@ -7729,7 +7729,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">This condition and the last are
+                    <p class="note">This condition and the last are
                     mutually exclusive, so the order is actually irrelevant.
                     Clearly they could only both hold if no member of node list
                     is an ol or ul, so if they both held, every member would
@@ -7885,7 +7885,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Return "none".</li>
             </ol>
 
-            <div class="comments">
+            <div class="note">
                 <p>When querying the value of justify*, IE9 seems to return
                 boolean false across the board when it doesn't throw
                 exceptions, which it usually does in my tests. Chrome 14 dev
@@ -7934,7 +7934,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>
-                    <p class="comments">This means there's no applicable style
+                    <p class="note">This means there's no applicable style
                     rule, so probably it will wind up left-aligned. Of course
                     this ignores the fact that the alignment will really be
                     "start", so this is wrong for RTL, but it's a pretty
@@ -8365,7 +8365,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">This just changes something like
+                    <p class="note">This just changes something like
                     <code title=
                     "">&lt;div&gt;{&lt;p&gt;foo]&lt;/p&gt;&lt;/div&gt;</code>
                     to <code title=
@@ -8622,7 +8622,7 @@ output is null.
                 string or boolean) ordered pairs, initially empty.</li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>When restoring, some commands can interfere with
                         others. Specifically, we want to restore createLink
                         before foreColor and underline, and subscript and
@@ -8647,7 +8647,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">Firefox 7.0a2 and Opera 11.50 will
+                    <p class="note">Firefox 7.0a2 and Opera 11.50 will
                     honor repeated subscript/superscript commands on a
                     collapsed selection, allowing you to nest them. The spec
                     follows the general philosophy that we don't allow users to
@@ -8698,7 +8698,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">Thus we will set state overrides based
+                    <p class="note">Thus we will set state overrides based
                     on the first formattable node, to match values. This means
                     that if you have <code title=
                     "">&lt;p&gt;foo&lt;b&gt;[bar&lt;/b&gt;baz]&lt;/p&gt;</code>
@@ -8728,7 +8728,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">Special case for fontSize, because its
+                    <p class="note">Special case for fontSize, because its
                     values are weird.</p>
 
                     <p>Add ("fontSize", <var title="">node</var>'s <a href=
@@ -8790,7 +8790,7 @@ output is null.
                         </li>
 
                         <li>
-                            <p class="comments">This special case is needed
+                            <p class="note">This special case is needed
                             because <a href=
                             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14067">
                             createLink has no value</a>.</p>
@@ -8812,7 +8812,7 @@ output is null.
                         </li>
 
                         <li>
-                            <p class="comments">The override will be some CSS
+                            <p class="note">The override will be some CSS
                             value, so we have to convert it to a legacy font
                             size.</p>
 
@@ -8849,7 +8849,7 @@ output is null.
                         beginning.</li>
 
                         <li>
-                            <p class="comments">If we took the action for a
+                            <p class="note">If we took the action for a
                             command, we need to reset <var title="">node</var>,
                             because it might have changed. For instance, if the
                             selection was <code title="">foo[bar]baz</code>,
@@ -8889,7 +8889,7 @@ output is null.
         <section>
             <h3 id="deleting-the-selection">Deleting the selection</h3>
 
-            <p class="comments">TODO: Consider what should happen for block
+            <p class="note">TODO: Consider what should happen for block
             merging in corner cases like display: inline-table.</p>
 
             <p>To <dfn id="delete-the-selection">delete the selection</dfn>,
@@ -9106,7 +9106,7 @@ output is null.
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>We only merge to or from block nodes or editing
                         hosts. (This is just in case someone makes a span into
                         an editing host and sticks paragraphs inside it or
@@ -9197,7 +9197,7 @@ output is null.
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>As far as I can tell, IE9 and Opera 11.50 don't do
                         this at all. If you delete a selection and then start
                         typing, the new text doesn't take on the styles of the
@@ -9221,7 +9221,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">This whole piece of the algorithm is
+                    <p class="note">This whole piece of the algorithm is
                     based on deleteContents() in DOM Range, copy-pasted and
                     then adjusted to fit.</p>
 
@@ -9268,7 +9268,7 @@ output is null.
                         </li>
 
                         <li>
-                            <p class="comments">This is needed to restore any
+                            <p class="note">This is needed to restore any
                             overrides that would otherwise be lost. TODO: In
                             this and similar cases, we could optimize by saving
                             only overrides, not the full state/value.</p>
@@ -9304,7 +9304,7 @@ output is null.
                 </li>
 
                 <li>
-                    <p class="comments">IE9 doesn't seem to let you do any
+                    <p class="note">IE9 doesn't seem to let you do any
                     intercell deletions: the delete key does nothing if you
                     select across multiple cells. Firefox 5.0a2 and Opera 11.11
                     behave as the spec says, not removing any table things.
@@ -9361,7 +9361,7 @@ output is null.
                         "">parent</var>.</li>
 
                         <li>
-                            <p class="comments">Do this before stripping
+                            <p class="note">Do this before stripping
                             wrappers: see <a href=
                             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13831">
                             bug 13831</a>.</p>
@@ -9389,7 +9389,7 @@ output is null.
                         </li>
 
                         <li>
-                            <p class="comments">Taking insertText to test the
+                            <p class="note">Taking insertText to test the
                             case where strip wrappers is false, with value a:
                             <code title=
                             "">&lt;p&gt;[foo&lt;b&gt;bar&lt;/b&gt;]baz</code>
@@ -9542,7 +9542,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">We might have added a br to the
+                    <p class="note">We might have added a br to the
                     start/end block in an earlier step. Now we're about to
                     merge the blocks, and we don't want the br's to get in the
                     way. The end block is being destroyed no matter what. If
@@ -9560,7 +9560,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">Just repeatedly blow up the end block
+                    <p class="note">Just repeatedly blow up the end block
                     in this case.</p>
 
                     <p>If <var title="">start block</var> is an <a class=
@@ -9754,7 +9754,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">In this case, pull in everything that
+                    <p class="note">In this case, pull in everything that
                     comes after <var title="">start block</var>, until we hit a
                     br or block node.</p>
 
@@ -9863,7 +9863,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">In the last case, just move all the
+                    <p class="note">In the last case, just move all the
                     children of the end block to the start block, and then get
                     rid of any elements we emptied that way.</p>
 
@@ -10167,7 +10167,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>TODO: We insert things after the parent. This is
                         bad, because it will cause them to become part of any
                         ranges that immediately follow. For instance, if we're
@@ -10285,7 +10285,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">Notice that a boundary point that was
+                    <p class="note">Notice that a boundary point that was
                     immediately before the element will now be immediately
                     before its children, just because of the regular range
                     mutation rules, without needing to worry about preserving
@@ -10371,7 +10371,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">The parent might be null if it's a br
+                    <p class="note">The parent might be null if it's a br
                     that we removed in the last step, in which case this step
                     isn't necessary.</p>
 
@@ -10452,7 +10452,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 comments.</p>
             </div>
 
-            <p class="comments">See long comment before <a href=
+            <p class="note">See long comment before <a href=
             "#the-inserttext-command">insertText</a>.</p>
 
             <p>The <dfn id="canonical-space-sequence">canonical space
@@ -10557,7 +10557,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 <var title="">offset</var>.</li>
 
                 <li>
-                    <p class="comments">First we go to the beginning of the
+                    <p class="note">First we go to the beginning of the
                     current whitespace run.</p>
 
                     <p>Repeat the following steps:</p>
@@ -10585,7 +10585,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>
-                            <p class="comments">TODO: Following a line break is
+                            <p class="note">TODO: Following a line break is
                             unlikely to be the right criterion.</p>
 
                             <p>Otherwise, if <var title="">start offset</var>
@@ -10635,7 +10635,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">Now we collapse any consecutive spaces,
+                    <p class="note">Now we collapse any consecutive spaces,
                     if <var title="">fix collapsed space</var> is true.</p>
 
                     <p>Let <var title="">end node</var> equal <var title=
@@ -10646,7 +10646,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 <li>Let <var title="">length</var> equal zero.</li>
 
                 <li>
-                    <p class="comments">This tries to delete spaces at the
+                    <p class="note">This tries to delete spaces at the
                     beginning of a line (<a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14119">bug
                     14119</a>).</p>
@@ -10678,7 +10678,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>
-                            <p class="comments">TODO: Preceding a line break is
+                            <p class="note">TODO: Preceding a line break is
                             unlikely to be the right criterion.</p>
 
                             <p>Otherwise, if <var title="">end offset</var> is
@@ -10775,7 +10775,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">We've already stripped leading
+                    <p class="note">We've already stripped leading
                     whitespace, and collapsed consecutive spaces. Now we try to
                     strip any collapsed trailing whitespace (<a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=14119">bug
@@ -10873,7 +10873,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">Finally we replace with the canonical
+                    <p class="note">Finally we replace with the canonical
                     sequence.</p>
 
                     <p>Let <var title="">replacement whitespace</var> be the
@@ -10959,7 +10959,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                                     <ol>
                                         <li>
-                                            <p class="comments">We need to
+                                            <p class="note">We need to
                                             insert then delete, so that we
                                             don't change range boundary points.
                                             TODO: switch to using "replace
@@ -11049,7 +11049,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 command or remove the indentation with the outdent command.</p>
             </div>
 
-            <div class="comments">
+            <div class="note">
                 <p>We have to handle entire lists of siblings at once, or else
                 we'd wind up doing something like</p>
                 <pre>
@@ -11113,7 +11113,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>
-                            <div class="comments">
+                            <div class="note">
                                 <p>This matches IE9, Firefox 4.0, and Chrome 12
                                 dev. If there's a preceding &lt;li&gt;, Opera
                                 11.10 instead adds the new parent to the end of
@@ -11167,7 +11167,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Firefox 4.0 respects the CSS styling flag for
                         indent, but Chrome 12 dev does not. I always produce
                         blockquotes, even if CSS styling is on, for two
@@ -11222,7 +11222,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
             </ol>
 
-            <div class="comments">
+            <div class="note">
                 <p>Things that are produced for indentation that we need to
                 consider removing:</p>
 
@@ -11270,7 +11270,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">The easy case is when the whole element
+                    <p class="note">The easy case is when the whole element
                     is indented. In this case we remove the whole thing
                     indiscriminately. In the case of blockquotes created by IE,
                     this might change the direction of some children, but then
@@ -11285,7 +11285,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">This might be a simple indentation
+                    <p class="note">This might be a simple indentation
                     element that had style added to it by Firefox in CSS mode,
                     for instance (color, font-family, etc.).</p>
 
@@ -11312,7 +11312,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Approximate algorithms when an ancestor is causing
                         the indentation appear to be:</p>
 
@@ -11445,7 +11445,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">When asked to outdent a list wrapped in
+                    <p class="note">When asked to outdent a list wrapped in
                     a simple indentation element, Chrome 12 dev removes the
                     list instead of the simple indentation element. Opera 11.10
                     seems to remove both. IE9 and Firefox 4.0 remove the simple
@@ -11482,7 +11482,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>
-                            <p class="comments">We can't turn it into a div if
+                            <p class="note">We can't turn it into a div if
                             it's the child of an ol or ul, because that's not
                             allowed: there's no way to group li's (see <a href=
                             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13128">
@@ -11547,7 +11547,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">If we get to this point, we have an
+                    <p class="note">If we get to this point, we have an
                     ancestor to split up.</p>
 
                     <p>Append <var title="">current ancestor</var> to
@@ -11555,7 +11555,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>
-                    <p class="comments">We can't outdent it yet, because we
+                    <p class="note">We can't outdent it yet, because we
                     need its children to remain intact for the loop.</p>
 
                     <p>Let <var title="">original ancestor</var> be <var title=
@@ -11674,7 +11674,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 forth.</p>
             </div>
 
-            <div class="comments">
+            <div class="note">
                 <p>Research for insertOrderedList/insertUnorderedList: tested
                 the following command sequences in IE9, Firefox 4.0, Chrome 12
                 dev, Opera 11.10, OpenOffice.org 3.2.1 Ubuntu package,
@@ -12881,7 +12881,7 @@ ol ol ol { list-style-type: lower-roman }
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This overnormalizes, but it seems
+                    <p class="note">TODO: This overnormalizes, but it seems
                     like the simplest solution for now.</p>
 
                     <p>For each <var title="">item</var> in <var title=
@@ -12910,7 +12910,7 @@ ol ol ol { list-style-type: lower-roman }
 
                     <ol>
                         <li>
-                            <p class="comments">Convert it to the right name.
+                            <p class="note">Convert it to the right name.
                             If possible, we want to merge with a neighboring
                             list of the correct type. Failing that, we set the
                             tag name.</p>
@@ -12984,7 +12984,7 @@ ol ol ol { list-style-type: lower-roman }
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>We exclude indentation elements so that selecting
                         some random text and doing indent followed by
                         insertOrderedList will have the same result as the
@@ -13040,7 +13040,7 @@ ol ol ol { list-style-type: lower-roman }
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>We don't want to touch these. E.g., assuming tag
                         name is "ol",</p>
                         <pre>
@@ -13152,7 +13152,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         </li>
 
                         <li>
-                            <p class="comments">Accumulate consecutive sibling
+                            <p class="note">Accumulate consecutive sibling
                             nodes in sublist, first converting them all to li's
                             (except if they're already lists).</p>
 
@@ -13166,7 +13166,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                             <ol>
                                 <li>
-                                    <p class="comments">Thus
+                                    <p class="note">Thus
                                     &lt;p&gt;foo&lt;/p&gt; becomes
                                     &lt;ol&gt;&lt;li&gt;foo&lt;/ol&gt; instead
                                     of
@@ -13269,7 +13269,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         </li>
 
                         <li>
-                            <p class="comments">In this case it's already
+                            <p class="note">In this case it's already
                             wrapped properly, nothing more to do.</p>
 
                             <p>If <var title="">sublist</var>'s first member's
@@ -13362,7 +13362,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                             <ol>
                                 <li>
-                                    <div class="comments">
+                                    <div class="note">
                                         <p>Special case: something like</p>
                                         <pre>
 &lt;ol&gt;&lt;li&gt;foo&lt;/ol&gt;&lt;blockquote&gt;[bar]&lt;/blockquote&gt;
@@ -13515,7 +13515,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
             not similar enough to just invoke that algorithm: too many things
             differ between block and inline elements.)</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>There are two basic ways this works in browsers: using the
                 align attribute, and using CSS text-align. IE9 and Opera 11.11
                 use only the align attribute, Chrome 13 dev uses only
@@ -13557,7 +13557,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">No browser actually removes center, but
+                    <p class="note">No browser actually removes center, but
                     it makes sense to do so.</p>
 
                     <p>Let <var title="">element list</var> be a list of all
@@ -13631,7 +13631,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">This could theoretically be necessary,
+                    <p class="note">This could theoretically be necessary,
                     like if it converted "&lt;div
                     align=right&gt;foo&lt;/div&gt;bar" to "foo&lt;br&gt;bar".
                     Now we need to select "foo&lt;br&gt;", nor just "foo".</p>
@@ -13648,7 +13648,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">Of tested browsers, only Chrome 13 dev
+                    <p class="note">Of tested browsers, only Chrome 13 dev
                     seems to not apply the alignment to nodes that are already
                     aligned. Even then, it does apply it if the alignment is
                     just inherited from the root.</p>
@@ -13732,7 +13732,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                 "">alignment</var>.</li>
                             </ul>
 
-                            <p class="comments">As with inline formatting, I
+                            <p class="note">As with inline formatting, I
                             only ever create new elements, and don't ever
                             modify existing ones. This doesn't match how any
                             browser behaves in this case, but for inline
@@ -13758,7 +13758,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
         <section>
             <h3 id="automatic-linking">Automatic linking</h3>
 
-            <p class="comments"><a href=
+            <p class="note"><a href=
             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13807">Bug
             13807</a>.</p>
 
@@ -13772,7 +13772,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
             <ol>
                 <li>
-                    <p class="comments">IE9 and LibreOffice 3.3.4 both have a
+                    <p class="note">IE9 and LibreOffice 3.3.4 both have a
                     whitelist of URL schemes. That would be complicated and
                     involve political decisions, so instead, we'll just accept
                     anything that looks like a hierarchical URL scheme. Google
@@ -13791,7 +13791,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">We don't try to enforce that the URL is
+                    <p class="note">We don't try to enforce that the URL is
                     anything resembling valid per spec. Too complicated for not
                     enough gain.</p>
 
@@ -13802,7 +13802,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>If the user types a URL followed by some
                         punctuation, we still want to autolink, but we don't
                         want to include the punctuation if it's probably not
@@ -14063,7 +14063,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <p class="comments">For all the deletions here, Firefox 7.0a2 will
+            <p class="note">For all the deletions here, Firefox 7.0a2 will
             remove wrapper elements like &lt;b&gt; only if they're selected,
             like {&lt;b&gt;foo&lt;/b&gt;}. IE9, Chrome 14 dev, and Opera 11.50
             will all remove them even if only their contents are selected, like
@@ -14083,7 +14083,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">Needed so that if there are multiple
+                    <p class="note">Needed so that if there are multiple
                     consecutive spaces we backspace over all at once.</p>
 
                     <p><a href="#canonicalize-whitespace">Canonicalize
@@ -14107,7 +14107,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">First go up as high as possible within
+                    <p class="note">First go up as high as possible within
                     the current block, then drill down to the lowest possible
                     level, in the hopes that we'll wind up at the end of a text
                     node, or maybe in a br or hr.</p>
@@ -14116,7 +14116,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                     <ol>
                         <li>
-                            <p class="comments">If there's an invisible node
+                            <p class="note">If there's an invisible node
                             somewhere, Firefox 5.0a2 removes that node and then
                             stops, so each backspace removes one invisible
                             node. All others remove the invisible node and then
@@ -14188,7 +14188,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         </li>
 
                         <li>
-                            <p class="comments">When backspacing a link,
+                            <p class="note">When backspacing a link,
                             Firefox 7.0a2, Chrome 14 dev, Opera 11.50, and
                             OpenOffice.org 3.2.1 Ubuntu have no special
                             behavior. IE9 and Word 2007 remove the link instead
@@ -14255,7 +14255,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>At this point, node cannot be an invisible node.
                         There are three cases:</p>
 
@@ -14346,7 +14346,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">At the time of this writing, this
+                    <p class="note">At the time of this writing, this
                     should be impossible. Just being safe.</p>
 
                     <p>If <var title="">node</var> is an <a href=
@@ -14354,7 +14354,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">If we're at the beginning of a list, we
+                    <p class="note">If we're at the beginning of a list, we
                     want to outdent the first list item. This doesn't actually
                     match anyone or anything. Word 2007 and OpenOffice.org
                     3.2.1 Ubuntu just remove the list marker, which is weird
@@ -14421,7 +14421,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         </li>
 
                         <li>
-                            <p class="comments">Annoying hack to prevent the dl
+                            <p class="note">Annoying hack to prevent the dl
                             from being re-added when fixing disallowed
                             ancestors. In most cases we want a wrapper dl
                             added, but in two cases (delete and
@@ -14461,7 +14461,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">By this point, we're almost certainly
+                    <p class="note">By this point, we're almost certainly
                     going to merge something, and the only question is
                     what.</p>
 
@@ -14504,7 +14504,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <p class="comments">At the beginning of an indented block,
+                    <p class="note">At the beginning of an indented block,
                     outdent it, similar to a list item. Browsers don't do this,
                     word processors do. Note: this copy-pastes from the outdent
                     command action.</p>
@@ -14575,7 +14575,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>This is to avoid stripping a line break from</p>
                         <pre>
 foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
@@ -14598,7 +14598,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <p class="comments">If you try backspacing into a table,
+                    <p class="note">If you try backspacing into a table,
                     select it. This doesn't match any browser; it matches the
                     recommendation of the "behavior when typing in
                     contentEditable elements" document. The idea is that then
@@ -14646,7 +14646,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Special case:</p>
                         <pre>
 &lt;p&gt;foo&lt;/p&gt;&lt;br&gt;&lt;p&gt;[]bar&lt;/p&gt;
@@ -14730,7 +14730,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>If you try backspacing out of a list item, merge it
                         with the previous item, but add a line break. Then you
                         have to backspace again if you really want them to be
@@ -14788,7 +14788,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                         </li>
 
                         <li>
-                            <p class="comments">If the last child is already a
+                            <p class="note">If the last child is already a
                             br, we only need to append one extra br. Otherwise
                             we need to append two, since the first will do
                             nothing.</p>
@@ -14836,7 +14836,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <p class="comments">When merging adjacent list items, make
+                    <p class="note">When merging adjacent list items, make
                     sure we only merge the items themselves, not any block
                     children. We want <code title=
                     "">&lt;li&gt;&lt;p&gt;foo&lt;li&gt;&lt;p&gt;[]bar</code> to
@@ -14964,7 +14964,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <p class="comments">General block-merging case.</p>
+                    <p class="note">General block-merging case.</p>
 
                     <p>While <var title="">start node</var> has a <a class=
                     "external" data-anolis-spec="dom" href=
@@ -15046,7 +15046,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
             is "address", "dd", "div", "dt", "h1", "h2", "h3", "h4", "h5",
             "h6", "p", or "pre".</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Tested browser versions: IE9, Firefox 4.0, Chrome 13 dev,
                 Opera 11.10.</p>
 
@@ -15098,7 +15098,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
 
             <ol>
                 <li>
-                    <p class="comments">IE9 requires the brackets. If they're
+                    <p class="note">IE9 requires the brackets. If they're
                     not provided, it does nothing.</p>
 
                     <p>If <var title="">value</var> begins with a "&lt;"
@@ -15113,7 +15113,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Opera 11.10 throws NOT_SUPPORTED_ERR for bad
                         elements, all other tested browsers ignore the input.
                         Testing in IE9, Firefox 4.0, Chrome 13 dev, and Opera
@@ -15210,7 +15210,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <p class="comments">This tries to avoid misnesting if only
+                    <p class="note">This tries to avoid misnesting if only
                     some lines of an element are selected, so
                     &lt;h1&gt;[foo]&lt;br&gt;bar&lt;/h1&gt; becomes
                     &lt;p&gt;[foo]&lt;/p&gt;&lt;h1&gt;bar&lt;/h1&gt; instead of
@@ -15259,7 +15259,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>We have two different behaviors, one for div and p
                         and one for everything else. The basic difference is
                         that for div and p, we assume that it should be one
@@ -15324,7 +15324,7 @@ foo&lt;br&gt;bar
 
                             <ol>
                                 <li>
-                                    <div class="comments">
+                                    <div class="note">
                                         <p>If you try to format a single-line
                                         container with no children, IE10PP2
                                         inserts an nbsp before formatting. (It
@@ -15452,7 +15452,7 @@ foo&lt;br&gt;bar
                 <li>Return true.</li>
             </ol>
 
-            <p class="comments">Firefox 6.0a2 throws, Chrome 14 dev always
+            <p class="note">Firefox 6.0a2 throws, Chrome 14 dev always
             returns false, Opera 11.11 doesn't support indeterm to start with,
             IE9 was uncooperative in testing so I'm not sure what it does. I'm
             speccing it just because it makes sense.</p>
@@ -15546,7 +15546,7 @@ foo&lt;br&gt;bar
                 <li>Return false.</li>
             </ol>
 
-            <div class="comments">
+            <div class="note">
                 <p>IE9 returns human-readable strings like "Normal"
                 (p/div/etc.), "Formatted" (pre), "Heading 1" (h1), etc. Firefox
                 6.0a2 and Chrome 14 dev both return the appropriate tag name in
@@ -15594,7 +15594,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Opera 11.11 doesn't require it be
+                    <p class="note">Opera 11.11 doesn't require it be
                     editable, so it will return "DIV" instead of "" for &lt;div
                     contenteditable&gt;foo&lt;/div&gt;.</p>
 
@@ -15617,7 +15617,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Chrome 14 dev will report "div" for
                         &lt;div&gt;&lt;ol&gt;&lt;li&gt;foo&lt;/ol&gt;&lt;/div&gt;
                         or such. Opera 11.11 reports "". IE and Firefox didn't
@@ -15674,7 +15674,7 @@ foo&lt;br&gt;bar
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <p class="comments">Copy-pasted from delete, see there for
+            <p class="note">Copy-pasted from delete, see there for
             comments.</p>
 
             <p><a href="#action">Action</a>:</p>
@@ -15777,7 +15777,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>
-                            <p class="comments">No special link behavior for
+                            <p class="note">No special link behavior for
                             forwardDelete here, unlike delete.</p>
 
                             <p>Otherwise, if <var title="">node</var> has a
@@ -15825,7 +15825,7 @@ foo&lt;br&gt;bar
                         "">offset</var> plus one.</li>
 
                         <li>
-                            <div class="comments">
+                            <div class="note">
                                 <p>Firefox 7.0a2, Chrome 14 dev, Word 2007, and
                                 OpenOffice.org 3.2.1 Ubuntu act as the spec
                                 says, getting rid of all diacritics on forward
@@ -15958,7 +15958,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">No special list-item behavior for
+                    <p class="note">No special list-item behavior for
                     forwardDelete here, unlike delete.</p>
 
                     <p>Let <var title="">end node</var> equal <var title=
@@ -16018,7 +16018,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">No special indentation element behavior
+                    <p class="note">No special indentation element behavior
                     for forwardDelete here, unlike delete.</p>
 
                     <p>If the <a class="external" data-anolis-spec="dom" href=
@@ -16070,7 +16070,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Note, any br will do here: a br
+                    <p class="note">Note, any br will do here: a br
                     immediately after a block is always significant.</p>
 
                     <p>If <var title="">offset</var> is the <a class="external"
@@ -16131,7 +16131,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">No special list-item behavior for
+                    <p class="note">No special list-item behavior for
                     forwardDelete here, unlike delete.</p>
 
                     <p>While <var title="">end node</var> has a <a class=
@@ -16198,7 +16198,7 @@ foo&lt;br&gt;bar
             <h3 id="the-indent-command"><dfn>The <code title="">indent</code>
             command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <dl>
                     <dt>IE9</dt>
 
@@ -16294,7 +16294,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This overnormalizes, but it seems
+                    <p class="note">TODO: This overnormalizes, but it seems
                     like the simplest solution for now.</p>
 
                     <p>For each <var title="">item</var> in <var title=
@@ -16331,7 +16331,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Without this step, the last child of
+                    <p class="note">Without this step, the last child of
                     the previous sibling might be a list, which the li wouldn't
                     get appended to.</p>
 
@@ -16419,7 +16419,7 @@ foo&lt;br&gt;bar
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <p class="comments">You'd think interop here would be simple,
+            <p class="note">You'd think interop here would be simple,
             right? Nope: we have three different behaviors across four
             browsers. Opera 11.00 is the only one that acts more or less like
             the spec. IE9 and Chrome 12 dev treat the value as an id, which is
@@ -16514,7 +16514,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We don't want to call insertNode at the
+                    <p class="note">We don't want to call insertNode at the
                     start or end of a text node, because that will leave an
                     empty text node.</p>
 
@@ -16602,7 +16602,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">IE9 and Chrome 13 dev seem to never
+                    <p class="note">IE9 and Chrome 13 dev seem to never
                     break up any ancestors, which can lead to unserializable
                     DOMs like &lt;hr&gt; inside &lt;p&gt;. Opera 11.11 seems to
                     always break up parents going all the way up to the
@@ -16643,7 +16643,7 @@ foo&lt;br&gt;bar
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Not supported by IE9. Handling of disallowed children is
                 interesting:</p>
 
@@ -16696,7 +16696,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Chrome 14 dev and Opera 11.11 do this even if the
                         value is empty. Firefox 5.0a2 throws an exception.</p>
 
@@ -16720,7 +16720,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This has some interesting
+                    <p class="note">TODO: This has some interesting
                     consequences. For instance, table cells and similar will
                     just vanish if they're not in an appropriate place; and
                     inside a script or style or xmp or such, the argument will
@@ -16743,7 +16743,7 @@ foo&lt;br&gt;bar
                 of <var title="">frag</var>.</li>
 
                 <li>
-                    <p class="comments">Firefox 5.0a2 also seems to not add
+                    <p class="note">Firefox 5.0a2 also seems to not add
                     empty elements like &lt;b&gt;&lt;/b&gt;, but Chrome 13 dev
                     and Opera 11.11 do.</p>
 
@@ -16759,7 +16759,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>This is so we don't get something like</p>
                         <pre>
 &lt;div&gt;[foo]&lt;/div&gt;
@@ -16810,7 +16810,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We could canonicalize whitespace after
+                    <p class="note">We could canonicalize whitespace after
                     inserting the fragment, but let's not. If the author wants
                     HTML, give them HTML behavior. When asked to replace a
                     paragraph's contents with a single space, Firefox 7.0a2
@@ -16829,7 +16829,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">In case we remove all the contents,
+                    <p class="note">In case we remove all the contents,
                     then remove the extra &lt;br&gt;, then only add a comment
                     or something. In that case we want to re-add the extra
                     &lt;br&gt;. We don't try fixing the actual inserted
@@ -16857,7 +16857,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Need to do this before fixing
+                    <p class="note">Need to do this before fixing
                     disallowed ancestors, since otherwise the last child might
                     have been removed (e.g., it's an li).</p>
 
@@ -16877,7 +16877,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We want to fix all descendants, not
+                    <p class="note">We want to fix all descendants, not
                     just children. Consider
                     &lt;div&gt;&lt;li&gt;foo&lt;/li&gt;&lt;/div&gt;, for
                     example.</p>
@@ -16901,7 +16901,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>
-                    <p class="comments">Similar logic to createLink, except
+                    <p class="note">Similar logic to createLink, except
                     even more compelling, since an HTML document linking to
                     itself as an image is just silly. In fact, the current HTML
                     spec instructs UAs to not even try displaying the image,
@@ -16915,7 +16915,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Firefox 7.0a2 seems to strip the
+                    <p class="note">Firefox 7.0a2 seems to strip the
                     wrapper or not depending on the exact positioning of the
                     selection: &lt;b&gt;{foo}&lt;/b&gt; yes,
                     &lt;b&gt;[foo]&lt;/b&gt; no. Chrome 14 dev seems to strip
@@ -16944,7 +16944,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Same logic as with insertHTML.</p>
+                    <p class="note">Same logic as with insertHTML.</p>
 
                     <p>If <var title="">range</var>'s <a class="external"
                     data-anolis-spec="dom" href=
@@ -16978,7 +16978,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">No alt text, so it's probably invalid.
+                    <p class="note">No alt text, so it's probably invalid.
                     This matches all browsers.</p>
 
                     <p>Run <code class="external" data-anolis-spec="dom" title=
@@ -16989,7 +16989,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">This winds up putting it at the
+                    <p class="note">This winds up putting it at the
                     original start point of the active range, as currently
                     specced. This matches IE9 and Firefox 5.0a2. Chrome 13 dev
                     puts it at the end point, and Opera 11.11 puts it in
@@ -17035,7 +17035,7 @@ foo&lt;br&gt;bar
             requirements</a>). It deletes the selection, and replaces it with a
             <code title="">&lt;br&gt;</code>. No real complications.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Only implemented in WebKit (Chrome 14 dev). Other tests are
                 entirely manual (i.e., actually hitting Shift-Enter instead of
                 running a command). There's a surprisingly large amount of
@@ -17063,7 +17063,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>
-                    <p class="comments">IE9 doesn't strip wrappers (IE10PP2
+                    <p class="note">IE9 doesn't strip wrappers (IE10PP2
                     didn't work in tests). Firefox 7.0a2 strips wrappers
                     inconsistently depending on the exact selection endpoints.
                     Chrome 14 dev strips wrappers but recreates any styles
@@ -17083,7 +17083,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">script, xmp, table, . . .</p>
+                    <p class="note">script, xmp, table, . . .</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
                     <a class="external" data-anolis-spec="dom" href=
@@ -17112,7 +17112,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We don't want to call insertNode at the
+                    <p class="note">We don't want to call insertNode at the
                     start or end of a text node, because that will leave an
                     empty text node.</p>
 
@@ -17243,7 +17243,7 @@ foo&lt;br&gt;bar
             lists</a> with <var title="">tag name</var> "ol", then return
             true.</p>
 
-            <p class="comments">Firefox 6.0a2 sort of supports this, but it
+            <p class="note">Firefox 6.0a2 sort of supports this, but it
             throws exceptions most of the time. It has the quirk that even if
             there are no ol's around, it will say it's indeterminate if there
             are some things that are ul's and some that are not lists at all,
@@ -17255,7 +17255,7 @@ foo&lt;br&gt;bar
             "#selection's-list-state">selection's list state</a> is "mixed" or
             "mixed ol", false otherwise.</p>
 
-            <p class="comments">IE9 throws exceptions in most cases, Firefox
+            <p class="note">IE9 throws exceptions in most cases, Firefox
             6.0a2 in some cases as well, for no apparent reason. Ignoring
             those, the spec basically matches all browsers, except with a few
             weird random mismatches that looked like browser bugs to me.</p>
@@ -17312,7 +17312,7 @@ foo&lt;br&gt;bar
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <div class="comments">
+            <div class="note">
                 <p>There are three major behaviors here. Firefox 5.0a2 behaves
                 identically to execCommand("formatBlock", false, "p"), which is
                 not really useful. IE9 actually just overwrites the selection
@@ -17437,7 +17437,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments"><a href=
+                    <p class="note"><a href=
                     "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13841">Bug
                     13841</a>.</p>
 
@@ -17495,7 +17495,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We add the default wrapper in this
+                    <p class="note">We add the default wrapper in this
                     case.</p>
 
                     <p>If <var title="">container</var> is not <a href=
@@ -17539,7 +17539,7 @@ foo&lt;br&gt;bar
 
                             <ol>
                                 <li>
-                                    <p class="comments">Ideally, we should
+                                    <p class="note">Ideally, we should
                                     normalize things so that the cursor is
                                     never in a weird place after deletion, but
                                     let's be safe and bail out if we do hit
@@ -17612,7 +17612,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>
-                            <p class="comments">TODO: It is not at all obvious
+                            <p class="note">TODO: It is not at all obvious
                             that this is the correct list of nodes in all
                             cases. It should probably work because of how the
                             block-extend algorithm works, but further thought
@@ -17648,7 +17648,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>IE9 and Chrome 13 dev just break &lt;pre&gt; up into
                         multiple &lt;pre&gt;s. Firefox 5.0a2 and Opera 11.10
                         insert a &lt;br&gt; instead, treating it differently
@@ -17710,7 +17710,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>
-                            <p class="comments">Necessary because adding a br
+                            <p class="note">Necessary because adding a br
                             to the end of a block element does nothing if there
                             wasn't one there already. A single newline
                             immediately preceding a block boundary does
@@ -17741,7 +17741,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Including dt/dd here follows Firefox
+                    <p class="note">Including dt/dd here follows Firefox
                     5.0a2, as with the special dt/dd handling below.</p>
 
                     <p>If <var title="">container</var>'s <a class="external"
@@ -17789,7 +17789,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>
-                            <p class="comments">Annoying hack to prevent the dl
+                            <p class="note">Annoying hack to prevent the dl
                             from being re-added when fixing disallowed
                             ancestors. In most cases we want a wrapper dl
                             added, but in two cases (delete and
@@ -17847,7 +17847,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">We don't want the start to be just
+                    <p class="note">We don't want the start to be just
                     inside a node, because if it is, we'll leave behind an
                     empty element either in the new or old container. Empty
                     block nodes are fine, and we'll add a <code class=
@@ -17927,7 +17927,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">IE9 makes a new header if there's a
+                    <p class="note">IE9 makes a new header if there's a
                     trailing &lt;br&gt;. Firefox 5.0a2, Chrome 13 dev, and
                     Opera 11.10 do not, and I follow them, since it makes more
                     sense (such a &lt;br&gt; is invisible).</p>
@@ -17943,7 +17943,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">This step and the next follow Firefox
+                    <p class="note">This step and the next follow Firefox
                     5.0a2. IE9 and Chrome 13 dev act as though these two lines
                     were not present (they clone the existing element). Opera
                     11.10 nests a &lt;p&gt; inside. Firefox is the most useful,
@@ -18012,7 +18012,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This blows up any ranges (other
+                    <p class="note">TODO: This blows up any ranges (other
                     than the selection, which we reset), and can alter
                     non-editable nodes, and maybe other bad stuff. May or may
                     not be the best solution. The intermediate fragment is also
@@ -18045,7 +18045,7 @@ foo&lt;br&gt;bar
                 on <var title="">new container</var>.</li>
 
                 <li>
-                    <p class="comments">Needed in case we have something like
+                    <p class="note">Needed in case we have something like
                     <code title=
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;[]foo&lt;/ol&gt;</code>,
                     which becomes <code title=
@@ -18101,7 +18101,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">These two steps follow Firefox 5.0a2,
+                    <p class="note">These two steps follow Firefox 5.0a2,
                     Chrome 13 dev, and Opera 11.10. IE9 instead inserts an
                     &amp;nbsp; which magically does not appear in innerHTML. In
                     all cases, the reason is that an empty block box in CSS
@@ -18173,7 +18173,7 @@ foo&lt;br&gt;bar
                 "">insertParagraph</code> command</a>.</p>
             </div>
 
-            <div class="comments">
+            <div class="note">
                 <p>Supported only by WebKit. Tests in other browsers were
                 manual.</p>
 
@@ -18279,7 +18279,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>Chrome 14 dev does the deletion even if the value is
                         empty. Of course, other browsers don't expose this as
                         an execCommand(), so no one else has any defined
@@ -18343,7 +18343,7 @@ foo&lt;br&gt;bar
                 true.</li>
 
                 <li>
-                    <p class="comments">TODO: WebKit also does magic for tabs,
+                    <p class="note">TODO: WebKit also does magic for tabs,
                     wrapping them in a whitespace-preserving span. Should
                     we?</p>
 
@@ -18364,7 +18364,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">Just to be tidy, add to an existing
+                    <p class="note">Just to be tidy, add to an existing
                     text node if there is one. Firefox 5.0a2 only adds to an
                     existing one if the range is in a text node. IE9, Chrome 14
                     dev, and Opera 11.11 also add to an existing text node if
@@ -18482,7 +18482,7 @@ foo&lt;br&gt;bar
 
                     <ol>
                         <li>
-                            <p class="comments">If some text is inserted into
+                            <p class="note">If some text is inserted into
                             &lt;p&gt;&lt;br&gt;&lt;/p&gt; or similar, we no
                             longer need the &lt;br&gt;.</p>
 
@@ -18585,7 +18585,7 @@ foo&lt;br&gt;bar
 
             <p><a href="#preserves-overrides">Preserves overrides</a></p>
 
-            <p class="comments">See comments for <a href=
+            <p class="note">See comments for <a href=
             "#the-insertorderedlist-command">insertOrderedList</a>.</p>
 
             <p><a href="#action">Action</a>: <a href="#toggle-lists">Toggle
@@ -18611,7 +18611,7 @@ foo&lt;br&gt;bar
             "#justify-the-selection">Justify the selection</a> with <var title=
             "">alignment</var> "center", then return true.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>This roughly matches Chrome 14 dev, although not exactly.
                 Firefox 6.0a2 always returns false.</p>
 
@@ -18644,7 +18644,7 @@ foo&lt;br&gt;bar
             "#alignment-value">alignment value</a> "center" and at least one
             does not. Otherwise return false.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>IE9 throws exceptions in almost every case when querying the
                 state of justify*, and Opera 11.11 returns false in every case
                 except some seemingly random crazy ones.</p>
@@ -18688,7 +18688,7 @@ foo&lt;br&gt;bar
             "concept-node">nodes</a> have <a href="#alignment-value">alignment
             value</a> "center". Otherwise return false.</p>
 
-            <p class="comments">Not bidi-safe, but it's a pretty marginal
+            <p class="note">Not bidi-safe, but it's a pretty marginal
             corner case where it fails. Firefox 6.0a2 behaves weirdly here: it
             keys off the start node of the active range, even if that's not
             contained. Thus {&lt;div align=center&gt;foo&lt;/div&gt;} has value
@@ -18935,7 +18935,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <p class="comments">TODO: This overnormalizes, but it seems
+                    <p class="note">TODO: This overnormalizes, but it seems
                     like the simplest solution for now.</p>
 
                     <p>For each <var title="">item</var> in <var title=
@@ -18956,7 +18956,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>
-                    <div class="comments">
+                    <div class="note">
                         <p>This step is kind of weird. For regular outdenting,
                         we start at the inside and outdent going out, so that
                         we remove the innermost indentation, on the theory that
@@ -19114,16 +19114,6 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             <h3 id="the-copy-command"><dfn>The <code title="">copy</code>
             command</dfn></h3>
 
-            <p class="comments">IE9 supports copy/cut/paste with a security
-            warning. Firefox reportedly only supports it if you set a pref. I
-            didn't find info on other browsers, but in my tests it didn't do
-            anything. I'm not going to try speccing it unless implementers are
-            interested in working out the security problems and trying to get
-            interop. It seems like as of June 2011, everyone just <a href=
-            "http://code.google.com/p/zeroclipboard/">uses Flash for this</a>.
-            So it would be nice if we could work out a more secure standardized
-            substitute.</p>
-
             <p><a href="#action">Action</a>: The user agent must either copy
             the current selection to the clipboard as though the user had
             requested it, or <a class="external" data-anolis-spec="dom" href=
@@ -19131,42 +19121,43 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             "concept-throw">throw</a> a <code class="external"
             data-anolis-spec="dom"><a href=
             "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception. This specification does not define exactly how the
-            selection is to be copied to the clipboard, but the <a href=
-            "http://dev.w3.org/2006/webapi/clipops/clipops.html">Clipboard API
-            and events</a> specification might be useful.</p>
+            exception.</p>
 
-            <p>User agents should exercise caution in respecting this <a href=
-            "#command">command</a>, because sites could abuse it to confuse and
-            annoy the user by overwriting the clipboard with extremely long,
-            obscene, or otherwise objectionable content.</p>
+            <p class="not-fully-tested">If an implementation supports the
+            document.execCommand method and allows calling it with the commands
+            "copy", the implementation <em>must</em> trigger the
+            <a href="https://w3c.github.io/clipboard-apis/#the-copy-action">copy
+            action</a>, which again will dispatch the "copy" clipboard event, if
+            the "copy" action did not throw a SecurityError exception.</p>
 
-            <p class="comments">The idea is sites might catch the SECURITY_ERR
-            and treat it differently from NOT_SUPPORTED_ERR, like encouraging
-            users to reconfigure their browser. However, browsers might not
-            want to encourage authors to tell users to reconfigure their
-            browser insecurely.</p>
+            <p>These are the steps to follow when triggering copy
+            actions through the document.execCommand() API:</p>
+            <ol>
+              <li>Set the action's <em>script-triggered</em> flag.</li>
+              <li>If the script thread
+              is <a>allowed to modify the clipboard</a>, set the action's
+              <em>script-may-access-clipboard</em> flag, otherwise throw a
+              SecurityError and break.</li>
+              <li>Dispatch the copy event synchronously.</li>
+              <li>If the copy event is not canceled, execute the copy action
+              synchronously.</li>
+              <li>Use the action's return value as the return value for the
+              document.execCommand() call.</li>
+            </ol>
 
-            <p>User agents may choose not to <a href="#supported" title=
-            "supported">support</a> this <a href="#command">command</a> at all.
-            If a user agent will only honor the <a href="#command">command</a>
-            for some whitelisted sites depending on configuration, it may
-            either <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-throw" title=
-            "concept-throw">throw</a> a <code class="external"
-            data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception for non-whitelisted sites, or it may act as though the
-            <a href="#command">command</a> is <a href="#supported" title=
-            "supported">unsupported</a> on those sites.</p>
+            <p class="note">Copy commands triggered from document.execCommand()
+            will only affect the contents of the real clipboard if the event is
+            dispatched from an event that is trusted and triggered by the user,
+            or if the implementation is configured to allow this.</p>
+
+            <p class="note">IE9 supports copy with a security
+            warning. Firefox reportedly only supports it if you set a pref.</p>
+
         </section>
 
         <section>
             <h3 id="the-cut-command"><dfn>The <code title="">cut</code>
             command</dfn></h3>
-
-            <p class="comments">See comment for <a href=
-            "#the-copy-command">copy</a>.</p>
 
             <p><a href="#action">Action</a>: The user agent must either copy
             the current selection to the clipboard and then delete it, as
@@ -19176,37 +19167,43 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             "concept-throw">throw</a> a <code class="external"
             data-anolis-spec="dom"><a href=
             "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception. This specification does not define exactly how the
-            selection is to be deleted or copied to the clipboard, but the
-            <a href=
-            "http://dev.w3.org/2006/webapi/clipops/clipops.html">Clipboard API
-            and events</a> specification might be useful.</p>
+            exception.</p>
 
-            <p>User agents should exercise caution in respecting this command,
-            because sites could abuse it to confuse and annoy the user by
-            overwriting the clipboard with extremely long, obscene, or
-            otherwise objectionable content.</p>
+            <p class="not-fully-tested">If an implementation supports the
+            document.execCommand method and allows calling it with the commands
+            "cut", the implementation <em>must</em> trigger the
+            <a href="https://w3c.github.io/clipboard-apis/#the-cut-action">cut
+            action</a>, which again will dispatch the "cut" clipboard
+            event.</p>
 
-            <p>User agents may choose not to <a href="#supported" title=
-            "supported">support</a> this <a href="#command">command</a> at all.
-            If a user agent will only honor the <a href="#command">command</a>
-            for some whitelisted sites depending on configuration, it may
-            either <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-throw" title=
-            "concept-throw">throw</a> a <code class="external"
-            data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception for non-whitelisted sites, or it may act as though the
-            <a href="#command">command</a> is <a href="#supported" title=
-            "supported">unsupported</a> on those sites.</p>
+            <p>These are the steps to follow when triggering cut
+            actions through the document.execCommand() API:</p>
+            <ol>
+              <li>Set the action's <em>script-triggered</em> flag.</li>
+              <li>If the script thread
+              is <a>allowed to modify the clipboard</a>, set the action's
+              <em>script-may-access-clipboard</em> flag, otherwise throw a
+              SecurityError and break.</li>
+              <li>Dispatch the cut event synchronously.</li>
+              <li>If the cut event is not canceled, execute the cut action
+              synchronously.</li>
+              <li>Use the action's return value as the return value for the
+              document.execCommand() call.</li>
+            </ol>
+
+            <p class="note">Cut commands triggered from document.execCommand()
+            will only affect the contents of the real clipboard if the event is
+            dispatched from an event that is trusted and triggered by the user,
+            or if the implementation is configured to allow this.</p>
+
+            <p class="note">IE9 supports cut with a security
+            warning. Firefox reportedly only supports it if you set a pref.</p>
+
         </section>
 
         <section>
             <h3 id="the-paste-command"><dfn>The <code title="">paste</code>
             command</dfn></h3>
-
-            <p class="comments">See comment for <a href=
-            "#the-copy-command">copy</a>.</p>
 
             <p><a href="#action">Action</a>: The user agent must either
             <a href="#delete-the-selection">delete the selection</a> and then
@@ -19217,34 +19214,44 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             "concept-throw">throw</a> a <code class="external"
             data-anolis-spec="dom"><a href=
             "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception. This specification does not define exactly how the
-            clipboard is to be converted to HTML for pasting, but the <a href=
-            "http://dev.w3.org/2006/webapi/clipops/clipops.html">Clipboard API
-            and events</a> specification might be useful.</p>
+            exception.</p>
 
-            <p>User agents should exercise caution in respecting this command,
-            because sites could abuse it to read private information from the
-            clipboard.</p>
+            <p class="not-fully-tested">If an implementation supports the
+            document.execCommand method and allows calling it with the commands
+            "paste", the implementation <em>must</em> trigger the
+            <a href="https://w3c.github.io/clipboard-apis/#the-paste-action">paste action</a>,
+            which again will dispatch the "paste" clipboard
+            event.</p>
 
-            <p>User agents may choose not to <a href="#supported" title=
-            "supported">support</a> this <a href="#command">command</a> at all.
-            If a user agent will only honor the <a href="#command">command</a>
-            for some whitelisted sites depending on configuration, it may
-            either <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-throw" title=
-            "concept-throw">throw</a> a <code class="external"
-            data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>
-            exception for non-whitelisted sites, or it may act as though the
-            <a href="#command">command</a> is <a href="#supported" title=
-            "supported">unsupported</a> on those sites.</p>
+            <p>These are the steps to follow when triggering paste
+            actions through the document.execCommand() API:</p>
+            <ol>
+              <li>Set the action's <em>script-triggered</em> flag.</li>
+              <li>If the script thread
+              is <a>allowed to read from the clipboard</a>, set the action's
+              <em>script-may-access-clipboard</em> flag, otherwise throw a
+              SecurityError and break.</li>
+              <li>Dispatch the paste event synchronously.</li>
+              <li>If the paste event is not canceled, execute the paste action
+              synchronously.</li>
+              <li>Use the action's return value as the return value for the
+              document.execCommand() call.</li>
+            </ol>
+
+            <p class="note">Paste commands triggered from document.execCommand()
+            will only give access to the contents of the real clipboard if the
+            event is dispatched from an event that is trusted and triggered by
+            the user, or if the implementation is configured to allow this.</p>
+
+            <p class="note">IE9 supports paste with a security
+            warning. Firefox reportedly only supports it if you set a pref.</p>
+
         </section>
 
     </section>
 
     <section>
         <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
-
 
         <section>
             <h3 id="the-defaultparagraphseparator-command"><dfn>The
@@ -19292,7 +19299,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             whole document. See <a href=
             "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13840">bug</a>.</p>
 
-            <div class="comments">
+            <div class="note">
                 <p>Tested using roughly <a href=
                 "http://software.hixie.ch/utilities/js/live-dom-viewer/saved/1018">
                 this</a>.</p>
@@ -19340,7 +19347,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
 
             <ol>
                 <li>
-                    <p class="comments">TODO: Is this right even for
+                    <p class="note">TODO: Is this right even for
                     framesets?</p>
 
                     <p>Let <var title="">target</var> be <a class="external"
@@ -19351,7 +19358,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
                     "http://dom.spec.whatwg.org/#context-object">context
                     object</a>.</p>
 
-                    <p class="comments">TODO: Is this right even for documents
+                    <p class="note">TODO: Is this right even for documents
                     whose root element is not an HTML element?</p>
 
                     <p>If <var title="">target</var> is null, let <var title=
@@ -19393,7 +19400,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             <h3 id="the-stylewithcss-command"><dfn>The <code title=
             "">styleWithCSS</code> command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>IE9 and Opera 11.00 don't support this command. By and
                 large, they act the way Gecko and WebKit do when styleWithCSS
                 is off. Gecko invented it, and WebKit also <a href=
@@ -19422,7 +19429,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             the <a href="#css-styling-flag">CSS styling flag</a> to true.
             Either way, return true.</p>
 
-            <p class="comments">This follows Chrome 13 dev. Firefox 5.0a2
+            <p class="note">This follows Chrome 13 dev. Firefox 5.0a2
             doesn't support queryCommandState() for styleWithCSS.</p>
 
             <p><a href="#state">State</a>: True if the <a href=
@@ -19443,7 +19450,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
             <h3 id="the-usecss-command"><dfn>The <code title="">useCSS</code>
             command</dfn></h3>
 
-            <div class="comments">
+            <div class="note">
                 <p>Supported by Firefox 4.0, but not IE9 or Opera 11.00 (which
                 don't support styleWithCSS either), nor by Chrome 12 dev (which
                 does support styleWithCSS). useCSS was the original feature in
@@ -19560,7 +19567,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         whether it is treated as one insertion or several consecutive
         insertions.</p>
 
-        <p class="comments"><a href=
+        <p class="note"><a href=
         "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13938">Bug
         13938</a>.</p>
 
