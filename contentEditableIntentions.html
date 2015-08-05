@@ -244,7 +244,7 @@ var respecConfig = {
         </section>
 
         <section>
-            <h2 id="text_node_editing">Text Node Editing</h2>
+            <h2 id="text_node_editing">Text Insertion</h2>
 
             <p>When the user indicates that new content should be added to the
             <a>CE Intentions Node</a> in which the caret is currently placed, no
@@ -298,7 +298,8 @@ var respecConfig = {
 
             <p>Content is not removed automatically through user input.
             Instead, Del/Backspace key presses, etc. trigger user `beforeInput`
-            events with `inputType` set to `deleteContent`.</p>
+            events with `inputType` set to `deleteContentForward` or
+            `deleteContentBackward`.</p>
         </section>
 
         <section>
@@ -323,8 +324,6 @@ var respecConfig = {
             changes by default SHOULD function as in any other editing
             context.</p>
         </section>
-
-
 
         <section>
             <h2 id="acknowledgements">Acknowledgements</h2>
