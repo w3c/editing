@@ -37,10 +37,17 @@
   </head>
   <body>
     <section id='obsolete'>
-        <p class="warning">Please notice that this is a draft specification that
-        is not currently actively developed.
-        execCommand and contentEditable=true are currently seen as obselete and
-        it is predicted that in the future they will be replaced
+        <p class="warning">This spec is incomplete and it is not expected that it
+        will advance beyond draft status. Authors should not use most of these
+        features directly, but instead use JavaScript editing libraries.  The features
+        described in this document are not implemented consistently or fully by user
+        agents, and it is not expected that this will change in the foreseeable future.
+        There is currently no alternative to some execCommand actions related to
+        clipboard content and contentEditable=true is often used to draw the caret
+        and move the caret in the block direction as well as a few minor subpoints.
+        This spec is to mean to help implementations in standardizing these
+        existing features.
+        It is predicted that in the future both specs will be replaced
         by <a href="contentEditableEvents.html">Content Editable Events</a>
         and <a href="input-events.html">Input Events</a>.</p>
     </section>
