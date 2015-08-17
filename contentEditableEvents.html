@@ -273,8 +273,8 @@ var respecConfig = {
                 <h3 id="replacing_text">Replacing text/content</h3>
 
                 <p>When the user indicates the wish to replace part of the
-                contents of a <a>contentEditable=events editing host</a>, by means of a
-                browser-builtin spell checker or alike, a `beforeInput` input
+                contents of a <a>contentEditable=events editing host</a>, by means
+                of a browser-builtin spell checker or alike, a `beforeInput` input
                 with `inputType` set to `replaceText` or `replaceContent` is
                 triggered.</p>
             </section>
@@ -294,8 +294,8 @@ var respecConfig = {
 
             <p>An implementation CAN provide spell check, grammar check and
             other advanced functionality that are not defined through a
-            specification for any <a>contentEditable=events editing host</a>. These features
-            MUST be disabled by default.</p>
+            specification for any <a>contentEditable=events editing host</a>.
+            These features MUST be disabled by default.</p>
         </section>
 
         <section>
@@ -306,7 +306,7 @@ var respecConfig = {
             `cut`, `copy`, `delete` and CAN contain items for spellchecking for
             any <a>contentEditable=events editing host</a>. Triggering any of `context menu`
             items MUST NOT by default cause any change to the DOM,
-            `beforepaste`, `beforecut` and beforeInput events SHOULD be
+            `beforepaste`, `beforecut` and `beforeInput` events SHOULD be
             triggered. Menu items in a `context menu` that do not cause DOM
             changes by default SHOULD function as in any other editing
             context.</p>
@@ -315,9 +315,11 @@ var respecConfig = {
         <section>
             <h2 id="acknowledgements">Acknowledgements</h2>
 
-            <p>Thanks to: Robin Berjon, Olivier Forget, Koji Ishii, Frederico
-            Caldeira Knabben, Ryosuke Niwa, Joanmarie ... and everyone in the
-            Editing Taskforce for their input and feedback.</p>
+            <p>Thanks to: Robin Berjon, Olivier Forget, Marijn Haverbek, Koji
+            Ishii, Frederico Caldeira Knabben, Piotrek Koszuliński, Ryosuke Niwa,
+            Joanmarie, Johan Sörlin, Cristian Talau...
+            and everyone in the Editing Taskforce for their input and feedback.
+            </p>
         </section>
     </section>
 </body>
