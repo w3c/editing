@@ -210,23 +210,13 @@ var respecConfig = {
             <section>
                 <h3 id="caret_movement">Caret movement</h3>
 
-                <p>The caret is not moved by default, but `beforeInput` events
-                are triggered when the user indicates an intention to move the
-                caret.</p>
-
-                <p class="issue">Moving the caret within the line is not that
-                difficult to do in JavaScript. Moving it in the block direction
-                (or 180 degrees in the opposite direction) is much more
-                difficult. It would help a lot if the browser could expose
-                something about where the caret would be if it were to go one
-                line into either direction. But what could the browser expose
-                that would give us that? See discussion: <a href=
-                "https://github.com/w3c/editing/issues/56">https://github.com/w3c/editing/issues/56</a>.
-                Also, there is a proposal to give better information about the
-                whereabouts of the caret in the Selection API, which should
-                make it easier to handle block-direction movement of the caret,
-                see <a href=
-                "https://github.com/w3c/selection-api/issues/32">https://github.com/w3c/selection-api/issues/32</a>.</p>
+                <p>Intentions of the user to move the caret trigger `beforeInput`
+                events. The default action of those events is the movement of
+                the caret in the given direction, if possible. The specific
+                location that the caret is moved to is out of scope for this
+                specification, but later versions of this specification or
+                specifications covering other contentEditable specifications may
+                further specify the movement patterns of the caret.</p>
             </section>
         </section>
 
