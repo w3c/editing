@@ -81,28 +81,28 @@ var respecConfig = {
             <dt><dfn>Inline elements</dfn></dt>
 
             <dd>
-                All elements which after the application of CSS are displayed inline.
+                All element nodes which after the application of CSS are displayed
+                inline.
             </dd>
 
             <dt><dfn>Block elements</dfn></dt>
 
             <dd>
-                All elements which after the application of CSS are displayed as blocks.
+                All element nodes which after the application of CSS are displayed
+                as blocks.
             </dd>
 
             <dt><dfn>Stub elements</dfn></dt>
 
             <dd>
-                All elements that are void elements OR root elements using
+                All element nodes that are void elements OR root elements using
                 a different namespace than their parent elements (such as SVGs).
             </dd>
 
             <dt><dfn>Invisible elements</dfn></dt>
 
             <dd>
-                All elements that after the application of CSS are invisible,
-                either due to CSS properties or because the type of element
-                would not have been rendered even without CSS.
+                All element nodes that have `display:none` set through CSS.
             </dd>
 
 
@@ -117,13 +117,14 @@ var respecConfig = {
                 <ol>
                     <li>Before or after any character in any text node.</li>
 
-                    <li>After <a>inline elements</a> that are not text nodes.</li>
+                    <li>After <a>inline elements</a> that do not have a `nextSibling`
+                      which is a text node.</li>
 
-                    <li>Before <a>inline elements</a> that are not text nodes and
-                    that do not have a `previousSibling`.</li>
+                    <li>Before <a>inline elements</a> that that do not have a
+                      `previousSibling`.</li>
 
-                    <li>Inside empty <a>inline elements</a> and <a>block elements</a> that are not
-                    <a>stub elements</a>.</li>
+                    <li>Inside empty <a>inline elements</a> and <a>block elements</a>
+                      that are not <a>stub elements</a>.</li>
 
                     <li>Inside empty text nodes.</li>
 
