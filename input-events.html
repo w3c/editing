@@ -140,9 +140,21 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user is inserting a newline using a
+                        <li>If the user is inserting a line break using a
                         keyboard, IME, speech, or similar method, the editType
-                        MUST be <b>insertNewline</b>
+                        MUST be <b>insertLineBreak</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user is inserting a paragraph break using a
+                        keyboard, IME, speech, or similar method, the editType
+                        MUST be <b>insertParagraph</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
