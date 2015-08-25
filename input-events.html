@@ -4,13 +4,13 @@
 <head>
     <meta charset='utf-8'>
 
-    <title>Input Events</title>
+    <title>Edit Events</title>
     <script async="" class='remove' src=
     'https://www.w3.org/Tools/respec/respec-w3c-common'></script>
     <script class='remove'>
 var respecConfig = {
               specStatus:   "ED"
-          ,   shortName:    "input-events"
+          ,   shortName:    "edit-events"
           ,   editors:      [{ name: "Johannes Wilm",
                                mailto: "johannes@fiduswriter.org",
                                company: "Invited Expert"},
@@ -58,10 +58,9 @@ var respecConfig = {
     <section>
         <h2>Introduction</h2>
 
-        <p>This document describes 2 events- Input (which already exists and is
-        being extended) and beforeInput (which is newly defined here). The goal
+        <p>This document describes 2 new events - Edit and beforeEdit. The goal
         of these events is to allow authors to understand and/or override
-        default input behavior both before and after input occurs.</p>
+        default edit behavior both before and after editing occurs.</p>
     </section>
 
     <section>
@@ -72,21 +71,21 @@ var respecConfig = {
     </section>
 
     <section id="events-inputevents">
-        <h3>Input Event Types</h3>
+        <h3>Edit Event Types</h3>
 
-        <p>Input events are sent when before (beforeInputEvent) and after
-        (inputEvent) a user attempts to input anything into the markup. This
-        includes characters, deletions, and other related input.</p>
+        <p>Edit events are sent when before (beforeEditEvent) and after
+        (editEvent) a user attempts to edit the markup. This
+        includes characters, deletions, and other related edits.</p>
 
-        <section id="interface-InputEvent">
-            <h4>Interface InputEvent</h4>
+        <section id="interface-EditEvent">
+            <h4>Interface EditEvent</h4>
 
             <dl class="idl" title=
-            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
-            <dt>readonly attribute DOMString inputType</dt>
+            "[Constructor(DOMString typeArg, optional EditEventInit inputEventInitDict)] interface EditEvent : UIEvent">
+            <dt>readonly attribute DOMString editType</dt>
 
                 <dd>
-                    <p><code>inputType</code> holds the type of input. Allowed
+                    <p><code>editType</code> holds the type of input. Allowed
                     values include insertCharacter, replaceText, replaceContent,
                     insertNewline,
                     deleteContentForward, deleteContentBackward, deleteContent,
@@ -99,7 +98,7 @@ var respecConfig = {
 
                     <ol>
                         <li>If the user is inserting plain text using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>insertCharacter</b>.
 
                             <ol>
@@ -113,7 +112,7 @@ var respecConfig = {
 
                         <li>If the user indicates replacement of plain text
                         with different plain text using a keyboard, IME, speech,
-                        or similar method, the  inputType MUST be
+                        or similar method, the  editType MUST be
                         <b>replaceText</b>.
 
                             <ol>
@@ -131,7 +130,7 @@ var respecConfig = {
                         the user indicates replacement of plain text with new
                         content that consists of content that is more than just
                         text, structure of using a keyboard, IME, speech, or
-                        similar method, the inputType MUST be
+                        similar method, the editType MUST be
                         <b>replaceContent</b>.
 
                             <ol>
@@ -146,7 +145,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user is inserting a newline using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>insertNewline</b>
 
                             <ol>
@@ -159,7 +158,7 @@ var respecConfig = {
 
                         <li>If the user indicated deletion of content that is
                         front of the caret using a keyboard, IME, speech, or
-                        similar method, the inputType MUST be
+                        similar method, the editType MUST be
                         <b>deleteContentForward</b>
 
                             <ol>
@@ -172,7 +171,7 @@ var respecConfig = {
 
                         <li>If the user indicated deletion of content that is
                         behind the caret using a keyboard, IME, speech, or
-                        similar method, the inputType MUST be
+                        similar method, the editType MUST be
                         <b>deleteContentBackward</b>
 
                             <ol>
@@ -185,7 +184,7 @@ var respecConfig = {
 
                         <li>If the user indicated deletion of content without
                         affecting the caret position using a keyboard, IME,
-                        speech, or similar method, the inputType MUST be <b>
+                        speech, or similar method, the editType MUST be <b>
                             deleteContent</b>
 
                             <ol>
@@ -198,7 +197,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates undo using a keyboard, IME,
-                        speech, or similar method, the inputType MUST be <b>
+                        speech, or similar method, the editType MUST be <b>
                             undo</b>
 
                             <ol>
@@ -209,7 +208,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates redo using a keyboard, IME,
-                        speech, or similar method, the inputType MUST be <b>
+                        speech, or similar method, the editType MUST be <b>
                             redo</b>
 
                             <ol>
@@ -220,7 +219,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates caret right movement using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>caretRight</b>
 
                             <ol>
@@ -232,7 +231,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates caret left movement using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>caretLeft</b>
 
                             <ol>
@@ -244,7 +243,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates caret up movement using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>caretUp</b>
 
                             <ol>
@@ -256,7 +255,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates caret down movement using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>caretDown</b>
 
                             <ol>
@@ -268,7 +267,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates caret page up movement using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>caretPageUp</b>
 
                             <ol>
@@ -281,7 +280,7 @@ var respecConfig = {
 
                         <li>If the user indicates caret page down movement using
                         a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>caretPageDown</b>
+                        editType MUST be <b>caretPageDown</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -293,7 +292,7 @@ var respecConfig = {
 
                         <li>If the user indicates caret to the start of the
                         line movement using a keyboard, IME, speech, or similar
-                        method, the inputType MUST be <b>caretStartLine</b>
+                        method, the editType MUST be <b>caretStartLine</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -305,7 +304,7 @@ var respecConfig = {
 
                         <li>If the user indicates caret to the end of the line
                         movement using a keyboard, IME, speech, or similar
-                        method, the inputType MUST be <b>caretEndLine</b>
+                        method, the editType MUST be <b>caretEndLine</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -317,7 +316,7 @@ var respecConfig = {
 
                         <li>If the user indicates caret to the end of the next
                         word movement using a keyboard, IME, speech, or similar
-                        method, the inputType MUST be <b>caretEndNextWord</b>
+                        method, the editType MUST be <b>caretEndNextWord</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -329,7 +328,7 @@ var respecConfig = {
 
                         <li>If the user indicates caret to the start of the
                         previous movement using a keyboard, IME, speech, or
-                        similar method, the inputType MUST be
+                        similar method, the editType MUST be
                         <b>caretStartPreviousWord</b>
 
                             <ol>
@@ -342,7 +341,7 @@ var respecConfig = {
 
                         <li>If the user indicates selection of all contents of
                         the editing host using a keyboard, IME, speech, or
-                        similar method, the inputType MUST be
+                        similar method, the editType MUST be
                         <b>selectAll</b>
 
                             <ol>
@@ -354,7 +353,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates selection of a word using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        keyboard, IME, speech, or similar method, the editType
                         MUST be <b>selectWord</b>
 
                             <ol>
@@ -367,7 +366,7 @@ var respecConfig = {
 
                         <li>If the user indicates selection of a block node
                         using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>selectBlock</b>
+                        editType MUST be <b>selectBlock</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -390,9 +389,9 @@ var respecConfig = {
                 <dt>readonly attribute DOMString data</dt>
 
                 <dd>
-                    <p>If the inputType is additive (replaceText, for
+                    <p>If the editType is additive (replaceText, for
                     instance), <code>data</code> holds the value that would be
-                    inserted. The value depends on the inputType, such as plain
+                    inserted. The value depends on the editType, such as plain
                     text for replaceText. It is described in the default
                     behavior section.</p>
 
@@ -405,7 +404,7 @@ var respecConfig = {
                 <dt>readonly attribute boolean isComposing</dt>
 
                 <dd>
-                    <p><code>true</code> if the input event occurs as part of a
+                    <p><code>true</code> if the edit event occurs as part of a
                     composition session, i.e., after a <a class="eventtype"
                     href=
                     "#event-type-compositionstart"><code>compositionstart</code></a>
@@ -429,27 +428,27 @@ var respecConfig = {
                 </dd>
             </dl>
 
-            <dl class="idl" title="dictionary InputEventInit : UIEventInit">
+            <dl class="idl" title="dictionary EditEventInit : UIEventInit">
                 <dt>DOMString data = ""</dt>
 
                 <dd>
                     <p>Initializes the <code>data</code> attribute of the
-                    InputEvent object.</p>
+                    EditEvent object.</p>
                 </dd>
 
                 <dt>boolean isComposing = false</dt>
 
                 <dd>
                     <p>Initializes the <code>isComposing</code> attribute of
-                    the InputEvent object.</p>
+                    the EditEvent object.</p>
                 </dd>
             </dl>
-        </section><!-- interface-InputEvent -->
+        </section><!-- interface-EditEvent -->
 
-        <section id="events-inputevent-event-order">
-            <h4>Input Event Order</h4>
+        <section id="events-editevent-event-order">
+            <h4>Edit Event Order</h4>
 
-            <p>The input events defined in this specification MUST occur in a
+            <p>The edit events defined in this specification MUST occur in a
             set order relative to one another.</p>
 
             <table class="event-sequence-table">
@@ -458,7 +457,7 @@ var respecConfig = {
 
                     <td>
                         <a class="eventtype" href=
-                        "#event-type-beforeinput"><code>beforeinput</code></a>
+                        "#event-type-beforeedit"><code>beforeedit</code></a>
                     </td>
 
                     <td></td>
@@ -475,20 +474,20 @@ var respecConfig = {
 
                     <td>
                         <a class="eventtype" href=
-                        "#event-type-input"><code>input</code></a>
+                        "#event-type-edit"><code>edit</code></a>
                     </td>
 
                     <td></td>
                 </tr>
             </table>
-        </section><!-- events-inputevent-event-order -->
+        </section><!-- events-editevent-event-order -->
 
-        <p>The Input event types are listed below.</p><!-- beforeinput -->
+        <p>The Edit event types are listed below.</p><!-- beforeedit -->
 
         <div class="event-definition">
             <dl>
-                <dt id="event-type-beforeinput"><dfn><a class="eventtype" href=
-                "#event-type-beforeinput"><code>beforeinput</code></a></dfn></dt>
+                <dt id="event-type-beforeedit"><dfn><a class="eventtype" href=
+                "#event-type-beforeedit"><code>beforeedit</code></a></dfn></dt>
 
                 <dd>
                     <table border="0" cellpadding="2" cellspacing="0" summary=
@@ -496,7 +495,7 @@ var respecConfig = {
                     <tr>
                             <th>Type</th>
 
-                            <td><strong><code>beforeinput</code></strong></td>
+                            <td><strong><code>beforeedit</code></strong></td>
                         </tr>
 
                         <tr>
@@ -504,7 +503,7 @@ var respecConfig = {
 
                             <td>
                                 <a href=
-                                "#interface-InputEvent"><code>InputEvent</code></a>
+                                "#interface-EditEvent"><code>EditEvent</code></a>
                             </td>
                         </tr>
 
@@ -523,9 +522,7 @@ var respecConfig = {
                         <tr>
                             <th>Trusted Targets</th>
 
-                            <td><code>Element</code> (specifically: control
-                            types such as <code>HTMLInputElement</code>, etc.)
-                            or any <code>Element</code> with
+                            <td>Any <code>Element</code> with
                             <code>contenteditable</code> attribute
                             enabled.</td>
                         </tr>
@@ -539,7 +536,7 @@ var respecConfig = {
                         <tr>
                             <th>Default action</th>
 
-                            <td>Varies: Undefined for inputTypes caretUp, caretDown, caretLeft, caretRight. None for other inputTypes.</td>
+                            <td>Varies: Undefined for editTypes caretUp, caretDown, caretLeft, caretRight. None for other editTypes.</td>
                         </tr>
 
                         <tr>
@@ -574,8 +571,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-data"><code class=
-                                        "attribute-name">InputEvent.data</code></a>:
+                                        "#widl-EditEvent-data"><code class=
+                                        "attribute-name">EditEvent.data</code></a>:
                                         the string containing the data that
                                         will be added to the element, which MAY
                                         be the <a class="def" href=
@@ -586,8 +583,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
-                                        InputEvent.isComposing</code></a>:
+                                        "#widl-EditEvent-isComposing"><code class="attribute-name">
+                                        EditEvent.isComposing</code></a>:
                                         <code>true</code> if this event is
                                         dispatched during a <a href=
                                         "#keys-dead">dead key</a> sequence or
@@ -605,7 +602,7 @@ var respecConfig = {
 
                     <p>A <a class="def" href="#glossary-user-agent">user
                     agent</a> MUST dispatch this event when the user has
-                    attempted input in an element that accepts input. It does
+                    attempted to input in a contenteditable element. It does
                     not necessarily mean the user agent will then update the
                     DOM.</p>
 
@@ -615,13 +612,13 @@ var respecConfig = {
                     events.</p>
                 </dd>
             </dl>
-        </div><!-- beforeinput -->
-        <!-- input -->
+        </div><!-- beforeedit -->
+        <!-- edit -->
 
         <div class="event-definition">
             <dl>
-                <dt id="event-type-input"><dfn><a class="eventtype" href=
-                "#event-type-input"><code>input</code></a></dfn></dt>
+                <dt id="event-type-edit"><dfn><a class="eventtype" href=
+                "#event-type-edit"><code>edit</code></a></dfn></dt>
 
                 <dd>
                     <table border="0" cellpadding="2" cellspacing="0" summary=
@@ -629,7 +626,7 @@ var respecConfig = {
                     <tr>
                             <th>Type</th>
 
-                            <td><strong><code>input</code></strong></td>
+                            <td><strong><code>edit</code></strong></td>
                         </tr>
 
                         <tr>
@@ -637,7 +634,7 @@ var respecConfig = {
 
                             <td>
                                 <a href=
-                                "#interface-InputEvent"><code>InputEvent</code></a>
+                                "#interface-EditEvent"><code>EditEvent</code></a>
                             </td>
                         </tr>
 
@@ -656,9 +653,7 @@ var respecConfig = {
                         <tr>
                             <th>Trusted Targets</th>
 
-                            <td><code>Element</code> (specifically: control
-                            types such as <code>HTMLInputElement</code>, etc.)
-                            or any <code>Element</code> with
+                            <td>Any <code>Element</code> with
                             <code>contenteditable</code> attribute
                             enabled.</td>
                         </tr>
@@ -707,8 +702,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-data"><code class=
-                                        "attribute-name">InputEvent.data</code></a>:
+                                        "#widl-EditEvent-data"><code class=
+                                        "attribute-name">EditEvent.data</code></a>:
                                         the string containing the data that was
                                         added to the element, which MAY be the
                                         <a class="def" href=
@@ -719,8 +714,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
-                                        InputEvent.isComposing</code></a>:
+                                        "#widl-EditEvent-isComposing"><code class="attribute-name">
+                                        EditEvent.isComposing</code></a>:
                                         <code>true</code> if this event is
                                         dispatched during a <a href=
                                         "#keys-dead">dead key</a> sequence or
@@ -741,17 +736,17 @@ var respecConfig = {
                     DOM has been updated.</p>
                 </dd>
             </dl>
-        </div><!-- input -->
-    </section><!-- events-inputevents -->
+        </div><!-- edit -->
+    </section><!-- events-editevents -->
 
-    <section id="events-composition-event-input-events">
-        <h4>Input Events During Composition</h4>
+    <section id="events-composition-event-edit-events">
+        <h4>Edit Events During Composition</h4>
 
         <p>During the composition session, the <a class="eventtype" href=
         "#event-type-compositionupdate"><code>compositionupdate</code></a> MUST
         be dispatched before the <a class="eventtype" href=
-        "#event-type-beforeinput"><code>beforeinput</code></a> and
-        <code>input</code> events are sent.</p>
+        "#event-type-beforeedit"><code>beforeedit</code></a> and
+        <code>edit</code> events are sent.</p>
 
         <table class="event-sequence-table">
             <tr>
@@ -778,7 +773,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-beforeinput"><code>beforeinput</code></a>
+                    "#event-type-beforeedit"><code>beforeedit</code></a>
                 </td>
 
                 <td></td>
@@ -797,7 +792,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-input"><code>input</code></a>
+                    "#event-type-edit"><code>edit</code></a>
                 </td>
 
                 <td></td>
@@ -808,8 +803,8 @@ var respecConfig = {
         canceling updates during a composition session.</p>
 
         <p>When a composition session is finished, any <a class="eventtype"
-        href="#event-type-beforeinput"><code>beforeinput</code></a> and
-        <a class="eventtype" href="#event-type-input"><code>input</code></a>
+        href="#event-type-beforeedit"><code>beforeedit</code></a> and
+        <a class="eventtype" href="#event-type-edit"><code>edit</code></a>
         events MUST be dispatched after the <a class="eventtype" href=
         "#event-type-compositionend"><code>compositionend</code></a> event.</p>
 
@@ -838,12 +833,12 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-beforeinput"><code>beforeinput</code></a>
+                    "#event-type-beforeedit"><code>beforeedit</code></a>
                 </td>
 
                 <td><em>Canceling this will prevent any DOM update and
                 therefore the <a class="eventtype" href=
-                "#event-type-input"><code>input</code></a> event.</em></td>
+                "#event-type-edit"><code>edit</code></a> event.</em></td>
             </tr>
 
             <tr>
@@ -859,7 +854,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-input"><code>input</code></a>
+                    "#event-type-edit"><code>edit</code></a>
                 </td>
 
                 <td></td>
@@ -870,10 +865,10 @@ var respecConfig = {
         the <a class="eventtype" href=
         "#event-type-compositionend"><code>compositionend</code></a> event is
         dispatched. In this case, canceling the <a class="eventtype" href=
-        "#event-type-beforeinput"><code>beforeinput</code></a> event will have
+        "#event-type-beforeedit"><code>beforeedit</code></a> event will have
         no effect (i.e., the <a class="eventtype" href=
-        "#event-type-input"><code>input</code></a> event will still fire).</p>
-    </section><!-- events-composition-event-input-events -->
+        "#event-type-edit"><code>edit</code></a> event will still fire).</p>
+    </section><!-- events-composition-event-edit-events -->
 
     <section>
         <h2>Acknowledgements</h2>
