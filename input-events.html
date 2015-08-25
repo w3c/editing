@@ -87,9 +87,9 @@ var respecConfig = {
                 <dd>
                     <p><code>editType</code> holds the type of input. Allowed
                     values include insertCharacter, replaceText, replaceContent,
-                    insertNewline, deleteContentForward, deleteContentBackward,
-                    deleteContent, undo, redo. During initialization, the user
-                    agent is responsible for populating this field as follows:
+                    insertNewline, deleteContent, undo, redo. During
+                    initialization, the user agent is responsible for populating
+                    this field as follows:
                     </p>
 
                     <ol>
@@ -152,43 +152,19 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of content that is
-                        front of the caret using a keyboard, IME, speech, or
-                        similar method, the editType MUST be
-                        <b>deleteContentForward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user indicated deletion of content that is
-                        behind the caret using a keyboard, IME, speech, or
-                        similar method, the editType MUST be
-                        <b>deleteContentBackward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user indicated deletion of content without
-                        affecting the caret position using a keyboard, IME,
-                        speech, or similar method, the editType MUST be <b>
+                        <li>If the user indicated deletion of content that causes
+                        the caret to move using a keyboard, IME, speech, or
+                        similar method, the editType MUST be <b>
                             deleteContent</b>
 
                             <ol>
-                                <li>Set the value of data to be NULL.</li>
+                                <li>Set the value of data to be "forward" or
+                                "backward", depending on the whether the caret
+                                would move forward or backward in connection with
+                                the deletion of content.</li>
 
-                                <li>Set the value of targetRange to a new range
-                                that covers the content that is to be
-                                deleted;</li>
+                                <li>Set the value of targetRange to the active
+                                document.getSelection().getRangeAt(0);</li>
                             </ol>
                         </li>
 
