@@ -38,6 +38,13 @@ var respecConfig = {
                       href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
                   }]
               }]
+          , localBiblio: {
+            'css-cascade-3': {
+                title: 'CSS Cascading and Inheritance Level 3',
+                href: 'http://www.w3.org/TR/css-cascade-3/',
+                authors: ['Elika J. Etemad. W3C CSSWG.', 'Tab Atkins Jr. W3C CSSWG.']
+            }
+          }
           ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status"
           ,   edDraftURI:   "http://w3c.github.io/editing/contentEditableEvents.html"
         };
@@ -68,6 +75,12 @@ var respecConfig = {
         <h2 id="terminology">Terminology</h2>
 
         <dl>
+            <dt><dfn>editing host</dfn></dt>
+
+            <dd>An editing host is a node that is an HTML element with a
+            contenteditable attribute set to something else than the `false`
+            state.</dd>
+
             <dt><dfn>contentEditable=events editing host</dfn></dt>
 
             <dd>An <a>editing host</a> which has `events` as one of the keywords
@@ -81,15 +94,15 @@ var respecConfig = {
             <dt><dfn>Inline elements</dfn></dt>
 
             <dd>
-                All element nodes which after the application of CSS are displayed
-                inline.
+              All element nodes for whom the <a>used value</a> of the `display`
+              property resolves to the value `inline`.
             </dd>
 
             <dt><dfn>Block elements</dfn></dt>
 
             <dd>
-                All element nodes which after the application of CSS are displayed
-                as blocks.
+                All element nodes for whom the <a>used value</a> of the `display`
+                property resolves to the value `block`.
             </dd>
 
             <dt><dfn>Stub elements</dfn></dt>
@@ -102,7 +115,7 @@ var respecConfig = {
             <dt><dfn>Invisible elements</dfn></dt>
 
             <dd>
-                All element nodes for whom the used value of the `display` property
+                All element nodes for whom the <a>used value</a> of the `display` property
                 resolves to the value `none`.
             </dd>
 
@@ -152,6 +165,11 @@ var respecConfig = {
                 </ol>
             </dd>
         </dl>
+
+        <p>The following items are defined in the CSS Cascading and Inheritance Level 3 specification [[!css-cascade-3]]</p>
+          <ul>
+            <li><dfn><a href="http://www.w3.org/TR/css-cascade-3/#used">used value</a></dfn></li>
+          </ul>
     </section>
 
     <section>
