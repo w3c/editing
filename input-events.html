@@ -101,23 +101,7 @@ var respecConfig = {
                                 <li>Set the value of data to be the plain text
                                 string to be inserted.</li>
 
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user indicates replacement of plain text
-                        with different plain text using a keyboard, IME, speech,
-                        or similar method, the  editType MUST be
-                        <b>replaceText</b>.
-
-                            <ol>
-                                <li>Set the value of data to be the plain text
-                                string to be inserted.</li>
-
-                                <li>Set the value of targetRange to a new range
-                                that covers the text that is to be
-                                replaced.</li>
+                                <li>Set the value of targetRanges to NULL.</li>
                             </ol>
                         </li>
 
@@ -134,8 +118,8 @@ var respecConfig = {
                                 fragment containing the new content that is to
                                 be inserted.</li>
 
-                                <li>Set the value of targetRange to a new range
-                                that covers the content that is to be
+                                <li>Set the value of targetRanges to ranges
+                                that cover the content that is to be
                                 replaced.</li>
                             </ol>
                         </li>
@@ -147,8 +131,7 @@ var respecConfig = {
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
 
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
+                                <li>Set the value of targetRanges to be NULL.</li>
                             </ol>
                         </li>
 
@@ -159,8 +142,7 @@ var respecConfig = {
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
 
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
+                                <li>Set the value of targetRanges to be NULL.</li>
                             </ol>
                         </li>
 
@@ -175,8 +157,7 @@ var respecConfig = {
                                 would move forward or backward in connection with
                                 the deletion of content.</li>
 
-                                <li>Set the value of targetRange to the active
-                                document.getSelection().getRangeAt(0);</li>
+                                <li>Set the value of targetRanges to NULL.</li>
                             </ol>
                         </li>
 
@@ -187,7 +168,7 @@ var respecConfig = {
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
 
-                                <li>Set the value of targetRange to NULL.</li>
+                                <li>Set the value of targetRanges to NULL.</li>
                             </ol>
                         </li>
 
@@ -198,7 +179,7 @@ var respecConfig = {
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
 
-                                <li>Set the value of targetRange to NULL.</li>
+                                <li>Set the value of targetRanges to NULL.</li>
                             </ol>
                         </li>
 
@@ -215,11 +196,9 @@ var respecConfig = {
                 <dt>readonly attribute DOMString data</dt>
 
                 <dd>
-                    <p>If the editType is additive (replaceText, for
+                    <p>If the editType is additive (replaceContent, for
                     instance), <code>data</code> holds the value that would be
-                    inserted. The value depends on the editType, such as plain
-                    text for replaceText. It is described in the default
-                    behavior section.</p>
+                    inserted. It is described in the default behavior section.</p>
 
                     <p>The <a class="def" href=
                     "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
@@ -245,12 +224,12 @@ var respecConfig = {
                     <code>false</code>.</p>
                 </dd>
 
-                <dt>readonly attribute Range targetRange</dt>
+                <dt>readonly attribute Ranges targetRanges</dt>
 
                 <dd>
-                    <p>the Range in the document that is affected by this
-                    event. Typically the primary Range on the document's
-                    Selection.</p>
+                    <p>The ranges in the document that are affected by this
+                    event, unless it is equal to the ranges that are part of the
+                    current selection.</p>
                 </dd>
             </dl>
 
