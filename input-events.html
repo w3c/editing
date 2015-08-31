@@ -87,9 +87,9 @@ var respecConfig = {
                 <dd>
                     <p><code>editType</code> holds the type of input. Allowed
                     values include insertCharacter, replaceText, replaceContent,
-                    insertNewline, deleteContent, undo, redo. During
-                    initialization, the user agent is responsible for populating
-                    this field as follows:
+                    insertNewline, deleteContent, deleteComposedCharacter, undo,
+                    redo. During initialization, the user agent is responsible
+                    for populating this field as follows:
                     </p>
 
                     <ol>
@@ -106,11 +106,8 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates replacement of existing
-                        content that is more than just part of a text node OR
-                        the user indicates replacement of plain text with new
-                        content that consists of content that is more than just
-                        text, structure of using a keyboard, IME, speech, or
-                        similar method, the editType MUST be
+                        content using a keyboard, IME, speech, or similar method,
+                        the editType MUST be
                         <b>replaceContent</b>.
 
                             <ol>
@@ -146,9 +143,25 @@ var respecConfig = {
                             </ol>
                         </li>
 
+                        <li>If the user indicated deletion of a character during
+                        character compisition using IME, the editType MUST be <b>
+                            deleteComposedCharacter</b>
+
+                            <ol>
+                                <li>Set the value of data to be "forward" or
+                                "backward", depending on whether the caret
+                                will move forward or backward in connection with
+                                the deletion of the character.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+
+                                <li>Set the value of canceable to <code>false</code></li>
+                            </ol>
+                        </li>
+
                         <li>If the user indicated deletion of content that causes
-                        the caret to move using a keyboard, IME, speech, or
-                        similar method, the editType MUST be <b>
+                        the caret to move using a keyboard, speech, or similar
+                        method, the editType MUST be <b>
                             deleteContent</b>
 
                             <ol>
@@ -224,12 +237,18 @@ var respecConfig = {
                     <code>false</code>.</p>
                 </dd>
 
+                <dt>readonly attribute boolean canceable</dt>
+
+                <dd>
+                    <p>Whether the event can be canceled.</p>
+                </dd>
+
                 <dt>readonly attribute Ranges targetRanges</dt>
 
                 <dd>
                     <p>The ranges in the document that are affected by this
-                    event, unless it is equal to the ranges that are part of the
-                    current selection.</p>
+                    event, unless the affected ranges are related to the current
+                    selection.</p>
                 </dd>
             </dl>
 
@@ -335,13 +354,13 @@ var respecConfig = {
                         <tr>
                             <th>Cancelable</th>
 
-                            <td>Yes</td>
+                            <td>Varies: False for editTypes insertCharacter and deleteComposedCharacter during IME composition. True otherwise</td>
                         </tr>
 
                         <tr>
                             <th>Default action</th>
 
-                            <td>Varies: Undefined for editTypes caretUp, caretDown, caretLeft, caretRight. None for other editTypes.</td>
+                            <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for editTypes insertCharacter and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all editTypes. None otherwise.</td>
                         </tr>
 
                         <tr>
@@ -399,6 +418,14 @@ var respecConfig = {
                                         "#events-compositionevents">composition
                                         events</a> are being dispatched);
                                         <code>false</code> otherwise.
+                                    </li>
+                                    <li>
+                                        <a href=
+                                        "#widl-EditEvent-cancelable"><code class="attribute-name">
+                                        EditEvent.cancelable</code></a>:
+                                        <code>true</code> if this event can be canceled.
+                                        <code>false</code> otherwise.
+                                        <p class="note">All events beforeEdit events MUST be canceable, unless they take place during IME composition.</p>
                                     </li>
                                 </ul>
                             </td>
@@ -530,6 +557,12 @@ var respecConfig = {
                                         "#events-compositionevents">composition
                                         events</a> are being dispatched);
                                         <code>false</code> otherwise.
+                                    </li>
+                                    <li>
+                                        <a href=
+                                        "#widl-EditEvent-cancelable"><code class="attribute-name">
+                                        EditEvent.cancelable</code></a>:
+                                        <code>false</code>
                                     </li>
                                 </ul>
                             </td>
