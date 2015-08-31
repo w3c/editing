@@ -57,37 +57,39 @@
     </section>
     <section>
         <h2>contenteditable</h2>
-        <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "intentions", "plaintext-only", "true", and "false".
+        <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "events", "caret", "typing", "plaintext-only", "true", and "false".
         There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).</p>
-        <p>The states "true" and "plaintext-only" are deprecated and their usage is discouraged.</p>
+        <p>The state "plaintext-only" is deprecated and its usage is discouraged.</p>
+
+        <p>The state "true" is currently not well-defined and its usage is discouraged. An initial attempt has been made to specify the behavior of editing commands that work in the "true" state in the <a href="https://w3c.github.io/editing/execCommand.html">execCommand spec</a>.</p>
 
         <p>The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.</p>
 
         <p>
-        The behaviors of the <code>intentions</code> state are documented in the <a href="contentEditableIntentions.html">ContentEditableIntentions specification</a>.
+        The behaviors of the <code>events</code> state are documented in the <a href="contentEditableEvents.html">ContentEditableEvents specification</a>.</p>
+        <p>
         The <code>false</code> state indicates that the element is not editable.
         The <code>inherit</code> state indicates that the element has the state of its parent.
         </p>
 
         <p>
         The contentEditable IDL attribute, on getting, must return the string "true" if the content attribute is set to the <code>true</code> state,
-        "false" if the content attribute is set to the <code>false</code> state, "plaintext-only" if the content attribute is set to the <code>plaintext-only</code> state,
-        "intentions" if the content attribute is set to the <code>intentions</code> state, and "inherit" otherwise.
+        "typing" if the content attribute is set to the <code>typing</code> state,
+        "caret" if the content attribute is set to the <code>caret</code> state,
+        "events" if the content attribute is set to the <code>events</code> state,
+        "false" if the content attribute is set to the <code>false</code> state,
+        "plaintext-only" if the content attribute is set to the <code>plaintext-only</code> state,
+        and "inherit" otherwise.
         <p>
         </p>
         On setting, if the new value is an ASCII case-insensitive match for the string "inherit" then the content attribute must be removed,
-        if the new value is an ASCII case-insensitive match for the string "true" then the content attribute must be set to the string "true",
-        if the new value is an ASCII case-insensitive match for the string "false" then the content attribute must be set to the string "false",
+        if the new value is an ASCII case-insensitive match for a string matching the name of a state, then the content attribute must be set to the name of that state,
         and otherwise the attribute setter must throw a SyntaxError exception.
 
         The isContentEditable IDL attribute, on getting, must return true if the element is either an editing host or editable, and false otherwise.
         </p>
     </section>
-    <section>
-      <h2>Future development</h2>
 
-      <p class="note">While this version of the specification only mentions the intentions-state, future versions of this specification may allow for the addition of more states that allow for increased control of the editing process by the browser and less need for programming editors with JavaScript code. Such additional specifications will be developed based on experienced with JavaScript-based editors and editing libraries based on Content Editable in the intentions-state.</p>
-    </section>
 
     <section>
       <h2>Acknowledgements</h2>
