@@ -158,8 +158,6 @@
         <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "events", "caret", "typing", "plaintext-only", "true", and "false".
         There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).</p>
 
-        <p>The state "true" is currently not well-defined and its usage is discouraged. An initial attempt has been made to specify the behavior of editing commands that work in the "true" state in the <a href="https://w3c.github.io/editing/execCommand.html">execCommand spec</a>.</p>
-
         <p>The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.</p>
 
         The <code>false</code> state indicates that the element is not editable.
@@ -194,11 +192,12 @@
       default browser controlled movement of the caret. The "typing" state adds handling of text input through IME and keyboard, and
       deletion within an IME composition. The "true" state adds handling of deletion of content for keyboard input as well as deletion of non-textual content and editing commands through the execCommand command.</p>
 
+      <p>The states "events", "caret" and "typing" are defined in this document.</a>
+
+      <p>The state "true" is currently not well-defined and its usage is discouraged. An initial attempt has been made to specify the behavior of the "true" state in the <a href="https://w3c.github.io/editing/contentEditableTrue.html">contentEditable=True spec</a>.</p>
+
       <p>The state "plaintext-only" is deprecated and its usage is discouraged.</p>
 
-      <h2>Definition of behavior per state</h2>
-
-      <p>The states "events", "caret" and "typing" are defined below.</a>
     </section>
 
     <section>
