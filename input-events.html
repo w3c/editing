@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
 
-    <title>Edit Events</title>
+    <title>Input Events</title>
     <script async="" class='remove' src=
     'https://www.w3.org/Tools/respec/respec-w3c-common'></script>
     <script class='remove'>
@@ -59,7 +59,7 @@ var respecConfig = {
     <section>
         <h2>Introduction</h2>
 
-        <p>This document describes 2 new events - Edit and beforeEdit. The goal
+        <p>This document describes 2 new events - Input and beforeInput. The goal
         of these events is to allow authors to understand and/or override
         default edit behavior both before and after editing occurs.</p>
     </section>
@@ -72,17 +72,17 @@ var respecConfig = {
     </section>
 
     <section id="events-inputevents">
-        <h3>Edit Event Types</h3>
+        <h3>Input Event Types</h3>
 
-        <p>Edit events are sent when before (beforeEditEvent) and after
-        (editEvent) a user attempts to edit the markup. This
+        <p>Input events are sent when before (beforeInputEvent) and after
+        (inputEvent) a user attempts to edit the markup. This
         includes characters, deletions, and other related edits.</p>
 
-        <section id="interface-EditEvent">
-            <h4>Interface EditEvent</h4>
+        <section id="interface-InputEvent">
+            <h4>Interface InputEvent</h4>
 
             <dl class="idl" title=
-            "[Constructor(DOMString typeArg, optional EditEventInit inputEventInitDict)] interface EditEvent : UIEvent">
+            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
             <dt>readonly attribute DOMString editType</dt>
 
                 <dd>
@@ -253,25 +253,25 @@ var respecConfig = {
                 </dd>
             </dl>
 
-            <dl class="idl" title="dictionary EditEventInit : UIEventInit">
+            <dl class="idl" title="dictionary InputEventInit : UIEventInit">
                 <dt>DOMString data = ""</dt>
 
                 <dd>
                     <p>Initializes the <code>data</code> attribute of the
-                    EditEvent object.</p>
+                    InputEvent object.</p>
                 </dd>
 
                 <dt>boolean isComposing = false</dt>
 
                 <dd>
                     <p>Initializes the <code>isComposing</code> attribute of
-                    the EditEvent object.</p>
+                    the InputEvent object.</p>
                 </dd>
             </dl>
-        </section><!-- interface-EditEvent -->
+        </section><!-- interface-InputEvent -->
 
-        <section id="events-editevent-event-order">
-            <h4>Edit Event Order</h4>
+        <section id="events-inputevent-event-order">
+            <h4>Input Event Order</h4>
 
             <p>The edit events defined in this specification MUST occur in a
             set order relative to one another.</p>
@@ -305,14 +305,14 @@ var respecConfig = {
                     <td></td>
                 </tr>
             </table>
-        </section><!-- events-editevent-event-order -->
+        </section><!-- events-inputevent-event-order -->
 
-        <p>The Edit event types are listed below.</p><!-- beforeedit -->
+        <p>The Input event types are listed below.</p><!-- beforeedit -->
 
         <div class="event-definition">
             <dl>
                 <dt id="event-type-beforeedit"><dfn><a class="eventtype" href=
-                "#event-type-beforeedit"><code>beforeedit</code></a></dfn></dt>
+                "#event-type-beforeinput"><code>beforeinput</code></a></dfn></dt>
 
                 <dd>
                     <table border="0" cellpadding="2" cellspacing="0" summary=
@@ -328,7 +328,7 @@ var respecConfig = {
 
                             <td>
                                 <a href=
-                                "#interface-EditEvent"><code>EditEvent</code></a>
+                                "#interface-InputEvent"><code>InputEvent</code></a>
                             </td>
                         </tr>
 
@@ -396,8 +396,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-data"><code class=
-                                        "attribute-name">EditEvent.data</code></a>:
+                                        "#widl-InputEvent-data"><code class=
+                                        "attribute-name">InputEvent.data</code></a>:
                                         the string containing the data that
                                         will be added to the element, which MAY
                                         be the <a class="def" href=
@@ -408,8 +408,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-isComposing"><code class="attribute-name">
-                                        EditEvent.isComposing</code></a>:
+                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
+                                        InputEvent.isComposing</code></a>:
                                         <code>true</code> if this event is
                                         dispatched during a <a href=
                                         "#keys-dead">dead key</a> sequence or
@@ -422,11 +422,11 @@ var respecConfig = {
                                     </li>
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-cancelable"><code class="attribute-name">
-                                        EditEvent.cancelable</code></a>:
+                                        "#widl-InputEvent-cancelable"><code class="attribute-name">
+                                        InputEvent.cancelable</code></a>:
                                         <code>true</code> if this event can be canceled.
                                         <code>false</code> otherwise.
-                                        <p class="note">All events beforeEdit events MUST be canceable, unless they take place during IME composition.</p>
+                                        <p class="note">All events beforeInput events MUST be canceable, unless they take place during IME composition.</p>
                                     </li>
                                 </ul>
                             </td>
@@ -467,7 +467,7 @@ var respecConfig = {
 
                             <td>
                                 <a href=
-                                "#interface-EditEvent"><code>EditEvent</code></a>
+                                "#interface-InputEvent"><code>InputEvent</code></a>
                             </td>
                         </tr>
 
@@ -535,8 +535,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-data"><code class=
-                                        "attribute-name">EditEvent.data</code></a>:
+                                        "#widl-InputEvent-data"><code class=
+                                        "attribute-name">InputEvent.data</code></a>:
                                         the string containing the data that was
                                         added to the element, which MAY be the
                                         <a class="def" href=
@@ -547,8 +547,8 @@ var respecConfig = {
 
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-isComposing"><code class="attribute-name">
-                                        EditEvent.isComposing</code></a>:
+                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
+                                        InputEvent.isComposing</code></a>:
                                         <code>true</code> if this event is
                                         dispatched during a <a href=
                                         "#keys-dead">dead key</a> sequence or
@@ -561,8 +561,8 @@ var respecConfig = {
                                     </li>
                                     <li>
                                         <a href=
-                                        "#widl-EditEvent-cancelable"><code class="attribute-name">
-                                        EditEvent.cancelable</code></a>:
+                                        "#widl-InputEvent-cancelable"><code class="attribute-name">
+                                        InputEvent.cancelable</code></a>:
                                         <code>false</code>
                                     </li>
                                 </ul>
@@ -576,10 +576,10 @@ var respecConfig = {
                 </dd>
             </dl>
         </div><!-- edit -->
-    </section><!-- events-editevents -->
+    </section><!-- events-inputevents -->
 
     <section id="events-composition-event-edit-events">
-        <h4>Edit Events During Composition</h4>
+        <h4>Input Events During Composition</h4>
 
         <p>During the composition session, the <a class="eventtype" href=
         "#event-type-compositionupdate"><code>compositionupdate</code></a> MUST

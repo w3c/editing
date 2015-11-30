@@ -60,15 +60,11 @@
         <h2>contenteditable</h2>
         <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "events", "caret", "typing", "plaintext-only", "true", and "false".
         There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).</p>
-        <p>The state "plaintext-only" is deprecated and its usage is discouraged.</p>
 
         <p>The state "true" is currently not well-defined and its usage is discouraged. An initial attempt has been made to specify the behavior of editing commands that work in the "true" state in the <a href="https://w3c.github.io/editing/execCommand.html">execCommand spec</a>.</p>
 
         <p>The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.</p>
 
-        <p>
-        The behaviors of the <code>events</code> state are documented in the <a href="contentEditableEvents.html">ContentEditableEvents specification</a>.</p>
-        <p>
         The <code>false</code> state indicates that the element is not editable.
         The <code>inherit</code> state indicates that the element has the state of its parent.
         </p>
@@ -91,9 +87,150 @@
         </p>
     </section>
 
+    <section>
+      <h2>Meaning of states</h2>
+
+      <p>The states "events", "caret", "typing" and "true" are hierarchically ordered, so that the state "caret" also includes the features of the "events" state, the "typing" state includes the features of the "caret" state, and the "true" state includes all the features of
+      the "typing" state.</p>
+
+      <p>The "events" state means that beforeInput events are triggered when the user asks for an editing operation. The "caret" state adds
+      default browser controlled movement of the caret. The "typing" state adds handling of text input through IME and keyboard, and
+      deletion within an IME composition. The "true" state adds handling of deletion of content for keyboard input as well as deletion of non-textual content and editing commands through the execCommand command.</p>
+
+      <p>The state "plaintext-only" is deprecated and its usage is discouraged.</p>
+
+      <h2>Definition of behavior per state</h2>
+
+      <p>The states "events", "caret" and "typing" are defined below.</a>
+    </section>
+
+    <section>
+      <h2 id="editing-states">contentEditable states</h2>
+
+      <section>
+        <h3 id="events-state">contentEditable=events state</h2>
+
+        <p>In a focused <a>editing host</a> that is in the events state, a caret MUST be drawn if the selection is collapsed, and it MUST be possible to place the caret in all of the <a>Legal Caret Positions</a> programmatically.</p>
+
+        <p>All user editing intentions initiated while an <a>editing host</a> that is in the events state is focused, MUST trigger a `beforeInput` event.</p>
+
+      </section>
+
+      <section>
+        <h3 id="caret-state">contentEditable=caret state</h2>
+
+        <p>A focused <a>editing host</a> that is in the caret state MUST behave like an <a>editing host</a> in the events state, and additionally, it MUST move the caret within the <a>editing host</a> if the user expresses an intention to move the caret.</a>
+      </section>
+
+      <section>
+        <h3 id="caret-state">contentEditable=typing state</h2>
+
+        <p>A focused <a>editing host</a> that is in the typing state MUST behave like an <a>editing host</a> in the caret state, and additionally, it MUST handle text insertion by keyboard at the position of the caret if the caret is placed within a text node or it is possible to place a text node at the place of the caret. It must by default also handle composition by IME, both insertion as well as deletion of text input.</a>
+      </section>
+
+    </section>
+
+    <section>
+        <h2 id="cutting_and_pasting">Cutting and pasting</h2>
+
+        <p>Within an <a>editing host</a> that is in the "events", "caret" or "typing" state, cutting and pasting is
+        disabled. However, `cut` and `paste` events are still triggered.</p>
+    </section>
+
+    <section>
+        <h2 id="caret_darin_and_movement">Caret drawing and movement</h2>
+
+        <section>
+            <h3 id="caret_drawing">Caret drawing</h3>
+
+            <p>A caret is drawn in any <a>editing host</a> that is focused, that does not hold any other selections.
+            Under such conditions, the caret represents a collapsed selection.</p>
+        </section>
+
+        <section>
+            <h3 id="caret_positions">Caret positions</h3>
+
+            <p>It MUST be possible to put the caret in any of the <a>Legal
+            Caret Positions</a> programatically and for the caret to be visible
+            in these in any <a>editing host</a> that is in the "events", "caret" or "typing" state.</p>
+
+            <section>
+                <h3 id="initial_caret_placement">Initial caret placement</h3>
+
+                <p>Carets are initially placed at the first possible position
+                within the <a>editing host</a>.</p>
+            </section>
+
+            <section>
+                <h3 id="caret_movement">Caret movement</h3>
+
+                <p>Intentions of the user to move the caret trigger `beforeInput`
+                events. The default action of those events is the movement of
+                the caret in the given direction, if possible. The specific
+                location that the caret is moved to is out of scope for this
+                specification, but later versions of this specification or
+                specifications covering other contentEditable specifications may
+                further specify the movement patterns of the caret.</p>
+            </section>
+        </section>
+
+
+        <section>
+            <h2 id="replacing_text">Replacing text/content</h2>
+
+            <p>When the user indicates the wish to replace part of the
+            contents of a <a>editing host</a>, by means
+            of a browser-builtin spell checker or alike, a `beforeInput` input
+            with `inputType` set to `replaceText` or `replaceContent` is
+            triggered. No part of the DOM is being changed by default in an
+            editing host that is in the "events", "caret" or "typing" state.</p>
+        </section>
+
+
+        <section>
+            <h2 id="removal">Removal of content</h2>
+
+            <p>Content is not removed automatically through user input in an
+            <a>editing host</a> that is in the "events" or "caret" state. Instead,
+            Del/Backspace key presses, etc. trigger user `beforeInput`
+            events with `inputType` set to `deleteContentForward` or
+            `deleteContentBackward`. The same is true for any <a>editing host</a>
+            that is in the "typing" state, unless it is currently in the
+            composition mode, in which case it will remove characters from the
+            DOM if they are part of the composition.</p>
+        </section>
+
+        <section>
+            <h2 id="spell_checking">Advanced grammar checking</h2>
+
+            <p>An implementation CAN provide spell check, grammar check and
+            other advanced functionality that are not defined through a
+            specification for any <a>editing host</a>.
+            These features MUST be disabled by default.</p>
+        </section>
+
+        <section>
+            <h2 id="context_menu">Context menu</h2>
+
+            <p>If the implementation provides a `context menu`, this `context
+            menu` SHOULD contain items for editing operations such as `paste`,
+            `cut`, `copy`, `delete` and CAN contain items for spellchecking for
+            any <a>editing host</a>. Triggering any of `context menu`
+            items MUST NOT by default cause any change to the DOM,
+            `beforepaste`, `beforecut` and `beforeInput` events SHOULD be
+            triggered. Menu items in a `context menu` that do not cause DOM
+            changes by default SHOULD function as in any other editing
+            context.</p>
+        </section>
+
 
     <section>
       <h2>Acknowledgements</h2>
+      <p>Thanks to: Robin Berjon, Olivier Forget, Marijn Haverbek, Koji
+      Ishii, Frederico Caldeira Knabben, Piotrek Koszuliński, Ryosuke Niwa,
+      Joanmarie, Johan Sörlin, Cristian Talau...
+      and everyone in the Editing Taskforce for their input and feedback.
+      </p>
     </section>
   </body>
 </html>
