@@ -56,6 +56,103 @@
       <h2>Problem and Use Cases</h2>
         The problems solved by and use cases for this document by this document are tracked in the <a href="http://w3c.github.io/editing/editing-explainer.html">Editing Explainer</a> document.
     </section>
+
+    <section>
+        <h2 id="terminology">Terminology</h2>
+
+        <dl>
+            <dt><dfn>editing host</dfn></dt>
+
+            <dd>An editing host is a node that is an HTML element with a
+            contenteditable attribute set to something else than the `false`
+            state.</dd>
+
+            <dt><dfn>contentEditable=false element</dfn></dt>
+
+            <dd>Any element that has the contentEditable attribute set to
+            `false`.</dd>
+
+            <dt><dfn>Inline elements</dfn></dt>
+
+            <dd>
+              All element nodes for whom the <a>used value</a> of the `display`
+              property resolves to the value `inline`.
+            </dd>
+
+            <dt><dfn>Block elements</dfn></dt>
+
+            <dd>
+                All element nodes for whom the <a>used value</a> of the `display`
+                property resolves to the value `block`.
+            </dd>
+
+            <dt><dfn>Stub elements</dfn></dt>
+
+            <dd>
+                All element nodes that are void elements OR root elements using
+                a different namespace than their parent elements (such as SVGs).
+            </dd>
+
+            <dt><dfn>Invisible elements</dfn></dt>
+
+            <dd>
+                All element nodes for whom the <a>used value</a> of the `display` property
+                resolves to the value `none`.
+            </dd>
+
+
+            <dt><dfn>Legal Caret Positions</dfn></dt>
+
+            <dd>
+                <p>All positions in which the caret can be placed
+                programmatically. The placement is restricted to the following
+                positions. Implementations MUST be able to place the caret in
+                all of the following positions:</p>
+
+                <ol>
+                    <li>Before or after any character in any text node.</li>
+
+                    <li>After <a>inline elements</a> that do not have a `nextSibling`
+                      which is a text node.</li>
+
+                    <li>Before <a>inline elements</a> that that do not have a
+                      `previousSibling`.</li>
+
+                    <li>Inside empty <a>inline elements</a> and <a>block elements</a>
+                      that are not <a>stub elements</a>.</li>
+
+                    <li>Inside empty text nodes.</li>
+
+                    <li>Before or after <a>block elements</a> that are also <a>stub
+                    elements</a>.</li>
+
+                    <li>Before or after comment nodes.</li>
+
+                    <li>In the <a>editing host</a>itself, if it is
+                    empty.
+                    </li>
+                </ol>
+
+                <p>There are some exceptions to these rules:</p>
+
+                <ol>
+                    <li>Within a table, the caret can only be placed inside
+                    `TH`,  `TD` and `CAPTION` elements.</li>
+
+                    <li>The caret cannot be placed inside <a>invisible elements</a>.</li>
+
+                    <li>The caret cannot be placed inside elements who's
+                    contentEditable attribute returns `false`.</li>
+                </ol>
+            </dd>
+        </dl>
+
+        <p>The following items are defined in the CSS Cascading and Inheritance Level 3 specification [[!css-cascade-3]]</p>
+          <ul>
+            <li><dfn><a href="http://www.w3.org/TR/css-cascade-3/#used">used value</a></dfn></li>
+          </ul>
+    </section>
+
     <section>
         <h2>contenteditable</h2>
         <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "events", "caret", "typing", "plaintext-only", "true", and "false".
