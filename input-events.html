@@ -10,7 +10,7 @@
     <script class='remove'>
 var respecConfig = {
               specStatus:   "ED"
-          ,   shortName:    "edit-events"
+          ,   shortName:    "input-events"
           ,   editors:      [{ name: "Johannes Wilm",
                                mailto: "johannes@fiduswriter.org",
                                company: "Invited Expert"},
@@ -223,7 +223,7 @@ var respecConfig = {
                 <dt>readonly attribute boolean isComposing</dt>
 
                 <dd>
-                    <p><code>true</code> if the edit event occurs as part of a
+                    <p><code>true</code> if the input event occurs as part of a
                     composition session, i.e., after a <a class="eventtype"
                     href=
                     "#event-type-compositionstart"><code>compositionstart</code></a>
@@ -273,7 +273,7 @@ var respecConfig = {
         <section id="events-inputevent-event-order">
             <h4>Input Event Order</h4>
 
-            <p>The edit events defined in this specification MUST occur in a
+            <p>The input events defined in this specification MUST occur in a
             set order relative to one another.</p>
 
             <table class="event-sequence-table">
@@ -282,7 +282,7 @@ var respecConfig = {
 
                     <td>
                         <a class="eventtype" href=
-                        "#event-type-beforeedit"><code>beforeedit</code></a>
+                        "#event-type-beforeinput"><code>beforeinput</code></a>
                     </td>
 
                     <td></td>
@@ -299,7 +299,7 @@ var respecConfig = {
 
                     <td>
                         <a class="eventtype" href=
-                        "#event-type-edit"><code>edit</code></a>
+                        "#event-type-input"><code>input</code></a>
                     </td>
 
                     <td></td>
@@ -307,11 +307,11 @@ var respecConfig = {
             </table>
         </section><!-- events-inputevent-event-order -->
 
-        <p>The Input event types are listed below.</p><!-- beforeedit -->
+        <p>The Input event types are listed below.</p><!-- beforeinput -->
 
         <div class="event-definition">
             <dl>
-                <dt id="event-type-beforeedit"><dfn><a class="eventtype" href=
+                <dt id="event-type-beforeinput"><dfn><a class="eventtype" href=
                 "#event-type-beforeinput"><code>beforeinput</code></a></dfn></dt>
 
                 <dd>
@@ -320,7 +320,7 @@ var respecConfig = {
                     <tr>
                             <th>Type</th>
 
-                            <td><strong><code>beforeedit</code></strong></td>
+                            <td><strong><code>beforeinput</code></strong></td>
                         </tr>
 
                         <tr>
@@ -445,13 +445,13 @@ var respecConfig = {
                     events.</p>
                 </dd>
             </dl>
-        </div><!-- beforeedit -->
-        <!-- edit -->
+        </div><!-- beforeinput -->
+        <!-- input -->
 
         <div class="event-definition">
             <dl>
-                <dt id="event-type-edit"><dfn><a class="eventtype" href=
-                "#event-type-edit"><code>edit</code></a></dfn></dt>
+                <dt id="event-type-input"><dfn><a class="eventtype" href=
+                "#event-type-input"><code>input</code></a></dfn></dt>
 
                 <dd>
                     <table border="0" cellpadding="2" cellspacing="0" summary=
@@ -459,7 +459,7 @@ var respecConfig = {
                     <tr>
                             <th>Type</th>
 
-                            <td><strong><code>edit</code></strong></td>
+                            <td><strong><code>input</code></strong></td>
                         </tr>
 
                         <tr>
@@ -575,17 +575,17 @@ var respecConfig = {
                     DOM has been updated.</p>
                 </dd>
             </dl>
-        </div><!-- edit -->
+        </div><!-- input -->
     </section><!-- events-inputevents -->
 
-    <section id="events-composition-event-edit-events">
+    <section id="events-composition-event-input-events">
         <h4>Input Events During Composition</h4>
 
         <p>During the composition session, the <a class="eventtype" href=
         "#event-type-compositionupdate"><code>compositionupdate</code></a> MUST
         be dispatched before the <a class="eventtype" href=
-        "#event-type-beforeedit"><code>beforeedit</code></a> and
-        <code>edit</code> events are sent.</p>
+        "#event-type-beforeinput"><code>beforeinput</code></a> and
+        <code>input</code> events are sent.</p>
 
         <table class="event-sequence-table">
             <tr>
@@ -612,7 +612,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-beforeedit"><code>beforeedit</code></a>
+                    "#event-type-beforeinput"><code>beforeinput</code></a>
                 </td>
 
                 <td></td>
@@ -631,7 +631,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-edit"><code>edit</code></a>
+                    "#event-type-input"><code>input</code></a>
                 </td>
 
                 <td></td>
@@ -642,8 +642,8 @@ var respecConfig = {
         canceling updates during a composition session.</p>
 
         <p>When a composition session is finished, any <a class="eventtype"
-        href="#event-type-beforeedit"><code>beforeedit</code></a> and
-        <a class="eventtype" href="#event-type-edit"><code>edit</code></a>
+        href="#event-type-beforeinput"><code>beforeinput</code></a> and
+        <a class="eventtype" href="#event-type-input"><code>input</code></a>
         events MUST be dispatched after the <a class="eventtype" href=
         "#event-type-compositionend"><code>compositionend</code></a> event.</p>
 
@@ -672,12 +672,12 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-beforeedit"><code>beforeedit</code></a>
+                    "#event-type-beforeinput"><code>beforeinput</code></a>
                 </td>
 
                 <td><em>Canceling this will prevent any DOM update and
                 therefore the <a class="eventtype" href=
-                "#event-type-edit"><code>edit</code></a> event.</em></td>
+                "#event-type-input"><code>input</code></a> event.</em></td>
             </tr>
 
             <tr>
@@ -693,7 +693,7 @@ var respecConfig = {
 
                 <td>
                     <a class="eventtype" href=
-                    "#event-type-edit"><code>edit</code></a>
+                    "#event-type-input"><code>input</code></a>
                 </td>
 
                 <td></td>
@@ -704,10 +704,10 @@ var respecConfig = {
         the <a class="eventtype" href=
         "#event-type-compositionend"><code>compositionend</code></a> event is
         dispatched. In this case, canceling the <a class="eventtype" href=
-        "#event-type-beforeedit"><code>beforeedit</code></a> event will have
+        "#event-type-beforeinput"><code>beforeinput</code></a> event will have
         no effect (i.e., the <a class="eventtype" href=
-        "#event-type-edit"><code>edit</code></a> event will still fire).</p>
-    </section><!-- events-composition-event-edit-events -->
+        "#event-type-input"><code>input</code></a> event will still fire).</p>
+    </section><!-- events-composition-event-input-events -->
 
     <section>
         <h2>Acknowledgements</h2>
