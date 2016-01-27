@@ -83,10 +83,10 @@ var respecConfig = {
 
             <dl class="idl" title=
             "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
-            <dt>readonly attribute DOMString editType</dt>
+            <dt>readonly attribute DOMString inputType</dt>
 
                 <dd>
-                    <p><code>editType</code> holds the type of input. Allowed
+                    <p><code>inputType</code> holds the type of input. Allowed
                     values include insertCharacter, replaceText, replaceContent,
                     insertNewline, deleteContent, deleteComposedCharacter, undo,
                     redo. During initialization, the user agent is responsible
@@ -95,7 +95,7 @@ var respecConfig = {
 
                     <ol>
                         <li>If the user is inserting plain text using a
-                        keyboard, IME, speech, or similar method, the editType
+                        keyboard, IME, speech, or similar method, the inputType
                         MUST be <b>insertCharacter</b>.
 
                             <ol>
@@ -108,7 +108,7 @@ var respecConfig = {
 
                         <li>If the user indicates replacement of existing
                         content using a keyboard, IME, speech, or similar method,
-                        the editType MUST be
+                        the inputType MUST be
                         <b>replaceContent</b>.
 
                             <ol>
@@ -123,7 +123,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user is inserting a line break using a
-                        keyboard, IME, speech, or similar method, the editType
+                        keyboard, IME, speech, or similar method, the inputType
                         MUST be <b>insertLineBreak</b>
 
                             <ol>
@@ -134,7 +134,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user is inserting a paragraph break using a
-                        keyboard, IME, speech, or similar method, the editType
+                        keyboard, IME, speech, or similar method, the inputType
                         MUST be <b>insertParagraph</b>
 
                             <ol>
@@ -145,7 +145,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicated deletion of a character during
-                        character compisition using IME, the editType MUST be <b>
+                        character compisition using IME, the inputType MUST be <b>
                             deleteComposedCharacter</b>
 
                             <ol>
@@ -162,7 +162,7 @@ var respecConfig = {
 
                         <li>If the user indicated deletion of content that causes
                         the caret to move using a keyboard, speech, or similar
-                        method, the editType MUST be <b>
+                        method, the inputType MUST be <b>
                             deleteContent</b>
 
                             <ol>
@@ -176,7 +176,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates undo using a keyboard, IME,
-                        speech, or similar method, the editType MUST be <b>
+                        speech, or similar method, the inputType MUST be <b>
                             undo</b>
 
                             <ol>
@@ -187,7 +187,7 @@ var respecConfig = {
                         </li>
 
                         <li>If the user indicates redo using a keyboard, IME,
-                        speech, or similar method, the editType MUST be <b>
+                        speech, or similar method, the inputType MUST be <b>
                             redo</b>
 
                             <ol>
@@ -210,7 +210,7 @@ var respecConfig = {
                 <dt>readonly attribute DOMString data</dt>
 
                 <dd>
-                    <p>If the editType is additive (replaceContent, for
+                    <p>If the inputType is additive (replaceContent, for
                     instance), <code>data</code> holds the value that would be
                     inserted. It is described in the default behavior section.</p>
 
@@ -355,13 +355,13 @@ var respecConfig = {
                         <tr>
                             <th>Cancelable</th>
 
-                            <td>Varies: False for editTypes insertCharacter and deleteComposedCharacter during IME composition. True otherwise</td>
+                            <td>Varies: False for inputTypes insertCharacter and deleteComposedCharacter during IME composition. True otherwise</td>
                         </tr>
 
                         <tr>
                             <th>Default action</th>
 
-                            <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for editTypes insertCharacter and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all editTypes. None otherwise.</td>
+                            <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for inputTypes insertCharacter and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all inputTypes. None otherwise.</td>
                         </tr>
 
                         <tr>
