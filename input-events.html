@@ -47,9 +47,9 @@ var respecConfig = {
 
 <body>
     <section id='abstract'>
-        <p>This specification defines events for text and related input and
-        provides relavant contextual information for each event. This
-        specification builds on the Document Object Model Events Level 3.</p>
+        <p>This specification defines additions to events for text and related
+          input. This specification builds on the Document Object Model Events
+          Level 3.</p>
     </section>
 
     <section id='sotd'>
@@ -59,9 +59,11 @@ var respecConfig = {
     <section>
         <h2>Introduction</h2>
 
-        <p>This document describes 2 new events - Input and beforeInput. The goal
-        of these events is to allow authors to understand and/or override
-        default edit behavior both before and after editing occurs.</p>
+        <p>This document describes editing related additions to 2 events - Input
+          and beforeInput which are described in the
+          <a href="https://w3c.github.io/uievents/">UI events spec</a>. The goal
+          of these events is to allow authors to understand and/or override
+          default edit behavior both before and after editing occurs.</p>
     </section>
 
     <section>
@@ -82,7 +84,7 @@ var respecConfig = {
             <h4>Interface InputEvent</h4>
 
             <dl class="idl" title=
-            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] interface InputEvent : UIEvent">
+            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] partial interface InputEvent : UIEvent">
             <dt>readonly attribute DOMString inputType</dt>
 
                 <dd>
@@ -207,18 +209,6 @@ var respecConfig = {
                     <code>""</code> (the empty string).</p>
                 </dd>
 
-                <dt>readonly attribute DOMString data</dt>
-
-                <dd>
-                    <p>If the inputType is additive (replaceContent, for
-                    instance), <code>data</code> holds the value that would be
-                    inserted. It is described in the default behavior section.</p>
-
-                    <p>The <a class="def" href=
-                    "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
-                    un-initialized value</a> of this attribute MUST be
-                    <code>""</code> NULL.</p>
-                </dd>
 
                 <dt>readonly attribute Ranges targetRanges</dt>
 
@@ -246,42 +236,6 @@ var respecConfig = {
             </dl>
         </section><!-- interface-InputEvent -->
 
-        <section id="events-inputevent-event-order">
-            <h4>Input Event Order</h4>
-
-            <p>The input events defined in this specification MUST occur in a
-            set order relative to one another.</p>
-
-            <table class="event-sequence-table">
-                <tr>
-                    <td class="cell-number">1.</td>
-
-                    <td>
-                        <a class="eventtype" href=
-                        "#event-type-beforeinput"><code>beforeinput</code></a>
-                    </td>
-
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td class="cell-number"></td>
-
-                    <td colspan="2"><em>DOM element is updated</em></td>
-                </tr>
-
-                <tr>
-                    <td class="cell-number">2.</td>
-
-                    <td>
-                        <a class="eventtype" href=
-                        "#event-type-input"><code>input</code></a>
-                    </td>
-
-                    <td></td>
-                </tr>
-            </table>
-        </section><!-- events-inputevent-event-order -->
 
         <p>The Input event types are listed below.</p><!-- beforeinput -->
 
@@ -553,137 +507,6 @@ var respecConfig = {
             </dl>
         </div><!-- input -->
     </section><!-- events-inputevents -->
-
-    <section id="events-composition-event-input-events">
-        <h4>Input Events During Composition</h4>
-
-        <p>During the composition session, the <a class="eventtype" href=
-        "#event-type-compositionupdate"><code>compositionupdate</code></a> MUST
-        be dispatched before the <a class="eventtype" href=
-        "#event-type-beforeinput"><code>beforeinput</code></a> and
-        <code>input</code> events are sent.</p>
-
-        <table class="event-sequence-table">
-            <tr>
-                <td class="cell-number"></td>
-
-                <th>Event Name</th>
-
-                <th>Notes</th>
-            </tr>
-
-            <tr>
-                <td class="cell-number">1.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-compositionupdate"><code>compositionupdate</code></a>
-                </td>
-
-                <td></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number">2.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-beforeinput"><code>beforeinput</code></a>
-                </td>
-
-                <td></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number"></td>
-
-                <td></td>
-
-                <td><em>Any DOM updates occur at this point.</em></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number">3.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-input"><code>input</code></a>
-                </td>
-
-                <td></td>
-            </tr>
-        </table>
-
-        <p class="note"><strong>Note:</strong> Most IMEs do not support
-        canceling updates during a composition session.</p>
-
-        <p>When a composition session is finished, any <a class="eventtype"
-        href="#event-type-beforeinput"><code>beforeinput</code></a> and
-        <a class="eventtype" href="#event-type-input"><code>input</code></a>
-        events MUST be dispatched after the <a class="eventtype" href=
-        "#event-type-compositionend"><code>compositionend</code></a> event.</p>
-
-        <table class="event-sequence-table">
-            <tr>
-                <td class="cell-number"></td>
-
-                <th>Event Name</th>
-
-                <th>Notes</th>
-            </tr>
-
-            <tr>
-                <td class="cell-number">1.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-compositionend"><code>compositionend</code></a>
-                </td>
-
-                <td></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number">2.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-beforeinput"><code>beforeinput</code></a>
-                </td>
-
-                <td><em>Canceling this will prevent any DOM update and
-                therefore the <a class="eventtype" href=
-                "#event-type-input"><code>input</code></a> event.</em></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number"></td>
-
-                <td></td>
-
-                <td><em>Any DOM updates occur at this point.</em></td>
-            </tr>
-
-            <tr>
-                <td class="cell-number">3.</td>
-
-                <td>
-                    <a class="eventtype" href=
-                    "#event-type-input"><code>input</code></a>
-                </td>
-
-                <td></td>
-            </tr>
-        </table>
-
-        <p class="note"><strong>Note:</strong> Some IMEs update the DOM before
-        the <a class="eventtype" href=
-        "#event-type-compositionend"><code>compositionend</code></a> event is
-        dispatched. In this case, canceling the <a class="eventtype" href=
-        "#event-type-beforeinput"><code>beforeinput</code></a> event will have
-        no effect (i.e., the <a class="eventtype" href=
-        "#event-type-input"><code>input</code></a> event will still fire).</p>
-    </section><!-- events-composition-event-input-events -->
 
     <section>
         <h2>Acknowledgements</h2>
