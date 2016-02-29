@@ -7,7 +7,7 @@
     // [[inputType, modifier_key, keycode, event, data], ...]
     var supportedIntentions = [];
     populateSupportedIntentions();
-    
+
     (function () {
         function CustomEvent ( event, params ) {
             params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -20,7 +20,7 @@
         }
          window.CustomEvent = CustomEvent;
     })();
-    
+
     function fireIntentionEvent (intentionDetails){
         var intentionEvent;
         var inputType = intentionDetails[0];
@@ -33,7 +33,7 @@
         }
         return document.activeElement.dispatchEvent(intentionEvent);
     }
-    
+
     function performDefaultBehavior(intentionDetails, triggeringEvent) {
         var inputType = intentionDetails[0];
         switch (inputType) {
@@ -47,7 +47,7 @@
             triggeringEvent.preventDefault(); //All other inputTypes have no default behavior, so prevent the browser's behavior
         }
     }
-    
+
     //Post Page-Load Functionality
     window.addEventListener(
         'load',function (evt) {
@@ -73,7 +73,7 @@
                             }
                         }
                     });
-                document.testIntention = 
+                document.testIntention =
                     function(intention)
                     {
                         for (var i = 0; i < supportedIntentions.length; i++)
@@ -89,118 +89,118 @@
                                 }
                                 break;
                             }
-                        } 
+                        }
                     }
                 var ceElement = document.querySelector('[contenteditable]');
                 var ceAttribute = ceElement.getAttribute("contenteditable");
-                if (ceAttribute.indexOf('typing') >= 0) 
+                if (ceAttribute.indexOf('typing') >= 0)
                 {
                     ceElement.setAttribute('contenteditable', 'true');
                 }
         }
     );
-    
+
     function populateSupportedIntentions()
     {
-        supportedIntentions = 
-           [["deleteContent", "none", 8, "beforeInput", "NULL"],
-            ["insertNewline", "none", 13, "beforeInput", "NULL"],
+        supportedIntentions =
+           [["deleteContent", "none", 8, "beforeinput", "NULL"],
+            ["insertNewline", "none", 13, "beforeinput", "NULL"],
             ["moveCaret", "none", 37, "beforeSelectionChange", "left"],
             ["moveCaret", "none", 38, "beforeSelectionChange", "up"],
             ["moveCaret", "none", 39, "beforeSelectionChange", "right"],
             ["moveCaret", "none", 40, "beforeSelectionChange", "down"],
-            ["deleteContent", "none", 46, "beforeInput", "NULL"],
-            ["replaceText", "none", 48, "beforeInput", "0"],
-            ["replaceText", "none", 49, "beforeInput", "1"],
-            ["replaceText", "none", 50, "beforeInput", "2"],
-            ["replaceText", "none", 51, "beforeInput", "3"],
-            ["replaceText", "none", 52, "beforeInput", "4"],
-            ["replaceText", "none", 53, "beforeInput", "5"],
-            ["replaceText", "none", 54, "beforeInput", "6"],
-            ["replaceText", "none", 55, "beforeInput", "7"],
-            ["replaceText", "none", 56, "beforeInput", "8"],
-            ["replaceText", "none", 57, "beforeInput", "9"],
-            ["replaceText", "none", 65, "beforeInput", "a"],
-            ["replaceText", "none", 66, "beforeInput", "b"],
-            ["replaceText", "none", 67, "beforeInput", "c"],
-            ["replaceText", "none", 68, "beforeInput", "d"],
-            ["replaceText", "none", 69, "beforeInput", "e"],
-            ["replaceText", "none", 70, "beforeInput", "f"],
-            ["replaceText", "none", 71, "beforeInput", "g"],
-            ["replaceText", "none", 72, "beforeInput", "h"],
-            ["replaceText", "none", 73, "beforeInput", "i"],
-            ["replaceText", "none", 74, "beforeInput", "j"],
-            ["replaceText", "none", 75, "beforeInput", "k"],
-            ["replaceText", "none", 76, "beforeInput", "l"],
-            ["replaceText", "none", 77, "beforeInput", "m"],
-            ["replaceText", "none", 78, "beforeInput", "n"],
-            ["replaceText", "none", 79, "beforeInput", "o"],
-            ["replaceText", "none", 80, "beforeInput", "p"],
-            ["replaceText", "none", 81, "beforeInput", "q"],
-            ["replaceText", "none", 82, "beforeInput", "r"],
-            ["replaceText", "none", 83, "beforeInput", "s"],
-            ["replaceText", "none", 84, "beforeInput", "t"],
-            ["replaceText", "none", 85, "beforeInput", "u"],
-            ["replaceText", "none", 86, "beforeInput", "v"],
-            ["replaceText", "none", 87, "beforeInput", "w"],
-            ["replaceText", "none", 88, "beforeInput", "x"],
-            ["replaceText", "none", 89, "beforeInput", "y"],
-            ["replaceText", "none", 90, "beforeInput", "z"],
-            ["replaceText", "none", 106, "beforeInput", "multiply"],
-            ["replaceText", "none", 107, "beforeInput", "add"],
-            ["replaceText", "none", 109, "beforeInput", "subtract"],
-            ["replaceText", "none", 110, "beforeInput", "decimal point"],
-            ["replaceText", "none", 111, "beforeInput", "divide"],
-            ["replaceText", "none", 186, "beforeInput", ";"],
-            ["replaceText", "none", 187, "beforeInput", "="],
-            ["replaceText", "none", 188, "beforeInput", ","],
-            ["replaceText", "none", 189, "beforeInput", "-"],
-            ["replaceText", "none", 190, "beforeInput", "."],
-            ["replaceText", "none", 219, "beforeInput", "["],
-            ["replaceText", "none", 220, "beforeInput", "\\"],
-            ["replaceText", "none", 221, "beforeInput", "]"],
-            ["replaceText", "none", 222, "beforeInput", "'"],
+            ["deleteContent", "none", 46, "beforeinput", "NULL"],
+            ["replaceText", "none", 48, "beforeinput", "0"],
+            ["replaceText", "none", 49, "beforeinput", "1"],
+            ["replaceText", "none", 50, "beforeinput", "2"],
+            ["replaceText", "none", 51, "beforeinput", "3"],
+            ["replaceText", "none", 52, "beforeinput", "4"],
+            ["replaceText", "none", 53, "beforeinput", "5"],
+            ["replaceText", "none", 54, "beforeinput", "6"],
+            ["replaceText", "none", 55, "beforeinput", "7"],
+            ["replaceText", "none", 56, "beforeinput", "8"],
+            ["replaceText", "none", 57, "beforeinput", "9"],
+            ["replaceText", "none", 65, "beforeinput", "a"],
+            ["replaceText", "none", 66, "beforeinput", "b"],
+            ["replaceText", "none", 67, "beforeinput", "c"],
+            ["replaceText", "none", 68, "beforeinput", "d"],
+            ["replaceText", "none", 69, "beforeinput", "e"],
+            ["replaceText", "none", 70, "beforeinput", "f"],
+            ["replaceText", "none", 71, "beforeinput", "g"],
+            ["replaceText", "none", 72, "beforeinput", "h"],
+            ["replaceText", "none", 73, "beforeinput", "i"],
+            ["replaceText", "none", 74, "beforeinput", "j"],
+            ["replaceText", "none", 75, "beforeinput", "k"],
+            ["replaceText", "none", 76, "beforeinput", "l"],
+            ["replaceText", "none", 77, "beforeinput", "m"],
+            ["replaceText", "none", 78, "beforeinput", "n"],
+            ["replaceText", "none", 79, "beforeinput", "o"],
+            ["replaceText", "none", 80, "beforeinput", "p"],
+            ["replaceText", "none", 81, "beforeinput", "q"],
+            ["replaceText", "none", 82, "beforeinput", "r"],
+            ["replaceText", "none", 83, "beforeinput", "s"],
+            ["replaceText", "none", 84, "beforeinput", "t"],
+            ["replaceText", "none", 85, "beforeinput", "u"],
+            ["replaceText", "none", 86, "beforeinput", "v"],
+            ["replaceText", "none", 87, "beforeinput", "w"],
+            ["replaceText", "none", 88, "beforeinput", "x"],
+            ["replaceText", "none", 89, "beforeinput", "y"],
+            ["replaceText", "none", 90, "beforeinput", "z"],
+            ["replaceText", "none", 106, "beforeinput", "multiply"],
+            ["replaceText", "none", 107, "beforeinput", "add"],
+            ["replaceText", "none", 109, "beforeinput", "subtract"],
+            ["replaceText", "none", 110, "beforeinput", "decimal point"],
+            ["replaceText", "none", 111, "beforeinput", "divide"],
+            ["replaceText", "none", 186, "beforeinput", ";"],
+            ["replaceText", "none", 187, "beforeinput", "="],
+            ["replaceText", "none", 188, "beforeinput", ","],
+            ["replaceText", "none", 189, "beforeinput", "-"],
+            ["replaceText", "none", 190, "beforeinput", "."],
+            ["replaceText", "none", 219, "beforeinput", "["],
+            ["replaceText", "none", 220, "beforeinput", "\\"],
+            ["replaceText", "none", 221, "beforeinput", "]"],
+            ["replaceText", "none", 222, "beforeinput", "'"],
             ["modify", "shift", 37, "beforeSelectionChange", ""],
             ["modify", "shift", 38, "beforeSelectionChange", ""],
             ["modify", "shift", 39, "beforeSelectionChange", ""],
             ["modify", "shift", 40, "beforeSelectionChange", ""],
-            ["replaceText", "shift", 65, "beforeInput", "A"],
-            ["replaceText", "shift", 66, "beforeInput", "B"],
-            ["replaceText", "shift", 67, "beforeInput", "C"],
-            ["replaceText", "shift", 68, "beforeInput", "D"],
-            ["replaceText", "shift", 69, "beforeInput", "E"],
-            ["replaceText", "shift", 70, "beforeInput", "F"],
-            ["replaceText", "shift", 71, "beforeInput", "G"],
-            ["replaceText", "shift", 72, "beforeInput", "H"],
-            ["replaceText", "shift", 73, "beforeInput", "I"],
-            ["replaceText", "shift", 74, "beforeInput", "J"],
-            ["replaceText", "shift", 75, "beforeInput", "K"],
-            ["replaceText", "shift", 76, "beforeInput", "L"],
-            ["replaceText", "shift", 77, "beforeInput", "M"],
-            ["replaceText", "shift", 78, "beforeInput", "N"],
-            ["replaceText", "shift", 79, "beforeInput", "O"],
-            ["replaceText", "shift", 80, "beforeInput", "P"],
-            ["replaceText", "shift", 81, "beforeInput", "Q"],
-            ["replaceText", "shift", 82, "beforeInput", "R"],
-            ["replaceText", "shift", 83, "beforeInput", "S"],
-            ["replaceText", "shift", 84, "beforeInput", "T"],
-            ["replaceText", "shift", 85, "beforeInput", "U"],
-            ["replaceText", "shift", 86, "beforeInput", "V"],
-            ["replaceText", "shift", 87, "beforeInput", "W"],
-            ["replaceText", "shift", 88, "beforeInput", "X"],
-            ["replaceText", "shift", 89, "beforeInput", "Y"],
-            ["replaceText", "shift", 90, "beforeInput", "Z"],
-            ["selectall", "control", 65, "beforeSelectionChange", "NULL"], 
-            ["formatContent", "control", 66, "beforeInput", "bold:toggle"], 
-            ["copy", "control", 67, "clipboard", "N/A"], 
-            ["formatContent", "control", 73, "beforeInput", "italic:toggle"], 
-            ["formatContent", "control", 85, "beforeInput", "underline:toggle"], 
-            ["paste", "control", 86, "clipboard", "N/A"], 
+            ["replaceText", "shift", 65, "beforeinput", "A"],
+            ["replaceText", "shift", 66, "beforeinput", "B"],
+            ["replaceText", "shift", 67, "beforeinput", "C"],
+            ["replaceText", "shift", 68, "beforeinput", "D"],
+            ["replaceText", "shift", 69, "beforeinput", "E"],
+            ["replaceText", "shift", 70, "beforeinput", "F"],
+            ["replaceText", "shift", 71, "beforeinput", "G"],
+            ["replaceText", "shift", 72, "beforeinput", "H"],
+            ["replaceText", "shift", 73, "beforeinput", "I"],
+            ["replaceText", "shift", 74, "beforeinput", "J"],
+            ["replaceText", "shift", 75, "beforeinput", "K"],
+            ["replaceText", "shift", 76, "beforeinput", "L"],
+            ["replaceText", "shift", 77, "beforeinput", "M"],
+            ["replaceText", "shift", 78, "beforeinput", "N"],
+            ["replaceText", "shift", 79, "beforeinput", "O"],
+            ["replaceText", "shift", 80, "beforeinput", "P"],
+            ["replaceText", "shift", 81, "beforeinput", "Q"],
+            ["replaceText", "shift", 82, "beforeinput", "R"],
+            ["replaceText", "shift", 83, "beforeinput", "S"],
+            ["replaceText", "shift", 84, "beforeinput", "T"],
+            ["replaceText", "shift", 85, "beforeinput", "U"],
+            ["replaceText", "shift", 86, "beforeinput", "V"],
+            ["replaceText", "shift", 87, "beforeinput", "W"],
+            ["replaceText", "shift", 88, "beforeinput", "X"],
+            ["replaceText", "shift", 89, "beforeinput", "Y"],
+            ["replaceText", "shift", 90, "beforeinput", "Z"],
+            ["selectall", "control", 65, "beforeSelectionChange", "NULL"],
+            ["formatContent", "control", 66, "beforeinput", "bold:toggle"],
+            ["copy", "control", 67, "clipboard", "N/A"],
+            ["formatContent", "control", 73, "beforeinput", "italic:toggle"],
+            ["formatContent", "control", 85, "beforeinput", "underline:toggle"], 
+            ["paste", "control", 86, "clipboard", "N/A"],
             ["cut", "control", 88, "clipboard", "N/A"],
-            ["redo", "control", 89, "beforeInput", "NULL"], 
-            ["undo", "control", 90, "beforeInput", "NULL"]];    
-            
-        supportedIntentions.getIntentionDetails = 
+            ["redo", "control", 89, "beforeinput", "NULL"],
+            ["undo", "control", 90, "beforeinput", "NULL"]];
+
+        supportedIntentions.getIntentionDetails =
             function(name)
             {
                 for (var i = 0; i < supportedIntentions.length; i++)

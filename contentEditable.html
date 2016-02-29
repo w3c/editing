@@ -188,7 +188,7 @@
       <p>The states "events", "caret", "typing" and "true" are hierarchically ordered, so that the state "caret" also includes the features of the "events" state, the "typing" state includes the features of the "caret" state, and the "true" state includes all the features of
       the "typing" state.</p>
 
-      <p>The "events" state means that beforeInput events are triggered when the user asks for an editing operation. The "caret" state adds
+      <p>The "events" state means that beforeinput events are triggered when the user asks for an editing operation. The "caret" state adds
       default browser controlled movement of the caret. The "typing" state adds handling of text input through IME and keyboard, and
       deletion within an IME composition. The "true" state adds handling of deletion of content for keyboard input as well as deletion of non-textual content and editing commands through the execCommand command.</p>
 
@@ -208,7 +208,7 @@
 
         <p>In a focused <a>editing host</a> that is in the events state, a caret MUST be drawn if the selection is collapsed, and it MUST be possible to place the caret in all of the <a>Legal Caret Positions</a> programmatically.</p>
 
-        <p>All user editing intentions initiated while an <a>editing host</a> that is in the events state is focused, MUST trigger a `beforeInput` event.</p>
+        <p>All user editing intentions initiated while an <a>editing host</a> that is in the events state is focused, MUST trigger a `beforeinput` event.</p>
 
       </section>
 
@@ -260,7 +260,7 @@
             <section>
                 <h3 id="caret_movement">Caret movement</h3>
 
-                <p>Intentions of the user to move the caret trigger `beforeInput`
+                <p>Intentions of the user to move the caret trigger `beforeinput`
                 events. The default action of those events is the movement of
                 the caret in the given direction, if possible. The specific
                 location that the caret is moved to is out of scope for this
@@ -276,7 +276,7 @@
 
             <p>When the user indicates the wish to replace part of the
             contents of a <a>editing host</a>, by means
-            of a browser-builtin spell checker or alike, a `beforeInput` input
+            of a browser-builtin spell checker or alike, a `beforeinput` input
             with `inputType` set to `replaceText` or `replaceContent` is
             triggered. No part of the DOM is being changed by default in an
             editing host that is in the "events", "caret" or "typing" state.</p>
@@ -288,7 +288,7 @@
 
             <p>Content is not removed automatically through user input in an
             <a>editing host</a> that is in the "events" or "caret" state. Instead,
-            Del/Backspace key presses, etc. trigger user `beforeInput`
+            Del/Backspace key presses, etc. trigger user `beforeinput`
             events with `inputType` set to `deleteContentForward` or
             `deleteContentBackward`. The same is true for any <a>editing host</a>
             that is in the "typing" state, unless it is currently in the
@@ -313,7 +313,7 @@
             `cut`, `copy`, `delete` and CAN contain items for spellchecking for
             any <a>editing host</a>. Triggering any of `context menu`
             items MUST NOT by default cause any change to the DOM,
-            `beforepaste`, `beforecut` and `beforeInput` events SHOULD be
+            `beforepaste`, `beforecut` and `beforeinput` events SHOULD be
             triggered. Menu items in a `context menu` that do not cause DOM
             changes by default SHOULD function as in any other editing
             context.</p>

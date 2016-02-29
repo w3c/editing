@@ -7,7 +7,7 @@
         function setup(){
             var editArea = document.getElementById("editArea");
             editArea.addEventListener("beforeSelectionChange", logIntentionEvent);
-            editArea.addEventListener("beforeInput", logIntentionEvent);
+            editArea.addEventListener("beforeinput", logIntentionEvent);
         }
         function logIntentionEvent(evt){
             document.getElementById("log").textContent += "event : { type : \"" + evt.type + "\", inputType : \"" + evt.detail.inputType + "\", data : \"" + evt.detail.data + "\"}\n";

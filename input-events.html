@@ -60,7 +60,7 @@ var respecConfig = {
         <h2>Introduction</h2>
 
         <p>This document describes editing related additions to 2 events - Input
-          and beforeInput which are described in the
+          and beforeinput which are described in the
           <a href="https://w3c.github.io/uievents/">UI events spec</a>. The goal
           of these events is to allow authors to understand and/or override
           default edit behavior both before and after editing occurs.</p>
@@ -76,8 +76,8 @@ var respecConfig = {
     <section id="events-inputevents">
         <h3>Input Event Types</h3>
 
-        <p>Input events are sent when before (beforeInputEvent) and after
-        (inputEvent) a user attempts to edit the markup. This
+        <p>Input events are sent before (beforeinput event) and after
+        (input event) a user attempts to edit the markup. This
         includes characters, deletions, and other related edits.</p>
 
         <section id="interface-InputEvent">
@@ -158,7 +158,7 @@ var respecConfig = {
 
                                 <li>Set the value of targetRanges to NULL.</li>
 
-                                <li>Set the value of canceable to <code>false</code></li>
+                                <li>Set the value of cancelable to <code>false</code></li>
                             </ol>
                         </li>
 
@@ -341,7 +341,7 @@ var respecConfig = {
                                         InputEvent.cancelable</code></a>:
                                         <code>true</code> if this event can be canceled.
                                         <code>false</code> otherwise.
-                                        <p class="note">All events beforeInput events MUST be canceable, unless they take place during IME composition.</p>
+                                        <p class="note">All beforeinput events MUST be cancelable, unless they take place during IME composition.</p>
                                     </li>
                                 </ul>
                             </td>

@@ -98,9 +98,9 @@
         <h3>Overview</h3>
         <p>In order to solve this problem, JavaScript needs a new level of abstraction for user input.
         Device-Independent Events are that abstraction.
-        There are several types of Device-Independent Events, including text edit (beforeInput events), Clipboard, and Selection (beforeSelectionChange events).
+        There are several types of Device-Independent Events, including text edit (beforeinput events), Clipboard, and Selection (beforeSelectionChange events).
         Building on the concepts that already exist in Clipboard events and those that are being specified by <a href="http://www.w3.org/TR/selection-api/">Selection API</a>,
-        we unify the story across other Device-Independent Event types such as the beforeInput event.
+        we unify the story across other Device-Independent Event types such as the beforeinput event.
         The picture would look like this, where Device-Specific Input Events may result in Device-Independent Events from browsers or sites, which may result in implemented behaviors from browsers or sites:
         </p><p>
             <img alt="Image depicting range of Actions, Action Events, Device-Independent Events, and default handling of those events, as described above." src="images/intention_events_concept.png">
@@ -109,20 +109,20 @@
         <h3>Selection Events</h3>
         <code>BeforeSelectionChange</code> events will allow sites to manage the selection. They are being considered for the Selection API spec.
         </section><section>
-        <h3>beforeInput Events</h3>
+        <h3>beforeinput Events</h3>
         These events allow user input (regardless of modality) to be managed by script.
-        For instance, if a site wants to manage the way bolding text works, they can listen for a <code>beforeInput</code> with commandType="bold",
+        For instance, if a site wants to manage the way bolding text works, they can listen for a <code>beforeinput</code> with commandType="bold",
         execute their own custom bold behavior, and <code>preventDefault()</code>.
         They no longer need to listen for control+b on English keyboards or something else in other locales or modalities.
-        Any platform-specific bold toolbars or gestures just work with the <code>beforeInput</code> handler as well.
+        Any platform-specific bold toolbars or gestures just work with the <code>beforeinput</code> handler as well.
         </section><section>
         <h3>Ways to Device-Independent Events</h3>
         <section>
         <h3>Well-known Sources</h3>
         Device-Independent Events may be fired by browsers for all well-known sources.
         For instance, control+b should fire the required <code>KeyboardEvent</code>, and if preventDefault() is not called on that event,
-        it would then fire a <code>beforeInput</code> with commandType="bold".
-        Similarly, the "shake" gesture on iOS would fire a <code>beforeInput</code> with <code>commandType="undo"</code>.
+        it would then fire a <code>beforeinput</code> with commandType="bold".
+        Similarly, the "shake" gesture on iOS would fire a <code>beforeinput</code> with <code>commandType="undo"</code>.
         </section><section>
         <h3>Custom Sources</h3>
         <p>
@@ -132,7 +132,7 @@
         In order to enable web developers to fire Device-Independent Events when their users interact with these controls,
         a new function called declareIntention() will cause Device-Independent Events to be fired.
         </p><p>
-        For example, clicking the following button would fire a <code>beforeInput</code> event with commandType="bold".
+        For example, clicking the following button would fire a <code>beforeinput</code> event with commandType="bold".
         If preventDefault is not called on that event then the browser would perform its default action for bold.
         <code class="highlight"><pre class="example">&lt;input type="button" onclick="function (evt) { evt.declareIntention('bold') }" value="b"&gt;</pre></code>
 
@@ -162,7 +162,7 @@
         </p><p>
         For example, a bold Device-Independent Event that specifies the target value of bold can be initiated like this:
         <code><pre>document.declareIntention('bold', {"value":"true"});</pre></code>
-        When the associated beforeInput event is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
+        When the associated beforeinput event is fired, its <code>commandData</code> attribute will have <code>value="true"</code>.
         </p>
         </section>
         </section>
