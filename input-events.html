@@ -89,7 +89,7 @@ var respecConfig = {
 
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertCharacter, replaceText, replaceContent,
+                    values include insertText, replaceText, replaceContent,
                     insertNewline, deleteContent, deleteComposedCharacter, undo,
                     redo. During initialization, the user agent is responsible
                     for populating this field as follows:
@@ -98,7 +98,7 @@ var respecConfig = {
                     <ol>
                         <li>If the user is inserting plain text using a
                         keyboard, IME, speech, or similar method, the inputType
-                        MUST be <b>insertCharacter</b>.
+                        MUST be <b>insertText</b>.
 
                             <ol>
                                 <li>Set the value of data to be the plain text
@@ -270,13 +270,13 @@ var respecConfig = {
                         <tr>
                             <th>Cancelable</th>
 
-                            <td>Varies: False for inputTypes insertCharacter and deleteComposedCharacter during IME composition. True otherwise</td>
+                            <td>Varies: False for inputTypes insertText and deleteComposedCharacter during IME composition. True otherwise</td>
                         </tr>
 
                         <tr>
                             <th>Default action</th>
 
-                            <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for inputTypes insertCharacter and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all inputTypes. None otherwise.</td>
+                            <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for inputTypes insertText and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all inputTypes. None otherwise.</td>
                         </tr>
 
                         <tr>
