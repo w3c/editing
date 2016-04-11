@@ -16655,6 +16655,10 @@ foo&lt;br&gt;bar
                     "dom-Range-insertNode"><a href=
                     "http://dom.spec.whatwg.org/#dom-range-insertnode">insertNode(<var title="">img</var>)</a></code>
                     on <var title="">range</var>.</p>
+
+                    <p class="note">An image could be inserted inside a link, with either this command or insertHTML. 
+                    On Chrome 51 dev, inserting an image (with insertImage or insertHTML) 
+                    inside a link will remove the parent link. Firefox 48 allows this nesting.</p>
                 </li>
 
                 <li>Let <var title="">selection</var> be the result of calling
