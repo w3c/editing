@@ -206,22 +206,41 @@
       <section>
         <h3 id="events-state">contentEditable=events state</h2>
 
-        <p>In a focused <a>editing host</a> that is in the events state, a caret MUST be drawn if the selection is collapsed, and it MUST be possible to place the caret in all of the <a>Legal Caret Positions</a> programmatically.</p>
+        <p>In a focused <a>editing host</a> that is in the events state, a caret
+        MUST be drawn if the selection is collapsed, and it MUST be possible to
+        place the caret in all of the <a>Legal Caret Positions</a>
+        programmatically.</p>
 
-        <p>All user editing intentions initiated while an <a>editing host</a> that is in the events state is focused, MUST trigger a `beforeinput` event.</p>
+        <p>All user editing intentions initiated while an <a>editing host</a>
+        that is in the events state is focused, MUST trigger a `beforeinput`
+        event.</p>
 
       </section>
 
       <section>
         <h3 id="caret-state">contentEditable=caret state</h2>
 
-        <p>A focused <a>editing host</a> that is in the caret state MUST behave like an <a>editing host</a> in the events state, and additionally, it MUST move the caret within the <a>editing host</a> if the user expresses an intention to move the caret.</a>
+        <p>A focused <a>editing host</a> that is in the caret state MUST behave
+        like an <a>editing host</a> in the events state. Additionally, the
+        default action of the `beforeSelectionChange` event in such an
+        <a>editing host</a> must be to move the caret in the indicated
+        direction, if movement in that direction seems possible.</p>
+
+        <p class="note">Notice the planned
+        <a href="https://github.com/w3c/selection-api/issues/56">beforeSelectionChange</a>
+        event.</p>
+
       </section>
 
       <section>
         <h3 id="caret-state">contentEditable=typing state</h2>
 
-        <p>A focused <a>editing host</a> that is in the typing state MUST behave like an <a>editing host</a> in the caret state, and additionally, it MUST handle text insertion by keyboard at the position of the caret if the caret is placed within a text node or it is possible to place a text node at the place of the caret. It must by default also handle composition by IME, both insertion as well as deletion of text input.</a>
+        <p>A focused <a>editing host</a> that is in the typing state MUST behave
+        like an <a>editing host</a> in the caret state, and additionally, it
+        MUST handle text insertion by keyboard at the position of the caret if
+        the caret is placed within a text node or it is possible to place a text
+        node at the place of the caret. It must by default also handle
+        composition by IME, both insertion as well as deletion of text input.</a>
       </section>
 
     </section>
@@ -260,13 +279,13 @@
             <section>
                 <h3 id="caret_movement">Caret movement</h3>
 
-                <p>Intentions of the user to move the caret trigger `beforeinput`
-                events. The default action of those events is the movement of
-                the caret in the given direction, if possible. The specific
-                location that the caret is moved to is out of scope for this
-                specification, but later versions of this specification or
-                specifications covering other contentEditable specifications may
-                further specify the movement patterns of the caret.</p>
+                <p>The specific location that the  caret is moved to by default
+                in an <a>editing host</a> in the "caret" and "typing" state, is
+                out of scope for this specification, but later versions of this
+                specification or specifications covering other contentEditable
+                specifications may further specify the movement patterns of the
+                caret.</p>
+
             </section>
         </section>
 
