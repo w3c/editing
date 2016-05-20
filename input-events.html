@@ -90,8 +90,9 @@ var respecConfig = {
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
                     values include insertText, replaceText, replaceContent,
-                    insertNewline, deleteContent, deleteComposedCharacter, undo,
-                    redo. During initialization, the user agent is responsible
+                    insertNewline, deleteWordForward, deleteWordBackward, deleteLineForward, deleteLineBackward, deleteContentForward, deleteContentBackward,
+                    deleteComposedCharacterBackward, deleteComposedCharacterForward,
+                    undo, redo. During initialization, the user agent is responsible
                     for populating this field as follows:
                     </p>
 
@@ -146,15 +147,13 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a character during
-                        character compisition using IME, the inputType MUST be <b>
-                            deleteComposedCharacter</b>
+                        <li>If the user indicated deletion of a character after the
+                        caret during character composition using IME, the inputType
+                        MUST be <b>
+                            deleteComposedCharacterForward</b>
 
                             <ol>
-                                <li>Set the value of data to be "forward" or
-                                "backward", depending on whether the caret
-                                will move forward or backward in connection with
-                                the deletion of the character.</li>
+                                <li>Set the value of data to be NULL.</li>
 
                                 <li>Set the value of targetRanges to NULL.</li>
 
@@ -162,20 +161,95 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of content that causes
-                        the caret to move using a keyboard, speech, or similar
-                        method, the inputType MUST be <b>
-                            deleteContent</b>
+                        <li>If the user indicated deletion of a character before
+                        the caret during character composition using IME, the
+                        inputType MUST be <b>
+                            deleteComposedCharacterBackward</b>
 
                             <ol>
-                                <li>Set the value of data to be "forward" or
-                                "backward", depending on whether the caret
-                                would move forward or backward in connection with
-                                the deletion of content.</li>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+
+                                <li>Set the value of cancelable to <code>false</code></li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicated deletion of a word directly before
+                        the caret using a keyboard, speech, or similar method, the
+                        inputType MUST be <b>
+                            deleteWordBackward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
 
                                 <li>Set the value of targetRanges to NULL.</li>
                             </ol>
                         </li>
+
+                        <li>If the user indicated deletion of a word directly after
+                        the caret using a keyboard, speech, or similar method, the
+                        inputType MUST be <b>
+                            deleteWordForward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicated deletion of a line directly before
+                        the caret using a keyboard, speech, or similar method, the
+                        inputType MUST be <b>
+                            deleteLineBackward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicated deletion of a line directly after
+                        the caret using a keyboard, speech, or similar method, the
+                        inputType MUST be <b>
+                            deleteLineForward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicated deletion of content directly before
+                        the caret using a keyboard, speech, or similar method, and
+                        this intention is not covered by another inputType, the
+                        inputType MUST be <b>
+                            deleteContentBackward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user indicated deletion of content directly after
+                        the caret using a keyboard, speech, or similar method, and
+                        this intention is not covered by another inputType, the
+                        inputType MUST be <b>
+                            deleteContentForward</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+
 
                         <li>If the user indicates undo using a keyboard, IME,
                         speech, or similar method, the inputType MUST be <b>
