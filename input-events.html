@@ -89,12 +89,17 @@ var respecConfig = {
 
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertText, insertNonText, insertNewline,
-                    deleteWordForward, deleteWordBackward, deleteLineForward,
-                    deleteLineBackward, deleteContentForward, deleteContentBackward,
+                    values include insertText, insertNonText, insertLineBreak,
+                    insertParagraph, insertOrderedList, insertUnorderedList,
+                    insertHorizontalRule, deleteWordForward,
+                    deleteWordBackward, deleteLineForward, deleteLineBackward,
                     deleteComposedCharacterBackward, deleteComposedCharacterForward,
-                    undo, redo. During initialization, the user agent is responsible
-                    for populating this field as follows:
+                    deleteContentBackward, deleteContentForward, undo, redo, copy,
+                    cut, paste, bold, italic, underline, strikeThrough, superscript,
+                    subscript, justifyCenter, justifyRight, justifyLeft, indent,
+                    outdent, removeFormat.
+                    During initialization, the user agent is responsible for
+                    populating this field as follows:
                     </p>
 
                     <ol>
@@ -140,6 +145,39 @@ var respecConfig = {
                         <li>If the user intends to insert a paragraph break
                         using a keyboard, IME, speech, or similar method, the
                         inputType MUST be <b>insertParagraph</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to be NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to insert a numbered list
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>insertOrderedList</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to be NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to insert a bulleted list
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>insertUnorderedList</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to be NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to insert a horizontal rule
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>insertHorizontalRule</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -268,6 +306,183 @@ var respecConfig = {
                         using a keyboard, IME, speech, or similar method, the
                         inputType MUST be <b>
                             redo</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to copy using a keyboard, context
+                        menu, speech, or similar method, the inputType MUST be <b>
+                            copy</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to cut using a keyboard, context
+                        menu, speech, or similar method, the inputType MUST be <b>
+                            cut</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to paste using a keyboard, context
+                        menu, speech, or similar method, the inputType MUST be <b>
+                            paste</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate bold text using a
+                        keyboard, context menu, speech, or similar method, the
+                        inputType MUST be <b>
+                            bold</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate italic text using a
+                        keyboard, context menu, speech, or similar method, the
+                        inputType MUST be <b>
+                            italic</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate underline text using a
+                        keyboard, context menu, speech, or similar method, the
+                        inputType MUST be <b>
+                            underline</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate stricken through text
+                        using a keyboard, context menu, speech, or similar method,
+                        the inputType MUST be <b>
+                            strikeThrough</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate superscript through text
+                        using a keyboard, context menu, speech, or similar method,
+                        the inputType MUST be <b>
+                            superscript</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to initiate subscript through text
+                        using a keyboard, context menu, speech, or similar method,
+                        the inputType MUST be <b>
+                            subscript</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to justify center the current
+                        selection using a keyboard, context menu, speech, or
+                        similar method, the inputType MUST be <b>
+                            justifyCenter</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to justify right the current
+                        selection using a keyboard, context menu, speech, or
+                        similar method, the inputType MUST be <b>
+                            justifyRight</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to justify left the current
+                        selection using a keyboard, context menu, speech, or
+                        similar method, the inputType MUST be <b>
+                            justifyLeft</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to indent the current
+                        selection using a keyboard, context menu, speech, or
+                        similar method, the inputType MUST be <b>
+                            indent</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to outdent the current
+                        selection using a keyboard, context menu, speech, or
+                        similar method, the inputType MUST be <b>
+                            outdent</b>
+
+                            <ol>
+                                <li>Set the value of data to be NULL.</li>
+
+                                <li>Set the value of targetRanges to NULL.</li>
+                            </ol>
+                        </li>
+
+                        <li>If the user intends to remove all formatting from the
+                        current selection using a keyboard, context menu, speech,
+                        or similar method, the inputType MUST be <b>
+                            removeFormat</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
