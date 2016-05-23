@@ -89,15 +89,16 @@ var respecConfig = {
 
                 <dd>
                     <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertText, replaceText, replaceContent,
-                    insertNewline, deleteWordForward, deleteWordBackward, deleteLineForward, deleteLineBackward, deleteContentForward, deleteContentBackward,
+                    values include insertText, insertNonText, insertNewline,
+                    deleteWordForward, deleteWordBackward, deleteLineForward,
+                    deleteLineBackward, deleteContentForward, deleteContentBackward,
                     deleteComposedCharacterBackward, deleteComposedCharacterForward,
                     undo, redo. During initialization, the user agent is responsible
                     for populating this field as follows:
                     </p>
 
                     <ol>
-                        <li>If the user intends to insert plain text using a
+                        <li>If the user intends to insert plain text typing on a
                         keyboard, IME, speech, or similar method, the inputType
                         MUST be <b>insertText</b>.
 
@@ -109,9 +110,10 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user intends to replace existing content using
-                        a keyboard, IME, speech, or similar method, the inputType
-                        MUST be <b>replaceContent</b>.
+                        <li>If the user intends to insert content potentially
+                        containing more than just plain text using a keyboard,
+                        IME, speech, or similar method, the inputType MUST be
+                        <b>insertNonText</b>.
 
                             <ol>
                                 <li>Set the value of data to be a document
@@ -212,7 +214,7 @@ var respecConfig = {
 
                         <li>If the user intends to delete a line directly after
                         the caret position using a keyboard, speech, or similar
-                        method, the inputType MUST be <b>
+                        method, and the selection is empty, the inputType MUST be <b>
                             deleteLineForward</b>
 
                             <ol>
