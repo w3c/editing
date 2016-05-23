@@ -97,7 +97,7 @@ var respecConfig = {
                     </p>
 
                     <ol>
-                        <li>If the user is inserting plain text using a
+                        <li>If the user intends to insert plain text using a
                         keyboard, IME, speech, or similar method, the inputType
                         MUST be <b>insertText</b>.
 
@@ -109,10 +109,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicates replacement of existing
-                        content using a keyboard, IME, speech, or similar method,
-                        the inputType MUST be
-                        <b>replaceContent</b>.
+                        <li>If the user intends to replace existing content using
+                        a keyboard, IME, speech, or similar method, the inputType
+                        MUST be <b>replaceContent</b>.
 
                             <ol>
                                 <li>Set the value of data to be a document
@@ -125,8 +124,8 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user is inserting a line break using a
-                        keyboard, IME, speech, or similar method, the inputType
+                        <li>If the user intends to insert a line break using a
+                        keyboard, IME, speech, or similar method, the  inputType
                         MUST be <b>insertLineBreak</b>
 
                             <ol>
@@ -136,9 +135,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user is inserting a paragraph break using a
-                        keyboard, IME, speech, or similar method, the inputType
-                        MUST be <b>insertParagraph</b>
+                        <li>If the user intends to insert a paragraph break
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>insertParagraph</b>
 
                             <ol>
                                 <li>Set the value of data to be NULL.</li>
@@ -147,9 +146,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a character after the
-                        caret during character composition using IME, the inputType
-                        MUST be <b>
+                        <li>If the user intends to delete a character after the
+                        caret position during character composition using IME, the
+                        inputType MUST be <b>
                             deleteComposedCharacterForward</b>
 
                             <ol>
@@ -161,9 +160,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a character before
-                        the caret during character composition using IME, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete a character before
+                        the caret position during character composition using IME,
+                        the inputType MUST be <b>
                             deleteComposedCharacterBackward</b>
 
                             <ol>
@@ -175,9 +174,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a word directly before
-                        the caret using a keyboard, speech, or similar method, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete a word directly before
+                        the caret position, using a keyboard, speech, or similar
+                        method, and the selection is empty, the inputType MUST be <b>
                             deleteWordBackward</b>
 
                             <ol>
@@ -187,9 +186,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a word directly after
-                        the caret using a keyboard, speech, or similar method, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete a word directly after
+                        the caret position using a keyboard, speech, or similar
+                        method, and the selection is empty, the inputType MUST be <b>
                             deleteWordForward</b>
 
                             <ol>
@@ -199,9 +198,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a line directly before
-                        the caret using a keyboard, speech, or similar method, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete a line directly before
+                        the caret position using a keyboard, speech, or similar
+                        method, and the selection is empty, the inputType MUST be <b>
                             deleteLineBackward</b>
 
                             <ol>
@@ -211,9 +210,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of a line directly after
-                        the caret using a keyboard, speech, or similar method, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete a line directly after
+                        the caret position using a keyboard, speech, or similar
+                        method, the inputType MUST be <b>
                             deleteLineForward</b>
 
                             <ol>
@@ -223,10 +222,10 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of content directly before
-                        the caret using a keyboard, speech, or similar method, and
-                        this intention is not covered by another inputType, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete content directly before
+                        the caret position using a keyboard, speech, or similar
+                        method, and this intention is not covered by another
+                        inputType, the inputType MUST be <b>
                             deleteContentBackward</b>
 
                             <ol>
@@ -236,10 +235,10 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicated deletion of content directly after
-                        the caret using a keyboard, speech, or similar method, and
-                        this intention is not covered by another inputType, the
-                        inputType MUST be <b>
+                        <li>If the user intends to delete content directly after
+                        the caret position using a keyboard, speech, or similar
+                        method, and this intention is not covered by another
+                        inputType, the inputType MUST be <b>
                             deleteContentForward</b>
 
                             <ol>
@@ -251,8 +250,9 @@ var respecConfig = {
 
 
 
-                        <li>If the user indicates undo using a keyboard, IME,
-                        speech, or similar method, the inputType MUST be <b>
+                        <li>If the user intends to undo the last editing action
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>
                             undo</b>
 
                             <ol>
@@ -262,8 +262,9 @@ var respecConfig = {
                             </ol>
                         </li>
 
-                        <li>If the user indicates redo using a keyboard, IME,
-                        speech, or similar method, the inputType MUST be <b>
+                        <li>If the user intends to redo the last editing action
+                        using a keyboard, IME, speech, or similar method, the
+                        inputType MUST be <b>
                             redo</b>
 
                             <ol>
