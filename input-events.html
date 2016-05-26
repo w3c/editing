@@ -41,6 +41,18 @@ var respecConfig = {
           ,   license: "w3c-software-doc"
           ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/83482/status"
           ,   edDraftURI:   "http://w3c.github.io/editing/input-events.html"
+          ,   noLegacyStyle: true
+          ,   localBiblio:  {
+                "STATIC-RANGE": {
+                    title:    "[Proposal] StaticRange (to be used instead of Range for new APIs)"
+                ,   href:     "https://discourse.wicg.io/t/proposal-staticrange-to-be-used-instead-of-range-for-new-apis/1472"
+                ,   authors:  [
+                        "Gary Kačmarčík"
+                    ]
+                ,   status:   "unofficial"
+                ,   publisher:  "W3C"
+                }
+        }
         };
     </script>
 </head>
@@ -83,438 +95,370 @@ var respecConfig = {
         <section id="interface-InputEvent">
             <h4>Interface InputEvent</h4>
 
-            <dl class="idl" title=
-            "[Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)] partial interface InputEvent : UIEvent">
-            <dt>readonly attribute DOMString inputType</dt>
-
-                <dd>
-                    <p><code>inputType</code> holds the type of input. Allowed
-                    values include insertText, insertNonText, insertLineBreak,
-                    insertParagraph, insertOrderedList, insertUnorderedList,
-                    insertHorizontalRule, deleteWordForward,
-                    deleteWordBackward, deleteLineForward, deleteLineBackward,
-                    deleteComposedCharacterBackward, deleteComposedCharacterForward,
-                    deleteContentBackward, deleteContentForward, undo, redo, copy,
-                    cut, paste, bold, italic, underline, strikeThrough, superscript,
-                    subscript, justifyCenter, justifyRight, justifyLeft, indent,
-                    outdent, removeFormat.
-                    During initialization, the user agent is responsible for
-                    populating this field as follows:
-                    </p>
-
-                    <ol>
-                        <li>If the user intends to insert plain text typing on a
-                        keyboard, IME, speech, or similar method, the inputType
-                        MUST be <b>insertText</b>.
-
-                            <ol>
-                                <li>Set the value of data to be the plain text
-                                string to be inserted.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert content potentially
-                        containing more than just plain text using a keyboard,
-                        IME, speech, or similar method, the inputType MUST be
-                        <b>insertNonText</b>.
-
-                            <ol>
-                                <li>Set the value of data to be a document
-                                fragment containing the new content that is to
-                                be inserted.</li>
-
-                                <li>Set the value of targetRanges to ranges
-                                that cover the content that is to be
-                                replaced.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert a line break using a
-                        keyboard, IME, speech, or similar method, the  inputType
-                        MUST be <b>insertLineBreak</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to be NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert a paragraph break
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>insertParagraph</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to be NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert a numbered list
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>insertOrderedList</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to be NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert a bulleted list
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>insertUnorderedList</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to be NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to insert a horizontal rule
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>insertHorizontalRule</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to be NULL.</li>
-                            </ol>
-                        </li>
+            <p>The main part of the <b>InputEvent</b> is defined in [[!UI-EVENTS]]</p>
+
+            <pre class="idl">
+                [Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)]
+                partial interface InputEvent {
+                  readonly attribute DOMString inputType;
+                  StaticRange[] getTargetRanges();
+                };
+            </pre>
+
+            <section id="interface-InputEvent-Attributes" dfn-for="InputEvent">
+                <h5>Attributes</h5>
+
+                <p><dfn>inputType</dfn> holds the type of input. Allowed
+                values include insertText, insertNonText, insertLineBreak,
+                insertParagraph, insertOrderedList, insertUnorderedList,
+                insertHorizontalRule, deleteWordForward,
+                deleteWordBackward, deleteLineForward, deleteLineBackward,
+                deleteComposedCharacterBackward, deleteComposedCharacterForward,
+                deleteContentBackward, deleteContentForward, undo, redo, copy,
+                cut, paste, bold, italic, underline, strikeThrough, superscript,
+                subscript, justifyCenter, justifyRight, justifyLeft, indent,
+                outdent, removeFormat.
+                During initialization, the user agent is responsible for
+                populating this field as follows:
+                </p>
+
+                <ol>
+                    <li>If the user intends to insert plain text typing on a
+                    keyboard, IME, speech, or similar method, the inputType
+                    MUST be <b>insertText</b>.
+
+                        <ol>
+                            <li>Set the value of data to be the plain text
+                            string to be inserted.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert content potentially
+                    containing more than just plain text using a keyboard,
+                    IME, speech, or similar method, the inputType MUST be
+                    <b>insertNonText</b>.
+
+                        <ol>
+                            <li>Set the value of data to be a document
+                            fragment containing the new content that is to
+                            be inserted.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert a line break using a
+                    keyboard, IME, speech, or similar method, the  inputType
+                    MUST be <b>insertLineBreak</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert a paragraph break
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>insertParagraph</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert a numbered list
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>insertOrderedList</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert a bulleted list
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>insertUnorderedList</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to insert a horizontal rule
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>insertHorizontalRule</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a character after the
+                    caret position during character composition using IME, the
+                    inputType MUST be <b>
+                        deleteComposedCharacterForward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                            <li>Set the value of cancelable to <code>false</code></li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a character before
+                    the caret position during character composition using IME,
+                    the inputType MUST be <b>
+                        deleteComposedCharacterBackward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                            <li>Set the value of cancelable to <code>false</code></li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a word directly before
+                    the caret position, using a keyboard, speech, or similar
+                    method, and the selection is empty, the inputType MUST be <b>
+                        deleteWordBackward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a word directly after
+                    the caret position using a keyboard, speech, or similar
+                    method, and the selection is empty, the inputType MUST be <b>
+                        deleteWordForward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a line directly before
+                    the caret position using a keyboard, speech, or similar
+                    method, and the selection is empty, the inputType MUST be <b>
+                        deleteLineBackward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete a line directly after
+                    the caret position using a keyboard, speech, or similar
+                    method, and the selection is empty, the inputType MUST be <b>
+                        deleteLineForward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete content directly before
+                    the caret position using a keyboard, speech, or similar
+                    method, and this intention is not covered by another
+                    inputType, the inputType MUST be <b>
+                        deleteContentBackward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to delete content directly after
+                    the caret position using a keyboard, speech, or similar
+                    method, and this intention is not covered by another
+                    inputType, the inputType MUST be <b>
+                        deleteContentForward</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+
+
+                    <li>If the user intends to undo the last editing action
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>
+                        undo</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to redo the last editing action
+                    using a keyboard, IME, speech, or similar method, the
+                    inputType MUST be <b>
+                        redo</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to copy using a keyboard, context
+                    menu, speech, or similar method, the inputType MUST be <b>
+                        copy</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to cut using a keyboard, context
+                    menu, speech, or similar method, the inputType MUST be <b>
+                        cut</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to paste using a keyboard, context
+                    menu, speech, or similar method, the inputType MUST be <b>
+                        paste</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate bold text using a
+                    keyboard, context menu, speech, or similar method, the
+                    inputType MUST be <b>
+                        bold</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate italic text using a
+                    keyboard, context menu, speech, or similar method, the
+                    inputType MUST be <b>
+                        italic</b>
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate underline text using a
+                    keyboard, context menu, speech, or similar method, the
+                    inputType MUST be <b>
+                        underline</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate stricken through text
+                    using a keyboard, context menu, speech, or similar method,
+                    the inputType MUST be <b>
+                        strikeThrough</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate superscript through text
+                    using a keyboard, context menu, speech, or similar method,
+                    the inputType MUST be <b>
+                        superscript</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to initiate subscript through text
+                    using a keyboard, context menu, speech, or similar method,
+                    the inputType MUST be <b>
+                        subscript</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to justify center the current
+                    selection using a keyboard, context menu, speech, or
+                    similar method, the inputType MUST be <b>
+                        justifyCenter</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to justify right the current
+                    selection using a keyboard, context menu, speech, or
+                    similar method, the inputType MUST be <b>
+                        justifyRight</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to justify left the current
+                    selection using a keyboard, context menu, speech, or
+                    similar method, the inputType MUST be <b>
+                        justifyLeft</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to indent the current
+                    selection using a keyboard, context menu, speech, or
+                    similar method, the inputType MUST be <b>
+                        indent</b>
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to outdent the current
+                    selection using a keyboard, context menu, speech, or
+                    similar method, the inputType MUST be <b>
+                        outdent</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to remove all formatting from the
+                    current selection using a keyboard, context menu, speech,
+                    or similar method, the inputType MUST be <b>
+                        removeFormat</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                </ol>
+            </section><!-- interface-InputEvent-Attributes -->
+            <section id="interface-InputEvent-Methods" dfn-for="InputEvent">
+                <h5>Methods</h5>
+
+                <p><dfn>getTargetRanges</dfn> return an Array of
+                <dfn lt="StaticRange">StaticRanges</dfn> [[!STATIC-RANGE]]
+                affected by this event.</p>
+
+            </section><!-- interface-InputEvent-Methods -->
 
-                        <li>If the user intends to delete a character after the
-                        caret position during character composition using IME, the
-                        inputType MUST be <b>
-                            deleteComposedCharacterForward</b>
 
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-
-                                <li>Set the value of cancelable to <code>false</code></li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete a character before
-                        the caret position during character composition using IME,
-                        the inputType MUST be <b>
-                            deleteComposedCharacterBackward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-
-                                <li>Set the value of cancelable to <code>false</code></li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete a word directly before
-                        the caret position, using a keyboard, speech, or similar
-                        method, and the selection is empty, the inputType MUST be <b>
-                            deleteWordBackward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete a word directly after
-                        the caret position using a keyboard, speech, or similar
-                        method, and the selection is empty, the inputType MUST be <b>
-                            deleteWordForward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete a line directly before
-                        the caret position using a keyboard, speech, or similar
-                        method, and the selection is empty, the inputType MUST be <b>
-                            deleteLineBackward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete a line directly after
-                        the caret position using a keyboard, speech, or similar
-                        method, and the selection is empty, the inputType MUST be <b>
-                            deleteLineForward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete content directly before
-                        the caret position using a keyboard, speech, or similar
-                        method, and this intention is not covered by another
-                        inputType, the inputType MUST be <b>
-                            deleteContentBackward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to delete content directly after
-                        the caret position using a keyboard, speech, or similar
-                        method, and this intention is not covered by another
-                        inputType, the inputType MUST be <b>
-                            deleteContentForward</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-
-
-                        <li>If the user intends to undo the last editing action
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>
-                            undo</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to redo the last editing action
-                        using a keyboard, IME, speech, or similar method, the
-                        inputType MUST be <b>
-                            redo</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to copy using a keyboard, context
-                        menu, speech, or similar method, the inputType MUST be <b>
-                            copy</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to cut using a keyboard, context
-                        menu, speech, or similar method, the inputType MUST be <b>
-                            cut</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to paste using a keyboard, context
-                        menu, speech, or similar method, the inputType MUST be <b>
-                            paste</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate bold text using a
-                        keyboard, context menu, speech, or similar method, the
-                        inputType MUST be <b>
-                            bold</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate italic text using a
-                        keyboard, context menu, speech, or similar method, the
-                        inputType MUST be <b>
-                            italic</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate underline text using a
-                        keyboard, context menu, speech, or similar method, the
-                        inputType MUST be <b>
-                            underline</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate stricken through text
-                        using a keyboard, context menu, speech, or similar method,
-                        the inputType MUST be <b>
-                            strikeThrough</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate superscript through text
-                        using a keyboard, context menu, speech, or similar method,
-                        the inputType MUST be <b>
-                            superscript</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to initiate subscript through text
-                        using a keyboard, context menu, speech, or similar method,
-                        the inputType MUST be <b>
-                            subscript</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to justify center the current
-                        selection using a keyboard, context menu, speech, or
-                        similar method, the inputType MUST be <b>
-                            justifyCenter</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to justify right the current
-                        selection using a keyboard, context menu, speech, or
-                        similar method, the inputType MUST be <b>
-                            justifyRight</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to justify left the current
-                        selection using a keyboard, context menu, speech, or
-                        similar method, the inputType MUST be <b>
-                            justifyLeft</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to indent the current
-                        selection using a keyboard, context menu, speech, or
-                        similar method, the inputType MUST be <b>
-                            indent</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to outdent the current
-                        selection using a keyboard, context menu, speech, or
-                        similar method, the inputType MUST be <b>
-                            outdent</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                        <li>If the user intends to remove all formatting from the
-                        current selection using a keyboard, context menu, speech,
-                        or similar method, the inputType MUST be <b>
-                            removeFormat</b>
-
-                            <ol>
-                                <li>Set the value of data to be NULL.</li>
-
-                                <li>Set the value of targetRanges to NULL.</li>
-                            </ol>
-                        </li>
-
-                    </ol>
-
-                    <p></p>
-
-                    <p>The <a class="def" href=
-                    "http://www.w3.org/TR/DOM-Level-3-Events/#glossary-un-initialized-value">
-                    un-initialized value</a> of this attribute MUST be
-                    <code>""</code> (the empty string).</p>
-                </dd>
-
-
-                <dt>readonly attribute Ranges targetRanges</dt>
-
-                <dd>
-                    <p>The ranges in the document that are affected by this
-                    event, unless the affected ranges are related to the current
-                    selection.</p>
-                </dd>
-            </dl>
 
         </section><!-- interface-InputEvent -->
 
+        <section id="event-definitions">
+            <h4>Event definitions</h4>
 
-        <p>The Input event types are listed below.</p><!-- beforeinput -->
 
         <div class="event-definition">
             <dl>
@@ -783,7 +727,7 @@ var respecConfig = {
                 </dd>
             </dl>
         </div><!-- input -->
-    </section><!-- events-inputevents -->
+    </section><!-- event definitions -->
 
     <section>
         <h2>Acknowledgements</h2>
