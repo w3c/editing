@@ -117,7 +117,7 @@ var respecConfig = {
                 deleteContentBackward, deleteContentForward, undo, redo, copy,
                 cut, paste, bold, italic, underline, strikeThrough, superscript,
                 subscript, justifyCenter, justifyRight, justifyLeft, indent,
-                outdent, removeFormat.
+                outdent, removeFormat, drag, drop.
                 During initialization, the user agent is responsible for
                 populating this field as follows:
                 </p>
@@ -435,6 +435,24 @@ var respecConfig = {
                     current selection using a keyboard, context menu, speech,
                     or similar method, the inputType MUST be <b>
                         removeFormat</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to drag the current selection using
+                        keyboard, context menu, speech, or similar method, the
+                        inputType MUST be <b>drag</b>
+
+                        <ol>
+                            <li>Set the value of data to be NULL.</li>
+                        </ol>
+                    </li>
+
+                    <li>If the user intends to drop a dragged object into the
+                    current selection using a keyboard, context menu, speech,
+                    or similar method, the inputType MUST be <b>drop</b>
 
                         <ol>
                             <li>Set the value of data to be NULL.</li>
