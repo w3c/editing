@@ -51,6 +51,11 @@ var respecConfig = {
                     ]
                 ,   status:   "unofficial"
                 ,   publisher:  "W3C"
+                },
+                "DATA-TRANSFER": {
+                    title:    "The DataTransfer interface"
+                ,   href:     "https://html.spec.whatwg.org/multipage/interaction.html#the-datatransfer-interface"
+                ,   publisher: "WHATWG"
                 }
         }
         };
@@ -101,6 +106,7 @@ var respecConfig = {
                 [Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)]
                 partial interface InputEvent {
                   readonly attribute DOMString inputType;
+                  readonly attribute DataTransfer? transferData;
                   StaticRange[] getTargetRanges();
                 };
             </pre>
@@ -126,11 +132,6 @@ var respecConfig = {
                     <li>If the user intends to insert plain text typing on a
                     keyboard, IME, speech, or similar method, the inputType
                     MUST be <b>insertText</b>.
-
-                        <ol>
-                            <li>Set the value of data to be the plain text
-                            string to be inserted.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert content potentially
@@ -138,56 +139,31 @@ var respecConfig = {
                     IME, speech, or similar method, the inputType MUST be
                     <b>insertNonText</b>.
 
-                        <ol>
-                            <li>Set the value of data to be a document
-                            fragment containing the new content that is to
-                            be inserted.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert a line break using a
                     keyboard, IME, speech, or similar method, the  inputType
                     MUST be <b>insertLineBreak</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert a paragraph break
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>insertParagraph</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert a numbered list
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>insertOrderedList</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert a bulleted list
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>insertUnorderedList</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to insert a horizontal rule
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>insertHorizontalRule</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete a character after the
@@ -196,7 +172,6 @@ var respecConfig = {
                         deleteComposedCharacterForward</b>
 
                         <ol>
-                            <li>Set the value of data to be NULL.</li>
                             <li>Set the value of cancelable to <code>false</code></li>
                         </ol>
                     </li>
@@ -207,7 +182,6 @@ var respecConfig = {
                         deleteComposedCharacterBackward</b>
 
                         <ol>
-                            <li>Set the value of data to be NULL.</li>
                             <li>Set the value of cancelable to <code>false</code></li>
                         </ol>
                     </li>
@@ -216,40 +190,24 @@ var respecConfig = {
                     the caret position, using a keyboard, speech, or similar
                     method, and the selection is empty, the inputType MUST be <b>
                         deleteWordBackward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete a word directly after
                     the caret position using a keyboard, speech, or similar
                     method, and the selection is empty, the inputType MUST be <b>
                         deleteWordForward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete a line directly before
                     the caret position using a keyboard, speech, or similar
                     method, and the selection is empty, the inputType MUST be <b>
                         deleteLineBackward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete a line directly after
                     the caret position using a keyboard, speech, or similar
                     method, and the selection is empty, the inputType MUST be <b>
                         deleteLineForward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete content directly before
@@ -257,10 +215,6 @@ var respecConfig = {
                     method, and this intention is not covered by another
                     inputType, the inputType MUST be <b>
                         deleteContentBackward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to delete content directly after
@@ -268,10 +222,6 @@ var respecConfig = {
                     method, and this intention is not covered by another
                     inputType, the inputType MUST be <b>
                         deleteContentForward</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
 
@@ -280,186 +230,152 @@ var respecConfig = {
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>
                         undo</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to redo the last editing action
                     using a keyboard, IME, speech, or similar method, the
                     inputType MUST be <b>
                         redo</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to copy using a keyboard, context
                     menu, speech, or similar method, the inputType MUST be <b>
                         copy</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to cut using a keyboard, context
                     menu, speech, or similar method, the inputType MUST be <b>
                         cut</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to paste using a keyboard, context
                     menu, speech, or similar method, the inputType MUST be <b>
                         paste</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate bold text using a
                     keyboard, context menu, speech, or similar method, the
                     inputType MUST be <b>
                         bold</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate italic text using a
                     keyboard, context menu, speech, or similar method, the
                     inputType MUST be <b>
                         italic</b>
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate underline text using a
                     keyboard, context menu, speech, or similar method, the
                     inputType MUST be <b>
                         underline</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate stricken through text
                     using a keyboard, context menu, speech, or similar method,
                     the inputType MUST be <b>
                         strikeThrough</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate superscript through text
                     using a keyboard, context menu, speech, or similar method,
                     the inputType MUST be <b>
                         superscript</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to initiate subscript through text
                     using a keyboard, context menu, speech, or similar method,
                     the inputType MUST be <b>
                         subscript</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to justify center the current
                     selection using a keyboard, context menu, speech, or
                     similar method, the inputType MUST be <b>
                         justifyCenter</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to justify right the current
                     selection using a keyboard, context menu, speech, or
                     similar method, the inputType MUST be <b>
                         justifyRight</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to justify left the current
                     selection using a keyboard, context menu, speech, or
                     similar method, the inputType MUST be <b>
                         justifyLeft</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to indent the current
                     selection using a keyboard, context menu, speech, or
                     similar method, the inputType MUST be <b>
                         indent</b>
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to outdent the current
                     selection using a keyboard, context menu, speech, or
                     similar method, the inputType MUST be <b>
                         outdent</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to remove all formatting from the
                     current selection using a keyboard, context menu, speech,
                     or similar method, the inputType MUST be <b>
                         removeFormat</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to drag the current selection using
                         keyboard, context menu, speech, or similar method, the
                         inputType MUST be <b>drag</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                     <li>If the user intends to drop a dragged object into the
                     current selection using a keyboard, context menu, speech,
                     or similar method, the inputType MUST be <b>drop</b>
-
-                        <ol>
-                            <li>Set the value of data to be NULL.</li>
-                        </ol>
                     </li>
 
                 </ol>
+
+                <p><dfn>data</dfn> holds information plaintext data that is to
+                be added to the document.
+                </p>
+
+                <ol>
+                    <li>If the inputType is insertText, the value of data is to be
+                    the plain text string to be inserted.</li>
+                    <li>Else, the value of data is to be NULL.</li>
+                </ol>
+
+                <p><dfn>transferData</dfn> holds information about richtext and
+                plaintext data that is to be taken from or added to the document
+                in a <dfn>DataTransfer</dfn> object if there is relevant data.
+                [[!DATA-TRANSFER]].
+                </p>
+
+                <ol>
+                    <li>If the inputType is cut, copy, paste, drag, drop, undo,
+                    redo, or insertNonText, the transferData attribute is a
+                    prepopulated <a>DataTransfer</a> object so that:
+                        <ol>
+                            <li>transferData.getData('text/html') returns a HTML representation
+                            of the content that is to be cut, copied, pasted, dragged, dropped or added.
+                            <li>transferData.getData('text/plain') returns a plain text
+                            representation of the content that is to be cut, copied, pasted, dragged,
+                            dropped or added.</li>
+                        </ol>
+                    </li>
+                    <li>Else if the inputType is insertText, the
+                    transferData attribute is a prepopulated <a>DataTransfer</a>
+                    object so that transferData.getData('text/plain') returns a plain text
+                    representation of the content that is to be inserted.</li>
+                    <li>Else, the transferData attribute is NULL.</li>
+
+                </ol>
+
+
+
+
             </section><!-- interface-InputEvent-Attributes -->
             <section id="interface-InputEvent-Methods" dfn-for="InputEvent">
                 <h5>Methods</h5>
