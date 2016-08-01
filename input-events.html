@@ -210,21 +210,23 @@ var respecConfig = {
                         deleteLineForward</b>
                     </li>
 
-                    <li>If the user intends to delete content directly before
-                    the caret position using a keyboard, speech, or similar
-                    method, and this intention is not covered by another
-                    inputType, the inputType MUST be <b>
+                    <li>If the user intends to delete the content directly before
+                    the caret position and this intention is not covered by another
+                    inputType or the user itends to delete a non-collapsed selection
+                    with the selection collapsing to its start after the deletion,
+                    using a keyboard, speech, or similar method, the inputType
+                    MUST be <b>
                         deleteContentBackward</b>
                     </li>
 
-                    <li>If the user intends to delete content directly after
-                    the caret position using a keyboard, speech, or similar
-                    method, and this intention is not covered by another
-                    inputType, the inputType MUST be <b>
+                    <li>If the user intends to delete the content directly after
+                    the caret position and this intention is not covered by another
+                    inputType or the user itends to delete a non-collapsed selection
+                    with the selection collapsing to its end after the deletion,
+                    using a keyboard, speech, or similar method, the inputType
+                    MUST be <b>
                         deleteContentForward</b>
                     </li>
-
-
 
                     <li>If the user intends to undo the last editing action
                     using a keyboard, IME, speech, or similar method, the
