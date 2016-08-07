@@ -120,7 +120,7 @@ var respecConfig = {
                 insertHorizontalRule, deleteWordForward,
                 deleteWordBackward, deleteLineForward, deleteLineBackward,
                 deleteComposedCharacterBackward, deleteComposedCharacterForward,
-                deleteContentBackward, deleteContentForward, undo, redo, copy,
+                deleteContentBackward, deleteContentForward, undo, redo,
                 cut, paste, bold, italic, underline, strikeThrough, superscript,
                 subscript, justifyCenter, justifyRight, justifyLeft, indent,
                 outdent, removeFormat, drag, drop.
@@ -240,11 +240,6 @@ var respecConfig = {
                         redo</b>
                     </li>
 
-                    <li>If the user intends to copy using a keyboard, context
-                    menu, speech, or similar method, the inputType MUST be <b>
-                        copy</b>
-                    </li>
-
                     <li>If the user intends to cut using a keyboard, context
                     menu, speech, or similar method, the inputType MUST be <b>
                         cut</b>
@@ -356,7 +351,7 @@ var respecConfig = {
                 </p>
 
                 <ol>
-                    <li>If the inputType is cut, copy, paste, drag, drop, undo,
+                    <li>If the inputType is cut, paste, drag, drop, undo,
                     redo, or insertNonText, the transferData attribute is a
                     prepopulated <a>DataTransfer</a> object so that:
                         <ol>
