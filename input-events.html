@@ -86,7 +86,7 @@ var respecConfig = {
     <section>
         <h2>Definitions</h2>
         <dl>
-            <dt><dfn>DataTransfer</dfn></dt>
+            <dt><code><dfn>DataTransfer</dfn></code></dt>
             <dd>An object that contains richtext and plaintext data for some inputtypes. [[!DATA-TRANSFER]]</dd>
         </dl>
     </section>
@@ -114,7 +114,7 @@ var respecConfig = {
                 [Constructor(DOMString typeArg, optional InputEventInit inputEventInitDict)]
                 partial interface InputEvent {
                   readonly attribute DOMString inputType;
-                  readonly attribute DataTransfer? transferData;
+                  readonly attribute DataTransfer? dataTransfer;
                   StaticRange[] getTargetRanges();
                 };
             </pre>
@@ -352,28 +352,28 @@ var respecConfig = {
                     <li>Else, the value of data is to be NULL.</li>
                 </ol>
 
-                <p><dfn>transferData</dfn> holds information about richtext and
+                <p><dfn data-dfn-for=InputEvent>dataTransfer</dfn> holds information about richtext and
                 plaintext data that is to be taken from or added to the document
                 in a <a>DataTransfer</a> object if there is relevant data.
                 </p>
 
                 <ol>
                     <li>If the inputType is cut, paste, drag, drop, undo,
-                    redo, or insertNonText, the transferData attribute is a
+                    redo, or insertNonText, the dataTransfer attribute is a
                     prepopulated <a>DataTransfer</a> object so that:
                         <ol>
-                            <li>transferData.getData('text/html') returns a HTML representation
+                            <li><code>dataTransfer.getData('text/html')</code> returns a HTML representation
                             of the content that is to be cut, copied, pasted, dragged, dropped or added.
-                            <li>transferData.getData('text/plain') returns a plain text
+                            <li><code>dataTransfer.getData('text/plain')</code> returns a plain text
                             representation of the content that is to be cut, copied, pasted, dragged,
                             dropped or added.</li>
                         </ol>
                     </li>
                     <li>Else if the inputType is insertText, the
-                    transferData attribute is a prepopulated <a>DataTransfer</a>
-                    object so that transferData.getData('text/plain') returns a plain text
+                    dataTransfer attribute is a prepopulated <a>DataTransfer</a>
+                    object so that <code>dataTransfer.getData('text/plain')</code> returns a plain text
                     representation of the content that is to be inserted.</li>
-                    <li>Else, the transferData attribute is NULL.</li>
+                    <li>Else, the dataTransfer attribute is NULL.</li>
 
                 </ol>
 
