@@ -123,15 +123,20 @@ var respecConfig = {
                 <h5>Attributes</h5>
 
                 <p><dfn>inputType</dfn> holds the type of input. Allowed
-                values include insertText, insertNonText, insertLineBreak,
-                insertParagraph, insertOrderedList, insertUnorderedList,
-                insertHorizontalRule, deleteWordForward,
-                deleteWordBackward, deleteLineForward, deleteLineBackward,
-                deleteComposedCharacterBackward, deleteComposedCharacterForward,
-                deleteContentBackward, deleteContentForward, undo, redo,
-                cut, paste, bold, italic, underline, strikeThrough, superscript,
-                subscript, justifyCenter, justifyRight, justifyLeft, indent,
-                outdent, removeFormat, drag, drop.
+                values include <code>insertText</code>, <code>insertNonText</code>,
+                <code>insertLineBreak</code>, <code>insertParagraph</code>,
+                <code>insertOrderedList</code>, <code>insertUnorderedList</code>,
+                <code>insertHorizontalRule</code>, <code>deleteWordForward</code>,
+                <code>deleteWordBackward</code>, <code>deleteLineForward</code>,
+                <code>deleteLineBackward</code>, <code>deleteComposedCharacterBackward</code>,
+                <code>deleteComposedCharacterForward</code>,
+                <code>deleteContentBackward</code>, <code>deleteContentForward</code>,
+                <code>undo</code>, <code>redo</code>, <code>cut</code>, <code>paste</code>,
+                <code>bold</code>, <code>italic</code>, <code>underline</code>,
+                <code>strikeThrough</code>, <code>superscript</code>,
+                <code>subscript</code>, <code>justifyCenter</code>, <code>justifyRight</code>,
+                <code>justifyLeft</code>, <code>indent</code>, <code>outdent</code>,
+                <code>removeFormat</code>, <code>drag</code>, <code>drop</code>.
                 During initialization, the user agent is responsible for
                 populating this field as follows:
                 </p>
@@ -139,83 +144,83 @@ var respecConfig = {
                 <ol>
                     <li>If the user intends to insert plain text typing on a
                     keyboard, IME, speech, or similar method, the inputType
-                    MUST be <b>insertText</b>.
+                    MUST be <code>insertText</code>.
                     </li>
 
                     <li>If the user intends to insert content potentially
                     containing more than just plain text using a keyboard,
                     IME, speech, or similar method, the inputType MUST be
-                    <b>insertNonText</b>.
+                    <code>insertNonText</code>.
 
                     </li>
 
                     <li>If the user intends to insert a line break using a
                     keyboard, IME, speech, or similar method, the  inputType
-                    MUST be <b>insertLineBreak</b>
+                    MUST be <code>insertLineBreak</code>.
                     </li>
 
                     <li>If the user intends to insert a paragraph break
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>insertParagraph</b>
+                    inputType MUST be <code>insertParagraph</code>.
                     </li>
 
                     <li>If the user intends to insert a numbered list
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>insertOrderedList</b>
+                    inputType MUST be <code>insertOrderedList</code>.
                     </li>
 
                     <li>If the user intends to insert a bulleted list
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>insertUnorderedList</b>
+                    inputType MUST be <code>insertUnorderedList</code>.
                     </li>
 
                     <li>If the user intends to insert a horizontal rule
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>insertHorizontalRule</b>
+                    inputType MUST be <code>insertHorizontalRule</code>.
                     </li>
 
                     <li>If the user intends to delete a character after the
                     caret position during character composition using IME, the
-                    inputType MUST be <b>
-                        deleteComposedCharacterForward</b>
+                    inputType MUST be
+                    <code>deleteComposedCharacterForward</code>.
 
                         <ol>
-                            <li>Set the value of cancelable to <code>false</code></li>
+                            <li>Set the value of cancelable to <code>false</code>.</li>
                         </ol>
                     </li>
 
                     <li>If the user intends to delete a character before
                     the caret position during character composition using IME,
-                    the inputType MUST be <b>
-                        deleteComposedCharacterBackward</b>
+                    the inputType MUST be
+                    <code>deleteComposedCharacterBackward</code>.
 
                         <ol>
-                            <li>Set the value of cancelable to <code>false</code></li>
+                            <li>Set the value of cancelable to <code>false</code>.</li>
                         </ol>
                     </li>
 
                     <li>If the user intends to delete a word directly before
                     the caret position, using a keyboard, speech, or similar
-                    method, and the selection is empty, the inputType MUST be <b>
-                        deleteWordBackward</b>
+                    method, and the selection is empty, the inputType MUST be
+                    <code>deleteWordBackward</code>.
                     </li>
 
                     <li>If the user intends to delete a word directly after
                     the caret position using a keyboard, speech, or similar
-                    method, and the selection is empty, the inputType MUST be <b>
-                        deleteWordForward</b>
+                    method, and the selection is empty, the inputType MUST be
+                    <code>deleteWordForward</code>.
                     </li>
 
                     <li>If the user intends to delete a line directly before
                     the caret position using a keyboard, speech, or similar
-                    method, and the selection is empty, the inputType MUST be <b>
-                        deleteLineBackward</b>
+                    method, and the selection is empty, the inputType MUST be
+                    <code>deleteLineBackward</code>.
                     </li>
 
                     <li>If the user intends to delete a line directly after
                     the caret position using a keyboard, speech, or similar
-                    method, and the selection is empty, the inputType MUST be <b>
-                        deleteLineForward</b>
+                    method, and the selection is empty, the inputType MUST be
+                    <code>deleteLineForward</code>.
                     </li>
 
                     <li>If the user intends to delete the content directly before
@@ -223,8 +228,7 @@ var respecConfig = {
                     inputType or the user itends to delete a non-collapsed selection
                     with the selection collapsing to its start after the deletion,
                     using a keyboard, speech, or similar method, the inputType
-                    MUST be <b>
-                        deleteContentBackward</b>
+                    MUST be <code>deleteContentBackward</code>.
                     </li>
 
                     <li>If the user intends to delete the content directly after
@@ -232,118 +236,107 @@ var respecConfig = {
                     inputType or the user itends to delete a non-collapsed selection
                     with the selection collapsing to its end after the deletion,
                     using a keyboard, speech, or similar method, the inputType
-                    MUST be <b>
-                        deleteContentForward</b>
+                    MUST be <code>deleteContentForward</code>.
                     </li>
 
                     <li>If the user intends to undo the last editing action
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>
-                        undo</b>
+                    inputType MUST be <code>undo</code>.
                     </li>
 
                     <li>If the user intends to redo the last editing action
                     using a keyboard, IME, speech, or similar method, the
-                    inputType MUST be <b>
-                        redo</b>
+                    inputType MUST be <code>redo</code>.
                     </li>
 
                     <li>If the user intends to cut using a keyboard, context
-                    menu, speech, or similar method, the inputType MUST be <b>
-                        cut</b>
+                    menu, speech, or similar method, the inputType MUST be
+                    <code>cut</code>.
                     </li>
 
                     <li>If the user intends to paste using a keyboard, context
-                    menu, speech, or similar method, the inputType MUST be <b>
-                        paste</b>
+                    menu, speech, or similar method, the inputType MUST be
+                    <code>paste</code>.
                     </li>
 
                     <li>If the user intends to initiate bold text using a
                     keyboard, context menu, speech, or similar method, the
-                    inputType MUST be <b>
-                        bold</b>
+                    inputType MUST be <code>bold</code>.
                     </li>
 
                     <li>If the user intends to initiate italic text using a
                     keyboard, context menu, speech, or similar method, the
-                    inputType MUST be <b>
-                        italic</b>
+                    inputType MUST be <code>italic</code>.
                     </li>
 
                     <li>If the user intends to initiate underline text using a
                     keyboard, context menu, speech, or similar method, the
-                    inputType MUST be <b>
-                        underline</b>
+                    inputType MUST be <code>underline</code>.
                     </li>
 
                     <li>If the user intends to initiate stricken through text
                     using a keyboard, context menu, speech, or similar method,
-                    the inputType MUST be <b>
-                        strikeThrough</b>
+                    the inputType MUST be <code>strikeThrough</code>.
                     </li>
 
                     <li>If the user intends to initiate superscript through text
                     using a keyboard, context menu, speech, or similar method,
-                    the inputType MUST be <b>
-                        superscript</b>
+                    the inputType MUST be <code>superscript</code>.
                     </li>
 
                     <li>If the user intends to initiate subscript through text
                     using a keyboard, context menu, speech, or similar method,
-                    the inputType MUST be <b>
-                        subscript</b>
+                    the inputType MUST be <code>subscript</code>.
                     </li>
 
                     <li>If the user intends to justify center the current
                     selection using a keyboard, context menu, speech, or
-                    similar method, the inputType MUST be <b>
-                        justifyCenter</b>
+                    similar method, the inputType MUST be
+                    <code>justifyCenter</code>.
                     </li>
 
                     <li>If the user intends to justify right the current
                     selection using a keyboard, context menu, speech, or
-                    similar method, the inputType MUST be <b>
-                        justifyRight</b>
+                    similar method, the inputType MUST be
+                    <code>justifyRight</code>.
                     </li>
 
                     <li>If the user intends to justify left the current
                     selection using a keyboard, context menu, speech, or
-                    similar method, the inputType MUST be <b>
-                        justifyLeft</b>
+                    similar method, the inputType MUST be
+                    <code>justifyLeft</code>.
                     </li>
 
                     <li>If the user intends to indent the current
                     selection using a keyboard, context menu, speech, or
-                    similar method, the inputType MUST be <b>
-                        indent</b>
+                    similar method, the inputType MUST be <code>indent</code>.
                     </li>
 
                     <li>If the user intends to outdent the current
                     selection using a keyboard, context menu, speech, or
-                    similar method, the inputType MUST be <b>
-                        outdent</b>
+                    similar method, the inputType MUST be <code>outdent</code>.
                     </li>
 
                     <li>If the user intends to remove all formatting from the
                     current selection using a keyboard, context menu, speech,
-                    or similar method, the inputType MUST be <b>
-                        removeFormat</b>
+                    or similar method, the inputType MUST be
+                    <code>removeFormat</code>.
                     </li>
 
                     <li>If the user intends to drag the current selection using
                         keyboard, context menu, speech, or similar method, the
-                        inputType MUST be <b>drag</b>
+                        inputType MUST be <code>drag</code>.
                     </li>
 
                     <li>If the user intends to drop a dragged object into the
                     current selection using a keyboard, context menu, speech,
-                    or similar method, the inputType MUST be <b>drop</b>
+                    or similar method, the inputType MUST be <code>drop</code>.
                     </li>
 
                 </ol>
 
-                <p><dfn><code>data</code></dfn> holds information plaintext data that is to
-                be added to the document.
+                <p><dfn><code>data</code></dfn> holds information plaintext data
+                that is to be added to the document.
                 </p>
 
                 <ol>
@@ -454,12 +447,6 @@ var respecConfig = {
                         </tr>
 
                         <tr>
-                            <th>Cancelable</th>
-
-                            <td>Varies: False for inputTypes insertText and deleteComposedCharacter during IME composition. True otherwise</td>
-                        </tr>
-
-                        <tr>
                             <th>Default action</th>
 
                             <td>Varies: 'Update the DOM' for contentEditable=typing editing hosts for inputTypes insertText and deleteComposedCharacter. 'Update the DOM element' for contentEditable=true editing hosts for all inputTypes. None otherwise.</td>
@@ -471,63 +458,22 @@ var respecConfig = {
 
                             <td>
                                 <ul>
-                                    <li>
-                                        <a href=
-                                        "#widl-Event-target"><code class=
-                                        "attribute-name">Event.target</code></a>:
-                                        <a class="def" href=
-                                        "#glossary-event-target">event
-                                        target</a> that is about to be updated
-                                    </li>
 
                                     <li>
                                         <a href=
-                                        "#widl-UIEvent-view"><code class=
-                                        "attribute-name">UIEvent.view</code></a>:
-                                        <a class="def" href=
-                                        "#glossary-window"><code>Window</code></a>
-                                    </li>
-
-                                    <li>
-                                        <a href=
-                                        "#widl-UIEvent-detail"><code class=
-                                        "attribute-name">UIEvent.detail</code></a>:
-                                        <code>0</code>
-                                    </li>
-
-                                    <li>
-                                        <a href=
-                                        "#widl-InputEvent-data"><code class=
+                                        "#dfn-data"><code class=
                                         "attribute-name">InputEvent.data</code></a>:
-                                        the string containing the data that
-                                        will be added to the element, which MAY
-                                        be the <a class="def" href=
-                                        "#glossary-empty-string">empty
-                                        string</a> if the content has been
-                                        deleted, or NULL if it doesn't apply.
+                                        the string containing the data that was
+                                        added to the element, which MAY be
+                                        NULL if it doesn't apply.
                                     </li>
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
-                                        InputEvent.isComposing</code></a>:
-                                        <code>true</code> if this event is
-                                        dispatched during a <a href=
-                                        "#keys-dead">dead key</a> sequence or
-                                        while an <a href="#glossary-ime">input
-                                        method editor</a> is active (such that
-                                        <a href=
-                                        "#events-compositionevents">composition
-                                        events</a> are being dispatched);
-                                        <code>false</code> otherwise.
-                                    </li>
-                                    <li>
-                                        <a href=
-                                        "#widl-InputEvent-cancelable"><code class="attribute-name">
-                                        InputEvent.cancelable</code></a>:
-                                        <code>true</code> if this event can be canceled.
-                                        <code>false</code> otherwise.
-                                        <p class="note">All beforeinput events MUST be cancelable, unless they take place during IME composition.</p>
+                                        "#dom-inputevent-datatransfer"><code class=
+                                        "attribute-name">InputEvent.dataTransfer</code></a>:
+                                        richtext data added or removed from element,
+                                        which MAY be NULL if it doesn't apply.
                                     </li>
                                 </ul>
                             </td>
@@ -593,12 +539,6 @@ var respecConfig = {
                         </tr>
 
                         <tr>
-                            <th>Cancelable</th>
-
-                            <td>No</td>
-                        </tr>
-
-                        <tr>
                             <th>Default action</th>
 
                             <td>None</td>
@@ -610,62 +550,24 @@ var respecConfig = {
 
                             <td>
                                 <ul>
-                                    <li>
-                                        <a href=
-                                        "#widl-Event-target"><code class=
-                                        "attribute-name">Event.target</code></a>:
-                                        <a class="def" href=
-                                        "#glossary-event-target">event
-                                        target</a> that was just updated
-                                    </li>
 
                                     <li>
                                         <a href=
-                                        "#widl-UIEvent-view"><code class=
-                                        "attribute-name">UIEvent.view</code></a>:
-                                        <a class="def" href=
-                                        "#glossary-window"><code>Window</code></a>
-                                    </li>
-
-                                    <li>
-                                        <a href=
-                                        "#widl-UIEvent-detail"><code class=
-                                        "attribute-name">UIEvent.detail</code></a>:
-                                        <code>0</code>
-                                    </li>
-
-                                    <li>
-                                        <a href=
-                                        "#widl-InputEvent-data"><code class=
+                                        "#dfn-data"><code class=
                                         "attribute-name">InputEvent.data</code></a>:
                                         the string containing the data that was
-                                        added to the element, which MAY be the
-                                        <a class="def" href=
-                                        "#glossary-empty-string">empty
-                                        string</a> if the content has been
-                                        deleted, or NULL if it doesn't apply.
+                                        added to the element, which MAY be
+                                        NULL if it doesn't apply.
                                     </li>
 
                                     <li>
                                         <a href=
-                                        "#widl-InputEvent-isComposing"><code class="attribute-name">
-                                        InputEvent.isComposing</code></a>:
-                                        <code>true</code> if this event is
-                                        dispatched during a <a href=
-                                        "#keys-dead">dead key</a> sequence or
-                                        while an <a href="#glossary-ime">input
-                                        method editor</a> is active (such that
-                                        <a href=
-                                        "#events-compositionevents">composition
-                                        events</a> are being dispatched);
-                                        <code>false</code> otherwise.
+                                        "#dom-inputevent-datatransfer"><code class=
+                                        "attribute-name">InputEvent.dataTransfer</code></a>:
+                                        richtext data added or removed from element,
+                                        which MAY be NULL if it doesn't apply.
                                     </li>
-                                    <li>
-                                        <a href=
-                                        "#widl-InputEvent-cancelable"><code class="attribute-name">
-                                        InputEvent.cancelable</code></a>:
-                                        <code>false</code>
-                                    </li>
+
                                 </ul>
                             </td>
                         </tr>
