@@ -52,10 +52,60 @@
       <p>
       </p>
     </section>
+
     <section>
-      <h2>Problem and Use Cases</h2>
-        The problems solved by and use cases for this document by this document are tracked in the <a href="http://w3c.github.io/editing/editing-explainer.html">Editing Explainer</a> document.
+        <h2>Problems solved</h2>
+        <p><i>This section is not normative.</i></p>
+        <p>Creating a webbased texteditor requires a considerable amount of
+        JavaScript on top of the browser code, among other things because:</p>
+        <ol>
+            <li>Browsers do not handle all editing operations the same way.</li>
+            <li>Browsers are often buggy in the way they handle certain editing
+            operations.</li>
+            <li>Individual sites may have custom preferences for how they want
+            to handle certain editing operations.</li>
+            <li>The development of hihg-level text editing features in browsers
+            has not followed the principles laid out in the
+            <a href="http://extensiblewebmanifesto.org/">Extensible Web
+            Manifesto</a> in that development of these features has not always
+            been in coordination with the needs of the web developer community.
+            </li>
+        </ol>
+        <p>This spec seeks to alleviate the problem by providing a simple way
+        for web developers prevent all browser default handling of editing
+        operations at different levels without having to preventDefault each of
+        them.</p>
     </section>
+
+    <section>
+        <h2>Use cases</h2>
+        <p><i>This section is not normative.</i></p>
+        <ol>
+            <li>Creating a JavaScript text editor in which the &lt;strong&gt;-tag
+            is used instead of the &lt;b&gt;-tag to mark text that the user marks
+            as bold, using any browser-builtin way to mark a text as bold,
+            without having access to all existing browsers.</li>
+            <li>Creating a JavaScript text editor which works with a data model
+            in the background where JavaScript takes care of rendering changes to
+            the edited text to the DOM.</li>
+            <li>Creating a JavaScript editor which only allows a subset of richtext
+            editing (for example: bold is allowed, but italic not).</li>
+            <li>Creating a collaborative editor in which JavaScript is used to
+            render changes to the DOM, based on user intentions with users using
+            different browsers with different ways of expressing specific
+            intentions.</li>
+            <li>Creating a JavaScript editor with different user access options,
+            where some users only can add or delete text and other users only can
+            add or remove certain types of formatting.</li>
+            <li>Creating a JavaScript editor in which carte movement is handled
+            differently from the default.</li>
+            <li>Creating a JavaScript editor with advanced elements, such as
+            non-editable regions, inline SVGs, canvas-elements and other elements
+            for which <code>contenteditable=true</code> currently creates caret
+            placement issues in several browsers.</li>
+        </ol>
+    </section>
+
 
     <section>
         <h2 id="terminology">Terminology</h2>
@@ -147,7 +197,8 @@
             </dd>
         </dl>
 
-        <p>The following items are defined in the CSS Cascading and Inheritance Level 3 specification [[!css-cascade-3]]</p>
+        <p>The following items are defined in the CSS Cascading and Inheritance
+        Level 3 specification [[!css-cascade-3]]</p>
           <ul>
             <li><dfn><a href="http://www.w3.org/TR/css-cascade-3/#used">used value</a></dfn></li>
           </ul>
@@ -155,48 +206,70 @@
 
     <section>
         <h2>contenteditable</h2>
-        <p>The contenteditable attribute is an enumerated attribute whose keywords are the empty string (""), "events", "caret", "typing", "plaintext-only", "true", and "false".
-        There is one additional state, the <code>inherit</code> state, which is the missing value default (and the invalid value default).</p>
+        <p>The contenteditable attribute is an enumerated attribute whose keywords
+        are the empty string (""), "events", "caret", "typing", "plaintext-only",
+        "true", and "false". There is one additional state, the
+        <code>inherit</code> state, which is the missing value default (and the
+        invalid value default).</p>
 
-        <p>The empty string and the "true" keyword map to the <code>true</code> state. The other keywords map to their respective states.</p>
+        <p>The empty string and the "true" keyword map to the <code>true</code>
+        state. The other keywords map to their respective states.</p>
 
-        The <code>false</code> state indicates that the element is not editable.
-        The <code>inherit</code> state indicates that the element has the state of its parent.
+        <p>The <code>false</code> state indicates that the element is not editable.
+        The <code>inherit</code> state indicates that the element has the state
+        of its parent.
         </p>
 
         <p>
-        The contentEditable IDL attribute, on getting, must return the string "true" if the content attribute is set to the <code>true</code> state,
+        The contentEditable IDL attribute, on getting, must return the string
+        "true" if the content attribute is set to the <code>true</code> state,
         "typing" if the content attribute is set to the <code>typing</code> state,
         "caret" if the content attribute is set to the <code>caret</code> state,
         "events" if the content attribute is set to the <code>events</code> state,
         "false" if the content attribute is set to the <code>false</code> state,
-        "plaintext-only" if the content attribute is set to the <code>plaintext-only</code> state,
-        and "inherit" otherwise.
-        <p>
+        "plaintext-only" if the content attribute is set to the
+        <code>plaintext-only</code> state, and <code>inherit</code> otherwise.
         </p>
-        On setting, if the new value is an ASCII case-insensitive match for the string "inherit" then the content attribute must be removed,
-        if the new value is an ASCII case-insensitive match for a string matching the name of a state, then the content attribute must be set to the name of that state,
-        and otherwise the attribute setter must throw a SyntaxError exception.
-
-        The isContentEditable IDL attribute, on getting, must return true if the element is either an editing host or editable, and false otherwise.
+        <p>
+        On setting, if the new value is an ASCII case-insensitive match for the
+        string "inherit" then the content attribute must be removed, if the new
+        value is an ASCII case-insensitive match for a string matching the name
+        of a state, then the content attribute must be set to the name of that
+        state, and otherwise the attribute setter must throw a SyntaxError
+        exception.</p>
+        <p>
+        The isContentEditable IDL attribute, on getting, must return true if the
+        element is either an editing host or editable, and false otherwise.
         </p>
     </section>
 
     <section>
       <h2>Meaning of states</h2>
 
-      <p>The states "events", "caret", "typing" and "true" are hierarchically ordered, so that the state "caret" also includes the features of the "events" state, the "typing" state includes the features of the "caret" state, and the "true" state includes all the features of
+      <p>The states "events", "caret", "typing" and "true" are hierarchically
+      ordered, so that the state "caret" also includes the features of the
+      "events" state, the "typing" state includes the features of the "caret"
+      state, and the "true" state includes all the features of
       the "typing" state.</p>
 
-      <p>The "events" state means that beforeinput events are triggered when the user asks for an editing operation. The "caret" state adds
-      default browser controlled movement of the caret. The "typing" state adds handling of text input through IME and keyboard, and
-      deletion within an IME composition. The "true" state adds handling of deletion of content for keyboard input as well as deletion of non-textual content and editing commands through the execCommand command.</p>
+      <p>The "events" state means that beforeinput events are triggered when the
+      user asks for an editing operation. The "caret" state adds
+      default browser controlled movement of the caret. The "typing" state adds
+      handling of text input through IME and keyboard, and
+      deletion within an IME composition. The "true" state adds handling of
+      deletion of content for keyboard input as well as deletion of non-textual
+      content and editing commands through the execCommand command.</p>
 
-      <p>The states "events", "caret" and "typing" are defined in this document.</a>
+      <p>The states "events", "caret" and "typing" are defined in this document.
+      </p>
 
-      <p>The state "true" is currently not well-defined and its usage is discouraged. An initial attempt has been made to specify the behavior of the "true" state in the <a href="https://w3c.github.io/editing/contentEditableTrue.html">contentEditable=True spec</a>.</p>
+      <p>The state "true" is currently not well-defined and its usage is
+      discouraged. An initial attempt has been made to specify the behavior of
+      the "true" state in the
+      <a href="contentEditableTrue.html">contentEditable=True spec</a>.</p>
 
-      <p>The state "plaintext-only" is deprecated and its usage is discouraged.</p>
+      <p>The state "plaintext-only" is deprecated and its usage is discouraged.
+      </p>
 
     </section>
 
@@ -248,8 +321,9 @@
     <section>
         <h2 id="cutting_and_pasting">Cutting and pasting</h2>
 
-        <p>Within an <a>editing host</a> that is in the "events", "caret" or "typing" state, cutting and pasting is
-        disabled. However, `cut` and `paste` events are still triggered.</p>
+        <p>Within an <a>editing host</a> that is in the "events", "caret" or
+        "typing" state, cutting and pasting is disabled. However, `cut` and
+        `paste` events are still triggered.</p>
     </section>
 
     <section>
@@ -258,8 +332,9 @@
         <section>
             <h3 id="caret_drawing">Caret drawing</h3>
 
-            <p>A caret is drawn in any <a>editing host</a> that is focused, that does not hold any other selections.
-            Under such conditions, the caret represents a collapsed selection.</p>
+            <p>A caret is drawn in any <a>editing host</a> that is focused, that
+            does not hold any other selections. Under such conditions, the caret
+            represents a collapsed selection.</p>
         </section>
 
         <section>
@@ -267,7 +342,8 @@
 
             <p>It MUST be possible to put the caret in any of the <a>Legal
             Caret Positions</a> programatically and for the caret to be visible
-            in these in any <a>editing host</a> that is in the "events", "caret" or "typing" state.</p>
+            in these in any <a>editing host</a> that is in the "events", "caret"
+            or "typing" state.</p>
 
             <section>
                 <h3 id="initial_caret_placement">Initial caret placement</h3>
@@ -342,7 +418,10 @@
     <section>
       <h2>Acknowledgements</h2>
       <p>Thanks to:
+      Michael Aufreiter,
+      Adrian Bateman,
       Robin Berjon,
+      Oliver Buchtala,
       Enrica Casucci,
       Olivier Forget,
       Aryeh Gregor,
@@ -358,6 +437,7 @@
       Chaals McCathie Nevile,
       Masayuki Nakano,
       Ryosuke Niwa,
+      Julie Parent,
       Ben Peters,
       Florian Rivoal,
       Hallvord R. M. Steen,

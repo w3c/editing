@@ -1,36 +1,161 @@
 <!DOCTYPE html>
 <html lang='en'>
-<head>
-  <meta charset='utf-8'>
-  <title>Editing</title>
-</head>
-<body>
-<h1>Editing</h1>
+  <head>
+    <meta charset='utf-8'>
+    <title>The Editing taskforce</title>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+              specStatus:   "base"
+          ,   shortName:    "editing-taskfroce"
+          ,   editors:      [{ name: "Johannes Wilm",
+                               mailto: "johannes@fiduswriter.org",
+                               company: "Invited Expert"}]
+          ,   wg:           "Web Platform Working Group"
+          ,   wgURI:        "http://www.w3.org/WebPlatform/WG/"
+          ,   license: 	    "w3c-software-doc"
+          ,   wgPublicList: "public-editing-tf"
+          ,   wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/83842/status"
+          ,   edDraftURI:   "http://w3c.github.io/editing/"
+        };
+    </script>
+  </head>
+  <body>
+      <section id="abstract">
+<h1>The Editing taskforce</h1>
 
-<p>The Editing Task Force can be followed on our <a href="http://lists.w3.org/Archives/Public/public-editing-tf/">mailing list</a>. We track issues in <a href="https://github.com/w3c/editing/issues">GitHub Issues</a> as well. See the Task Force's <a href="tf-charter.html">charter</a> for more information about the group.</p>
+<p>The Editing Task Force can be followed on our <a href="http://lists.w3.org/Archives/Public/public-editing-tf/">mailing list</a>. We track issues in <a href="https://github.com/w3c/editing/issues">GitHub Issues</a> as well.</p>
 
-<h2>High level explainers</h2>
-<p>These explainers cover the way in which we are addressing editing:</p>
-<ul>
-<li><a href="editing-explainer.html">Editing Explainer</a></li>
-<li><a href="device-independent-events-explainer.html">Device Independent Events Explainer</a></li>
-</ul>
+<p>See the Task Force's <a href="tf-charter.html">charter</a> for more information about the group.</p>
 
+</section>
+<section>
 <h2>Specifications</h2>
 
+<p>Actively developed specs:</p>
 <ul>
 <li><a href="input-events.html">Input Events</a></li>
 <li><a href="contentEditable.html">ContentEditable</a></li>
+</ul>
+
+<p>Other specs also maintained:</p>
+<ul>
 <li><a href="contentEditableTrue.html">Content Editable True</a></li>
 <li><a href="execCommand.html">execCommand</a></li>
 </ul>
 
-<h2>Other W3C specs related to editing</h2>
-<p>Other editing related specs that are not maintained by the editing taskforce</p>
+<p>Other editing related specs that are not maintained by the editing taskforce:</p>
 <ul>
   <li><a href="http://w3c.github.io/selection-api/">Selection API</a></li>
   <li><a href="https://w3c.github.io/clipboard-apis/">Clipboard API and events</a></li>
 </ul>
+</section>
+
+<section>
+  <h2>Introduction</h2>
+  <p>
+    <a href="http://www.w3.org/TR/html5/editing.html#attr-contenteditable">contenteditable</a>
+    is used extensively on the web to enable users to directly edit HTML content.
+    However, it is very complex and its behavior is often largely overwritten
+    by sites or javascript frameworks. Completely overwriting it is very difficult
+    because it requires overwriting all keyboard shortcuts that perform commands
+    like bold and undo, as well as the context menu. Further, this must be done
+    in all supported languages.
+    A <a href="https://medium.com/medium-eng/122d8a40e480">post</a> on Medium tells one perspective of why it should be changed.
+    </p><p>
+    To further simplify the work of sites and frameworks, new types of contentEditable
+    simplifies default behavior to text input only, while providing local-specific
+    information on what a user intends such as to create newlines, delete content,
+    or format it. This allows sites to easily provide their own behaviors without
+    needing to handle complex text input like
+    <a href="http://en.wikipedia.org/wiki/Input_method">IMEs</a>.
+  </p>
+</section>
+<section>
+  <h2>Framing the Problem</h2>
+    <ul>
+        <li>ContentEditable is <b>too complex and buggy</b> to be usable as-is
+        <br>While we could solve this by spec'ing contentEditable's behavior, the remaining issues here cause us to look in a new direction instead.
+        </li><li>ContentEditable <b>does not easily enable the wide range of editing scenarios</b>.
+            It is high-level and not supportive of the principles listed in the
+            <a href="http://extensiblewebmanifesto.org/">Extensible Web Manifesto</a>.
+        </li>
+    </ul>
+</section>
+<section>
+    <h2>Use Cases</h2>
+    <ul><li><b>Semantic HTML WYSIWYG editor</b> for a blogging platform or email. (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
+    <p>The editor needs to able to add both semantic and visual annotation to the document as it will be published as a blog.
+        Headings are to be marked up with h1. h2, etc... and each acronyms, abbreviations, and so forth are marked up with respective HTML elements.
+        However, the editor also supports visual annotations such as bolding, italicizing, and enlarging text,
+        each of which will be interpreted by the editor to respective underlying semantics in HTML.
+    </p><p>More Info: In order to keep things consistent he may want to disallow certain types of styling.
+        A few years ago it was common to see people with Joomla sites who just pasted the text into the editor after copying it from a word processor.
+        Each blog post therefore ended up having very different styling.
+     </p><p>More thoughts (From Microsoft):
+    <br>In addition to the functionality mentioned above, the editor should support more advanced markup operations like handling bullets/indentation,
+        tables, and clear formatting (in heavily nested HTML) that are not consistent across browsers today.
+    <br>Scenarios:
+    <ul><li>Prevent style bleeding between the app and the body of the draft mail
+    </li><li>Remember cursor position (or selected range) when focus is out of editor - formatting bar buttons, or insert image cases
+    </li><li>Extensible and consistent paste mode across browsers - e.g. paste AS-IS HTML, paste clean HTML (aka merge formatting), and paste text only
+    </li><li>Extensibility for formatting commands - e.g. when browser handles the bullets it allows callback to javascript to define customized behavior;
+    on <Enter> under a nested bullet structure, some browsers add a new bullet, others create a new line without bullet and delete the previous bullet;
+    Merge two lists using delete/backspace, instead of keeping two different list structures
+    </p></li></ul>
+    </li><li>Structured content editor with <b>whitelisted DOM elements and/or classes</b>. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+    <br>Part of the point is to keep the structure of the document semantically defined.
+        Users can't change font sizes of individual words, etc.
+        This is because one of the main tasks of scientific journal editors who currently receive drafts in Word or Libreoffice
+        format have to undo all the manual styling the writers have added in order to get everything to look in a similar way.
+        We simply take those styling possibilities away so that we can define the entire design through one stylesheet as well as easily convert to other formats,
+        such as LaTex or an Epub, and be sure that we cover all formatting tags that were used.
+    </li><li>Editor that supports <b>areas of non-editable content</b>, nested editable content, etc (see what CKEditor are doing with widgets.)
+    (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+    <br>We also do that - for example in the case of formulas.
+        Generally the text is editable near-Wysiwyg style.
+        But when it comes to formulas, we let the user enter them in Latex format and display the result using mathjax.
+        Each formula object within the text is a noneditable island. If the user clicks on it with the mouse, he can change the formula.
+    <br>Another example are figures: We want them to always be block elements and to have exactly one caption without styling.
+        They are therefore non-editable islands and if the user clicks on them he can change the figure's display and the caption text.
+    </li><li>Web-based <b>code editor</b> with syntax highlighting, etc. (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+    </li><li>Browser based <b>"word art" generator</b> where end-user types some text and it renders in 3D along a curve and in rainbow colors on a &#060;canvas&#062;.
+    (<a href="http://lists.w3.org/Archives/Public/public-webapps/2014AprJun/1041.html">link to mail</a>)
+    </li><li><b>Track changes</b> functionality within an editor (like <a href="https://github.com/NYTimes/ice">https://github.com/NYTimes/ice</a> )
+    <br>(really should be run MVC in order to keep the code somewhat readable. Currently ICE breaks whenever any of the browser makers decide to change anything about contenteditable.)
+    </li><li><b>Web-based DTP application</b> (<a href="http://lists.w3.org/Archives/Public/public-editing-tf/2014Jun/0025.html">link to mail</a>)
+    <br>The app can creates a document that contains pagination, columns, and a complex illustrations.
+        It needs to let users edit any text that appears in the document.
+        Each editable text needs to be accessible, and styles applied to text need to be backed by the application's internal model of the document.
+    </li><li>Surface for <b>plain text editing</b> (From Microsoft)
+    <br>Plain-text emails require a formatting surface that strips out any HTML tags, and prevents them from being entered (e.g. via copy paste)
+    </li><li><b>Style read-only text</b> (From Microsoft)
+    <br>The sample text is read only, but is possible to change the format of the text. This is used to select default compose font properties (text font, size, color, BIU).
+    </li></ul>
+</section>
+<section>
+    <h2>Goals</h2>
+    <ul><li>Empower authors with the right set of baseline behavior to enable creating complex editors
+    </li><li>Make it easy to implement custom behavior with appropriate APIs
+    <li>Allow overwrite of behavior for a user intention from all actions that indicate that intention
+    </li><li>Empower complex editors to be accessible by enabling users to understand available behaviors with little accessibility-specific work from the framework or site
+    </li></ul>
+</section>
+<section>
+  <h2>Specs maintained</h2>
+    <p>
+    It is a pattern in web editors that are built on top of <code>contenteditable</code> to disable some commanding functionality.
+    The reason for this is that consistency for Rich Text Editors is very hard, and requirements vary greatly from one app to the next.
+    Disabling all functionality is very difficult, however.
+    </p>
+    <p>In order to make it easier to disable specific capabilities of <code>contenteditable</code>, we are creating
+    different types of <code>contenteditable</code> with different features disabled by default in the <a href="contentEditable.html">
+    contentEditable</a> spec.</p>
+    <p>Because it is widely used, <code>contentEditable="true"</code> will continue to be developed
+    in the <a href="contentEditableTrue.html">contentEditable=True</a> spec. Similarly,
+    the <a href="execCommand.html">execCommand</a> spec aims to spec the behavior of the execCommand command.</p>
+</section>
+
 
 </body>
 </html>

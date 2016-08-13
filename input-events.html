@@ -92,10 +92,51 @@ var respecConfig = {
     </section>
 
     <section>
-        <h2>Problem and Use Cases</h2>The problems solved by and use cases for
-        this document by this document are tracked in the <a href=
-        "http://w3c.github.io/editing/editing-explainer.html">Editing
-        Explainer</a> document.
+        <h2>Problems solved</h2>
+        <p><i>This section is not normative.</i></p>
+        <p>Creating a webbased texteditor requires a considerable amount of
+        JavaScript on top of the browser code, among other things because:</p>
+        <ol>
+            <li>Browsers do not handle all editing operations the same way.</li>
+            <li>Browsers are often buggy in the way they handle certain editing
+            operations.</li>
+            <li>Individual sites may have custom preferences for how they want
+            to handle certain editing operations.</li>
+            <li>The development of hihg-level text editing features in browsers
+            has not followed the principles laid out in the
+            <a href="http://extensiblewebmanifesto.org/">Extensible Web
+            Manifesto</a> in that development of these features has not always
+            been in coordination with the needs of the web developer community.
+            </li>
+        </ol>
+        <p>This spec seeks to alleviate the problem by providing a simple way
+        for web developers to both override browser handeling of all user input
+        related to text editing through the <a>beforeinput</a> event, and to
+        monitor what browsers have changed in the DOM due to user input trough
+        the <a>input</a> event.</p>
+    </section>
+
+    <section>
+        <h2>Use cases</h2>
+        <p><i>This section is not normative.</i></p>
+        <ol>
+            <li>Creating a JavaScript text editor in which the &lt;strong&gt;-tag
+            is used instead of the &lt;b&gt;-tag to mark text that the user marks
+            as bold, using any browser-builtin way to mark a text as bold,
+            without having access to all existing browsers.</li>
+            <li>Creating a JavaScript text editor which works with a data model
+            in the background where JavaScript takes care of rendering changes to
+            the edited text to the DOM.</li>
+            <li>Creating a JavaScript editor which only allows a subset of richtext
+            editing (for example: bold is allowed, but italic not).</li>
+            <li>Creating a collaborative editor in which JavaScript is used to
+            render changes to the DOM, based on user intentions with users using
+            different browsers with different ways of expressing specific
+            intentions.</li>
+            <li>Creating a JavaScript editor with different user access options,
+            where some users only can add or delete text and other users only can
+            add or remove certain types of formatting.</li>
+        </ol>
     </section>
 
     <section id="events-inputevents">
@@ -119,11 +160,41 @@ var respecConfig = {
                 };
             </pre>
 
+            <section>
+                <h5>Overview</h5>
+
+                <p>The following table provides a summary of when the <a>data</a>
+                and <a>dataTransfer</a> attributes contain contents and when they
+                are NULL as well as when the <a>getTargetRanges()</a> method
+                returns StaticRanges and when it returns an empty Array, based
+                on the inputType.</p>
+
+
+                <table class="parameters">
+                    <thead>
+                        <tr><th>inputType</th><th>data</th><th>dataTransfer</th>
+                        <th>getTargetRanges()</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>insertText</code></td><td>Yes</td><td>NULL</td><td>StaticRanges</td></tr>
+                        <tr><td><code>cut</code></td><td>NULL</td><td>Yes</td><td>StaticRanges</td></tr>
+                        <tr><td><code>paste</code></td><td>NULL</td><td>Yes</td><td>StaticRanges</td></tr>
+                        <tr><td><code>drag</code></td><td>NULL</td><td>Yes</td><td>StaticRanges</td></tr>
+                        <tr><td><code>drop</code></td><td>NULL</td><td>Yes</td><td>StaticRanges</td></tr>
+                        <tr><td><code>insertNonText</code></td><td>NULL</td><td>Yes</td><td>StaticRanges</td></tr>
+                        <tr><td><code>undo</code></td><td>NULL</td><td>NULL</td><td>Empty Array</td></tr>
+                        <tr><td><code>redo</code></td><td>NULL</td><td>NULL</td><td>Empty Array</td></tr>
+                        <tr><td>All Remaining</td><td>NULL</td><td>NULL</td><td>StaticRanges</td></tr>
+                    </tbody>
+                </table>
+
+            </section>
+
             <section id="interface-InputEvent-Attributes" dfn-for="InputEvent">
                 <h5>Attributes</h5>
 
                 <p><dfn>inputType</dfn> holds the type of input. Allowed
-                values include <code>insertText</code>, <code>insertNonText</code>,
+                values are the following: <code>insertText</code>, <code>insertNonText</code>,
                 <code>insertLineBreak</code>, <code>insertParagraph</code>,
                 <code>insertOrderedList</code>, <code>insertUnorderedList</code>,
                 <code>insertHorizontalRule</code>, <code>deleteWordForward</code>,
@@ -140,6 +211,13 @@ var respecConfig = {
                 During initialization, the user agent is responsible for
                 populating this field as follows:
                 </p>
+
+                <div class="note">The existence of the above mentioned <code>inputTypes</code>
+                does not mean that any given implementation will support all of these.
+                But if a given browser supports an editing operation which potnetially leads to
+                a change of the DOM, it MUST trigger the corresponding <code>beforeinput</code>
+                and <code>input</code> events.
+                </div>
 
                 <ol>
                     <li>If the user intends to insert plain text typing on a
@@ -365,36 +443,24 @@ var respecConfig = {
                     <li>Else, the dataTransfer attribute is NULL.</li>
                 </ol>
 
-                <p>The following table provides a summary of when the <a>data</a>
-                and <a>dataTransfer</a> attributes are defined or not defined based
-                on the inputType.</p>
-
-
-                <table class="parameters">
-                    <thead>
-                        <tr><th>inputType</th><th>data</th><th>dataTransfer</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><code>insertText</code></td><td>Yes</td><td>No</td></tr>
-                        <tr><td><code>cut</code></td><td>No</td><td>Yes</td></tr>
-                        <tr><td><code>paste</code></td><td>No</td><td>Yes</td></tr>
-                        <tr><td><code>drag</code></td><td>No</td><td>Yes</td></tr>
-                        <tr><td><code>drop</code></td><td>No</td><td>Yes</td></tr>
-                        <tr><td><code>insertNonText</code></td><td>No</td><td>Yes</td></tr>
-                        <tr><td>All Remaining</td><td>No</td><td>No</td></tr>
-                    </tbody>
-                </table>
-
             </section><!-- interface-InputEvent-Attributes -->
             <section id="interface-InputEvent-Methods" dfn-for="InputEvent">
                 <h5>Methods</h5>
 
-                <p><dfn>getTargetRanges</dfn> return an Array of
+                <p><dfn><code>getTargetRanges()</code></dfn> returns an Array of
                 <dfn lt="StaticRange">StaticRanges</dfn> [[!STATIC-RANGE]]
-                affected by this event.</p>
+                affected by this event if there is available, otherwise it
+                returns and empty Array.</p>
+
+                <ol>
+                    <li>If the inputType is <code>undo</code> or <code>redo</code>,
+                    getTargetRanges() returns an empty Array.</li>
+                    <li>Else, getTargetRanges returns an Array of StaticRanges.</li>
+                </ol>
+
+
 
             </section><!-- interface-InputEvent-Methods -->
-
 
 
         </section><!-- interface-InputEvent -->
@@ -474,6 +540,13 @@ var respecConfig = {
                                         "attribute-name">InputEvent.dataTransfer</code></a>:
                                         richtext data added or removed from element,
                                         which MAY be NULL if it doesn't apply.
+                                    </li>
+
+                                    <li>
+                                        <a href="#dfn-gettargetranges"><code class=
+                                        "methods-name">InputEvent.getTargetRanges()</code></a>:
+                                        returns an arrays of Static Cranges which will be affected
+                                        by the change to the DOM if it is not canceled.
                                     </li>
                                 </ul>
                             </td>
@@ -584,6 +657,9 @@ var respecConfig = {
     <section>
         <h2>Acknowledgements</h2>
         <p>Thanks to:
+        Michael Aufreiter,
+        Adrian Bateman,
+        Oliver Buchtala,
         Robin Berjon,
         Enrica Casucci,
         Olivier Forget,
@@ -600,6 +676,7 @@ var respecConfig = {
         Chaals McCathie Nevile,
         Masayuki Nakano,
         Ryosuke Niwa,
+        Julie Parent,
         Ben Peters,
         Florian Rivoal,
         Morgan Smith,
