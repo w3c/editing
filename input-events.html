@@ -342,7 +342,7 @@ var respecConfig = {
 
                 </ol>
 
-                <p><dfn>data</dfn> holds information plaintext data that is to
+                <p><dfn><code>data</code></dfn> holds information plaintext data that is to
                 be added to the document.
                 </p>
 
@@ -370,11 +370,27 @@ var respecConfig = {
                         </ol>
                     </li>
                     <li>Else, the dataTransfer attribute is NULL.</li>
-
                 </ol>
 
+                <p>The following table provides a summary of when the <a>data</a>
+                and <a>dataTransfer</a> attributes are defined or not defined based
+                on the inputType.</p>
 
 
+                <table class="parameters">
+                    <thead>
+                        <tr><th>inputType</th><th>data</th><th>dataTransfer</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>insertText</code></td><td>Yes</td><td>No</td></tr>
+                        <tr><td><code>cut</code></td><td>No</td><td>Yes</td></tr>
+                        <tr><td><code>paste</code></td><td>No</td><td>Yes</td></tr>
+                        <tr><td><code>drag</code></td><td>No</td><td>Yes</td></tr>
+                        <tr><td><code>drop</code></td><td>No</td><td>Yes</td></tr>
+                        <tr><td><code>insertNonText</code></td><td>No</td><td>Yes</td></tr>
+                        <tr><td>All Remaining</td><td>No</td><td>No</td></tr>
+                    </tbody>
+                </table>
 
             </section><!-- interface-InputEvent-Attributes -->
             <section id="interface-InputEvent-Methods" dfn-for="InputEvent">
