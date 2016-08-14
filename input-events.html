@@ -307,6 +307,20 @@ var respecConfig = {
                     with the selection collapsing to its start after the deletion,
                     using a keyboard, speech, or similar method, the inputType
                     MUST be <code>deleteContentBackward</code>.
+
+                    <div class="note">If the selection is collapsed,
+                    <code>deleteContentBackward</code> will be used both when
+                    the user asks for text deletion within a text node,
+                    and when the user shows the intention to deletion of more
+                    complex elements or merge paragraphs if the caret is at the
+                    start of a text node. In some scripts, backward
+                    deletion within a text node with a collapsed selection
+                    will delete a code point rather than a grapheme. A grapheme
+                    can consist of several characters, where each character
+                    corresponds to a code point. The <a>getTargetRanges()</a>
+                    method can be used to find out how many characters the
+                    browser will remove by default if deleting within a text
+                    node.</div>
                     </li>
 
                     <li>If the user intends to delete the content directly after
@@ -315,6 +329,20 @@ var respecConfig = {
                     with the selection collapsing to its end after the deletion,
                     using a keyboard, speech, or similar method, the inputType
                     MUST be <code>deleteContentForward</code>.
+
+                    <div class="note">If the selection is collapsed,
+                    <code>deleteContentForward</code> will be used both when
+                    the user asks for text deletion within a text node,
+                    and when the user shows the intention to deletion of more
+                    complex elements or merge paragraphs if the caret is at the
+                    end of a text node. In some scripts, forward
+                    deletion within a text node with a collapsed selection
+                    will delete a grapheme rather than a code point. A grapheme
+                    can consist of several characters, where each character
+                    corresponds to a code point. The <a>getTargetRanges()</a>
+                    method can be used to find out how many characters the
+                    browser will remove by default if deleting within a text
+                    node.</div>
                     </li>
 
                     <li>If the user intends to undo the last editing action
