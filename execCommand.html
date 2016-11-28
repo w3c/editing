@@ -99,10 +99,10 @@ var respecConfig = {
             response to execCommand() so we need to treat it as
             presentational", so it includes things like <code class="external"
             data-anolis-spec="html" title="the strong element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
             strong</a></code> and <code class="external" data-anolis-spec=
             "html" title="the em element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
             em</a></code>.) Of course, in some cases we have to remove
             elements, like when merging two blocks.</li>
 
@@ -188,12 +188,12 @@ var respecConfig = {
 
             <li><code class="external" data-anolis-spec="html" title=
             "the br element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
             br</a></code>s are a nightmare. I have tons of hacks all over the
             place which are totally wrong, mostly to account for the fact that
             sometimes <code class="external" data-anolis-spec="html" title=
             "the br element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
             br</a></code>s do nothing and we need to treat that case magically.
             I don't know what a good way is to fix this. At this point I've
             mostly gotten the evil concentrated in the definitions "collapsed
@@ -1290,7 +1290,7 @@ data-anolis-spec="dom" href=
         <p>A <dfn id="collapsed-line-break">collapsed line break</dfn> is a
         <code class="external" data-anolis-spec="html" title=
         "the br element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
         br</a></code> that begins a line box which has nothing else in it, and
         therefore has zero height.</p>
 
@@ -1312,11 +1312,11 @@ data-anolis-spec="dom" href=
         <p>An <dfn id="extraneous-line-break">extraneous line break</dfn> is a
         <code class="external" data-anolis-spec="html" title=
         "the br element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
         br</a></code> that has no visual effect, in that removing it from the
         DOM would not change layout, except that a <code class="external"
         data-anolis-spec="html" title="the br element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
         br</a></code> that is the sole child of an <code class="external"
         data-anolis-spec="html" title="the li element"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
@@ -1455,7 +1455,7 @@ data-anolis-spec="dom" href=
                     <li>If <var title="">reference</var> is a <a href=
                     "#block-node">block node</a> or a <code class="external"
                         data-anolis-spec="html" title="the br element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                         br</a></code>, return true.
                     </li>
 
@@ -1504,7 +1504,7 @@ data-anolis-spec="dom" href=
                     <li>If <var title="">reference</var> is a <a href=
                     "#block-node">block node</a> or a <code class="external"
                         data-anolis-spec="html" title="the br element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                         br</a></code>, return true.
                     </li>
 
@@ -1541,7 +1541,7 @@ data-anolis-spec="dom" href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
         img</a></code>, or a <code class="external" data-anolis-spec="html"
         title="the br element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
         br</a></code> that is not an <a href=
         "#extraneous-line-break">extraneous line break</a>, or any <a class=
         "external" data-anolis-spec="dom" href=
@@ -2093,7 +2093,7 @@ data-anolis-spec="dom" href=
                 <li>
                     <p class="note">We need to treat <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>s as visible here even if they're not, because
                     wrapping them might be significant even if they're
                     invisible: it can turn an extraneous line break into a
@@ -2103,7 +2103,7 @@ data-anolis-spec="dom" href=
                     <a href="#invisible">invisible</a>, and none is a
                     <code class="external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, return null and abort these steps.</p>
                 </li>
 
@@ -2124,17 +2124,17 @@ data-anolis-spec="dom" href=
                     <a href="#inline-node">inline node</a> that's not a
                     <code class="external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, and <var title="">node list</var>'s last
                     member's <code class="external" data-anolis-spec="dom"
                     title="dom-Node-nextSibling"><a href=
                     "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
                     is a <code class="external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, append that <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> to <var title="">node list</var>.</p>
                 </li>
 
@@ -2368,7 +2368,7 @@ data-anolis-spec="dom" href=
                             "">new parent</var> is not a <code class="external"
                             data-anolis-spec="html" title=
                             "the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
@@ -2413,7 +2413,7 @@ data-anolis-spec="dom" href=
                             of <var title="">node list</var> is not a
                             <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
@@ -2492,7 +2492,7 @@ data-anolis-spec="dom" href=
                             title="concept-tree-child">child</a> is not a
                             <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, call <code class="external"
                             data-anolis-spec="domcore" title=
                             "dom-Document-createElement"><a href=
@@ -2712,7 +2712,7 @@ data-anolis-spec="dom" href=
                             <var title="">parent</var> is an <code class=
                             "external" data-anolis-spec="html" title=
                             "the a element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                             a</a></code>, return false.</p>
                         </li>
 
@@ -2983,34 +2983,34 @@ data-anolis-spec="dom" href=
             <p>A <dfn id="modifiable-element">modifiable element</dfn> is a
             <code class="external" data-anolis-spec="html" title=
             "the b element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
             b</a></code>, <code class="external" data-anolis-spec="html" title=
             "the em element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
             em</a></code>, <code class="external" data-anolis-spec="html"
             title="the i element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
             i</a></code>, <code class="external" data-anolis-spec="html" title=
             "the s element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
             s</a></code>, <code class="external" data-anolis-spec="html" title=
             "the span element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
             span</a></code>, <code class="external" data-anolis-spec="html"
             title="the strike element"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
             strike</a></code>, <code class="external" data-anolis-spec="html"
             title="the strong element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
             strong</a></code>, <code class="external" data-anolis-spec="html"
             title="the sub and sup elements"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
             sub</a></code>, <code class="external" data-anolis-spec="html"
             title="the sub and sup elements"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
             sup</a></code>, or <code class="external" data-anolis-spec="html"
             title="the u element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
             u</a></code> element with no attributes except possibly
             <code class="external" data-anolis-spec="html" title=
             "the style attribute"><a href=
@@ -3033,7 +3033,7 @@ data-anolis-spec="dom" href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
             size</a></code>; or an <code class="external" data-anolis-spec=
             "html" title="the a element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
             a</a></code> element with no attributes except possibly
             <code class="external" data-anolis-spec="html" title=
             "the style attribute"><a href=
@@ -3050,78 +3050,78 @@ data-anolis-spec="dom" href=
             <ul>
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code>, <code class="external" data-anolis-spec="html"
                 title="the b element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
                 b</a></code>, <code class="external" data-anolis-spec="html"
                 title="the em element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
                 em</a></code>, <code class="external" data-anolis-spec="html"
                 title="font"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
                 font</a></code>, <code class="external" data-anolis-spec="html"
                 title="the i element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
                 i</a></code>, <code class="external" data-anolis-spec="html"
                 title="the s element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
                 s</a></code>, <code class="external" data-anolis-spec="html"
                 title="the span element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                 span</a></code>, <code class="external" data-anolis-spec="html"
                 title="the strike element"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
                 strike</a></code>, <code class="external" data-anolis-spec=
                 "html" title="the strong element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
                 strong</a></code>, <code class="external" data-anolis-spec=
                 "html" title="the sub and sup elements"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sub</a></code>, <code class="external" data-anolis-spec="html"
                 title="the sub and sup elements"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sup</a></code>, or <code class="external" data-anolis-spec=
                 "html" title="the u element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
                 u</a></code> element with no attributes.</li>
 
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code>, <code class="external" data-anolis-spec="html"
                 title="the b element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
                 b</a></code>, <code class="external" data-anolis-spec="html"
                 title="the em element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
                 em</a></code>, <code class="external" data-anolis-spec="html"
                 title="font"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
                 font</a></code>, <code class="external" data-anolis-spec="html"
                 title="the i element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
                 i</a></code>, <code class="external" data-anolis-spec="html"
                 title="the s element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
                 s</a></code>, <code class="external" data-anolis-spec="html"
                 title="the span element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                 span</a></code>, <code class="external" data-anolis-spec="html"
                 title="the strike element"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
                 strike</a></code>, <code class="external" data-anolis-spec=
                 "html" title="the strong element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
                 strong</a></code>, <code class="external" data-anolis-spec=
                 "html" title="the sub and sup elements"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sub</a></code>, <code class="external" data-anolis-spec="html"
                 title="the sub and sup elements"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sup</a></code>, or <code class="external" data-anolis-spec=
                 "html" title="the u element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
                 u</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
@@ -3131,7 +3131,7 @@ data-anolis-spec="dom" href=
 
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "attr-hyperlink-href"><a href=
@@ -3155,10 +3155,10 @@ data-anolis-spec="dom" href=
 
                 <li>It is a <code class="external" data-anolis-spec="html"
                 title="the b element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
                 b</a></code> or <code class="external" data-anolis-spec="html"
                 title="the strong element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
                 strong</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
@@ -3172,10 +3172,10 @@ data-anolis-spec="dom" href=
 
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the i element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
                 i</a></code> or <code class="external" data-anolis-spec="html"
                 title="the em element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
                 em</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
@@ -3189,13 +3189,13 @@ data-anolis-spec="dom" href=
 
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code>, <code class="external" data-anolis-spec="html"
                 title="font"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
                 font</a></code>, or <code class="external" data-anolis-spec=
                 "html" title="the span element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                 span</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
@@ -3209,22 +3209,22 @@ data-anolis-spec="dom" href=
 
                 <li>It is an <code class="external" data-anolis-spec="html"
                 title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code>, <code class="external" data-anolis-spec="html"
                 title="font"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
                 font</a></code>, <code class="external" data-anolis-spec="html"
                 title="the s element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
                 s</a></code>, <code class="external" data-anolis-spec="html"
                 title="the span element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                 span</a></code>, <code class="external" data-anolis-spec="html"
                 title="the strike element"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
                 strike</a></code>, or <code class="external" data-anolis-spec=
                 "html" title="the u element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
                 u</a></code> element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
@@ -3260,7 +3260,7 @@ data-anolis-spec="dom" href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
             img</a></code>, or a <code class="external" data-anolis-spec="html"
             title="the br element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
             br</a></code>.</p>
 
             <p>Two quantities are <dfn id="equivalent-values">equivalent
@@ -3434,7 +3434,7 @@ data-anolis-spec="dom" href=
                         <li>While <var title="">node</var> is not null, and is
                         not an <code class="external" data-anolis-spec="html"
                             title="the a element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                             a</a></code> element that has an <code class=
                             "external" data-anolis-spec="html" title=
                             "attr-hyperlink-href"><a href=
@@ -3559,7 +3559,7 @@ data-anolis-spec="dom" href=
                                     <code class="external" data-anolis-spec=
                                     "html" title=
                                     "the sub and sup elements"><a href=
-                                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                                    "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                                     sub</a></code>, set <var title="">affected
                                     by subscript</var> to true.</p>
                                 </li>
@@ -3567,7 +3567,7 @@ data-anolis-spec="dom" href=
                                 <li>Otherwise, if <var title="">node</var> is a
                                 <code class="external" data-anolis-spec="html"
                                 title="the sub and sup elements"><a href=
-                                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                                "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                                 sup</a></code>, set <var title="">affected by
                                 superscript</var> to true.</li>
 
@@ -3654,7 +3654,7 @@ data-anolis-spec="dom" href=
                         <li>If <var title="">element</var> is an
                             <code class="external" data-anolis-spec="html"
                             title="the a element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                             a</a></code> element and has an <code class=
                             "external" data-anolis-spec="html" title=
                             "attr-hyperlink-href"><a href=
@@ -3677,13 +3677,13 @@ data-anolis-spec="dom" href=
                         <li>If <var title="">element</var> is a <code class=
                         "external" data-anolis-spec="html" title=
                         "the sub and sup elements"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                         sup</a></code>, return "superscript".</li>
 
                         <li>If <var title="">element</var> is a <code class=
                         "external" data-anolis-spec="html" title=
                         "the sub and sup elements"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-sub-and-sup-elements">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                         sub</a></code>, return "subscript".</li>
 
                         <li>Return null.</li>
@@ -3713,7 +3713,7 @@ data-anolis-spec="dom" href=
                 <li>If <var title="">command</var> is "strikethrough" and
                 <var title="">element</var> is an <code class="external"
                 data-anolis-spec="html" title="the s element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
                 s</a></code> or <code class="external" data-anolis-spec="html"
                 title="the strike element"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
@@ -3741,7 +3741,7 @@ data-anolis-spec="dom" href=
                 <li>If <var title="">command</var> is "underline" and
                 <var title="">element</var> is a <code class="external"
                 data-anolis-spec="html" title="the u element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
                 u</a></code> element, return "underline".</li>
 
                 <li>Let <var title="">property</var> be the <a href=
@@ -3782,18 +3782,18 @@ data-anolis-spec="dom" href=
                     <ul>
                         <li><code class="external" data-anolis-spec="html"
                         title="the b element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
                         b</a></code>, <code class="external" data-anolis-spec=
                         "html" title="the strong element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
                         strong</a></code>: font-weight: "bold"</li>
 
                         <li><code class="external" data-anolis-spec="html"
                         title="the i element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
                         i</a></code>, <code class="external" data-anolis-spec=
                         "html" title="the em element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
                         em</a></code>: font-style: "italic"</li>
                     </ul>
                 </li>
@@ -4066,7 +4066,7 @@ data-anolis-spec="dom" href=
 
                 <li>If <var title="">element</var> is an <code class="external"
                 data-anolis-spec="html" title="the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                 a</a></code> element and <var title="">command</var> is
                 "createLink" or "unlink", unset the <code class="external"
                 data-anolis-spec="html" title="attr-hyperlink-href"><a href=
@@ -4695,7 +4695,7 @@ data-anolis-spec="dom" href=
                                     <p>If <var title="">ancestor</var> is an
                                     <code class="external" data-anolis-spec=
                                     "html" title="the a element"><a href=
-                                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                                     a</a></code>, <a href=
                                     "#set-the-tag-name">set the tag name</a> of
                                     <var title="">ancestor</var> to "span", and
@@ -5050,13 +5050,13 @@ data-anolis-spec="dom" href=
                 "simple modifiable element">simple modifiable elements</a>
                 entirely, and replaces elements like <code class="external"
                 data-anolis-spec="html" title="the b element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
                 b</a></code> or <code class="external" data-anolis-spec="html"
                 title="font"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
                 font</a></code> with <code class="external" data-anolis-spec=
                 "html" title="the span element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                 span</a></code>s if they aren't simple modifiable elements.
                 This will be sufficient if the desired value is inherited from
                 an ancestor, or if it's the default (like font-style: normal)
@@ -5573,7 +5573,7 @@ data-anolis-spec="dom" href=
                     <p>For each <a href="#editable">editable</a> <code class=
                     "external" data-anolis-spec="html" title=
                     "the a element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                     a</a></code> element that has an <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -5588,7 +5588,7 @@ data-anolis-spec="dom" href=
                     <a href="#active-range">active range</a>, set that
                     <code class="external" data-anolis-spec="html" title=
                     "the a element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                     a</a></code> element's <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -6702,7 +6702,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Let <var title="">hyperlinks</var> be a list of every
                 <code class="external" data-anolis-spec="html" title=
                 "the a element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                     a</a></code> element that has an <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -7885,7 +7885,7 @@ output is null.
             "#visible">visible</a> <a href="#block-node">block node</a> or a
             <a href="#visible">visible</a> <code class="external"
             data-anolis-spec="html" title="the br element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
             br</a></code>.</p>
 
             <p>A <a class="external" data-anolis-spec="dom" href=
@@ -9358,7 +9358,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         <li>While <var title="">children</var>'s last member is
                         not a <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, and <var title="">children</var>'s
                             last member's <code class="external"
                             data-anolis-spec="dom" title=
@@ -9395,11 +9395,11 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "#editable">editable</a> <code class="external"
                             data-anolis-spec="html" title=
                             "the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, remove that <code class="external"
                             data-anolis-spec="html" title=
                             "the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code> from its <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-parent"
@@ -9459,7 +9459,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
                             is a <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, remove <var title="">start
                             block</var>'s <code class="external"
                             data-anolis-spec="dom" title=
@@ -9486,7 +9486,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         <li>While <var title="">nodes to move</var> is nonempty
                         and its last member isn't a <code class="external"
                         data-anolis-spec="html" title=
-                            "the br element"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "the br element"><a href="https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code> and its last member's <code class=
                             "external" data-anolis-spec="dom" title=
                             "dom-Node-nextSibling"><a href=
@@ -9550,7 +9550,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
                         is a <code class="external" data-anolis-spec="html"
                         title="the br element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, remove <var title="">start
                             block</var>'s <code class="external"
                             data-anolis-spec="dom" title=
@@ -9976,14 +9976,14 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 <a href="#inline-node">inline node</a> other than a
                     <code class="external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, and the first <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a> of <var title="">original
                     parent</var> is a <code class="external" data-anolis-spec=
                     "html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, and <var title="">original parent</var> is
                     not an <a href="#inline-node">inline node</a>, remove the
                     first <a class="external" data-anolis-spec="dom" href=
@@ -11239,14 +11239,14 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         "#inline-node">inline node</a> that is not a
                         <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, and its <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
                             is a <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, remove <var title="">target</var>'s
                             <code class="external" data-anolis-spec="dom"
                             title="dom-Node-nextSibling"><a href=
@@ -12894,7 +12894,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                             node</a> other than a <code class=
                                             "external" data-anolis-spec="html"
                                             title="the br element"><a href=
-                                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                                             br</a></code>, remove the first
                                             member from <var title="">node
                                             list</var> and append it to
@@ -13265,7 +13265,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             div</a></code> or <code class="external"
                             data-anolis-spec="html" title=
                             "the span element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-span-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
                             span</a></code> or <code class="external"
                             data-anolis-spec="html"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#center">
@@ -13521,7 +13521,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node, or
                     has an <code class="external" data-anolis-spec="html"
                     title="the a element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                     a</a></code> <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-ancestor"
                     title="concept-tree-ancestor">ancestor</a>, do nothing and
@@ -13864,7 +13864,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             "#editable">editable</a> <code class="external"
                             data-anolis-spec="html" title=
                             "the a element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
                             a</a></code>, remove that <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
@@ -13888,7 +13888,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             <a href="#block-node">block node</a> or a
                             <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code> or an <code class="external"
                             data-anolis-spec="html" title=
                             "the img element"><a href=
@@ -13961,7 +13961,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     title="concept-tree-child">child</a> is a <code class=
                     "external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> or <code class="external" data-anolis-spec=
                     "html" title="the hr element"><a href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
@@ -14334,14 +14334,14 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     title="concept-tree-child">child</a> is a <code class=
                     "external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> whose <code class="external"
                     data-anolis-spec="dom" title=
                     "dom-Node-previousSibling"><a href=
                     "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
                     is either a <code class="external" data-anolis-spec="html"
                     title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> or not an <a href="#inline-node">inline
                     node</a>:</p>
 
@@ -14455,7 +14455,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                             is an <a href="#inline-node">inline node</a> other
                             than a <code class="external" data-anolis-spec=
                             "html" title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code>, call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
@@ -15070,7 +15070,7 @@ foo&lt;br&gt;bar
                                     <var title="">sublist</var> is not a
                                     <code class="external" data-anolis-spec=
                                     "html" title="the br element"><a href=
-                                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                                     br</a></code>, remove the first member of
                                     <var title="">node list</var> and append it
                                     to <var title="">sublist</var>.
@@ -15449,7 +15449,7 @@ foo&lt;br&gt;bar
                             <a href="#block-node">block node</a> nor a
                             <code class="external" data-anolis-spec="html"
                             title="the br element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                             br</a></code> nor an <code class="external"
                             data-anolis-spec="html" title=
                             "the img element"><a href=
@@ -15572,7 +15572,7 @@ foo&lt;br&gt;bar
                 "http://dom.spec.whatwg.org/#concept-tree-child" title=
                 "concept-tree-child">child</a> is a <code class="external"
                 data-anolis-spec="html" title="the br element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> or <code class="external" data-anolis-spec=
                     "html" title="the hr element"><a href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
@@ -15744,7 +15744,7 @@ foo&lt;br&gt;bar
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
                     hr</a></code> or <code class="external" data-anolis-spec=
                     "html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>:</p>
 
                     <ol>
@@ -16610,7 +16610,7 @@ foo&lt;br&gt;bar
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a> is a <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, and its <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-range-start-offset"
@@ -17422,7 +17422,7 @@ foo&lt;br&gt;bar
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a> is a <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>:</p>
 
                     <ol>
@@ -17516,7 +17516,7 @@ foo&lt;br&gt;bar
                     block nodes are fine, and we'll add a <code class=
                     "external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> later, but empty inline nodes are bad, since
                     the user can't interact with them.</p>
 
@@ -17585,7 +17585,7 @@ foo&lt;br&gt;bar
                     "contained">contains</a> either nothing or a single
                     <code class="external" data-anolis-spec="html" title=
                     "the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code>, and false otherwise.
                 </li>
 
@@ -17715,7 +17715,7 @@ foo&lt;br&gt;bar
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;&lt;li&gt;&lt;p&gt;foo&lt;/ol&gt;</code>.
                     In this case we want to add the <code class="external"
                     data-anolis-spec="html" title="the br element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-br-element">
+                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
                     br</a></code> to the <code class="external"
                     data-anolis-spec="html" title="the p element"><a href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-p-element">
