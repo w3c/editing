@@ -97,7 +97,7 @@
             <li>Creating a JavaScript editor with different user access options,
             where some users only can add or delete text and other users only can
             add or remove certain types of formatting.</li>
-            <li>Creating a JavaScript editor in which carte movement is handled
+            <li>Creating a JavaScript editor in which caret movement is handled
             differently from the default.</li>
             <li>Creating a JavaScript editor with advanced elements, such as
             non-editable regions, inline SVGs, canvas-elements and other elements
@@ -223,6 +223,7 @@
         <p>
         The contentEditable IDL attribute, on getting, must return the string
         "true" if the content attribute is set to the <code>true</code> state,
+        "plaintext-only" if the content attribute is set to the <code>plaintext-only</code> state,
         "typing" if the content attribute is set to the <code>typing</code> state,
         "caret" if the content attribute is set to the <code>caret</code> state,
         "events" if the content attribute is set to the <code>events</code> state,
@@ -246,30 +247,28 @@
     <section>
       <h2>Meaning of states</h2>
 
-      <p>The states "events", "caret", "typing" and "true" are hierarchically
-      ordered, so that the state "caret" also includes the features of the
-      "events" state, the "typing" state includes the features of the "caret"
-      state, and the "true" state includes all the features of
-      the "typing" state.</p>
+      <p>The states "events", "caret", "typing", "plaintext-only" and "true" are
+      hierarchically ordered, so that the state "caret" also includes the features
+      of the "events" state, the "typing" state includes the features of the "caret"
+      state, the "plaintext-only" state includes the features of the "typing" state,
+      and the "true" state includes all the features of the "plaintext-only" state.</p>
 
       <p>The "events" state means that beforeinput events are triggered when the
       user asks for an editing operation. The "caret" state adds
       default browser controlled movement of the caret. The "typing" state adds
       handling of text input through IME and keyboard, and
-      deletion within an IME composition. The "true" state adds handling of
-      deletion of content for keyboard input as well as deletion of non-textual
-      content and editing commands through the execCommand command.</p>
+      deletion within an IME composition. The "plaintext-only" state adds handling
+      of text deletion within a text node. The "true" state adds handling of
+      deletion deletion of non-textual content and editing commands through the
+      execCommand command.</p>
 
-      <p>The states "events", "caret" and "typing" are defined in this document.
-      </p>
+      <p>The states "events", "caret", "typing" and "plaintext-only" are defined
+      in this document.</p>
 
       <p>The state "true" is currently not well-defined and its usage is
       discouraged. An initial attempt has been made to specify the behavior of
       the "true" state in the
       <a href="contentEditableTrue.html">contentEditable=True spec</a>.</p>
-
-      <p>The state "plaintext-only" is deprecated and its usage is discouraged.
-      </p>
 
     </section>
 
@@ -279,7 +278,7 @@
       <section>
         <h3 id="events-state">contentEditable=events state</h2>
 
-        <p>In a focused <a>editing host</a> that is in the events state, a caret
+        <p>In a focused <a>editing host</a> that is in the "events" state, a caret
         MUST be drawn if the selection is collapsed, and it MUST be possible to
         place the caret in all of the <a>Legal Caret Positions</a>
         programmatically.</p>
@@ -293,7 +292,7 @@
       <section>
         <h3 id="caret-state">contentEditable=caret state</h2>
 
-        <p>A focused <a>editing host</a> that is in the caret state MUST behave
+        <p>A focused <a>editing host</a> that is in the "caret" state MUST behave
         like an <a>editing host</a> in the events state. Additionally, the
         default action of the `beforeSelectionChange` event in such an
         <a>editing host</a> must be to move the caret in the indicated
@@ -308,12 +307,20 @@
       <section>
         <h3 id="caret-state">contentEditable=typing state</h2>
 
-        <p>A focused <a>editing host</a> that is in the typing state MUST behave
+        <p>A focused <a>editing host</a> that is in the "typing" state MUST behave
         like an <a>editing host</a> in the caret state, and additionally, it
         MUST handle text insertion by keyboard at the position of the caret if
         the caret is placed within a text node or it is possible to place a text
         node at the place of the caret. It must by default also handle
-        composition by IME, both insertion as well as deletion of text input.</a>
+        composition by IME, both insertion as well as deletion of text input.</p>
+      </section>
+
+      <section>
+        <h3 id="caret-state">contentEditable=plaintext-only state</h2>
+
+        <p>A focused <a>editing host</a> that is in the "plaintext-only" state MUST
+        behave like an <a>editing host</a> in the typing state, and additionally,
+        it MUST handle text deletion.</p>
       </section>
 
     </section>
@@ -322,8 +329,11 @@
         <h2 id="cutting_and_pasting">Cutting and pasting</h2>
 
         <p>Within an <a>editing host</a> that is in the "events", "caret" or
-        "typing" state, cutting and pasting is disabled. However, `cut` and
-        `paste` events are still triggered.</p>
+        "typing" state, cutting and pasting is disabled. Within an <a>editing
+        host</a> in the "plaintext-only" state, pasting only causes plaintext
+        pasting by default. Independently of the state of the <a>editing  host</a>,
+        the events `paste` and `cut` should be triggered whenever the user
+        expresses the intention to paste or cut.</p>
     </section>
 
     <section>
@@ -389,6 +399,8 @@
             that is in the "typing" state, unless it is currently in the
             composition mode, in which case it will remove characters from the
             DOM if they are part of the composition.</p>
+            <p>In the "plaintext-only" state, an <a>editing host</a> does handle
+            text deletion within a single text node.</p>
         </section>
 
         <section>
@@ -426,6 +438,7 @@
       Olivier Forget,
       Aryeh Gregor,
       Marijn Haverbeke,
+      Xiaocheng Hu,
       Yoshifumi Inoue,
       Koji Ishii,
       Gary Kacmarcik,
