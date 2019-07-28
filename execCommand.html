@@ -26,6 +26,7 @@ var respecConfig = {
           ,   license:      "cc0"
           ,   otherLinks: [ { key: "Previously at", href: "https://dvcs.w3.org/hg/editing/raw-file/tip/editing.html" }]
           ,   additionalCopyrightHolders: "Copyright © 2015 This specification may be used under the terms of the CC0 1.0 Universal License and the W3C Community Contributor License Agreement (CLA). Thus anyone may reuse, modify, and redistribute them without restriction. W3C Editing APIs Community Group & W3C® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark and document use rules apply."
+          ,   xref: "web-platform"
         };
     </script>
 </head>
@@ -639,68 +640,44 @@ var respecConfig = {
         bugs. The spec is not finalized yet and can still be easily
         changed.</strong></p>
         <pre class="idl">
-[Constructor(DOMString <var title="">type</var>, optional <a href=
-"#editingbeforeinputeventinit">EditingBeforeInputEventInit</a> <var title=
-"">eventInitDict</var>)]
-interface <dfn id=
-"editingbeforeinputevent">EditingBeforeInputEvent</dfn> : <a class="external"
-data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#event">Event</a> {
-  readonly attribute DOMString <a href="#dom-editingbeforeinputevent-command"
-title="dom-EditingBeforeInputEvent-command">command</a>;
-  readonly attribute DOMString <a href="#dom-editingbeforeinputevent-value"
-title="dom-EditingBeforeInputEvent-value">value</a>;
-};
+            [Exposed=Window,
+             Constructor(DOMString type, optional EditingBeforeInputEventInit eventInitDict = {})]
+            interface EditingBeforeInputEvent : Event {
+              readonly attribute DOMString command;
+              readonly attribute DOMString value;
+            };
+            
+            dictionary EditingBeforeInputEventInit : EventInit {
+              DOMString command;
+              DOMString value;
+            };
 
-dictionary <dfn id=
-"editingbeforeinputeventinit">EditingBeforeInputEventInit</dfn> : <a class=
-"external" data-anolis-spec="dom" href=
-"http://dom.spec.whatwg.org/#eventinit">EventInit</a> {
-  DOMString command;
-  DOMString value;
-};
-
-[Constructor(DOMString <var title="">type</var>, optional <a href=
-"#editinginputeventinit">EditingInputEventInit</a> <var title=
-"">eventInitDict</var>)]
-interface <dfn id="editinginputevent">EditingInputEvent</dfn> : <a class=
-"external" data-anolis-spec="dom" href=
-"http://dom.spec.whatwg.org/#event">Event</a> {
-  readonly attribute DOMString <a href="#dom-editinginputevent-command" title=
-"dom-EditingInputEvent-command">command</a>;
-  readonly attribute DOMString <a href="#dom-editinginputevent-value" title=
-"dom-EditingInputEvent-value">value</a>;
-};
-
-dictionary <dfn id=
-"editinginputeventinit">EditingInputEventInit</dfn> : <a class="external"
-data-anolis-spec="dom" href=
-"http://dom.spec.whatwg.org/#eventinit">EventInit</a> {
-  DOMString command;
-  DOMString value;
-};
-</pre>
+            [Exposed=Window,
+             Constructor(DOMString type, optional EditingInputEventInit eventInitDict = {})]
+            interface EditingInputEvent : Event {
+              readonly attribute DOMString command;
+              readonly attribute DOMString value;
+            };
+            
+            dictionary EditingInputEventInit : EventInit {
+              DOMString command;
+              DOMString value;
+            };
+        </pre>
 
         <p class="XXX">We have two different interfaces because we might want
         to add additional members to the input event but not the beforeinput
         event, such as a list of nodes that were affected.</p>
 
-        <p>When an <code><a href=
-        "#editingbeforeinputevent">EditingBeforeInputEvent</a></code> object is
-        created, the <dfn id="dom-editingbeforeinputevent-command" title=
-        "dom-EditingBeforeInputEvent-command"><code>command</code></dfn> and
-        <dfn id="dom-editingbeforeinputevent-value" title=
-        "dom-EditingBeforeInputEvent-value"><code>value</code></dfn> attributes
-        must both be initialized to the empty string, unless otherwise
-        specified.</p>
+        <p data-dfn-for="EditingBeforeInputEvent">When an <a>
+        EditingBeforeInputEvent</a> object is created, the <dfn>command</dfn>
+        and <dfn>value</dfn> attributes must both be initialized to the empty
+        string, unless otherwise specified.</p>
 
-        <p>When an <code><a href=
-        "#editinginputevent">EditingInputEvent</a></code> object is created,
-        the <dfn id="dom-editinginputevent-command" title=
-        "dom-EditingInputEvent-command"><code>command</code></dfn> and <dfn id=
-        "dom-editinginputevent-value" title=
-        "dom-EditingInputEvent-value"><code>value</code></dfn> attributes must
-        both be initialized to the empty string, unless otherwise
-        specified.</p>
+        <p data-dfn-for="EditingInputEvent">When an <a>EditingInputEvent
+        </a> object is created, the <dfn>command</dfn> and <dfn>value</dfn>
+        attributes must both be initialized to the empty string, unless
+        otherwise specified.</p>
 
         <p class="note">TODO: Define behavior for <var title="">show
         UI</var>.</p>
@@ -795,8 +772,7 @@ data-anolis-spec="dom" href=
                         <a class="external" data-anolis-spec="dom" href=
                         "http://dom.spec.whatwg.org/#concept-event" title=
                         "concept-event">event</a> at <var title="">affected
-                        editing host</var> that uses the <code><a href=
-                        "#editingbeforeinputevent">EditingBeforeInputEvent</a></code>
+                        editing host</var> that uses the <a>EditingBeforeInputEvent</a>
                         interface. The event's <code class="external"
                         data-anolis-spec="dom" title="dom-Event-type"><a href=
                         "http://dom.spec.whatwg.org/#dom-event-type">type</a></code>
@@ -890,8 +866,7 @@ data-anolis-spec="dom" href=
             data-anolis-spec="dom" href=
             "http://dom.spec.whatwg.org/#concept-event" title="concept-event">
                 event</a> at <var title="">affected editing host</var> that
-                uses the <code><a href=
-                "#editinginputevent">EditingInputEvent</a></code> interface.
+                uses the <a>EditingInputEvent</a> interface.
                 The event's <code class="external" data-anolis-spec="dom"
                 title="dom-Event-type"><a href=
                 "http://dom.spec.whatwg.org/#dom-event-type">type</a></code>
@@ -18771,7 +18746,6 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         </section>
     </section>
 
-    <section>
         <h2 id="clipboard-commands">Clipboard commands</h2>
 
         <section>
