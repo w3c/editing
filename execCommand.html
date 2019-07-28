@@ -648,8 +648,8 @@ var respecConfig = {
             };
             
             dictionary EditingBeforeInputEventInit : EventInit {
-              DOMString command;
-              DOMString value;
+              DOMString command = "";
+              DOMString value = "";
             };
 
             [Exposed=Window,
@@ -660,24 +660,14 @@ var respecConfig = {
             };
             
             dictionary EditingInputEventInit : EventInit {
-              DOMString command;
-              DOMString value;
+              DOMString command = "";
+              DOMString value = "";
             };
         </pre>
 
         <p class="XXX">We have two different interfaces because we might want
         to add additional members to the input event but not the beforeinput
         event, such as a list of nodes that were affected.</p>
-
-        <p data-dfn-for="EditingBeforeInputEvent">When an <a>
-        EditingBeforeInputEvent</a> object is created, the <dfn>command</dfn>
-        and <dfn>value</dfn> attributes must both be initialized to the empty
-        string, unless otherwise specified.</p>
-
-        <p data-dfn-for="EditingInputEvent">When an <a>EditingInputEvent
-        </a> object is created, the <dfn>command</dfn> and <dfn>value</dfn>
-        attributes must both be initialized to the empty string, unless
-        otherwise specified.</p>
 
         <p class="note">TODO: Define behavior for <var title="">show
         UI</var>.</p>
@@ -18746,6 +18736,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         </section>
     </section>
 
+    <section data-cite="clipboard-apis">
         <h2 id="clipboard-commands">Clipboard commands</h2>
 
         <section>
