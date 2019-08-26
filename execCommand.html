@@ -723,9 +723,7 @@
 
                     <li>
                         [=Dispatch=] an
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-event" title=
-                        "concept-event">event</a> at <var title="">affected
+                        [=event=] at <var title="">affected
                         editing host</var> that uses the <a>EditingBeforeInputEvent</a>
                         interface. The event's <code class="external"
                         data-anolis-spec="dom" title="dom-Event-type"><a href=
@@ -798,10 +796,8 @@
 
             <li>If <var title="">command</var> is not in the <a href=
             "#miscellaneous-commands">Miscellaneous commands</a> section, then
-            [=Dispatch=] an <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-event" title="concept-event">
-                event</a> at <var title="">affected editing host</var> that
+            [=Dispatch=] an [=
+                event=] at <var title="">affected editing host</var> that
                 uses the <a>EditingInputEvent</a> interface.
                 The event's <code class="external" data-anolis-spec="dom"
                 title="dom-Event-type"><a href=
@@ -1096,10 +1092,7 @@
         "http://dom.spec.whatwg.org/#element">Element</a></code> whose
         "display" property does not have <a href=
         "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a>
-        "inline" or "inline-block" or "inline-table" or "none", or a <a class=
-        "external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>, or a <code class="external"
+        "inline" or "inline-block" or "inline-table" or "none", or a [=document=], or a <code class="external"
         data-anolis-spec="dom"><a href=
         "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>.</p>
 
@@ -1116,10 +1109,7 @@
         title="attr-contenteditable"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#attr-contenteditable">
         contenteditable</a></code> attribute set to the true state, or the
-        <a href="#html-element">HTML element</a> [=tree/child=] of a <a class="external"
-        data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a> whose <code class="external"
+        <a href="#html-element">HTML element</a> [=tree/child=] of a [=document=] whose <code class="external"
         data-anolis-spec="html"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#designMode">
         designMode</a></code> is enabled.</p>
@@ -1147,17 +1137,12 @@
         element</a>.</p>
 
         <p class="note">An <a href="#editable">editable</a> node cannot be a
-        <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a> or <code class="external"
+        [=document=] or <code class="external"
         data-anolis-spec="dom"><a href=
         "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>,
         its [=tree/parent=] cannot be null, and it must descend
         from either an <code class="external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> or a <a class=
-        "external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>.</p>
+        "http://dom.spec.whatwg.org/#element">Element</a></code> or a [=document=].</p>
 
         <p>The <dfn id="editing-host-of">editing host of</dfn> <var title=
         "">node</var> is null if <var title="">node</var> is neither <a href=
@@ -1435,10 +1420,7 @@
         probably makes the most sense in the long term to have the command
         affect all ranges. But I'll leave this for later.</p>
 
-        <p>The <dfn id="active-range">active range</dfn> is the <a class=
-        "external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-range" title=
-        "concept-range">range</a> of the <a href="#concept-selection" title=
+        <p>The <dfn id="active-range">active range</dfn> is the [=range=] of the <a href="#concept-selection" title=
         "concept-selection">selection</a> given by calling <code title=
         "dom-Document-getSelection"><a href=
         "#dom-document-getselection">getSelection()</a></code> on the <a class=
@@ -1477,13 +1459,9 @@
         "#value">value</a>, but change the way some algorithms behave, as
         specified in those algorithms' definitions. Initially, both must be
         unset for every <a href="#command">command</a>. Whenever the number of
-        <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-range" title=
-        "concept-range">ranges</a> in the <a href="#concept-selection" title=
+        [=ranges=] in the <a href="#concept-selection" title=
         "concept-selection">selection</a> changes to something different, and
-        whenever a [=boundary point=] of the <a class="external"
-        data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-range"
-        title="concept-range">range</a> at a given index in the <a href=
+        whenever a [=boundary point=] of the [=range=] at a given index in the <a href=
         "#concept-selection" title="concept-selection">selection</a> changes to
         something different, the <a href="#state-override">state override</a>
         and <a href="#value-override">value override</a> must be unset for
@@ -1514,10 +1492,7 @@
         <p>When <code class="external" data-anolis-spec="html" title=
         "dom-Document-open"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#dom-document-open">
-        document.open()</a></code> is called and a <a class="external"
-        data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>'s singleton objects are all replaced by
+        document.open()</a></code> is called and a [=document=]'s singleton objects are all replaced by
         new instances of those objects, editing state associated with that
         document (including the <a href="#css-styling-flag">CSS styling
         flag</a>, <a href="#default-single-line-container-name">default
@@ -1525,10 +1500,7 @@
         title="state override">state overrides</a> or <a href="#value-override"
         title="value override">value overrides</a>) must be reset.</p>
 
-        <p class="note">Of course, any action that replaces a <a class=
-        "external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a> object entirely, such as reloading the
+        <p class="note">Of course, any action that replaces a [=document=] object entirely, such as reloading the
         page, will also reset any editing state associated with the
         document.</p>
 
@@ -2020,10 +1992,7 @@
                                 there's a better way.</p>
                             </div>
 
-                            <p>If any <a class="external" data-anolis-spec=
-                            "dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range" title=
-                            "concept-range">range</a> has a [=boundary point=] with
+                            <p>If any [=range=] has a [=boundary point=] with
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-node" title=
                             "concept-node">node</a> equal to the [=tree/parent=] of
@@ -2292,10 +2261,7 @@
                     return false.</p>
                 </li>
 
-                <li>If <var title="">child</var> is a <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-document" title=
-                "concept-document">document</a>, <code class="external"
+                <li>If <var title="">child</var> is a [=document=], <code class="external"
                 data-anolis-spec="dom"><a href=
                 "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>,
                 or <code class="external" data-anolis-spec="dom"><a href=
@@ -2475,10 +2441,7 @@
             <p>A <a class="external" data-anolis-spec="dom" href=
             "http://dom.spec.whatwg.org/#concept-node" title=
             "concept-node">node</a> <var title="">node</var> is <dfn id=
-            "effectively-contained">effectively contained</dfn> in a <a class=
-            "external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range" title=
-            "concept-range">range</a> <var title="">range</var> if <var title=
+            "effectively-contained">effectively contained</dfn> in a [=range=] <var title="">range</var> if <var title=
             "">range</var> is not <code class="external" data-anolis-spec="dom"
             title="dom-Range-collapsed"><a href=
             "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
@@ -6726,10 +6689,7 @@ output is null.
             "#block-end-point">block end point</a>.</p>
 
             <p>When a user agent is to <dfn id=
-            "block-extend">block-extend</dfn> a <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range" title=
-            "concept-range">range</a> <var title="">range</var>, it must run
+            "block-extend">block-extend</dfn> a [=range=] <var title="">range</var>, it must run
             the following steps:</p>
 
             <div class="note">
@@ -6845,10 +6805,7 @@ output is null.
                     "">end node</var> to its [=tree/parent=].
                 </li>
 
-                <li>Let <var title="">new range</var> be a new <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range" title=
-                "concept-range">range</a> whose [=range/start=] and [=range/end=] <a class="external"
+                <li>Let <var title="">new range</var> be a new [=range=] whose [=range/start=] and [=range/end=] <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">nodes</a> and [=boundary point/offsets=] are <var title=
@@ -11671,18 +11628,13 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 "#active-range">active range</a>.
                 </li>
 
-                <li>Create a new <a class="external" data-anolis-spec="dom"
-                href="http://dom.spec.whatwg.org/#concept-range" title=
-                "concept-range">range</a> with [=range/start=] (<var title="">node</var>,
+                <li>Create a new [=range=] with [=range/start=] (<var title="">node</var>,
                 <var title="">start offset</var>) and [=range/end=] (<var title="">node</var>,
                 <var title="">end offset</var>), and set the <a class=
                 "external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#context-object">context
                 object</a>'s <a href="#concept-selection" title=
-                "concept-selection">selection</a>'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range" title=
-                "concept-range">range</a> to it.
+                "concept-selection">selection</a>'s [=range=] to it.
                 </li>
 
                 <li>Take the <a href="#action">action</a> for "createLink",
@@ -11693,10 +11645,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 <li>Set the <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#context-object">context
                     object</a>'s <a href="#concept-selection" title=
-                    "concept-selection">selection</a>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range" title=
-                    "concept-range">range</a> to <var title="">original
+                    "concept-selection">selection</a>'s [=range=] to <var title="">original
                     range</var>.
                 </li>
             </ol>
@@ -12092,9 +12041,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     <ol>
                         <li>
                             <a href="#block-extend">Block-extend</a> the
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range" title=
-                            "concept-range">range</a> whose [=range/start=] and [=range/end=] are both
+                            [=range=] whose [=range/start=] and [=range/end=] are both
                             (<var title="">node</var>, 0), and let <var title=
                             "">new range</var> be the result.
                         </li>
@@ -14762,9 +14709,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>Let <var title="">new line range</var> be a new
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range" title=
-                    "concept-range">range</a> whose [=range/start=] is the same as the <a href=
+                    [=range=] whose [=range/start=] is the same as the <a href=
                     "#active-range">active range</a>'s, and whose [=range/end=] is (<var title=
                     "">container</var>, [=Node/length=] of <var title=
                     "">container</var>).
@@ -16225,9 +16170,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "concept-node">node</a>, the user agent must call <code title=
         "execCommand()"><a href=
         "#execcommand()">execCommand("insertparagraph")</a></code> on the
-        relevant <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>.</p>
+        relevant [=document=].</p>
 
         <p>When the user instructs the user agent to insert a line break inside
         an <a href="#editing-host">editing host</a> without breaking out of the
@@ -16238,9 +16181,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "concept-node">node</a>, the user agent must call <code title=
         "execCommand()"><a href=
         "#execcommand()">execCommand("insertlinebreak")</a></code> on the
-        relevant <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>.</p>
+        relevant [=document=].</p>
 
         <p>When the user instructs the user agent to delete the previous
         character inside an <a href="#editing-host">editing host</a>, such as
@@ -16250,9 +16191,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "concept-node">node</a>, the user agent must call <code title=
         "execCommand()"><a href=
         "#execcommand()">execCommand("delete")</a></code> on the relevant
-        <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>.</p>
+        [=document=].</p>
 
         <p>When the user instructs the user agent to delete the next character
         inside an <a href="#editing-host">editing host</a>, such as by pressing
@@ -16262,9 +16201,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "concept-node">node</a>, the user agent must call <code title=
         "execCommand()"><a href=
         "#execcommand()">execCommand("forwarddelete")</a></code> on the
-        relevant <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>.</p>
+        relevant [=document=].</p>
 
         <p>When the user instructs the user agent to insert text inside an
         <a href="#editing-host">editing host</a>, such as by typing on the
@@ -16273,10 +16210,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a>, the user agent must call <code title=
         "execCommand()"><a href="#execcommand()">execCommand("inserttext",
-        false, <var title="">value</var>)</a></code> on the relevant <a class=
-        "external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-document" title=
-        "concept-document">document</a>, with <var title="">value</var> equal
+        false, <var title="">value</var>)</a></code> on the relevant [=document=], with <var title="">value</var> equal
         to the text the user provided. If the user inserts multiple characters
         at once or in quick succession, this specification does not define
         whether it is treated as one insertion or several consecutive
