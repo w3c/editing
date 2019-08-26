@@ -2375,9 +2375,7 @@
             "http://dom.spec.whatwg.org/#concept-node" title=
             "concept-node">node</a> <var title="">node</var> is <dfn id=
             "effectively-contained">effectively contained</dfn> in a [=range=] <var title="">range</var> if <var title=
-            "">range</var> is not <code class="external" data-anolis-spec="dom"
-            title="dom-Range-collapsed"><a href=
-            "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+            "">range</var> is not {{AbstractRange/collapsed}},
             and at least one of the following holds:</p>
 
             <ul>
@@ -5832,9 +5830,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             its <a href="#action">action</a>, the user agent must <a href=
             "#record-current-overrides">record current overrides</a>. After
             taking the <a href="#action">action</a>, if the <a href=
-            "#active-range">active range</a> is <code class="external"
-            data-anolis-spec="dom" title="dom-Range-collapsed"><a href=
-            "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+            "#active-range">active range</a> is {{AbstractRange/collapsed}},
             it must <a href="#restore-states-and-values">restore states and
             values</a> from the recorded list.</p>
 
@@ -11480,9 +11476,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
             <ol>
                 <li>If the <a href="#active-range">active range</a> is not
-                <code class="external" data-anolis-spec="dom" title=
-                "dom-Range-collapsed"><a href=
-                "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+                {{AbstractRange/collapsed}},
                 <a href="#delete-the-selection">delete the selection</a> and
                 return true.
                 </li>
@@ -12738,9 +12732,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>If the <a href="#active-range">active range</a> is not
-                <code class="external" data-anolis-spec="dom" title=
-                "dom-Range-collapsed"><a href=
-                "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+                {{AbstractRange/collapsed}},
                 <a href="#delete-the-selection">delete the selection</a> and
                 return true.
                 </li>
