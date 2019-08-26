@@ -1514,9 +1514,7 @@
         "http://dom.spec.whatwg.org/#concept-range" title=
         "concept-range">ranges</a> in the <a href="#concept-selection" title=
         "concept-selection">selection</a> changes to something different, and
-        whenever a <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-range-bp" title=
-        "concept-range-bp">boundary point</a> of the <a class="external"
+        whenever a [=boundary point=] of the <a class="external"
         data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-range"
         title="concept-range">range</a> at a given index in the <a href=
         "#concept-selection" title="concept-selection">selection</a> changes to
@@ -1631,9 +1629,7 @@
                     <p class="note">This is actually implicit, but I state
                     it anyway for completeness.</p>
 
-                    <p>If a <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp" title=
-                    "concept-range-bp">boundary point</a>'s <a class="external"
+                    <p>If a [=boundary point=]'s <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">node</a> is the same as or a [=tree/descendant=] of
@@ -1641,9 +1637,7 @@
                     to the new location.</p>
                 </li>
 
-                <li>If a <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp" title=
-                "concept-range-bp">boundary point</a>'s <a class="external"
+                <li>If a [=boundary point=]'s <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">new parent</var> and
@@ -1651,9 +1645,7 @@
                     <var title="">new index</var>, add one to its [=boundary point/offset=].
                 </li>
 
-                <li>If a <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp" title=
-                "concept-range-bp">boundary point</a>'s <a class="external"
+                <li>If a [=boundary point=]'s <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">old parent</var> and
@@ -1666,9 +1658,7 @@
                     "">old index</var> to its [=boundary point/offset=].
                 </li>
 
-                <li>If a <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp" title=
-                "concept-range-bp">boundary point</a>'s <a class="external"
+                <li>If a [=boundary point=]'s <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">old parent</var> and
@@ -2071,19 +2061,13 @@
                             <p>If any <a class="external" data-anolis-spec=
                             "dom" href=
                             "http://dom.spec.whatwg.org/#concept-range" title=
-                            "concept-range">range</a> has a <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-bp"
-                            title="concept-range-bp">boundary point</a> with
+                            "concept-range">range</a> has a [=boundary point=] with
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-node" title=
                             "concept-node">node</a> equal to the [=tree/parent=] of
                             <var title="">new parent</var> and [=boundary point/offset=] equal to
                             the [=tree/index=] of <var title=
-                            "">new parent</var>, add one to that <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-bp"
-                            title="concept-range-bp">boundary point</a>'s
+                            "">new parent</var>, add one to that [=boundary point=]'s
                             [=boundary point/offset=].</p>
                         </li>
                     </ol>
@@ -6037,9 +6021,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     "http://dom.spec.whatwg.org/#contained">contained</a> in
                     the <a href="#active-range">active range</a> or is an
                     [=tree/ancestor=] of one of its
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp" title=
-                    "concept-range-bp">boundary points</a>.
+                    [=boundary points=].
                 </li>
 
                 <li>
@@ -6725,14 +6707,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             selection. In still other cases we might want to move forward or
             backward to try getting to a text node.</p>
 
-            <p>Given a <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            <p>Given a [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>), the <dfn id=
             "next-equivalent-point">next equivalent point</dfn> is either a
-            <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> or null, as returned by the
+            [=boundary point=] or null, as returned by the
             following algorithm:</p>
 
             <ol>
@@ -6794,14 +6772,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 <li>Return null.</li>
             </ol>
 
-            <p>Given a <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            <p>Given a [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>), the <dfn id=
             "previous-equivalent-point">previous equivalent point</dfn> is
-            either a <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> or null, as returned by the
+            either a [=boundary point=] or null, as returned by the
             following algorithm:</p>
 
             <ol>
@@ -6835,9 +6809,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             </ol>
 
             <p>The <dfn id="first-equivalent-point">first equivalent
-            point</dfn> of a <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            point</dfn> of a [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>) is returned by the following
             algorithm:</p>
 
@@ -6855,9 +6827,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             </ol>
 
             <p>The <dfn id="last-equivalent-point">last equivalent point</dfn>
-            of a <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            of a [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>) is returned by the following
             algorithm:</p>
 
@@ -6901,9 +6871,7 @@ output is null.
         <section>
             <h3 id="block-extending-a-range">Block-extending a range</h3>
 
-            <p>A <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            <p>A [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>) is a <dfn id="block-start-point">block
             start point</dfn> if either <var title="">node</var>'s [=tree/parent=] is null and <var title=
             "">offset</var> is zero; or <var title="">node</var> has a
@@ -6912,9 +6880,7 @@ output is null.
             "#visible">visible</a> <a href="#block-node">block node</a> or a
             <a href="#visible">visible</a> [^br^].</p>
 
-            <p>A <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> (<var title="">node</var>,
+            <p>A [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>) is a <dfn id="block-end-point">block
             end point</dfn> if either <var title="">node</var>'s [=tree/parent=] is null and <var title=
             "">offset</var> is <var title="">node</var>'s <a class="external"
@@ -6925,9 +6891,7 @@ output is null.
             [=tree/child=] is a <a href="#visible">visible</a>
             <a href="#block-node">block node</a>.</p>
 
-            <p>A <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-bp" title=
-            "concept-range-bp">boundary point</a> is a <dfn id=
+            <p>A [=boundary point=] is a <dfn id=
             "block-boundary-point">block boundary point</dfn> if it is either a
             <a href="#block-start-point">block start point</a> or a <a href=
             "#block-end-point">block end point</a>.</p>
