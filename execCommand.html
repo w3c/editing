@@ -98,13 +98,7 @@ var respecConfig = {
             it to a span, if it's some type of presentational element.
             ("Presentational" here really means "browsers produce it in
             response to execCommand() so we need to treat it as
-            presentational", so it includes things like <code class="external"
-            data-anolis-spec="html" title="the strong element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-            strong</a></code> and <code class="external" data-anolis-spec=
-            "html" title="the em element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-            em</a></code>.) Of course, in some cases we have to remove
+            presentational", so it includes things like [^strong^] and [^em^].) Of course, in some cases we have to remove
             elements, like when merging two blocks.</li>
 
             <li>Don't interfere with more markup than necessary. If the user
@@ -187,15 +181,9 @@ var respecConfig = {
                 intermediate DOM states much.</p>
             </li>
 
-            <li><code class="external" data-anolis-spec="html" title=
-            "the br element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-            br</a></code>s are a nightmare. I have tons of hacks all over the
+            <li>[^br^]s are a nightmare. I have tons of hacks all over the
             place which are totally wrong, mostly to account for the fact that
-            sometimes <code class="external" data-anolis-spec="html" title=
-            "the br element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-            br</a></code>s do nothing and we need to treat that case magically.
+            sometimes [^br^]s do nothing and we need to treat that case magically.
             I don't know what a good way is to fix this. At this point I've
             mostly gotten the evil concentrated in the definitions "collapsed
             line break", "extraneous line break", and "collapsed block prop",
@@ -1254,10 +1242,7 @@ var respecConfig = {
         itself.</p>
 
         <p>A <dfn id="collapsed-line-break">collapsed line break</dfn> is a
-        <code class="external" data-anolis-spec="html" title=
-        "the br element"><a href=
-        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-        br</a></code> that begins a line box which has nothing else in it, and
+        [^br^] that begins a line box which has nothing else in it, and
         therefore has zero height.</p>
 
         <p class="XXX">Is this a good definition at all? I mean things like
@@ -1276,17 +1261,8 @@ var respecConfig = {
         a p.</p>
 
         <p>An <dfn id="extraneous-line-break">extraneous line break</dfn> is a
-        <code class="external" data-anolis-spec="html" title=
-        "the br element"><a href=
-        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-        br</a></code> that has no visual effect, in that removing it from the
-        DOM would not change layout, except that a <code class="external"
-        data-anolis-spec="html" title="the br element"><a href=
-        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-        br</a></code> that is the sole child of an <code class="external"
-        data-anolis-spec="html" title="the li element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-        li</a></code> is not extraneous.</p>
+        [^br^] that has no visual effect, in that removing it from the
+        DOM would not change layout, except that a [^br^] that is the sole child of an [^li^] is not extraneous.</p>
 
         <p class="XXX">Also possibly a bad definition. Again, I test by just
         removing it and seeing what happens. (Actually, setting display: none,
@@ -1419,20 +1395,14 @@ var respecConfig = {
                     </li>
 
                     <li>If <var title="">reference</var> is a <a href=
-                    "#block-node">block node</a> or a <code class="external"
-                        data-anolis-spec="html" title="the br element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                        br</a></code>, return true.
+                    "#block-node">block node</a> or a [^br^], return true.
                     </li>
 
                     <li>If <var title="">reference</var> is a <code class=
                     "external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node
                     that is not a <a href="#whitespace-node">whitespace
-                    node</a>, or is an <code class="external"
-                        data-anolis-spec="html" title=
-                        "the img element"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                        img</a></code>, break from this loop.
+                    node</a>, or is an [^img^], break from this loop.
                     </li>
                 </ol>
             </li>
@@ -1468,20 +1438,14 @@ var respecConfig = {
                     </li>
 
                     <li>If <var title="">reference</var> is a <a href=
-                    "#block-node">block node</a> or a <code class="external"
-                        data-anolis-spec="html" title="the br element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                        br</a></code>, return true.
+                    "#block-node">block node</a> or a [^br^], return true.
                     </li>
 
                     <li>If <var title="">reference</var> is a <code class=
                     "external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node
                     that is not a <a href="#whitespace-node">whitespace
-                    node</a>, or is an <code class="external"
-                        data-anolis-spec="html" title=
-                        "the img element"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                        img</a></code>, break from this loop.
+                    node</a>, or is an [^img^], break from this loop.
                     </li>
                 </ol>
             </li>
@@ -1502,13 +1466,7 @@ var respecConfig = {
         node</a>, or a <code class="external" data-anolis-spec="dom"><a href=
         "http://dom.spec.whatwg.org/#text">Text</a></code> node that is not a
         <a href="#collapsed-whitespace-node">collapsed whitespace node</a>, or
-        an <code class="external" data-anolis-spec="html" title=
-        "the img element"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-        img</a></code>, or a <code class="external" data-anolis-spec="html"
-        title="the br element"><a href=
-        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-        br</a></code> that is not an <a href=
+        an [^img^], or a [^br^] that is not an <a href=
         "#extraneous-line-break">extraneous line break</a>, or any <a class=
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
@@ -2057,20 +2015,14 @@ var respecConfig = {
 
             <ol>
                 <li>
-                    <p class="note">We need to treat <code class="external"
-                    data-anolis-spec="html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>s as visible here even if they're not, because
+                    <p class="note">We need to treat [^br^]s as visible here even if they're not, because
                     wrapping them might be significant even if they're
                     invisible: it can turn an extraneous line break into a
                     non-extraneous one.</p>
 
                     <p>If every member of <var title="">node list</var> is
                     <a href="#invisible">invisible</a>, and none is a
-                    <code class="external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, return null and abort these steps.</p>
+                    [^br^], return null and abort these steps.</p>
                 </li>
 
                 <li>If <var title="">node list</var>'s first member's
@@ -2088,20 +2040,11 @@ var respecConfig = {
 
                     <p>If <var title="">node list</var>'s last member is an
                     <a href="#inline-node">inline node</a> that's not a
-                    <code class="external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, and <var title="">node list</var>'s last
+                    [^br^], and <var title="">node list</var>'s last
                     member's <code class="external" data-anolis-spec="dom"
                     title="dom-Node-nextSibling"><a href=
                     "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
-                    is a <code class="external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, append that <code class="external"
-                    data-anolis-spec="html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> to <var title="">node list</var>.</p>
+                    is a [^br^], append that [^br^] to <var title="">node list</var>.</p>
                 </li>
 
                 <li>
@@ -2331,11 +2274,7 @@ var respecConfig = {
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> of <var title=
-                            "">new parent</var> is not a <code class="external"
-                            data-anolis-spec="html" title=
-                            "the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, call <code class="external"
+                            "">new parent</var> is not a [^br^], call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
@@ -2377,10 +2316,7 @@ var respecConfig = {
                             list</var> are both <a href="#inline-node" title=
                             "inline node">inline nodes</a>, and the last member
                             of <var title="">node list</var> is not a
-                            <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, call <code class="external"
+                            [^br^], call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
@@ -2456,10 +2392,7 @@ var respecConfig = {
                             href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> is not a
-                            <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, call <code class="external"
+                            [^br^], call <code class="external"
                             data-anolis-spec="domcore" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
@@ -2567,19 +2500,10 @@ var respecConfig = {
                     yet. I've only covered what's come up in my tests.</li>
                 </ol>
 
-                <p>I deliberately allow <code class="external"
-                data-anolis-spec="html" title="the dt element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                dt</a></code> to contain headers and such, in violation of
+                <p>I deliberately allow [^dt^] to contain headers and such, in violation of
                 HTML. If I didn't, then when the user tried to formatBlock a
-                <code class="external" data-anolis-spec="html" title=
-                "the dt element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                dt</a></code> as a header, it would break apart the whole
-                <code class="external" data-anolis-spec="html" title=
-                "the dl element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dl-element">
-                dl</a></code>, which seems worse. See <a href=
+                [^dt^] as a header, it would break apart the whole
+                [^dl^], which seems worse. See <a href=
                 "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13201">bug
                 13201</a>.</p>
             </div>
@@ -2675,11 +2599,7 @@ var respecConfig = {
                             "external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-ancestor"
                             title="concept-tree-ancestor">ancestor</a> of
-                            <var title="">parent</var> is an <code class=
-                            "external" data-anolis-spec="html" title=
-                            "the a element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                            a</a></code>, return false.</p>
+                            <var title="">parent</var> is an [^a^], return false.</p>
                         </li>
 
                         <li>
@@ -2947,44 +2867,17 @@ var respecConfig = {
             </ul>
 
             <p>A <dfn id="modifiable-element">modifiable element</dfn> is a
-            <code class="external" data-anolis-spec="html" title=
-            "the b element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-            b</a></code>, <code class="external" data-anolis-spec="html" title=
-            "the em element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-            em</a></code>, <code class="external" data-anolis-spec="html"
-            title="the i element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
-            i</a></code>, <code class="external" data-anolis-spec="html" title=
-            "the s element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
-            s</a></code>, <code class="external" data-anolis-spec="html" title=
-            "the span element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-            span</a></code>, <code class="external" data-anolis-spec="html"
-            title="the strike element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
-            strike</a></code>, <code class="external" data-anolis-spec="html"
-            title="the strong element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-            strong</a></code>, <code class="external" data-anolis-spec="html"
+            [^b^], [^em^], [^i^], [^s^], [^span^], [^strike^], [^strong^], <code class="external" data-anolis-spec="html"
             title="the sub and sup elements"><a href=
             "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
             sub</a></code>, <code class="external" data-anolis-spec="html"
             title="the sub and sup elements"><a href=
             "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
-            sup</a></code>, or <code class="external" data-anolis-spec="html"
-            title="the u element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
-            u</a></code> element with no attributes except possibly
+            sup</a></code>, or [^u^] element with no attributes except possibly
             <code class="external" data-anolis-spec="html" title=
             "the style attribute"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
-            style</a></code>; or a <code class="external" data-anolis-spec=
-            "html" title="font"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-            font</a></code> element with no attributes except possibly
+            style</a></code>; or a [^font^] element with no attributes except possibly
             <code class="external" data-anolis-spec="html" title=
             "the style attribute"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -2997,10 +2890,7 @@ var respecConfig = {
             face</a></code>, and/or <code class="external" data-anolis-spec=
             "html" title="dom-font-size"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
-            size</a></code>; or an <code class="external" data-anolis-spec=
-            "html" title="the a element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-            a</a></code> element with no attributes except possibly
+            size</a></code>; or an [^a^] element with no attributes except possibly
             <code class="external" data-anolis-spec="html" title=
             "the style attribute"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -3014,100 +2904,34 @@ var respecConfig = {
             which at least one of the following holds:</p>
 
             <ul>
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code>, <code class="external" data-anolis-spec="html"
-                title="the b element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-                b</a></code>, <code class="external" data-anolis-spec="html"
-                title="the em element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-                em</a></code>, <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code>, <code class="external" data-anolis-spec="html"
-                title="the i element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
-                i</a></code>, <code class="external" data-anolis-spec="html"
-                title="the s element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
-                s</a></code>, <code class="external" data-anolis-spec="html"
-                title="the span element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                span</a></code>, <code class="external" data-anolis-spec="html"
-                title="the strike element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
-                strike</a></code>, <code class="external" data-anolis-spec=
-                "html" title="the strong element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-                strong</a></code>, <code class="external" data-anolis-spec=
+                <li>It is an [^a^], [^b^], [^em^], [^font^], [^i^], [^s^], [^span^], [^strike^], [^strong^], <code class="external" data-anolis-spec=
                 "html" title="the sub and sup elements"><a href=
                 "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sub</a></code>, <code class="external" data-anolis-spec="html"
                 title="the sub and sup elements"><a href=
                 "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
-                sup</a></code>, or <code class="external" data-anolis-spec=
-                "html" title="the u element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
-                u</a></code> element with no attributes.</li>
+                sup</a></code>, or [^u^] element with no attributes.</li>
 
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code>, <code class="external" data-anolis-spec="html"
-                title="the b element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-                b</a></code>, <code class="external" data-anolis-spec="html"
-                title="the em element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-                em</a></code>, <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code>, <code class="external" data-anolis-spec="html"
-                title="the i element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
-                i</a></code>, <code class="external" data-anolis-spec="html"
-                title="the s element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
-                s</a></code>, <code class="external" data-anolis-spec="html"
-                title="the span element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                span</a></code>, <code class="external" data-anolis-spec="html"
-                title="the strike element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
-                strike</a></code>, <code class="external" data-anolis-spec=
-                "html" title="the strong element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-                strong</a></code>, <code class="external" data-anolis-spec=
+                <li>It is an [^a^], [^b^], [^em^], [^font^], [^i^], [^s^], [^span^], [^strike^], [^strong^], <code class="external" data-anolis-spec=
                 "html" title="the sub and sup elements"><a href=
                 "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
                 sub</a></code>, <code class="external" data-anolis-spec="html"
                 title="the sub and sup elements"><a href=
                 "https://html.spec.whatwg.org/multipage/semantics.html#the-sub-and-sup-elements">
-                sup</a></code>, or <code class="external" data-anolis-spec=
-                "html" title="the u element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
-                u</a></code> element with exactly one attribute, which is
+                sup</a></code>, or [^u^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
                 style</a></code>, which sets no CSS properties (including
                 invalid or unrecognized properties).</li>
 
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code> element with exactly one attribute, which is
+                <li>It is an [^a^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "attr-hyperlink-href"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
                 href</a></code>.</li>
 
-                <li>It is a <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code> element with exactly one attribute, which is
+                <li>It is a [^font^] element with exactly one attribute, which is
                 either <code class="external" data-anolis-spec="html" title=
                 "dom-font-color"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-color">
@@ -3119,13 +2943,7 @@ var respecConfig = {
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
                 size</a></code>.</li>
 
-                <li>It is a <code class="external" data-anolis-spec="html"
-                title="the b element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-                b</a></code> or <code class="external" data-anolis-spec="html"
-                title="the strong element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-                strong</a></code> element with exactly one attribute, which is
+                <li>It is a [^b^] or [^strong^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -3136,13 +2954,7 @@ var respecConfig = {
                 (including invalid or unrecognized properties), which is
                 "font-weight".</li>
 
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the i element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
-                i</a></code> or <code class="external" data-anolis-spec="html"
-                title="the em element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-                em</a></code> element with exactly one attribute, which is
+                <li>It is an [^i^] or [^em^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -3153,16 +2965,7 @@ var respecConfig = {
                 (including invalid or unrecognized properties), which is
                 "font-style".</li>
 
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code>, <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code>, or <code class="external" data-anolis-spec=
-                "html" title="the span element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                span</a></code> element with exactly one attribute, which is
+                <li>It is an [^a^], [^font^], or [^span^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -3173,25 +2976,7 @@ var respecConfig = {
                 (including invalid or unrecognized properties), and that
                 property is not "text-decoration".</li>
 
-                <li>It is an <code class="external" data-anolis-spec="html"
-                title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code>, <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code>, <code class="external" data-anolis-spec="html"
-                title="the s element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
-                s</a></code>, <code class="external" data-anolis-spec="html"
-                title="the span element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                span</a></code>, <code class="external" data-anolis-spec="html"
-                title="the strike element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
-                strike</a></code>, or <code class="external" data-anolis-spec=
-                "html" title="the u element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
-                u</a></code> element with exactly one attribute, which is
+                <li>It is an [^a^], [^font^], [^s^], [^span^], [^strike^], or [^u^] element with exactly one attribute, which is
                 <code class="external" data-anolis-spec="html" title=
                 "the style attribute"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
@@ -3221,13 +3006,7 @@ var respecConfig = {
             "concept-node">node</a> that is either a <code class="external"
             data-anolis-spec="dom"><a href=
             "http://dom.spec.whatwg.org/#text">Text</a></code> node, an
-            <code class="external" data-anolis-spec="html" title=
-            "the img element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-            img</a></code>, or a <code class="external" data-anolis-spec="html"
-            title="the br element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-            br</a></code>.</p>
+            [^img^], or a [^br^].</p>
 
             <p>Two quantities are <dfn id="equivalent-values">equivalent
             values</dfn> for a <a href="#command">command</a> if either both
@@ -3247,10 +3026,7 @@ var respecConfig = {
             is one of "x-small", "small", "medium", "large", "x-large",
             "xx-large", or "xxx-large"; and the other quantity is the <a href=
             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a>
-            of "font-size" on a <code class="external" data-anolis-spec="html"
-            title="font"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-            font</a></code> element whose <code class="external"
+            of "font-size" on a [^font^] element whose <code class="external"
             data-anolis-spec="html" title="dom-font-size"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
             size</a></code> attribute has the corresponding value set ("1"
@@ -3398,10 +3174,7 @@ var respecConfig = {
 
                     <ol>
                         <li>While <var title="">node</var> is not null, and is
-                        not an <code class="external" data-anolis-spec="html"
-                            title="the a element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                            a</a></code> element that has an <code class=
+                        not an [^a^] element that has an <code class=
                             "external" data-anolis-spec="html" title=
                             "attr-hyperlink-href"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -3618,10 +3391,7 @@ var respecConfig = {
 
                     <ol>
                         <li>If <var title="">element</var> is an
-                            <code class="external" data-anolis-spec="html"
-                            title="the a element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                            a</a></code> element and has an <code class=
+                            [^a^] element and has an <code class=
                             "external" data-anolis-spec="html" title=
                             "attr-hyperlink-href"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -3677,13 +3447,7 @@ var respecConfig = {
                 </li>
 
                 <li>If <var title="">command</var> is "strikethrough" and
-                <var title="">element</var> is an <code class="external"
-                data-anolis-spec="html" title="the s element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-s-element">
-                s</a></code> or <code class="external" data-anolis-spec="html"
-                title="the strike element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#strike">
-                strike</a></code> element, return "line-through".</li>
+                <var title="">element</var> is an [^s^] or [^strike^] element, return "line-through".</li>
 
                 <li>If <var title="">command</var> is "underline", and
                 <var title="">element</var> has a <code class="external"
@@ -3705,10 +3469,7 @@ var respecConfig = {
                 </li>
 
                 <li>If <var title="">command</var> is "underline" and
-                <var title="">element</var> is a <code class="external"
-                data-anolis-spec="html" title="the u element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-u-element">
-                u</a></code> element, return "underline".</li>
+                <var title="">element</var> is a [^u^] element, return "underline".</li>
 
                 <li>Let <var title="">property</var> be the <a href=
                 "#relevant-css-property">relevant CSS property</a> for
@@ -3724,10 +3485,7 @@ var respecConfig = {
                 effect of setting <var title="">property</var>, return the
                 value that it sets <var title="">property</var> to.</li>
 
-                <li>If <var title="">element</var> is a <code class="external"
-                    data-anolis-spec="html" title="font"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                    font</a></code> element that has an attribute whose effect
+                <li>If <var title="">element</var> is a [^font^] element that has an attribute whose effect
                     is to create a <a class="external" data-anolis-spec="html"
                     href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#presentational-hints"
@@ -3746,21 +3504,9 @@ var respecConfig = {
                 name listed for it, return the string listed for it.
 
                     <ul>
-                        <li><code class="external" data-anolis-spec="html"
-                        title="the b element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-                        b</a></code>, <code class="external" data-anolis-spec=
-                        "html" title="the strong element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-strong-element">
-                        strong</a></code>: font-weight: "bold"</li>
+                        <li>[^b^], [^strong^]: font-weight: "bold"</li>
 
-                        <li><code class="external" data-anolis-spec="html"
-                        title="the i element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-i-element">
-                        i</a></code>, <code class="external" data-anolis-spec=
-                        "html" title="the em element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-em-element">
-                        em</a></code>: font-style: "italic"</li>
+                        <li>[^i^], [^em^]: font-style: "italic"</li>
                     </ul>
                 </li>
 
@@ -4003,10 +3749,7 @@ var respecConfig = {
                 that property of <var title="">element</var>.
                 </li>
 
-                <li>If <var title="">element</var> is a <code class="external"
-                    data-anolis-spec="html" title="font"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                    font</a></code> element:
+                <li>If <var title="">element</var> is a [^font^] element:
 
                     <ol>
                         <li>If <var title="">command</var> is "foreColor",
@@ -4030,10 +3773,7 @@ var respecConfig = {
                     </ol>
                 </li>
 
-                <li>If <var title="">element</var> is an <code class="external"
-                data-anolis-spec="html" title="the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                a</a></code> element and <var title="">command</var> is
+                <li>If <var title="">element</var> is an [^a^] element and <var title="">command</var> is
                 "createLink" or "unlink", unset the <code class="external"
                 data-anolis-spec="html" title="attr-hyperlink-href"><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
@@ -4659,10 +4399,7 @@ var respecConfig = {
                                     list is prone to bitrot.</p>
 
                                     <p>If <var title="">ancestor</var> is an
-                                    <code class="external" data-anolis-spec=
-                                    "html" title="the a element"><a href=
-                                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                                    a</a></code>, <a href=
+                                    [^a^], <a href=
                                     "#set-the-tag-name">set the tag name</a> of
                                     <var title="">ancestor</var> to "span", and
                                     let <var title="">ancestor</var> be the
@@ -5014,16 +4751,7 @@ var respecConfig = {
                 "clear the value">clear its value</a>). This step also removes
                 <a href="#simple-modifiable-element" title=
                 "simple modifiable element">simple modifiable elements</a>
-                entirely, and replaces elements like <code class="external"
-                data-anolis-spec="html" title="the b element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-b-element">
-                b</a></code> or <code class="external" data-anolis-spec="html"
-                title="font"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                font</a></code> with <code class="external" data-anolis-spec=
-                "html" title="the span element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                span</a></code>s if they aren't simple modifiable elements.
+                entirely, and replaces elements like [^b^] or [^font^] with [^span^]s if they aren't simple modifiable elements.
                 This will be sufficient if the desired value is inherited from
                 an ancestor, or if it's the default (like font-style: normal)
                 and no conflicting value is inherited from an ancestor. Even if
@@ -5536,11 +5264,7 @@ var respecConfig = {
                         it?</p>
                     </div>
 
-                    <p>For each <a href="#editable">editable</a> <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the a element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                    a</a></code> element that has an <code class="external"
+                    <p>For each <a href="#editable">editable</a> [^a^] element that has an <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
                     href</a></code> attribute and is an <a class="external"
@@ -5552,10 +5276,7 @@ var respecConfig = {
                     "concept-node">node</a> <a href=
                     "#effectively-contained">effectively contained</a> in the
                     <a href="#active-range">active range</a>, set that
-                    <code class="external" data-anolis-spec="html" title=
-                    "the a element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                    a</a></code> element's <code class="external"
+                    [^a^] element's <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
                     href</a></code> attribute to <var title="">value</var>.</p>
@@ -5903,10 +5624,7 @@ var respecConfig = {
                         <li>Let <var title="">lower bound</var> be the
                             <a href="http://dev.w3.org/csswg/cssom/#resolved-value">
                             resolved value</a> of "font-size" in pixels of a
-                            <code class="external" data-anolis-spec="html"
-                            title="font"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                            font</a></code> element whose <code class=
+                            [^font^] element whose <code class=
                             "external" data-anolis-spec="html" title=
                             "dom-font-size"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
@@ -5917,10 +5635,7 @@ var respecConfig = {
                         <li>Let <var title="">upper bound</var> be the
                             <a href="http://dev.w3.org/csswg/cssom/#resolved-value">
                             resolved value</a> of "font-size" in pixels of a
-                            <code class="external" data-anolis-spec="html"
-                            title="font"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#font">
-                            font</a></code> element whose <code class=
+                            [^font^] element whose <code class=
                             "external" data-anolis-spec="html" title=
                             "dom-font-size"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#dom-font-size">
@@ -6666,10 +6381,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <ol>
                 <li>Let <var title="">hyperlinks</var> be a list of every
-                <code class="external" data-anolis-spec="html" title=
-                "the a element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                    a</a></code> element that has an <code class="external"
+                [^a^] element that has an <code class="external"
                     data-anolis-spec="html" title=
                     "attr-hyperlink-href"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#attr-hyperlink-href">
                     href</a></code> attribute and is <a class="external"
@@ -6702,13 +6414,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             command definitions</h3>
 
             <p>An <dfn id="indentation-element">indentation element</dfn> is
-            either a <code class="external" data-anolis-spec="html" title=
-            "the blockquote element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-blockquote-element">
-            blockquote</a></code>, or a <code class="external"
-            data-anolis-spec="html" title="the div element"><a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-div-element">
-            div</a></code> that has a <code class="external" data-anolis-spec=
+            either a [^blockquote^], or a [^div^] that has a <code class="external" data-anolis-spec=
             "html" title="the style attribute"><a href=
             "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-style-attribute">
             style</a></code> attribute that sets "margin" or some subproperty
@@ -6830,10 +6536,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     <p class="note">This case is really intended to handle
                     stuff like list items or table cells that wander outside
                     their proper place. We generally convert them into
-                    <code class="external" data-anolis-spec="html" title=
-                    "the p element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-p-element">
-                    p</a></code>s.</p>
+                    [^p^]s.</p>
 
                     <p>If <var title="">node</var> is not an <a href=
                     "#allowed-child">allowed child</a> of any of its <a class=
@@ -6844,24 +6547,13 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     host</a>:</p>
 
                     <ol>
-                        <li>If <var title="">node</var> is a <code class=
-                        "external" data-anolis-spec="html" title=
-                        "the dd element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                            dd</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the dt element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                            dt</a></code>, <a href="#wrap">wrap</a> the
+                        <li>If <var title="">node</var> is a [^dd^] or [^dt^], <a href="#wrap">wrap</a> the
                             one-<a class="external" data-anolis-spec="dom"
                             href="http://dom.spec.whatwg.org/#concept-node"
                             title="concept-node">node</a> list consisting of
                             <var title="">node</var>, with <var title=
                             "">sibling criteria</var> returning true for any
-                            <code class="external" data-anolis-spec="html"
-                            title="the dl element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dl-element">
-                            dl</a></code> with no <a class="external"
+                            [^dl^] with no <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-attribute"
                             title="concept-attribute">attributes</a> and false
@@ -7031,11 +6723,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             "concept-node">node</a> <var title="">item</var>:</p>
 
             <ol>
-                <li>If <var title="">item</var> is not an <code class=
-                "external" data-anolis-spec="html" title=
-                "the li element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> or it is not <a href="#editable">editable</a>
+                <li>If <var title="">item</var> is not an [^li^] or it is not <a href="#editable">editable</a>
                     or its <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-parent" title=
                     "concept-tree-parent">parent</a> is not <a href=
@@ -7044,14 +6732,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
                 <li>Let <var title="">new item</var> be null.</li>
 
-                <li>While <var title="">item</var> has an <code class=
-                "external" data-anolis-spec="html" title=
-                "the ol element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> <a class="external" data-anolis-spec="dom"
+                <li>While <var title="">item</var> has an [^ol^] or [^ul^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
                     title="concept-tree-child">child</a>:
 
@@ -7063,15 +6744,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                             "">item</var>.
                         </li>
 
-                        <li>If <var title="">child</var> is an <code class=
-                        "external" data-anolis-spec="html" title=
-                        "the ol element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>, or <var title="">new item</var> is
+                        <li>If <var title="">child</var> is an [^ol^] or [^ul^], or <var title="">new item</var> is
                             null and <var title="">child</var> is a
                             <code class="external" data-anolis-spec=
                             "dom"><a href=
@@ -7264,23 +6937,9 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 "">node</var>; <var title="">node</var> is <a href="#editable">
                     editable</a>; <var title="">node</var> is not an <a href=
                     "#indentation-element">indentation element</a>; and
-                    <var title="">node</var> is either an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, or the <a class="external" data-anolis-spec=
+                    <var title="">node</var> is either an [^ol^] or [^ul^], or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, or an <a href="#allowed-child">allowed
+                    title="concept-tree-child">child</a> of an [^ol^] or [^ul^], or an <a href="#allowed-child">allowed
                     child</a> of "li".
                 </li>
 
@@ -7315,38 +6974,16 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     </div>
 
                     <p>If every member of <var title="">node list</var> is
-                    either an <code class="external" data-anolis-spec="html"
-                    title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                    either an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                    title="concept-tree-child">child</a> of an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code>, and none is a <code class="external"
-                    data-anolis-spec="html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or an <a class="external" data-anolis-spec=
+                    title="concept-tree-child">child</a> of an [^ol^], and none is a [^ul^] or an <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, return "ol".</p>
+                    "concept-tree-ancestor">ancestor</a> of a [^ul^], return "ol".</p>
                 </li>
 
                 <li>
@@ -7360,147 +6997,65 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     list is empty, in which case we already aborted.</p>
 
                     <p>If every member of <var title="">node list</var> is
-                    either a <code class="external" data-anolis-spec="html"
-                    title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                    either a [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                    title="concept-tree-child">child</a> of a [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, and none is an <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or an <a class="external" data-anolis-spec=
+                    title="concept-tree-child">child</a> of a [^ul^], and none is an [^ol^] or an <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code>, return "ul".</p>
+                    "concept-tree-ancestor">ancestor</a> of an [^ol^], return "ul".</p>
                 </li>
 
                 <li>If some member of <var title="">node list</var> is either
-                an <code class="external" data-anolis-spec="html" title=
-                "the ol element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
                     title="concept-tree-child">child</a> or <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                    "concept-tree-ancestor">ancestor</a> of an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code>, and some member of <var title="">node
-                    list</var> is either a <code class="external"
-                    data-anolis-spec="html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                    title="concept-tree-child">child</a> of an [^ol^], and some member of <var title="">node
+                    list</var> is either a [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
                     title="concept-tree-child">child</a> or <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                    "concept-tree-ancestor">ancestor</a> of a [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, return "mixed".
+                    title="concept-tree-child">child</a> of a [^ul^], return "mixed".
                 </li>
 
                 <li>If some member of <var title="">node list</var> is either
-                an <code class="external" data-anolis-spec="html" title=
-                "the ol element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
                     title="concept-tree-child">child</a> or <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or the <a class="external" data-anolis-spec=
+                    "concept-tree-ancestor">ancestor</a> of an [^ol^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code>, return "mixed ol".
+                    title="concept-tree-child">child</a> of an [^ol^], return "mixed ol".
                 </li>
 
                 <li>If some member of <var title="">node list</var> is either a
-                <code class="external" data-anolis-spec="html" title=
-                "the ul element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
                     title="concept-tree-child">child</a> or <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
-                    "concept-tree-ancestor">ancestor</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> or the <a class="external" data-anolis-spec=
+                    "concept-tree-ancestor">ancestor</a> of a [^ul^] or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> <a class="external" data-anolis-spec="dom"
+                    title="concept-tree-child">child</a> of an [^li^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> of a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, return "mixed ul".
+                    title="concept-tree-child">child</a> of a [^ul^], return "mixed ul".
                 </li>
 
                 <li>Return "none".</li>
@@ -7849,10 +7404,7 @@ output is null.
             "http://dom.spec.whatwg.org/#concept-tree-child" title=
             "concept-tree-child">child</a> is either a <a href=
             "#visible">visible</a> <a href="#block-node">block node</a> or a
-            <a href="#visible">visible</a> <code class="external"
-            data-anolis-spec="html" title="the br element"><a href=
-            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-            br</a></code>.</p>
+            <a href="#visible">visible</a> [^br^].</p>
 
             <p>A <a class="external" data-anolis-spec="dom" href=
             "http://dom.spec.whatwg.org/#concept-range-bp" title=
@@ -7936,24 +7488,14 @@ output is null.
                     href="http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
                     ancestor</a> of <var title="">start node</var> is an
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>, set <var title="">start offset</var> to the
+                    [^li^], set <var title="">start offset</var> to the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-index" title=
                     "concept-tree-index">index</a> of the last such
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> in <a class="external" data-anolis-spec="dom"
+                    [^li^] in <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-order"
                     title="concept-tree-order">tree order</a>, and set
-                    <var title="">start node</var> to that <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>'s <a class="external" data-anolis-spec="dom"
+                    <var title="">start node</var> to that [^li^]'s <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-parent"
                     title="concept-tree-parent">parent</a>.
                 </li>
@@ -8011,23 +7553,14 @@ output is null.
                     href="http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
                     ancestor</a> of <var title="">end node</var> is an
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>, set <var title="">end offset</var> to one
+                    [^li^], set <var title="">end offset</var> to one
                     plus the <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-index" title=
                     "concept-tree-index">index</a> of the last such
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> in <a class="external" data-anolis-spec="dom"
+                    [^li^] in <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-order"
                     title="concept-tree-order">tree order</a>, and set
-                    <var title="">end node</var> to that <code class="external"
-                    data-anolis-spec="html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>'s <a class="external" data-anolis-spec="dom"
+                    <var title="">end node</var> to that [^li^]'s <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-parent"
                     title="concept-tree-parent">parent</a>.
                 </li>
@@ -8766,13 +8299,7 @@ output is null.
                     "#editing-host">editing host</a>, or "span" is not an
                     <a href="#allowed-child">allowed child</a> of <var title=
                     "">start block</var>, or <var title="">start block</var> is
-                    a <code class="external" data-anolis-spec="html" title=
-                    "the td element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-td-element">
-                    td</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the th element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-th-element">
-                    th</a></code>, set <var title="">start block</var> to
+                    a [^td^] or [^th^], set <var title="">start block</var> to
                     null.</p>
                 </li>
 
@@ -8801,13 +8328,7 @@ output is null.
                     editing host</a>, or "span" is not an <a href=
                     "#allowed-child">allowed child</a> of <var title="">end
                     block</var>, or <var title="">end block</var> is a
-                    <code class="external" data-anolis-spec="html" title=
-                    "the td element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-td-element">
-                    td</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the th element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-th-element">
-                    th</a></code>, set <var title="">end block</var> to null.
+                    [^td^] or [^th^], set <var title="">end block</var> to null.
                 </li>
 
                 <li class="note">
@@ -8946,25 +8467,7 @@ output is null.
                     title="concept-tree-ancestor">ancestor</a> of <var title=
                     "">node</var>; <var title="">node</var> is <a href=
                     "#editable">editable</a>; and <var title="">node</var> is
-                    not a <code class="external" data-anolis-spec="html" title=
-                    "the thead element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-thead-element">
-                    thead</a></code>, <code class="external" data-anolis-spec=
-                    "html" title="the tbody element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-tbody-element">
-                    tbody</a></code>, <code class="external" data-anolis-spec=
-                    "html" title="the tfoot element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-tfoot-element">
-                    tfoot</a></code>, <code class="external" data-anolis-spec=
-                    "html" title="the tr element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-tr-element">
-                    tr</a></code>, <code class="external" data-anolis-spec=
-                    "html" title="the th element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-th-element">
-                    th</a></code>, or <code class="external" data-anolis-spec=
-                    "html" title="the td element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-td-element">
-                    td</a></code>.</p>
+                    not a [^thead^], [^tbody^], [^tfoot^], [^tr^], [^th^], or [^td^].</p>
                 </li>
 
                 <li>For each <var title="">node</var> in <var title="">node
@@ -9322,10 +8825,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>While <var title="">children</var>'s last member is
-                        not a <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, and <var title="">children</var>'s
+                        not a [^br^], and <var title="">children</var>'s
                             last member's <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Node-nextSibling"><a href=
@@ -9358,15 +8858,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             title="dom-Node-previousSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-previoussibling">
                             previousSibling</a></code> is an <a href=
-                            "#editable">editable</a> <code class="external"
-                            data-anolis-spec="html" title=
-                            "the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, remove that <code class="external"
-                            data-anolis-spec="html" title=
-                            "the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code> from its <a class="external"
+                            "#editable">editable</a> [^br^], remove that [^br^] from its <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-parent"
                             title="concept-tree-parent">parent</a>.
@@ -9423,10 +8915,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "external" data-anolis-spec="dom" title=
                             "dom-Node-lastChild"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
-                            is a <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, remove <var title="">start
+                            is a [^br^], remove <var title="">start
                             block</var>'s <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Node-lastChild"><a href=
@@ -9450,10 +8939,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>While <var title="">nodes to move</var> is nonempty
-                        and its last member isn't a <code class="external"
-                        data-anolis-spec="html" title=
-                            "the br element"><a href="https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code> and its last member's <code class=
+                        and its last member isn't a [^br^] and its last member's <code class=
                             "external" data-anolis-spec="dom" title=
                             "dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
@@ -9514,10 +9000,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         "external" data-anolis-spec="dom" title=
                         "dom-Node-lastChild"><a href=
                         "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
-                        is a <code class="external" data-anolis-spec="html"
-                        title="the br element"><a href=
-                        "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, remove <var title="">start
+                        is a [^br^], remove <var title="">start
                             block</var>'s <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Node-lastChild"><a href=
@@ -9577,32 +9060,20 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 "external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
-                    ancestor</a> <code class="external" data-anolis-spec="html"
-                    title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> <a href="#in-the-same-editing-host">in the
+                    ancestor</a> [^ol^] <a href="#in-the-same-editing-host">in the
                     same editing host</a> whose <code class="external"
                     data-anolis-spec="dom" title=
                     "dom-Node-nextSibling"><a href="http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                    nextSibling</a></code> is also an <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> <a href="#in-the-same-editing-host">in the
+                    nextSibling</a></code> is also an [^ol^] <a href="#in-the-same-editing-host">in the
                     same editing host</a>, or an <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
-                    ancestor</a> <code class="external" data-anolis-spec="html"
-                    title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> <a href="#in-the-same-editing-host">in the
+                    ancestor</a> [^ul^] <a href="#in-the-same-editing-host">in the
                     same editing host</a> whose <code class="external"
                     data-anolis-spec="dom" title=
                     "dom-Node-nextSibling"><a href="http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                    nextSibling</a></code> is also a <code class="external"
-                    data-anolis-spec="html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> <a href="#in-the-same-editing-host">in the
+                    nextSibling</a></code> is also a [^ul^] <a href="#in-the-same-editing-host">in the
                     same editing host</a>:
 
                     <ol>
@@ -9610,17 +9081,9 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         <code class="external" data-anolis-spec="dom"
                             title="dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
-                            are not both <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ol element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code>s <a href=
+                            are not both [^ol^]s <a href=
                             "#in-the-same-editing-host">in the same editing
-                            host</a>, and are also not both <code class=
-                            "external" data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>s <a href=
+                            host</a>, and are also not both [^ul^]s <a href=
                             "#in-the-same-editing-host">in the same editing
                             host</a>, set <var title="">ancestor</var> to its
                             <a class="external" data-anolis-spec="dom" href=
@@ -9940,17 +9403,11 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                 <li>If the last member of <var title="">node list</var> is an
                 <a href="#inline-node">inline node</a> other than a
-                    <code class="external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, and the first <a class="external"
+                    [^br^], and the first <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a> of <var title="">original
-                    parent</var> is a <code class="external" data-anolis-spec=
-                    "html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, and <var title="">original parent</var> is
+                    parent</var> is a [^br^], and <var title="">original parent</var> is
                     not an <a href="#inline-node">inline node</a>, remove the
                     first <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
@@ -10713,13 +10170,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 <li>If <var title="">first node</var>'s <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-tree-parent" title=
-                "concept-tree-parent">parent</a> is an <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>:
+                "concept-tree-parent">parent</a> is an [^ol^] or [^ul^]:
 
                     <ol>
                         <li>Let <var title="">tag</var> be the <a class=
@@ -11011,13 +10462,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                     "http://dom.spec.whatwg.org/#element">Element</a></code>
                     that is neither a <a href=
                     "#simple-indentation-element">simple indentation
-                    element</a> nor an <code class="external" data-anolis-spec=
-                    "html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> nor a <code class="external"
-                    data-anolis-spec="html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, append <var title="">current ancestor</var>
+                    element</a> nor an [^ol^] nor a [^ul^], append <var title="">current ancestor</var>
                     to <var title="">ancestor list</var> and then set
                     <var title="">current ancestor</var> to its <a class=
                     "external" data-anolis-spec="dom" href=
@@ -11047,14 +10492,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "http://dom.spec.whatwg.org/#element">Element</a></code>
                             that is neither an <a href=
                             "#indentation-element">indentation element</a> nor
-                            an <code class="external" data-anolis-spec="html"
-                            title="the ol element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> nor a <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>, append <var title="">current
+                            an [^ol^] nor a [^ul^], append <var title="">current
                             ancestor</var> to <var title="">ancestor list</var>
                             and then set <var title="">current ancestor</var>
                             to its <a class="external" data-anolis-spec="dom"
@@ -11072,13 +10510,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                     seems to remove both. IE9 and Firefox 4.0 remove the simple
                     indentation element, as does the spec.</p>
 
-                    <p>If <var title="">node</var> is an <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> and <var title="">current ancestor</var> is
+                    <p>If <var title="">node</var> is an [^ol^] or [^ul^] and <var title="">current ancestor</var> is
                     not an <a href="#editable">editable</a> <a href=
                     "#indentation-element">indentation element</a>:</p>
 
@@ -11113,14 +10545,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             its <a class="external" data-anolis-spec="dom"
                             href="http://dom.spec.whatwg.org/#concept-tree-parent"
                             title="concept-tree-parent">parent</a> is not an
-                            <code class="external" data-anolis-spec="html"
-                            title="the ol element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>, <a href="#set-the-tag-name">set the
+                            [^ol^] or [^ul^], <a href="#set-the-tag-name">set the
                             tag name</a> of <var title="">node</var> to
                             "div".</p>
                         </li>
@@ -11203,17 +10628,11 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                         <li>If <var title="">target</var> is an <a href=
                         "#inline-node">inline node</a> that is not a
-                        <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, and its <code class="external"
+                        [^br^], and its <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
-                            is a <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, remove <var title="">target</var>'s
+                            is a [^br^], remove <var title="">target</var>'s
                             <code class="external" data-anolis-spec="dom"
                             title="dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
@@ -12482,10 +11901,7 @@ ol ol ol { list-style-type: lower-roman }
                 "">tag name</var> is "ol".</li>
 
                 <li>Let <var title="">items</var> be a list of all
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>s that are <a class="external"
+                    [^li^]s that are <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
@@ -12639,23 +12055,10 @@ ol ol ol { list-style-type: lower-roman }
                     "concept-tree-ancestor">ancestor</a> of <var title=
                     "">node</var>; <var title="">node</var> is not an <a href=
                     "#indentation-element">indentation element</a>; and either
-                    <var title="">node</var> is an <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, or its <a class="external" data-anolis-spec=
+                    <var title="">node</var> is an [^ol^] or [^ul^], or its <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-parent" title=
-                    "concept-tree-parent">parent</a> is an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, or it is an <a href="#allowed-child">allowed
+                    "concept-tree-parent">parent</a> is an [^ol^] or [^ul^], or it is an <a href="#allowed-child">allowed
                     child</a> of "li"; then append <var title="">node</var> to
                     <var title="">node list</var>.</p>
                 </li>
@@ -12679,23 +12082,11 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     </div>
 
                     <p>If <var title="">mode</var> is "enable", remove from
-                    <var title="">node list</var> any <code class="external"
-                    data-anolis-spec="html" title="the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code> whose <a class="external" data-anolis-spec=
+                    <var title="">node list</var> any [^ol^] or [^ul^] whose <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-parent" title=
                     "concept-tree-parent">parent</a> is not also an
-                    <code class="external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>.</p>
+                    [^ol^] or [^ul^].</p>
                 </li>
 
                 <li>If <var title="">mode</var> is "disable", then while
@@ -12796,15 +12187,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                     be put inside the &lt;li&gt;.</p>
 
                                     <p>If <var title="">node list</var>'s first
-                                    member is a <code class="external"
-                                    data-anolis-spec="html" title=
-                                    "the p element"><a href=
-                                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-p-element">
-                                    p</a></code> or <code class="external"
-                                    data-anolis-spec="html" title=
-                                    "the div element"><a href=
-                                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-div-element">
-                                    div</a></code>, <a href=
+                                    member is a [^p^] or [^div^], <a href=
                                     "#set-the-tag-name">set the tag name</a> of
                                     <var title="">node list</var>'s first
                                     member to "li", and append the result to
@@ -12815,18 +12198,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                                 <li>Otherwise, if the first member of
                                 <var title="">node list</var> is an
-                                <code class="external" data-anolis-spec="html"
-                                title="the li element"><a href=
-                                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                                li</a></code> or <code class="external"
-                                data-anolis-spec="html" title=
-                                "the ol element"><a href=
-                                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                                ol</a></code> or <code class="external"
-                                data-anolis-spec="html" title=
-                                "the ul element"><a href=
-                                "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                                ul</a></code>, remove it from <var title=
+                                [^li^] or [^ol^] or [^ul^], remove it from <var title=
                                 "">node list</var> and append it to <var title=
                                 "">sublist</var>.</li>
 
@@ -12857,11 +12229,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                             node</a> and the last member of
                                             <var title="">nodes to wrap</var>
                                             is an <a href="#inline-node">inline
-                                            node</a> other than a <code class=
-                                            "external" data-anolis-spec="html"
-                                            title="the br element"><a href=
-                                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                                            br</a></code>, remove the first
+                                            node</a> other than a [^br^], remove the first
                                             member from <var title="">node
                                             list</var> and append it to
                                             <var title="">nodes to wrap</var>.
@@ -12902,15 +12270,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             "http://dom.spec.whatwg.org/#concept-element-local-name"
                             title="concept-element-local-name">local name</a>
                             <var title="">tag name</var>, or if every member of
-                            <var title="">sublist</var> is an <code class=
-                            "external" data-anolis-spec="html" title=
-                            "the ol element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>, continue this loop from the
+                            <var title="">sublist</var> is an [^ol^] or [^ul^], continue this loop from the
                             beginning.</p>
                         </li>
 
@@ -13225,14 +12585,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         style</a></code> attribute.</li>
 
                         <li>If <var title="">element</var> is a
-                            <code class="external" data-anolis-spec="html"
-                            title="the div element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-div-element">
-                            div</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the span element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-span-element">
-                            span</a></code> or <code class="external"
+                            [^div^] or [^span^] or <code class="external"
                             data-anolis-spec="html"><a href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#center">
                             center</a></code> with no attributes, remove it,
@@ -13319,11 +12672,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         <li>
                             <p><a href="#wrap">Wrap</a> <var title=
                             "">sublist</var>. <var title="">Sibling
-                            criteria</var> returns true for any <code class=
-                            "external" data-anolis-spec="html" title=
-                            "the div element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-div-element">
-                            div</a></code> that has one or both of the
+                            criteria</var> returns true for any [^div^] that has one or both of the
                             following two attributes and no other attributes,
                             and false otherwise:</p>
 
@@ -13485,10 +12834,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 <li>If <var title="">node</var> is not a <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node, or
-                    has an <code class="external" data-anolis-spec="html"
-                    title="the a element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                    a</a></code> <a class="external" data-anolis-spec="dom"
+                    has an [^a^] <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-ancestor"
                     title="concept-tree-ancestor">ancestor</a>, do nothing and
                     abort these steps.
@@ -13827,11 +13173,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             "external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> is an <a href=
-                            "#editable">editable</a> <code class="external"
-                            data-anolis-spec="html" title=
-                            "the a element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-a-element">
-                            a</a></code>, remove that <a class="external"
+                            "#editable">editable</a> [^a^], remove that <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> from
@@ -13852,14 +13194,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> is not a
                             <a href="#block-node">block node</a> or a
-                            <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code> or an <code class="external"
-                            data-anolis-spec="html" title=
-                            "the img element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                            img</a></code>, set <var title="">node</var> to
+                            [^br^] or an [^img^], set <var title="">node</var> to
                             that <a class="external" data-anolis-spec="dom"
                             href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
@@ -13924,17 +13259,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     "concept-tree-index">index</a> <var title="">offset</var>
                     &minus; 1 and that <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> is a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the hr element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
-                    hr</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the img element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                    img</a></code>:</p>
+                    title="concept-tree-child">child</a> is a [^br^] or [^hr^] or [^img^]:</p>
 
                     <ol>
                         <li>Call <code title=
@@ -13982,16 +13307,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     and doesn't map well to HTML. Browsers tend to just merge
                     with the preceding block, which isn't expected.</p>
 
-                    <p>If <var title="">node</var> is an <code class="external"
-                    data-anolis-spec="html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dt element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                    dt</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dd element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                    dd</a></code> and is the first <a class="external"
+                    <p>If <var title="">node</var> is an [^li^] or [^dt^] or [^dd^] and is the first <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a> of its <a class="external"
@@ -14002,10 +13318,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                     <ol>
                         <li>Let <var title="">items</var> be a list of all
-                        <code class="external" data-anolis-spec="html"
-                            title="the li element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                            li</a></code>s that are <a class="external"
+                        [^li^]s that are <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-ancestor"
                             title="concept-tree-ancestor">ancestors</a> of
@@ -14050,15 +13363,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             the list item. TODO: there might be a better way to
                             do this.</p>
 
-                            <p>If <var title="">node</var> is a <code class=
-                            "external" data-anolis-spec="html" title=
-                            "the dd element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                            dd</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the dt element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                            dt</a></code>, and it is not an <a href=
+                            <p>If <var title="">node</var> is a [^dd^] or [^dt^], and it is not an <a href=
                             "#allowed-child">allowed child</a> of any of its
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-ancestor"
@@ -14212,10 +13517,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     node</var> with <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-index"
                     title="concept-tree-index">index</a> <var title="">start
-                    offset</var> is a <code class="external" data-anolis-spec=
-                    "html" title="the table element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-table-element">
-                    table</a></code>, return true.</p>
+                    offset</var> is a [^table^], return true.</p>
                 </li>
 
                 <li>
@@ -14235,10 +13537,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     offset</var> &minus; 1, and that <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
-                    "concept-tree-child">child</a> is a <code class="external"
-                    data-anolis-spec="html" title="the table element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-table-element">
-                    table</a></code>:</p>
+                    "concept-tree-child">child</a> is a [^table^]:</p>
 
                     <ol>
                         <li>Call <code title=
@@ -14292,23 +13591,13 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     node</var> with <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-index"
                     title="concept-tree-index">index</a> <var title="">start
-                    offset</var> minus one is an <code class="external"
-                    data-anolis-spec="html" title="the hr element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
-                    hr</a></code>, or the <a class="external" data-anolis-spec=
+                    offset</var> minus one is an [^hr^], or the <a class="external" data-anolis-spec=
                     "dom" href="http://dom.spec.whatwg.org/#concept-tree-child"
-                    title="concept-tree-child">child</a> is a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> whose <code class="external"
+                    title="concept-tree-child">child</a> is a [^br^] whose <code class="external"
                     data-anolis-spec="dom" title=
                     "dom-Node-previousSibling"><a href=
                     "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
-                    is either a <code class="external" data-anolis-spec="html"
-                    title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> or not an <a href="#inline-node">inline
+                    is either a [^br^] or not an <a href="#inline-node">inline
                     node</a>:</p>
 
                     <ol>
@@ -14378,16 +13667,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     node</var> with <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-index"
                     title="concept-tree-index">index</a> <var title="">start
-                    offset</var> is an <code class="external" data-anolis-spec=
-                    "html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dt element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                    dt</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dd element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                    dd</a></code>, and that <a class="external"
+                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a>'s <code class="external"
@@ -14419,10 +13699,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                             title="dom-Node-lastChild"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
                             is an <a href="#inline-node">inline node</a> other
-                            than a <code class="external" data-anolis-spec=
-                            "html" title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code>, call <code class="external"
+                            than a [^br^], call <code class="external"
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
@@ -14478,32 +13755,14 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-index" title=
                     "concept-tree-index">index</a> <var title="">start
-                    offset</var> is an <code class="external" data-anolis-spec=
-                    "html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dt element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                    dt</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dd element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                    dd</a></code>, and that <a class="external"
+                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
                     "concept-tree-child">child</a>'s <code class="external"
                     data-anolis-spec="dom" title=
                     "dom-Node-previousSibling"><a href=
                     "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
-                    is also an <code class="external" data-anolis-spec="html"
-                    title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dt element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                    dt</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dd element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                    dd</a></code>:</p>
+                    is also an [^li^] or [^dt^] or [^dd^]:</p>
 
                     <ol>
                         <li>Call <code class="external" data-anolis-spec="dom"
@@ -14809,14 +14068,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     "">node</var>, <var title="">node</var> is either a
                     <a href="#non-list-single-line-container">non-list
                     single-line container</a> or an <a href=
-                    "#allowed-child">allowed child</a> of "p" or a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the dd element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                    dd</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the dt element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                    dt</a></code>, and <var title="">node</var> is not the
+                    "#allowed-child">allowed child</a> of "p" or a [^dd^] or [^dt^], and <var title="">node</var> is not the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-ancestor" title=
                     "concept-tree-ancestor">ancestor</a> of a <a href=
@@ -15034,10 +14286,7 @@ foo&lt;br&gt;bar
                                     "#single-line-container">single-line
                                     container</a>, and the last member of
                                     <var title="">sublist</var> is not a
-                                    <code class="external" data-anolis-spec=
-                                    "html" title="the br element"><a href=
-                                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                                    br</a></code>, remove the first member of
+                                    [^br^], remove the first member of
                                     <var title="">node list</var> and append it
                                     to <var title="">sublist</var>.
                                 </li>
@@ -15413,14 +14662,7 @@ foo&lt;br&gt;bar
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> is neither a
                             <a href="#block-node">block node</a> nor a
-                            <code class="external" data-anolis-spec="html"
-                            title="the br element"><a href=
-                            "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                            br</a></code> nor an <code class="external"
-                            data-anolis-spec="html" title=
-                            "the img element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                            img</a></code> nor a <a href=
+                            [^br^] nor an [^img^] nor a <a href=
                             "#collapsed-block-prop">collapsed block prop</a>,
                             set <var title="">node</var> to that <a class=
                             "external" data-anolis-spec="dom" href=
@@ -15536,16 +14778,7 @@ foo&lt;br&gt;bar
                 "concept-tree-index">index</a> <var title="">offset</var> and
                 that <a class="external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-tree-child" title=
-                "concept-tree-child">child</a> is a <code class="external"
-                data-anolis-spec="html" title="the br element"><a href=
-                "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the hr element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
-                    hr</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the img element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-img-element">
-                    img</a></code>, but is not a <a href=
+                "concept-tree-child">child</a> is a [^br^] or [^hr^] or [^img^], but is not a <a href=
                     "#collapsed-block-prop">collapsed block prop</a>:
 
                     <ol>
@@ -15648,10 +14881,7 @@ foo&lt;br&gt;bar
                     node</var> with <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-index"
                     title="concept-tree-index">index</a> <var title="">end
-                    offset</var> minus one is a <code class="external"
-                    data-anolis-spec="html" title="the table element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-table-element">
-                    table</a></code>, return true.</p>
+                    offset</var> minus one is a [^table^], return true.</p>
                 </li>
 
                 <li>If the <a class="external" data-anolis-spec="dom" href=
@@ -15660,10 +14890,7 @@ foo&lt;br&gt;bar
                 with <a class="external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-tree-index" title=
                 "concept-tree-index">index</a> <var title="">end offset</var>
-                is a <code class="external" data-anolis-spec="html" title=
-                "the table element"><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#the-table-element">
-                    table</a></code>:
+                is a [^table^]:
 
                     <ol>
                         <li>Call <code title=
@@ -15705,13 +14932,7 @@ foo&lt;br&gt;bar
                     node</var> with <a class="external" data-anolis-spec="dom"
                     href="http://dom.spec.whatwg.org/#concept-tree-index"
                     title="concept-tree-index">index</a> <var title="">end
-                    offset</var> is an <code class="external" data-anolis-spec=
-                    "html" title="the hr element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element">
-                    hr</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>:</p>
+                    offset</var> is an [^hr^] or [^br^]:</p>
 
                     <ol>
                         <li>Call <code title=
@@ -15895,10 +15116,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>Let <var title="">items</var> be a list of all
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>s that are <a class="external"
+                    [^li^]s that are <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
@@ -15957,20 +15175,10 @@ foo&lt;br&gt;bar
                     get appended to.</p>
 
                     <p>If the first <a href="#visible">visible</a> member of
-                    <var title="">node list</var> is an <code class="external"
-                    data-anolis-spec="html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> whose <a class="external" data-anolis-spec=
+                    <var title="">node list</var> is an [^li^] whose <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-parent" title=
-                    "concept-tree-parent">parent</a> is an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>:</p>
+                    "concept-tree-parent">parent</a> is an [^ol^] or [^ul^]:</p>
 
                     <ol>
                         <li>Let <var title="">sibling</var> be <var title="">
@@ -15992,10 +15200,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>If <var title="">sibling</var> is an
-                            <code class="external" data-anolis-spec="html"
-                            title="the li element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                            li</a></code>, <a href=
+                            [^li^], <a href=
                             "#normalize-sublists">normalize sublists</a> of
                             <var title="">sibling</var>.
                         </li>
@@ -16574,10 +15779,7 @@ foo&lt;br&gt;bar
                     <a href="#block-node">block node</a> whose sole <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
-                    "concept-tree-child">child</a> is a <code class="external"
-                    data-anolis-spec="html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, and its <a class="external"
+                    "concept-tree-child">child</a> is a [^br^], and its <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-range-start-offset"
                     title="concept-range-start-offset">start offset</a> is 0,
@@ -17085,18 +16287,7 @@ foo&lt;br&gt;bar
                         <var title="">container</var>.</li>
 
                         <li>While <var title="">outer container</var> is not a
-                        <code class="external" data-anolis-spec="html"
-                            title="the dd element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                            dd</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the dt element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                            dt</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the li element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                            li</a></code>, and <var title="">outer
+                        [^dd^] or [^dt^] or [^li^], and <var title="">outer
                             container</var>'s <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-parent"
@@ -17109,16 +16300,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>If <var title="">outer container</var> is a
-                        <code class="external" data-anolis-spec="html" title=
-                        "the dd element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                        dd</a></code> or <code class="external"
-                        data-anolis-spec="html" title="the dt element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                        dt</a></code> or <code class="external"
-                        data-anolis-spec="html" title="the li element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                        li</a></code>, set <var title="">container</var> to
+                        [^dd^] or [^dt^] or [^li^], set <var title="">container</var> to
                         <var title="">outer container</var>.</li>
                     </ol>
                 </li>
@@ -17386,10 +16568,7 @@ foo&lt;br&gt;bar
                     "concept-tree-child">child</a> and that <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-child" title=
-                    "concept-tree-child">child</a> is a <code class="external"
-                    data-anolis-spec="html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>:</p>
+                    "concept-tree-child">child</a> is a [^br^]:</p>
 
                     <ol>
                         <li>
@@ -17427,14 +16606,7 @@ foo&lt;br&gt;bar
                             do this.</p>
 
                             <p>If <var title="">container</var> is a
-                            <code class="external" data-anolis-spec="html"
-                            title="the dd element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dd-element">
-                            dd</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the dt element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-dt-element">
-                            dt</a></code>, and it is not an <a href=
+                            [^dd^] or [^dt^], and it is not an <a href=
                             "#allowed-child">allowed child</a> of any of its
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-ancestor"
@@ -17479,11 +16651,7 @@ foo&lt;br&gt;bar
                     <p class="note">We don't want the start to be just
                     inside a node, because if it is, we'll leave behind an
                     empty element either in the new or old container. Empty
-                    block nodes are fine, and we'll add a <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> later, but empty inline nodes are bad, since
+                    block nodes are fine, and we'll add a [^br^] later, but empty inline nodes are bad, since
                     the user can't interact with them.</p>
 
                     <p>While <var title="">new line range</var>'s <a class=
@@ -17549,10 +16717,7 @@ foo&lt;br&gt;bar
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#contained" title=
                     "contained">contains</a> either nothing or a single
-                    <code class="external" data-anolis-spec="html" title=
-                    "the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code>, and false otherwise.
+                    [^br^], and false otherwise.
                 </li>
 
                 <li>
@@ -17679,16 +16844,7 @@ foo&lt;br&gt;bar
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;[]foo&lt;/ol&gt;</code>,
                     which becomes <code title=
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;&lt;li&gt;&lt;p&gt;foo&lt;/ol&gt;</code>.
-                    In this case we want to add the <code class="external"
-                    data-anolis-spec="html" title="the br element"><a href=
-                    "https://html.spec.whatwg.org/multipage/semantics.html#the-br-element">
-                    br</a></code> to the <code class="external"
-                    data-anolis-spec="html" title="the p element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-p-element">
-                    p</a></code>, not the <code class="external"
-                    data-anolis-spec="html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>. Likewise for <code title=
+                    In this case we want to add the [^br^] to the [^p^], not the [^li^]. Likewise for <code title=
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;foo[]&lt;/ol&gt;</code>.</p>
 
                     <p>While <var title="">container</var>'s <code class=
@@ -18544,10 +17700,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>Let <var title="">items</var> be a list of all
-                    <code class="external" data-anolis-spec="html" title=
-                    "the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code>s that are <a class="external"
+                    [^li^]s that are <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor"
                     title="concept-tree-inclusive-ancestor">inclusive
@@ -18629,51 +17782,21 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-descendant"
                     title="concept-tree-descendant">descendants</a>, or is an
-                    <code class="external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>, or is an <code class="external"
-                    data-anolis-spec="html" title="the li element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element">
-                    li</a></code> whose <a class="external" data-anolis-spec=
+                    [^ol^] or [^ul^], or is an [^li^] whose <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-tree-parent" title=
-                    "concept-tree-parent">parent</a> is an <code class=
-                    "external" data-anolis-spec="html" title=
-                    "the ol element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                    ol</a></code> or <code class="external" data-anolis-spec=
-                    "html" title="the ul element"><a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                    ul</a></code>.</p>
+                    "concept-tree-parent">parent</a> is an [^ol^] or [^ul^].</p>
                 </li>
 
                 <li>While <var title="">node list</var> is not empty:
 
                     <ol>
                         <li>While the first member of <var title="">node
-                        list</var> is an <code class="external"
-                        data-anolis-spec="html" title=
-                            "the ol element"><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code> or is not the <a class="external"
+                        list</var> is an [^ol^] or [^ul^] or is not the <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-tree-child"
                             title="concept-tree-child">child</a> of an
-                            <code class="external" data-anolis-spec="html"
-                            title="the ol element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                            ol</a></code> or <code class="external"
-                            data-anolis-spec="html" title=
-                            "the ul element"><a href=
-                            "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                            ul</a></code>, <a href="#outdent">outdent</a> it
+                            [^ol^] or [^ul^], <a href="#outdent">outdent</a> it
                             and remove it from <var title="">node list</var>.
                         </li>
 
@@ -18697,13 +17820,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
                         "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
                         of the last member of <var title="">sublist</var>, and
                         the first member of <var title="">node list</var> is
-                        not an <code class="external" data-anolis-spec="html"
-                        title="the ol element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element">
-                        ol</a></code> or <code class="external"
-                        data-anolis-spec="html" title="the ul element"><a href=
-                        "http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ul-element">
-                        ul</a></code>, remove the first member of <var title=
+                        not an [^ol^] or [^ul^], remove the first member of <var title=
                         "">node list</var> and append it to <var title=
                         "">sublist</var>.</li>
 
