@@ -1647,13 +1647,8 @@
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">new parent</var> and
-                its <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a> is greater than
-                    <var title="">new index</var>, add one to its <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                its [=boundary point/offset=] is greater than
+                    <var title="">new index</var>, add one to its [=boundary point/offset=].
                 </li>
 
                 <li>If a <a class="external" data-anolis-spec="dom" href=
@@ -1662,18 +1657,13 @@
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">old parent</var> and
-                its <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a> is <var title=
+                its [=boundary point/offset=] is <var title=
                     "">old index</var> or <var title="">old index</var> + 1,
                     set its <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">node</a> to <var title="">new parent</var>
                     and add <var title="">new index</var> &minus; <var title=
-                    "">old index</var> to its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                    "">old index</var> to its [=boundary point/offset=].
                 </li>
 
                 <li>If a <a class="external" data-anolis-spec="dom" href=
@@ -1682,13 +1672,9 @@
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> is <var title="">old parent</var> and
-                its <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a> is greater than
+                its [=boundary point/offset=] is greater than
                     <var title="">old index</var> + 1, subtract one from its
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                    [=boundary point/offset=].
                 </li>
             </ol>
 
@@ -2092,18 +2078,13 @@
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-node" title=
                             "concept-node">node</a> equal to the [=tree/parent=] of
-                            <var title="">new parent</var> and <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                            title="concept-range-bp-offset">offset</a> equal to
+                            <var title="">new parent</var> and [=boundary point/offset=] equal to
                             the [=tree/index=] of <var title=
                             "">new parent</var>, add one to that <a class=
                             "external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-range-bp"
                             title="concept-range-bp">boundary point</a>'s
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                            title="concept-range-bp-offset">offset</a>.</p>
+                            [=boundary point/offset=].</p>
                         </li>
                     </ol>
                 </li>
@@ -6992,10 +6973,7 @@ output is null.
                     "concept-range-end">end</a> <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
-                    "concept-node">nodes</a> and <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offsets</a> of <var title=
+                    "concept-node">nodes</a> and [=boundary point/offsets=] of <var title=
                     "">range</var>.
                 </li>
 
@@ -7097,10 +7075,7 @@ output is null.
                 "concept-range-end">end</a> <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
-                "concept-node">nodes</a> and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offsets</a> are <var title=
+                "concept-node">nodes</a> and [=boundary point/offsets=] are <var title=
                     "">start node</var>, <var title="">start offset</var>,
                     <var title="">end node</var>, and <var title="">end
                     offset</var>.
@@ -7571,9 +7546,7 @@ output is null.
                 </li>
 
                 <li>If (<var title="">end node</var>, <var title="">end
-                offset</var>) is not <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-bp-after"
-                    title="concept-range-bp-after">after</a> (<var title=
+                offset</var>) is not [=boundary point/after=] (<var title=
                     "">start node</var>, <var title="">start offset</var>):
 
                     <p class="note">This is a selection like <code title=
@@ -9070,9 +9043,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                     <p>If <var title="">fix collapsed space</var> is true, then
                     while (<var title="">start node</var>, <var title="">start
-                    offset</var>) is <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-bp-before"
-                    title="concept-range-bp-before">before</a> (<var title=
+                    offset</var>) is [=boundary point/before=] (<var title=
                     "">end node</var>, <var title="">end offset</var>):</p>
 
                     <ol>
@@ -9160,9 +9131,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>While (<var title="">start node</var>, <var title="">start
-                offset</var>) is <a class="external" data-anolis-spec="dom"
-                href="http://dom.spec.whatwg.org/#concept-range-bp-before"
-                title="concept-range-bp-before">before</a> (<var title="">end
+                offset</var>) is [=boundary point/before=] (<var title="">end
                 node</var>, <var title="">end offset</var>):
 
                     <ol>
@@ -12126,10 +12095,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 "concept-range-start">start</a> <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
-                "concept-node">node</a> and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                "concept-node">node</a> and [=boundary point/offset=].
                 </li>
 
                 <li>
@@ -13429,10 +13395,7 @@ foo&lt;br&gt;bar
                 "concept-range-start">start</a> <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
-                "concept-node">node</a> and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                "concept-node">node</a> and [=boundary point/offset=].
                 </li>
 
                 <li>Repeat the following steps:
@@ -14028,10 +13991,7 @@ foo&lt;br&gt;bar
                     "concept-range-end">end</a> <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
-                    "concept-node">nodes</a> and <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offsets</a>.
+                    "concept-node">nodes</a> and [=boundary point/offsets=].
                 </li>
 
                 <li>While <var title="">start offset</var> is 0 and
@@ -14865,10 +14825,7 @@ foo&lt;br&gt;bar
                 "concept-range-start">start</a> <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
-                "concept-node">node</a> and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                "concept-node">node</a> and [=boundary point/offset=].
                 </li>
 
                 <li>If <var title="">node</var> is a <code class="external"
@@ -15727,9 +15684,7 @@ foo&lt;br&gt;bar
                 "external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-range-start-node"
                     title="concept-range-start-node">start node</a> and
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-bp-offset"
-                    title="concept-range-bp-offset">offset</a>.
+                    [=boundary point/offset=].
                 </li>
 
                 <li>
