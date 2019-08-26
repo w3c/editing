@@ -725,19 +725,11 @@
                         [=Dispatch=] an
                         [=event=] at <var title="">affected
                         editing host</var> that uses the <a>EditingBeforeInputEvent</a>
-                        interface. The event's <code class="external"
-                        data-anolis-spec="dom" title="dom-Event-type"><a href=
-                        "http://dom.spec.whatwg.org/#dom-event-type">type</a></code>
+                        interface. The event's {{Event/type}}
                         attribute must be initialized to "beforeinput"; its
-                        <code class="external" data-anolis-spec="dom" title=
-                        "dom-Event-isTrusted"><a href=
-                        "http://dom.spec.whatwg.org/#dom-event-istrusted">isTrusted</a></code>,
-                        <code class="external" data-anolis-spec="dom" title=
-                        "dom-Event-bubbles"><a href=
-                        "http://dom.spec.whatwg.org/#dom-event-bubbles">bubbles</a></code>,
-                        and <code class="external" data-anolis-spec="dom"
-                        title="dom-Event-cancelable"><a href=
-                        "http://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code>
+                        {{Event/isTrusted}},
+                        {{Event/bubbles}},
+                        and {{Event/cancelable}}
                         attributes must be initialized to true; its
                         <code title="dom-EditingBeforeInputEvent-command"><a href="#dom-editingbeforeinputevent-command">
                         command</a></code> attribute must be initialized to
@@ -799,16 +791,9 @@
             [=Dispatch=] an [=
                 event=] at <var title="">affected editing host</var> that
                 uses the <a>EditingInputEvent</a> interface.
-                The event's <code class="external" data-anolis-spec="dom"
-                title="dom-Event-type"><a href=
-                "http://dom.spec.whatwg.org/#dom-event-type">type</a></code>
-                attribute must be initialized to "input"; its <code class=
-                "external" data-anolis-spec="dom" title=
-                "dom-Event-isTrusted"><a href=
-                "http://dom.spec.whatwg.org/#dom-event-istrusted">isTrusted</a></code>
-                and <code class="external" data-anolis-spec="dom" title=
-                "dom-Event-bubbles"><a href=
-                "http://dom.spec.whatwg.org/#dom-event-bubbles">bubbles</a></code>
+                The event's {{Event/type}}
+                attribute must be initialized to "input"; its {{Event/isTrusted}}
+                and {{Event/bubbles}}
                 attributes must be initialized to true; its <code title=
                 "dom-EditingInputEvent-command"><a href=
                 "#dom-editinginputevent-command">command</a></code> attribute
@@ -1051,9 +1036,7 @@
     <section>
         <h2 id="common-definitions">Common definitions</h2>
 
-        <p>An <dfn id="html-element">HTML element</dfn> is an <code class=
-        "external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> whose
+        <p>An <dfn id="html-element">HTML element</dfn> is an {{Element}} whose
         [=Element/namespace=] is the <a class="external"
         data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#html-namespace">HTML namespace</a>.</p>
@@ -1087,14 +1070,10 @@
         "visible block node", now that block nodes can be invisible (if they
         descend from display: none).</p>
 
-        <p>A <dfn id="block-node">block node</dfn> is either an <code class=
-        "external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> whose
+        <p>A <dfn id="block-node">block node</dfn> is either an {{Element}} whose
         "display" property does not have <a href=
         "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a>
-        "inline" or "inline-block" or "inline-table" or "none", or a [=document=], or a <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>.</p>
+        "inline" or "inline-block" or "inline-table" or "none", or a [=document=], or a {{DocumentFragment}}.</p>
 
         <p>An <dfn id="inline-node">inline node</dfn> is a <a class="external"
         data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-node"
@@ -1130,19 +1109,14 @@
         svg</a></code> or <code class="external" data-anolis-spec=
         "html"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/the-map-element.html#math">
-        math</a></code> element, or it is not an <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> and its
+        math</a></code> element, or it is not an {{Element}} and its
         [=tree/parent=] is an <a href="#html-element">HTML
         element</a>.</p>
 
         <p class="note">An <a href="#editable">editable</a> node cannot be a
-        [=document=] or <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>,
+        [=document=] or {{DocumentFragment}},
         its [=tree/parent=] cannot be null, and it must descend
-        from either an <code class="external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> or a [=document=].</p>
+        from either an {{Element}} or a [=document=].</p>
 
         <p>The <dfn id="editing-host-of">editing host of</dfn> <var title=
         "">node</var> is null if <var title="">node</var> is neither <a href=
@@ -1197,31 +1171,17 @@
         so that it doesn't mess up ranges.)</p>
 
         <p>A <dfn id="whitespace-node">whitespace node</dfn> is either a
-        <code class="external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#text">Text</a></code> node whose
-        <code class="external" data-anolis-spec="dom" title=
-        "dom-CharacterData-data"><a href=
-        "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code> is
-        the empty string; or a <code class="external" data-anolis-spec=
-        "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code> node
-        whose <code class="external" data-anolis-spec="dom" title=
-        "dom-CharacterData-data"><a href=
-        "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+        {{Text}} node whose
+        {{CharacterData/data}} is
+        the empty string; or a {{Text}} node
+        whose {{CharacterData/data}}
         consists only of one or more tabs (0x0009), line feeds (0x000A),
-        carriage returns (0x000D), and/or spaces (0x0020), and whose [=tree/parent=] is an <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> whose <a href=
+        carriage returns (0x000D), and/or spaces (0x0020), and whose [=tree/parent=] is an {{Element}} whose <a href=
         "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a> for
-        "white-space" is "normal" or "nowrap"; or a <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#text">Text</a></code> node whose
-        <code class="external" data-anolis-spec="dom" title=
-        "dom-CharacterData-data"><a href=
-        "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+        "white-space" is "normal" or "nowrap"; or a {{Text}} node whose
+        {{CharacterData/data}}
         consists only of one or more tabs (0x0009), carriage returns (0x000D),
-        and/or spaces (0x0020), and whose [=tree/parent=] is an <code class="external"
-        data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> whose <a href=
+        and/or spaces (0x0020), and whose [=tree/parent=] is an {{Element}} whose <a href=
         "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a> for
         "white-space" is "pre-line".</p>
 
@@ -1244,9 +1204,7 @@
             "#whitespace-node">whitespace node</a>, return false.
             </li>
 
-            <li>If <var title="">node</var>'s <code class="external"
-            data-anolis-spec="dom" title="dom-CharacterData-data"><a href=
-            "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+            <li>If <var title="">node</var>'s {{CharacterData/data}}
             is the empty string, return true.</li>
 
             <li>Let <var title="">ancestor</var> be <var title="">node</var>'s
@@ -1305,9 +1263,7 @@
                     "#block-node">block node</a> or a [^br^], return true.
                     </li>
 
-                    <li>If <var title="">reference</var> is a <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node
+                    <li>If <var title="">reference</var> is a {{Text}} node
                     that is not a <a href="#whitespace-node">whitespace
                     node</a>, or is an [^img^], break from this loop.
                     </li>
@@ -1342,9 +1298,7 @@
                     "#block-node">block node</a> or a [^br^], return true.
                     </li>
 
-                    <li>If <var title="">reference</var> is a <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node
+                    <li>If <var title="">reference</var> is a {{Text}} node
                     that is not a <a href="#whitespace-node">whitespace
                     node</a>, or is an [^img^], break from this loop.
                     </li>
@@ -1364,8 +1318,7 @@
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
         "concept-node">node</a> that either is a <a href="#block-node">block
-        node</a>, or a <code class="external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#text">Text</a></code> node that is not a
+        node</a>, or a {{Text}} node that is not a
         <a href="#collapsed-whitespace-node">collapsed whitespace node</a>, or
         an [^img^], or a [^br^] that is not an <a href=
         "#extraneous-line-break">extraneous line break</a>, or any <a class=
@@ -1374,9 +1327,7 @@
         "concept-node">node</a> with a <a href="#visible">visible</a> [=tree/descendant=]; excluding any <a class=
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
-        "concept-node">node</a> with an [=tree/inclusive ancestor=] <code class=
-        "external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> whose
+        "concept-node">node</a> with an [=tree/inclusive ancestor=] {{Element}} whose
         "display" property has <a href=
         "http://dev.w3.org/csswg/cssom/#resolved-value">resolved value</a>
         "none".</p>
@@ -1394,8 +1345,7 @@
         <p>A <dfn id="collapsed-block-prop">collapsed block prop</dfn> is
         either a <a href="#collapsed-line-break">collapsed line break</a> that
         is not an <a href="#extraneous-line-break">extraneous line break</a>,
-        or an <code class="external" data-anolis-spec="dom"><a href=
-        "http://dom.spec.whatwg.org/#element">Element</a></code> that is an
+        or an {{Element}} that is an
         <a href="#inline-node">inline node</a> and whose [=tree/children=] are all either <a href=
         "#invisible">invisible</a> or <a href="#collapsed-block-prop" title=
         "collapsed block prop">collapsed block props</a> and that has at least
@@ -1606,8 +1556,7 @@
             are no longer allowed here?</p>
 
             <p>To <dfn id="set-the-tag-name">set the tag name</dfn> of an
-            <code class="external" data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#element">Element</a></code>
+            {{Element}}
             <var title="">element</var> to <var title="">new name</var>:</p>
 
             <p class="note">This is needed because the DOM doesn't allow any
@@ -1632,9 +1581,7 @@
                 of calling <code class="external" data-anolis-spec="domcore"
                 title="dom-Document-createElement"><a href=
                 "http://dom.spec.whatwg.org/#dom-document-createelement">createElement(<var title="">new
-                name</var>)</a></code> on the <code class="external"
-                data-anolis-spec="dom" title="dom-Node-ownerDocument"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                name</var>)</a></code> on the {{Node/ownerDocument}}
                 of <var title="">element</var>.</li>
 
                 <li>Insert <var title="">replacement element</var> into
@@ -1670,17 +1617,13 @@
             like to remove the extra markup to keep things tidy.</p>
 
             <ol>
-                <li>Let <var title="">ref</var> be the <code class="external"
-                data-anolis-spec="dom" title=
-                "dom-Node-previousSibling"><a href="http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                previousSibling</a></code> of <var title="">node</var>.</li>
+                <li>Let <var title="">ref</var> be the {{Node/
+                previousSibling}} of <var title="">node</var>.</li>
 
                 <li>If <var title="">ref</var> is null, abort these steps.</li>
 
                 <li>While <var title="">ref</var> has [=tree/children=], set <var title="">ref</var>
-                to its <code class="external" data-anolis-spec="dom" title=
-                "dom-Node-lastChild"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>.
+                to its {{Node/lastChild}}.
                 </li>
 
                 <li>While <var title="">ref</var> is <a href=
@@ -1711,9 +1654,7 @@
                 "">node</var>.</li>
 
                 <li>While <var title="">ref</var> has [=tree/children=], set <var title="">ref</var>
-                to its <code class="external" data-anolis-spec="dom" title=
-                "dom-Node-lastChild"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>.
+                to its {{Node/lastChild}}.
                 </li>
 
                 <li>While <var title="">ref</var> is <a href=
@@ -1822,9 +1763,7 @@
                     <p>If <var title="">node list</var>'s last member is an
                     <a href="#inline-node">inline node</a> that's not a
                     [^br^], and <var title="">node list</var>'s last
-                    member's <code class="external" data-anolis-spec="dom"
-                    title="dom-Node-nextSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                    member's {{Node/nextSibling}}
                     is a [^br^], append that [^br^] to <var title="">node list</var>.</p>
                 </li>
 
@@ -1849,44 +1788,31 @@
                     &lt;ol&gt;&lt;li&gt;[bar]&lt;/ol&gt;</code>.</p>
 
                     <p>While <var title="">node list</var>'s first member's
-                    <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-previousSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
+                    {{Node/previousSibling}}
                     is <a href="#invisible">invisible</a>, prepend it to
                     <var title="">node list</var>.</p>
                 </li>
 
                 <li>While <var title="">node list</var>'s last member's
-                <code class="external" data-anolis-spec="dom" title=
-                "dom-Node-nextSibling"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                {{Node/nextSibling}}
                 is <a href="#invisible">invisible</a>, append it to
                     <var title="">node list</var>.
                 </li>
 
-                <li>If the <code class="external" data-anolis-spec="dom"
-                    title="dom-Node-previousSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
+                <li>If the {{Node/previousSibling}}
                     of the first member of <var title="">node list</var> is
                     <a href="#editable">editable</a> and running <var title=
                     "">sibling criteria</var> on it returns true, let
-                    <var title="">new parent</var> be the <code class=
-                    "external" data-anolis-spec="dom" title=
-                    "dom-Node-previousSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
+                    <var title="">new parent</var> be the {{Node/previousSibling}}
                     of the first member of <var title="">node list</var>.
                 </li>
 
-                <li>Otherwise, if the <code class="external"
-                    data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href="http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                    nextSibling</a></code> of the last member of <var title=
+                <li>Otherwise, if the {{Node/
+                    nextSibling}} of the last member of <var title=
                     "">node list</var> is <a href="#editable">editable</a> and
                     running <var title="">sibling criteria</var> on it returns
                     true, let <var title="">new parent</var> be the
-                    <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                    {{Node/nextSibling}}
                     of the last member of <var title="">node list</var>.
                 </li>
 
@@ -2025,11 +1951,8 @@
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
-                            createElement("br")</a></code> on the <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-ownerDocument"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                            ownerDocument</a></code> of <var title="">new
+                            createElement("br")</a></code> on the {{Node/
+                            ownerDocument}} of <var title="">new
                             parent</var> and append the result as the last
                             [=tree/child=] of <var title=
                             "">new parent</var>.
@@ -2059,11 +1982,8 @@
                             data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
-                            createElement("br")</a></code> on the <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-ownerDocument"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                            ownerDocument</a></code> of <var title="">new
+                            createElement("br")</a></code> on the {{Node/
+                            ownerDocument}} of <var title="">new
                             parent</var> and insert the result as the first
                             [=tree/child=] of <var title=
                             "">new parent</var>.
@@ -2093,10 +2013,7 @@
                     next sibling met them. We want to merge them in this
                     case.</p>
 
-                    <p>If <var title="">new parent</var>'s <code class=
-                    "external" data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                    <p>If <var title="">new parent</var>'s {{Node/nextSibling}}
                     is <a href="#editable">editable</a> and running <var title=
                     "">sibling criteria</var> on it returns true:</p>
 
@@ -2104,10 +2021,7 @@
                         <li>If <var title="">new parent</var> is not an
                             <a href="#inline-node">inline node</a>, but
                             <var title="">new parent</var>'s last [=tree/child=] and
-                            <var title="">new parent</var>'s <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>'s
+                            <var title="">new parent</var>'s {{Node/nextSibling}}'s
                             first [=tree/child=] are both
                             <a href="#inline-node" title="inline node">inline
                             nodes</a>, and <var title="">new parent</var>'s
@@ -2116,20 +2030,15 @@
                             data-anolis-spec="domcore" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
-                            createElement("br")</a></code> on the <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-ownerDocument"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                            ownerDocument</a></code> of <var title="">new
+                            createElement("br")</a></code> on the {{Node/
+                            ownerDocument}} of <var title="">new
                             parent</var> and append the result as the last
                             [=tree/child=] of <var title=
                             "">new parent</var>.
                         </li>
 
                         <li>While <var title="">new parent</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             has [=tree/children=], append its
                             first [=tree/child=] as the last
                             [=tree/child=] of <var title=
@@ -2138,9 +2047,7 @@
                         </li>
 
                         <li>Remove <var title="">new parent</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             from its [=tree/parent=].
                         </li>
                     </ol>
@@ -2236,11 +2143,8 @@
                 "tbody", "tfoot", "thead", "tr", or an <a href="#html-element">
                     HTML element</a> with [=Element/local name=] equal to
                     one of those, and <var title="">child</var> is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node
-                    whose <code class="external" data-anolis-spec="dom" title=
-                    "dom-CharacterData-data"><a href=
-                    "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+                    {{Text}} node
+                    whose {{CharacterData/data}}
                     does not consist solely of <a class="external"
                     data-anolis-spec="encoding" href=
                     "http://encoding.spec.whatwg.org/#ascii-whitespace" title=
@@ -2256,16 +2160,12 @@
                     "plaintext", or "xmp", or an <a href="#html-element">HTML
                     element</a> with [=Element/local name=] equal to
                     one of those, and <var title="">child</var> is not a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    {{Text}} node,
                     return false.</p>
                 </li>
 
-                <li>If <var title="">child</var> is a [=document=], <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>,
-                or <code class="external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#documenttype">DocumentType</a></code>,
+                <li>If <var title="">child</var> is a [=document=], {{DocumentFragment}},
+                or {{DocumentType}},
                 return false.
                 </li>
 
@@ -2335,11 +2235,8 @@
                     </ol>
                 </li>
 
-                <li>If <var title="">parent</var> is an <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#element">Element</a></code> or
-                <code class="external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#documentfragment">DocumentFragment</a></code>,
+                <li>If <var title="">parent</var> is an {{Element}} or
+                {{DocumentFragment}},
                 return true.</li>
 
                 <li>If <var title="">parent</var> is not a string, return
@@ -2442,9 +2339,7 @@
             "http://dom.spec.whatwg.org/#concept-node" title=
             "concept-node">node</a> <var title="">node</var> is <dfn id=
             "effectively-contained">effectively contained</dfn> in a [=range=] <var title="">range</var> if <var title=
-            "">range</var> is not <code class="external" data-anolis-spec="dom"
-            title="dom-Range-collapsed"><a href=
-            "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+            "">range</var> is not {{AbstractRange/collapsed}},
             and at least one of the following holds:</p>
 
             <ul>
@@ -2463,17 +2358,14 @@
 
                     <p><var title="">node</var> is <var title="">range</var>'s
                     [=range/start node=], it is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    {{Text}} node,
                     and its [=Node/length=] is different from
                     <var title="">range</var>'s [=range/start offset=].</p>
                 </li>
 
                 <li>
                     <var title="">node</var> is <var title="">range</var>'s
-                    [=range/end node=], it is a <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    [=range/end node=], it is a {{Text}} node,
                     and <var title="">range</var>'s [=range/end offset=] is not 0.
                 </li>
 
@@ -2491,14 +2383,10 @@
                     <var title="">range</var>; and either <var title=
                     "">range</var>'s [=range/start node=] is not a
                     [=tree/descendant=] of
-                    <var title="">node</var> or is not a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node or
+                    <var title="">node</var> or is not a {{Text}} node or
                     <var title="">range</var>'s [=range/start offset=] is
                     zero; and either <var title="">range</var>'s [=range/end node=] is not a [=tree/descendant=] of
-                    <var title="">node</var> or is not a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node or
+                    <var title="">node</var> or is not a {{Text}} node or
                     <var title="">range</var>'s [=range/end offset=] is its
                     [=range/end node=]'s [=Node/length=].</p>
                 </li>
@@ -2641,9 +2529,7 @@
             <a href="#editable">editable</a> <a href="#visible">visible</a>
             <a class="external" data-anolis-spec="dom" href=
             "http://dom.spec.whatwg.org/#concept-node" title=
-            "concept-node">node</a> that is either a <code class="external"
-            data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#text">Text</a></code> node, an
+            "concept-node">node</a> that is either a {{Text}} node, an
             [^img^], or a [^br^].</p>
 
             <p>Two quantities are <dfn id="equivalent-values">equivalent
@@ -2783,15 +2669,11 @@
             strikethrough and underline don't map to unique CSS properties.</p>
 
             <ol>
-                <li>If neither <var title="">node</var> nor its [=tree/parent=] is an <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                <li>If neither <var title="">node</var> nor its [=tree/parent=] is an {{Element}},
                     return null.
                 </li>
 
-                <li>If <var title="">node</var> is not an <code class=
-                "external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                <li>If <var title="">node</var> is not an {{Element}},
                 return the <a href="#effective-command-value">effective command
                 value</a> of its [=tree/parent=] for <var title=
                     "">command</var>.
@@ -2831,9 +2713,7 @@
                         value</a> of "background-color" on <var title=
                         "">node</var> is any fully transparent value, and
                         <var title="">node</var>'s [=tree/parent=] is an
-                            <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                            {{Element}},
                             set <var title="">node</var> to its [=tree/parent=].
                         </li>
 
@@ -2970,9 +2850,7 @@
             </ol>
 
             <p>The <dfn id="specified-command-value">specified command
-            value</dfn> of an <code class="external" data-anolis-spec=
-            "dom"><a href=
-            "http://dom.spec.whatwg.org/#element">Element</a></code>
+            value</dfn> of an {{Element}}
             <var title="">element</var> for a given <var title="">command</var>
             is returned by the following algorithm, which will return either a
             string or null:</p>
@@ -2988,9 +2866,7 @@
 
             <ol>
                 <li>If <var title="">command</var> is "backColor" or
-                "hiliteColor" and the <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>'s
+                "hiliteColor" and the {{Element}}'s
                     display property does not have <a href=
                     "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                     value</a> "inline", return null.
@@ -3160,24 +3036,18 @@
                         "">node</var>.</li>
 
                         <li>If <var title="">ancestor</var> is not an
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#element">
-                            Element</a></code>, set it to its [=tree/parent=].
+                        {{Element}}, set it to its [=tree/parent=].
                         </li>
 
                         <li>While <var title="">ancestor</var> is an
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#element">
-                            Element</a></code> and its <a href=
+                        {{Element}} and its <a href=
                             "#specified-command-value">specified command
                             value</a> for <var title="">command</var> is null,
                             set it to its [=tree/parent=].
                         </li>
 
                         <li>If <var title="">ancestor</var> is an
-                            <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                            {{Element}},
                             add (<var title="">node</var>, <var title=
                             "">command</var>, <var title="">ancestor</var>'s
                             <a href="#specified-command-value">specified
@@ -3207,24 +3077,18 @@
                         "">node</var>.</li>
 
                         <li>If <var title="">ancestor</var> is not an
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#element">
-                            Element</a></code>, set it to its [=tree/parent=].
+                        {{Element}}, set it to its [=tree/parent=].
                         </li>
 
                         <li>While <var title="">ancestor</var> is an
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#element">
-                            Element</a></code> and its <a href=
+                        {{Element}} and its <a href=
                             "#specified-command-value">specified command
                             value</a> for <var title="">command</var> is null,
                             set it to its [=tree/parent=].
                         </li>
 
                         <li>If <var title="">value</var> is null and
-                            <var title="">ancestor</var> is an <code class=
-                            "external" data-anolis-spec="dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                            <var title="">ancestor</var> is an {{Element}},
                             <a href="#push-down-values">push down values</a> on
                             <var title="">node</var> for <var title=
                             "">command</var>, with <var title="">new
@@ -3232,17 +3096,13 @@
                         </li>
 
                         <li>Otherwise, if <var title="">ancestor</var> is an
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#element">
-                            Element</a></code> and its <a href=
+                        {{Element}} and its <a href=
                             "#specified-command-value">specified command
                             value</a> for <var title="">command</var> is not
                             <a href="#equivalent-values" title=
                             "equivalent values">equivalent</a> to <var title=
                             "">value</var>, or if <var title="">ancestor</var>
-                            is not an <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>
+                            is not an {{Element}}
                             and <var title="">value</var> is not null, <a href=
                             "#force-the-value">force the value</a> of
                             <var title="">command</var> to <var title=
@@ -3258,8 +3118,7 @@
             value</h3>
 
             <p>To <dfn id="clear-the-value">clear the value</dfn> of an
-            <code class="external" data-anolis-spec="dom"><a href=
-            "http://dom.spec.whatwg.org/#element">Element</a></code>
+            {{Element}}
             <var title="">element</var>:</p>
 
             <p class="note">The idea is to remove any <a href=
@@ -3450,9 +3309,7 @@
                     <p class="note">E.g., a text node child of a document
                     fragment.</p>
 
-                    <p>If <var title="">node</var>'s [=tree/parent=] is not an <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                    <p>If <var title="">node</var>'s [=tree/parent=] is not an {{Element}},
                     abort this algorithm.</p>
                 </li>
 
@@ -3474,9 +3331,7 @@
                 </li>
 
                 <li>While <var title="">current ancestor</var> is an
-                    <a href="#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>
+                    <a href="#editable">editable</a> {{Element}}
                     and the <a href="#effective-command-value">effective
                     command value</a> of <var title="">command</var> is not
                     <a href="#loosely-equivalent-values" title=
@@ -3601,9 +3456,7 @@
                                     we'll ignore it for now.</p>
 
                                     <p>If <var title="">child</var> is an
-                                    <code class="external" data-anolis-spec=
-                                    "dom"><a href=
-                                    "http://dom.spec.whatwg.org/#element">Element</a></code>
+                                    {{Element}}
                                     whose <a href=
                                     "#specified-command-value">specified
                                     command value</a> for <var title=
@@ -3692,20 +3545,14 @@
                             <p><a href=
                             "#reorder-modifiable-descendants">Reorder
                             modifiable descendants</a> of <var title=
-                            "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code>.</p>
+                            "">node</var>'s {{Node/
+                            previousSibling}}.</p>
                         </li>
 
                         <li>
                             <a href="#reorder-modifiable-descendants">Reorder
                             modifiable descendants</a> of <var title=
-                            "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>.
+                            "">node</var>'s {{Node/nextSibling}}.
                         </li>
 
                         <li>
@@ -3761,9 +3608,7 @@
                         <li>Let <var title="">children</var> be all
                             [=tree/children=] of
                             <var title="">node</var>, omitting any that are
-                            <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>s
+                            {{Element}}s
                             whose <a href="#specified-command-value">specified
                             command value</a> for <var title="">command</var>
                             is neither null nor <a href="#equivalent-values"
@@ -3813,10 +3658,7 @@
                         <code class="external" data-anolis-spec="domcore"
                         title="dom-Document-createElement"><a href=
                         "http://dom.spec.whatwg.org/#dom-document-createelement">
-                        createElement("b")</a></code> on the <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-ownerDocument"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                        createElement("b")</a></code> on the {{Node/ownerDocument}}
                         of <var title="">node</var>.</li>
 
                         <li>If <var title="">command</var> is "italic" and
@@ -3825,10 +3667,7 @@
                         <code class="external" data-anolis-spec="domcore"
                         title="dom-Document-createElement"><a href=
                         "http://dom.spec.whatwg.org/#dom-document-createelement">
-                        createElement("i")</a></code> on the <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-ownerDocument"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                        createElement("i")</a></code> on the {{Node/ownerDocument}}
                         of <var title="">node</var>.</li>
 
                         <li>
@@ -3844,11 +3683,8 @@
                             "external" data-anolis-spec="domcore" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
-                            createElement("s")</a></code> on the <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-ownerDocument"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                            ownerDocument</a></code> of <var title=
+                            createElement("s")</a></code> on the {{Node/
+                            ownerDocument}} of <var title=
                             "">node</var>.</p>
                         </li>
 
@@ -3858,10 +3694,7 @@
                         <code class="external" data-anolis-spec="domcore"
                         title="dom-Document-createElement"><a href=
                         "http://dom.spec.whatwg.org/#dom-document-createelement">
-                        createElement("u")</a></code> on the <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-ownerDocument"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                        createElement("u")</a></code> on the {{Node/ownerDocument}}
                         of <var title="">node</var>.</li>
 
                         <li>
@@ -3882,10 +3715,8 @@
                                 "dom-Document-createElement"><a href=
                                 "http://dom.spec.whatwg.org/#dom-document-createelement">
                                 createElement("font")</a></code> on the
-                                <code class="external" data-anolis-spec="dom"
-                                title="dom-Node-ownerDocument"><a href=
-                                "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                                ownerDocument</a></code> of <var title=
+                                {{Node/
+                                ownerDocument}} of <var title=
                                 "">node</var>.</li>
 
                                 <li>Set the <code class="external"
@@ -3912,10 +3743,7 @@
                         <code class="external" data-anolis-spec="domcore"
                         title="dom-Document-createElement"><a href=
                         "http://dom.spec.whatwg.org/#dom-document-createelement">
-                        createElement("font")</a></code> on the <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-ownerDocument"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                        createElement("font")</a></code> on the {{Node/ownerDocument}}
                         of <var title="">node</var>, then set the <code class=
                         "external" data-anolis-spec="html" title=
                         "dom-font-face"><a href=
@@ -3932,10 +3760,7 @@
                         calling <code class="external" data-anolis-spec=
                         "domcore" title="dom-Document-createElement"><a href=
                         "http://dom.spec.whatwg.org/#dom-document-createelement">
-                        createElement("a")</a></code> on the <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-ownerDocument"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                        createElement("a")</a></code> on the {{Node/ownerDocument}}
                         of <var title="">node</var>.</li>
 
                         <li>Set the <code class="external" data-anolis-spec=
@@ -3997,9 +3822,7 @@
                     result of calling <code class="external" data-anolis-spec=
                     "domcore" title="dom-Document-createElement"><a href=
                     "http://dom.spec.whatwg.org/#dom-document-createelement">createElement("font")</a></code>
-                    on the <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-ownerDocument"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                    on the {{Node/ownerDocument}}
                     of <var title="">node</var>, then set the <code class=
                     "external" data-anolis-spec="html" title=
                     "dom-font-size"><a href=
@@ -4041,9 +3864,7 @@
                     result of calling <code class="external" data-anolis-spec=
                     "dom" title="dom-Document-createElement"><a href=
                     "http://dom.spec.whatwg.org/#dom-document-createelement">createElement("sub")</a></code>
-                    on the <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-ownerDocument"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                    on the {{Node/ownerDocument}}
                     of <var title="">node</var>.</p>
                 </li>
 
@@ -4053,9 +3874,7 @@
                 of calling <code class="external" data-anolis-spec="dom" title=
                 "dom-Document-createElement"><a href=
                 "http://dom.spec.whatwg.org/#dom-document-createelement">createElement("sup")</a></code>
-                on the <code class="external" data-anolis-spec="dom" title=
-                "dom-Node-ownerDocument"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                on the {{Node/ownerDocument}}
                 of <var title="">node</var>.</li>
 
                 <li>If <var title="">new parent</var> is null, let <var title=
@@ -4063,9 +3882,7 @@
                 "external" data-anolis-spec="dom" title=
                 "dom-Document-createElement"><a href=
                 "http://dom.spec.whatwg.org/#dom-document-createelement">createElement("span")</a></code>
-                on the <code class="external" data-anolis-spec="dom" title=
-                "dom-Node-ownerDocument"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                on the {{Node/ownerDocument}}
                 of <var title="">node</var>.</li>
 
                 <li>
@@ -4113,9 +3930,7 @@
                     "#preserving-ranges">preserving ranges</a>.
                 </li>
 
-                <li>If <var title="">node</var> is an <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>
+                <li>If <var title="">node</var> is an {{Element}}
                     and the <a href="#effective-command-value">effective
                     command value</a> of <var title="">command</var> for
                     <var title="">node</var> is not <a href=
@@ -4138,9 +3953,7 @@
                         <li>Let <var title="">children</var> be all
                             [=tree/children=] of
                             <var title="">node</var>, omitting any that are
-                            <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>s
+                            {{Element}}s
                             whose <a href="#specified-command-value">specified
                             command value</a> for <var title="">command</var>
                             is neither null nor <a href="#equivalent-values"
@@ -4416,9 +4229,7 @@
 
                     <p>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is an
-                    <a href="#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    <a href="#editable">editable</a> {{Text}} node,
                     and its [=range/start offset=] is
                     neither zero nor its [=range/start node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
@@ -4435,9 +4246,7 @@
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/end node=] is an <a href=
-                    "#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    "#editable">editable</a> {{Text}} node,
                     and its [=range/end offset=] is neither
                     zero nor its [=range/end node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
@@ -4448,9 +4257,7 @@
                 </li>
 
                 <li>Let <var title="">element list</var> be all <a href=
-                "#editable">editable</a> <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#element">Element</a></code>s
+                "#editable">editable</a> {{Element}}s
                 <a href="#effectively-contained">effectively contained</a> in
                 the <a href="#active-range">active range</a>.
                 </li>
@@ -5518,9 +5325,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
                     <p>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is an
-                    <a href="#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    <a href="#editable">editable</a> {{Text}} node,
                     and its [=range/start offset=] is
                     neither zero nor its [=range/start node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
@@ -5537,9 +5342,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/end node=] is an <a href=
-                    "#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    "#editable">editable</a> {{Text}} node,
                     and its [=range/end offset=] is neither
                     zero nor its [=range/end node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
@@ -5933,9 +5736,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             its <a href="#action">action</a>, the user agent must <a href=
             "#record-current-overrides">record current overrides</a>. After
             taking the <a href="#action">action</a>, if the <a href=
-            "#active-range">active range</a> is <code class="external"
-            data-anolis-spec="dom" title="dom-Range-collapsed"><a href=
-            "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+            "#active-range">active range</a> is {{AbstractRange/collapsed}},
             it must <a href="#restore-states-and-values">restore states and
             values</a> from the recorded list.</p>
 
@@ -6165,13 +5966,9 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
                         <li>If <var title="">child</var> is an [^ol^] or [^ul^], or <var title="">new item</var> is
                             null and <var title="">child</var> is a
-                            <code class="external" data-anolis-spec=
-                            "dom"><a href=
-                            "http://dom.spec.whatwg.org/#text">Text</a></code>
-                            node whose <code class="external" data-anolis-spec=
-                            "domcore" title="dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> consists of zero of more <a class=
+                            {{Text}}
+                            node whose {{CharacterData/
+                            data}} consists of zero of more <a class=
                             "external" data-anolis-spec="encoding" href=
                             "http://encoding.spec.whatwg.org/#ascii-whitespace"
                             title="ascii whitespace">space characters</a>:
@@ -6200,11 +5997,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                                 "dom-Document-createElement"><a href=
                                 "http://dom.spec.whatwg.org/#dom-document-createelement">
                                     createElement("li")</a></code> on the
-                                    <code class="external" data-anolis-spec=
-                                    "dom" title=
-                                    "dom-Node-ownerDocument"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                                    ownerDocument</a></code> of <var title=
+                                    {{Node/
+                                    ownerDocument}} of <var title=
                                     "">item</var>, then insert <var title=
                                     "">new item</var> into the [=tree/parent=] of
                                     <var title="">item</var> immediately after
@@ -6450,10 +6244,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <ol>
                 <li>While <var title="">node</var> is neither null nor an
-                <code class="external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#element">Element</a></code>, or it
-                is an <code class="external" data-anolis-spec=
-                    "dom"><a href="http://dom.spec.whatwg.org/#element">Element</a></code>
+                {{Element}}, or it
+                is an {{Element}}
                     but its "display" property has <a href=
                     "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                     value</a> "inline" or "none", set <var title="">node</var>
@@ -6469,9 +6261,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     everything up to and including the html and body elements
                     have display: inline or none.)</p>
 
-                    <p>If <var title="">node</var> is not an <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                    <p>If <var title="">node</var> is not an {{Element}},
                     return "left".</p>
                 </li>
 
@@ -7297,18 +7087,14 @@ output is null.
                     </ol>
                 </li>
 
-                <li>If <var title="">start node</var> is a <code class=
-                "external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                <li>If <var title="">start node</var> is a {{Text}} node and
                 <var title="">start offset</var> is 0, set <var title="">start
                 offset</var> to the [=tree/index=] of <var title="">start
                     node</var>, then set <var title="">start node</var> to its
                     [=tree/parent=].
                 </li>
 
-                <li>If <var title="">end node</var> is a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                <li>If <var title="">end node</var> is a {{Text}} node and
                     <var title="">end offset</var> is its [=Node/length=], set <var title="">end
                     offset</var> to one plus the [=tree/index=] of <var title="">end
                     node</var>, then set <var title="">end node</var> to its
@@ -7461,9 +7247,7 @@ output is null.
 
                     <p>If <var title="">start node</var> and <var title="">end
                     node</var> are the same, and <var title="">start node</var>
-                    is an <a href="#editable">editable</a> <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code>
+                    is an <a href="#editable">editable</a> {{Text}}
                     node:</p>
 
                     <ol>
@@ -7517,9 +7301,7 @@ output is null.
                 </li>
 
                 <li>If <var title="">start node</var> is an <a href=
-                "#editable">editable</a> <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node, call
+                "#editable">editable</a> {{Text}} node, call
                 <code class="external" data-anolis-spec="dom" title=
                 "dom-CharacterData-deleteData"><a href=
                 "http://dom.spec.whatwg.org/#dom-characterdata-deletedata">deleteData()</a></code>
@@ -7644,9 +7426,7 @@ output is null.
                 </li>
 
                 <li>If <var title="">end node</var> is an <a href="#editable">
-                    editable</a> <code class="external" data-anolis-spec=
-                    "dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    editable</a> {{Text}} node,
                     call <code class="external" data-anolis-spec="dom" title=
                     "dom-CharacterData-deleteData"><a href=
                     "http://dom.spec.whatwg.org/#dom-characterdata-deletedata">deleteData(0,
@@ -7792,15 +7572,9 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                                 <li>If <var title="">end block</var> is
                                     <a href="#editable">editable</a> and is not
                                     an <a href="#inline-node">inline node</a>,
-                                    and its <code class="external"
-                                    data-anolis-spec="dom" title=
-                                    "dom-Node-previousSibling"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                                    previousSibling</a></code> and <code class=
-                                    "external" data-anolis-spec="dom" title=
-                                    "dom-Node-nextSibling"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                                    nextSibling</a></code> are both <a href=
+                                    and its {{Node/
+                                    previousSibling}} and {{Node/
+                                    nextSibling}} are both <a href=
                                     "#inline-node" title="inline node">inline
                                     nodes</a>, call <code class="external"
                                     data-anolis-spec="dom" title=
@@ -7832,10 +7606,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             </ol>
                         </li>
 
-                        <li>If <var title="">end block</var>'s <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-firstChild"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-firstchild">firstChild</a></code>
+                        <li>If <var title="">end block</var>'s {{Node/firstChild}}
                         is not an <a href="#inline-node">inline node</a>,
                         <a href="#restore-states-and-values">restore states and
                         values</a> from <var title="">record</var>, then abort
@@ -7854,15 +7625,10 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                         <li>While <var title="">children</var>'s last member is
                         not a [^br^], and <var title="">children</var>'s
-                            last member's <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            last member's {{Node/nextSibling}}
                             is an <a href="#inline-node">inline node</a>,
                             append <var title="">children</var>'s last member's
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             to <var title="">children</var>.
                         </li>
 
@@ -7880,10 +7646,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>If <var title="">children</var>'s first member's
-                        <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code> is an <a href=
+                        {{Node/
+                            previousSibling}} is an <a href=
                             "#editable">editable</a> [^br^], remove that [^br^] from its [=tree/parent=].
                         </li>
                     </ol>
@@ -7921,19 +7685,11 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>If <var title="">reference node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             is an <a href="#inline-node">inline node</a> and
-                            <var title="">start block</var>'s <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-lastChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                            <var title="">start block</var>'s {{Node/lastChild}}
                             is a [^br^], remove <var title="">start
-                            block</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-lastChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                            block</var>'s {{Node/lastChild}}
                             from it.
                         </li>
 
@@ -7944,24 +7700,16 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>If <var title="">reference node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             is neither null nor a <a href="#block-node">block
                             node</a>, append it to <var title="">nodes to
                             move</var>.
                         </li>
 
                         <li>While <var title="">nodes to move</var> is nonempty
-                        and its last member isn't a [^br^] and its last member's <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        and its last member isn't a [^br^] and its last member's {{Node/nextSibling}}
                             is neither null nor a <a href="#block-node">block
-                            node</a>, append its last member's <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            node</a>, append its last member's {{Node/nextSibling}}
                             to <var title="">nodes to move</var>.
                         </li>
 
@@ -8000,20 +7748,11 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             [=Node/length=].
                         </li>
 
-                        <li>If <var title="">end block</var>'s <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-firstChild"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-firstchild">firstChild</a></code>
+                        <li>If <var title="">end block</var>'s {{Node/firstChild}}
                         is an <a href="#inline-node">inline node</a> and
-                        <var title="">start block</var>'s <code class=
-                        "external" data-anolis-spec="dom" title=
-                        "dom-Node-lastChild"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                        <var title="">start block</var>'s {{Node/lastChild}}
                         is a [^br^], remove <var title="">start
-                            block</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-lastChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                            block</var>'s {{Node/lastChild}}
                             from it.
                         </li>
 
@@ -8054,23 +7793,17 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                 <li>While <var title="">ancestor</var> has an [=tree/inclusive
                     ancestor=] [^ol^] <a href="#in-the-same-editing-host">in the
-                    same editing host</a> whose <code class="external"
-                    data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href="http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                    nextSibling</a></code> is also an [^ol^] <a href="#in-the-same-editing-host">in the
+                    same editing host</a> whose {{Node/
+                    nextSibling}} is also an [^ol^] <a href="#in-the-same-editing-host">in the
                     same editing host</a>, or an [=tree/inclusive
                     ancestor=] [^ul^] <a href="#in-the-same-editing-host">in the
-                    same editing host</a> whose <code class="external"
-                    data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href="http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                    nextSibling</a></code> is also a [^ul^] <a href="#in-the-same-editing-host">in the
+                    same editing host</a> whose {{Node/
+                    nextSibling}} is also a [^ul^] <a href="#in-the-same-editing-host">in the
                     same editing host</a>:
 
                     <ol>
                         <li>While <var title="">ancestor</var> and its
-                        <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        {{Node/nextSibling}}
                             are not both [^ol^]s <a href=
                             "#in-the-same-editing-host">in the same editing
                             host</a>, and are also not both [^ul^]s <a href=
@@ -8080,26 +7813,17 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>While <var title="">ancestor</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             has [=tree/children=], append
-                            <var title="">ancestor</var>'s <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-firstChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-firstchild">firstChild</a></code>
+                            <var title="">ancestor</var>'s {{Node/nextSibling}}'s
+                            {{Node/firstChild}}
                             as the last [=tree/child=] of <var title=
                             "">ancestor</var>, <a href=
                             "#preserving-ranges">preserving ranges</a>.
                         </li>
 
                         <li>Remove <var title="">ancestor</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             from its [=tree/parent=].
                         </li>
                     </ol>
@@ -8296,11 +8020,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             before <var title="">original parent</var>.
                         </li>
 
-                        <li>While the <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code> of the first member of
+                        <li>While the {{Node/
+                            previousSibling}} of the first member of
                             <var title="">node list</var> is not null, append
                             the first [=tree/child=] of <var title=
                             "">original parent</var> as the last [=tree/child=] of <var title=
@@ -8384,9 +8105,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                     isn't necessary.</p>
 
                     <p>If <var title="">node list</var>'s last member's
-                    <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-nextSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                    {{Node/nextSibling}}
                     is null, but its [=tree/parent=] is not null,
                     <a href="#remove-extraneous-line-breaks-at-the-end-of">remove
                     extraneous line breaks at the end of</a> <var title="">node
@@ -8586,8 +8305,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>Otherwise, if <var title="">start node</var> is a
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code>
+                        {{Text}}
                             node and its [=tree/parent=]'s <a href=
                             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                             value</a> for "white-space" is neither "pre" nor
@@ -8596,10 +8314,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             &minus; 1)st <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">start node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> is a space (0x0020) or non-breaking
+                            {{CharacterData/
+                            data}} is a space (0x0020) or non-breaking
                             space (0x00A0), subtract one from <var title=
                             "">start offset</var>.
                         </li>
@@ -8659,8 +8375,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>Otherwise, if <var title="">end node</var> is a
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code>
+                        {{Text}}
                             node and its [=tree/parent=]'s <a href=
                             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                             value</a> for "white-space" is neither "pre" nor
@@ -8669,10 +8384,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             <var title="">end offset</var>th <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">end node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> is a space (0x0020) or non-breaking
+                            {{CharacterData/
+                            data}} is a space (0x0020) or non-breaking
                             space (0x00A0):
 
                             <ol>
@@ -8682,11 +8395,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                                     end offset</var>th <a href=
                                     "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                                     code unit</a> of <var title="">end
-                                    node</var>'s <code class="external"
-                                    data-anolis-spec="dom" title=
-                                    "dom-CharacterData-data"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                                    data</a></code> is a space (0x0020): call
+                                    node</var>'s {{CharacterData/
+                                    data}} is a space (0x0020): call
                                     <code class="external" data-anolis-spec=
                                     "dom" title=
                                     "dom-CharacterData-deleteData"><a href=
@@ -8702,11 +8412,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                                 <a href=
                                 "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                                     code unit</a> of <var title="">end
-                                    node</var>'s <code class="external"
-                                    data-anolis-spec="dom" title=
-                                    "dom-CharacterData-data"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                                    data</a></code> is a space (0x0020), false
+                                    node</var>'s {{CharacterData/
+                                    data}} is a space (0x0020), false
                                     otherwise.
                                 </li>
 
@@ -8752,8 +8459,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>Otherwise, if <var title="">end node</var> is a
-                        <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code>
+                        {{Text}}
                             node and its [=tree/parent=]'s <a href=
                             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                             value</a> for "white-space" is neither "pre" nor
@@ -8762,10 +8468,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">end node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> is a space (0x0020) and <var title=
+                            {{CharacterData/
+                            data}} is a space (0x0020) and <var title=
                             "">end node</var> <a href=
                             "#precedes-a-line-break">precedes a line break</a>:
 
@@ -8802,10 +8506,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                     "">start node</var> <a href="#follows-a-line-break">follows
                     a line break</a>, and false otherwise. <var title=
                     "">non-breaking end</var> is true if <var title="">end
-                    offset</var> is <var title="">end node</var>'s <code class=
-                    "external" data-anolis-spec="dom" title=
-                    "dom-CharacterData-length"><a href=
-                    "http://dom.spec.whatwg.org/#dom-characterdata-length">length</a></code>
+                    offset</var> is <var title="">end node</var>'s {{CharacterData/length}}
                     and <var title="">end node</var> <a href=
                     "#precedes-a-line-break">precedes a line break</a>, and
                     false otherwise.</p>
@@ -8824,8 +8525,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         </li>
 
                         <li>Otherwise, if <var title="">start node</var> is not
-                        a <code class="external" data-anolis-spec=
-                            "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code>
+                        a {{Text}}
                             node or if <var title="">start offset</var> is
                             <var title="">start node</var>'s [=Node/length=], set
                             <var title="">start offset</var> to one plus
@@ -8850,11 +8550,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                                 <a href=
                                 "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                                     code unit</a> of <var title="">start
-                                    node</var>'s <code class="external"
-                                    data-anolis-spec="dom" title=
-                                    "dom-CharacterData-data"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                                    data</a></code>:
+                                    node</var>'s {{CharacterData/
+                                    data}}:
 
                                     <ol>
                                         <li>
@@ -9034,10 +8731,8 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
                             createElement(<var title="">tag</var>)</a></code>
-                            on the <code class="external" data-anolis-spec=
-                            "dom" title="dom-Node-ownerDocument"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-ownerdocument">
-                            ownerDocument</a></code> of <var title="">first
+                            on the {{Node/
+                            ownerDocument}} of <var title="">first
                             node</var>.</p>
                         </li>
 
@@ -9088,9 +8783,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                     result of calling <code class="external" data-anolis-spec=
                     "dom" title="dom-Document-createElement"><a href=
                     "http://dom.spec.whatwg.org/#dom-document-createelement">createElement("blockquote")</a></code>
-                    on the <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-ownerDocument"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-ownerdocument">ownerDocument</a></code>
+                    on the {{Node/ownerDocument}}
                     of <var title="">first node</var>. Let <var title="">new
                     parent</var> be the result.</p>
                 </li>
@@ -9262,9 +8955,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 </li>
 
                 <li>While <var title="">current ancestor</var> is an
-                    <a href="#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>
+                    <a href="#editable">editable</a> {{Element}}
                     that is neither a <a href=
                     "#simple-indentation-element">simple indentation
                     element</a> nor an [^ol^] nor a [^ul^], append <var title="">current ancestor</var>
@@ -9286,9 +8977,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         list.</li>
 
                         <li>While <var title="">current ancestor</var> is an
-                        <a href="#editable">editable</a> <code class="external"
-                            data-anolis-spec="dom"><a href=
-                            "http://dom.spec.whatwg.org/#element">Element</a></code>
+                        <a href="#editable">editable</a> {{Element}}
                             that is neither an <a href=
                             "#indentation-element">indentation element</a> nor
                             an [^ol^] nor a [^ul^], append <var title="">current
@@ -9414,14 +9103,9 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
                         <li>If <var title="">target</var> is an <a href=
                         "#inline-node">inline node</a> that is not a
-                        [^br^], and its <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        [^br^], and its {{Node/nextSibling}}
                             is a [^br^], remove <var title="">target</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            {{Node/nextSibling}}
                             from its [=tree/parent=].
                         </li>
 
@@ -10715,14 +10399,8 @@ ol ol ol { list-style-type: lower-roman }
                             list of the correct type. Failing that, we set the
                             tag name.</p>
 
-                            <p>If <var title="">list</var>'s <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code> or <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            <p>If <var title="">list</var>'s {{Node/
+                            previousSibling}} or {{Node/nextSibling}}
                             is an <a href="#editable">editable</a> <a href=
                             "#html-element">HTML element</a> with [=Element/local name=]
                             <var title="">tag name</var>:</p>
@@ -10858,9 +10536,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>While <var title="">node list</var> is not empty,
                         and the first member of <var title="">node list</var>
-                        is the <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        is the {{Node/nextSibling}}
                             of the last member of <var title="">sublist</var>
                             and is not an <a href="#html-element">HTML
                             element</a> with [=Element/local name=]
@@ -10910,10 +10586,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                             <p>While either <var title="">sublist</var> is
                             empty, or <var title="">node list</var> is not
-                            empty and its first member is the <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            empty and its first member is the {{Node/nextSibling}}
                             of <var title="">sublist</var>'s last member:</p>
 
                             <ol>
@@ -10957,11 +10630,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                         wrap</var> is empty, or <var title="">
                                             node list</var> is not empty and
                                             its first member is the
-                                            <code class="external"
-                                            data-anolis-spec="dom" title=
-                                            "dom-Node-nextSibling"><a href=
-                                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                                            nextSibling</a></code> of
+                                            {{Node/
+                                            nextSibling}} of
                                             <var title="">nodes to wrap</var>'s
                                             last member and the first member of
                                             <var title="">node list</var> is an
@@ -11112,11 +10782,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                     "#simple-indentation-element">simple
                                     indentation element</a>, or <var title=
                                     "">sublist</var>'s first member's [=tree/parent=]'s
-                                    <code class="external" data-anolis-spec=
-                                    "dom" title=
-                                    "dom-Node-previousSibling"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                                    previousSibling</a></code> is not an
+                                    {{Node/
+                                    previousSibling}} is not an
                                     <a href="#editable">editable</a> <a href=
                                     "#html-element">HTML element</a> with
                                     [=Element/local
@@ -11136,27 +10803,20 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                 <li>Let <var title="">list</var> be
                                     <var title="">sublist</var>'s first
                                     member's [=tree/parent=]'s
-                                    <code class="external" data-anolis-spec=
-                                    "dom" title=
-                                    "dom-Node-previousSibling"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                                    previousSibling</a></code>.
+                                    {{Node/
+                                    previousSibling}}.
                                 </li>
 
                                 <li>
                                     <a href="#normalize-sublists">Normalize
                                     sublists</a> of <var title="">list</var>'s
-                                    <code class="external" data-anolis-spec=
-                                    "dom" title="dom-Node-lastChild"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-lastchild">
-                                    lastChild</a></code>.
+                                    {{Node/
+                                    lastChild}}.
                                 </li>
 
                                 <li>If <var title="">list</var>'s
-                                    <code class="external" data-anolis-spec=
-                                    "dom" title="dom-Node-lastChild"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-lastchild">
-                                    lastChild</a></code> is not an <a href=
+                                    {{Node/
+                                    lastChild}} is not an <a href=
                                     "#editable">editable</a> <a href=
                                     "#html-element">HTML element</a> with
                                     [=Element/local
@@ -11247,9 +10907,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                     it makes sense to do so.</p>
 
                     <p>Let <var title="">element list</var> be a list of all
-                    <a href="#editable">editable</a> <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>s
+                    <a href="#editable">editable</a> {{Element}}s
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#contained">contained</a> in
                     <var title="">new range</var> that either has an attribute
@@ -11358,9 +11016,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>While <var title="">node list</var> is not empty,
                         and the first member of <var title="">node list</var>
-                        is the <code class="external" data-anolis-spec="dom"
-                        title="dom-Node-nextSibling"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        is the {{Node/nextSibling}}
                         of the last member of <var title="">sublist</var>,
                         remove the first member of <var title="">node
                         list</var> and append it to <var title=
@@ -11525,18 +11181,14 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                 "#previous-equivalent-point">previous equivalent point</a>.
                 </li>
 
-                <li>If <var title="">node</var> is not a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node, or
+                <li>If <var title="">node</var> is not a {{Text}} node, or
                     has an [^a^] [=tree/ancestor=], do nothing and
                     abort these steps.
                 </li>
 
                 <li>Let <var title="">search</var> be the largest substring of
-                <var title="">node</var>'s <code class="external"
-                data-anolis-spec="dom" title=
-                    "dom-CharacterData-data"><a href="http://dom.spec.whatwg.org/#dom-characterdata-data">
-                    data</a></code> whose end is <var title="">end offset</var>
+                <var title="">node</var>'s {{CharacterData/
+                    data}} whose end is <var title="">end offset</var>
                     and that contains no <a class="external" data-anolis-spec=
                     "encoding" href=
                     "http://encoding.spec.whatwg.org/#ascii-whitespace" title=
@@ -11548,11 +11200,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                     <ol>
                         <li>While there is no substring of <var title=
-                        "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> ending at <var title="">end
+                        "">node</var>'s {{CharacterData/
+                            data}} ending at <var title="">end
                             offset</var> that is an <a href=
                             "#autolinkable-url">autolinkable URL</a>, decrement
                             <var title="">end offset</var>.
@@ -11560,20 +11209,14 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>Let <var title="">start offset</var> be the start
                         index of the longest substring of <var title=
-                        "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> that is an <a href=
+                        "">node</var>'s {{CharacterData/
+                            data}} that is an <a href=
                             "#autolinkable-url">autolinkable URL</a> ending at
                             <var title="">end offset</var>.
                         </li>
 
                         <li>Let <var title="">href</var> be the substring of
-                        <var title="">node</var>'s <code class="external"
-                        data-anolis-spec="dom" title=
-                        "dom-CharacterData-data"><a href=
-                        "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+                        <var title="">node</var>'s {{CharacterData/data}}
                         starting at <var title="">start offset</var> and ending
                         at <var title="">end offset</var>.</li>
                     </ol>
@@ -11586,11 +11229,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                     <ol>
                         <li>While there is no substring of <var title=
-                        "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> ending at <var title="">end
+                        "">node</var>'s {{CharacterData/
+                            data}} ending at <var title="">end
                             offset</var> that is a <a class="external"
                             data-anolis-spec="html" href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#valid-e-mail-address">
@@ -11600,11 +11240,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>Let <var title="">start offset</var> be the start
                         index of the longest substring of <var title=
-                        "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> that is a <a class="external"
+                        "">node</var>'s {{CharacterData/
+                            data}} that is a <a class="external"
                             data-anolis-spec="html" href=
                             "http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#valid-e-mail-address">
                             valid e-mail address</a> ending at <var title=
@@ -11613,10 +11250,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>Let <var title="">href</var> be "mailto:"
                         concatenated with the substring of <var title=
-                        "">node</var>'s <code class="external"
-                        data-anolis-spec="dom" title=
-                        "dom-CharacterData-data"><a href=
-                        "http://dom.spec.whatwg.org/#dom-characterdata-data">data</a></code>
+                        "">node</var>'s {{CharacterData/data}}
                         starting at <var title="">start offset</var> and ending
                         at <var title="">end offset</var>.</li>
                     </ol>
@@ -11720,9 +11354,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
             <ol>
                 <li>If the <a href="#active-range">active range</a> is not
-                <code class="external" data-anolis-spec="dom" title=
-                "dom-Range-collapsed"><a href=
-                "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+                {{AbstractRange/collapsed}},
                 <a href="#delete-the-selection">delete the selection</a> and
                 return true.
                 </li>
@@ -11764,21 +11396,15 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             anything like the spec's.</p>
 
                             <p>If <var title="">offset</var> is zero and
-                            <var title="">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code> is an <a href=
+                            <var title="">node</var>'s {{Node/
+                            previousSibling}} is an <a href=
                             "#editable">editable</a> <a href=
                             "#invisible">invisible</a> <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-node" title=
                             "concept-node">node</a>, remove <var title=
-                            "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code> from its [=tree/parent=].</p>
+                            "">node</var>'s {{Node/
+                            previousSibling}} from its [=tree/parent=].</p>
                         </li>
 
                         <li>Otherwise, if <var title="">node</var> has a
@@ -11872,9 +11498,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         (IE9, Firefox 7.0a2, Chrome 14 dev, etc.).</p>
                     </div>
 
-                    <p>If <var title="">node</var> is a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                    <p>If <var title="">node</var> is a {{Text}} node and
                     <var title="">offset</var> is not zero, or if <var title=
                     "">node</var> is a <a href="#block-node">block node</a>
                     that has a [=tree/child=] with [=tree/index=] <var title="">offset</var>
@@ -12155,10 +11779,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     <p>If <var title="">offset</var> is zero; and either the
                     [=tree/child=] of <var title="">start
                     node</var> with [=tree/index=] <var title="">start
-                    offset</var> minus one is an [^hr^], or the [=tree/child=] is a [^br^] whose <code class="external"
-                    data-anolis-spec="dom" title=
-                    "dom-Node-previousSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
+                    offset</var> minus one is an [^hr^], or the [=tree/child=] is a [^br^] whose {{Node/previousSibling}}
                     is either a [^br^] or not an <a href="#inline-node">inline
                     node</a>:</p>
 
@@ -12225,9 +11846,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
 
                     <p>If the [=tree/child=] of <var title="">start
                     node</var> with [=tree/index=] <var title="">start
-                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that [=tree/child=]'s <code class="external"
-                    data-anolis-spec="dom" title="dom-Node-firstChild"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-firstchild">firstChild</a></code>
+                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that [=tree/child=]'s {{Node/firstChild}}
                     is an <a href="#inline-node">inline node</a>, and
                     <var title="">start offset</var> is not zero:</p>
 
@@ -12245,9 +11864,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                             nothing.</p>
 
                             <p>If <var title="">previous item</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-lastChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                            {{Node/lastChild}}
                             is an <a href="#inline-node">inline node</a> other
                             than a [^br^], call <code class="external"
                             data-anolis-spec="dom" title=
@@ -12262,9 +11879,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                         </li>
 
                         <li>If <var title="">previous item</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-Node-lastChild"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                            {{Node/lastChild}}
                             is an <a href="#inline-node">inline node</a>, call
                             <code class="external" data-anolis-spec="dom"
                             title="dom-Document-createElement"><a href=
@@ -12295,10 +11910,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     mutation rules.</p>
 
                     <p>If <var title="">start node</var>'s [=tree/child=] with [=tree/index=] <var title="">start
-                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that [=tree/child=]'s <code class="external"
-                    data-anolis-spec="dom" title=
-                    "dom-Node-previousSibling"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-previoussibling">previousSibling</a></code>
+                    offset</var> is an [^li^] or [^dt^] or [^dd^], and that [=tree/child=]'s {{Node/previousSibling}}
                     is also an [^li^] or [^dt^] or [^dd^]:</p>
 
                     <ol>
@@ -12320,9 +11932,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                         </li>
 
                         <li>Set <var title="">node</var> to <var title="">start
-                        node</var>'s <code class="external" data-anolis-spec=
-                        "dom" title="dom-Node-nextSibling"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>.</li>
+                        node</var>'s {{Node/nextSibling}}.</li>
 
                         <li>Call <code title=
                             "dom-Selection-collapse"><a href="#dom-selection-collapse">
@@ -12766,11 +12376,8 @@ foo&lt;br&gt;bar
 
                                 <li>While <var title="">node list</var> is not
                                 empty, and the first member of <var title="">
-                                    node list</var> is the <code class=
-                                    "external" data-anolis-spec="dom" title=
-                                    "dom-Node-nextSibling"><a href=
-                                    "http://dom.spec.whatwg.org/#dom-node-nextsibling">
-                                    nextSibling</a></code> of the last member
+                                    node list</var> is the {{Node/
+                                    nextSibling}} of the last member
                                     of <var title="">sublist</var>, and the
                                     first member of <var title="">node
                                     list</var> is not a <a href=
@@ -13001,9 +12608,7 @@ foo&lt;br&gt;bar
 
             <ol>
                 <li>If the <a href="#active-range">active range</a> is not
-                <code class="external" data-anolis-spec="dom" title=
-                "dom-Range-collapsed"><a href=
-                "http://dom.spec.whatwg.org/#dom-range-collapsed">collapsed</a></code>,
+                {{AbstractRange/collapsed}},
                 <a href="#delete-the-selection">delete the selection</a> and
                 return true.
                 </li>
@@ -13026,19 +12631,13 @@ foo&lt;br&gt;bar
                     <ol>
                         <li>If <var title="">offset</var> is the [=Node/length=] of
                             <var title="">node</var> and <var title=
-                            "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            "">node</var>'s {{Node/nextSibling}}
                             is an <a href="#editable">editable</a> <a href=
                             "#invisible">invisible</a> <a class="external"
                             data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-node" title=
                             "concept-node">node</a>, remove <var title=
-                            "">node</var>'s <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            "">node</var>'s {{Node/nextSibling}}
                             from its [=tree/parent=].
                         </li>
 
@@ -13082,9 +12681,7 @@ foo&lt;br&gt;bar
                     </ol>
                 </li>
 
-                <li>If <var title="">node</var> is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                <li>If <var title="">node</var> is a {{Text}} node and
                 <var title="">offset</var> is not <var title="">node</var>'s
                 [=Node/length=]:
 
@@ -13130,10 +12727,8 @@ foo&lt;br&gt;bar
                             <var title="">end offset</var>th <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">node</var>'s
-                            <code class="external" data-anolis-spec="dom"
-                            title="dom-CharacterData-data"><a href=
-                            "http://dom.spec.whatwg.org/#dom-characterdata-data">
-                            data</a></code> has general category M when
+                            {{CharacterData/
+                            data}} has general category M when
                             interpreted as a Unicode code point, add one to
                             <var title="">end offset</var>.</p>
                         </li>
@@ -13508,20 +13103,14 @@ foo&lt;br&gt;bar
                     <ol>
                         <li>Let <var title="">sibling</var> be <var title="">
                             node list</var>'s first <a href=
-                            "#visible">visible</a> member's <code class=
-                            "external" data-anolis-spec="dom" title=
-                            "dom-Node-previousSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code>.
+                            "#visible">visible</a> member's {{Node/
+                            previousSibling}}.
                         </li>
 
                         <li>While <var title="">sibling</var> is <a href=
                         "#invisible">invisible</a>, set <var title=
-                        "">sibling</var> to its <code class="external"
-                        data-anolis-spec="dom" title=
-                        "dom-Node-previousSibling"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-previoussibling">
-                            previousSibling</a></code>.
+                        "">sibling</var> to its {{Node/
+                            previousSibling}}.
                         </li>
 
                         <li>If <var title="">sibling</var> is an
@@ -13546,10 +13135,7 @@ foo&lt;br&gt;bar
                         "">sublist</var>.</li>
 
                         <li>While the first member of <var title="">node
-                        list</var> is the <code class="external"
-                        data-anolis-spec="dom" title=
-                        "dom-Node-nextSibling"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        list</var> is the {{Node/nextSibling}}
                         of the last member of <var title="">sublist</var>,
                         remove the first member of <var title="">node
                         list</var> and append it to <var title=
@@ -13643,8 +13229,7 @@ foo&lt;br&gt;bar
 
                     <p>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                    {{Text}} node and
                     its [=range/start offset=] is
                     zero, call <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
@@ -13658,8 +13243,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                    {{Text}} node and
                     its [=range/start offset=] is the
                     [=Node/length=] of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
@@ -13815,10 +13399,7 @@ foo&lt;br&gt;bar
                     "#active-range">active range</a>.</p>
                 </li>
 
-                <li>Let <var title="">last child</var> be the <code class=
-                "external" data-anolis-spec="dom" title=
-                "dom-Node-lastChild"><a href=
-                "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                <li>Let <var title="">last child</var> be the {{Node/lastChild}}
                 of <var title="">frag</var>.</li>
 
                 <li>
@@ -14113,16 +13694,14 @@ foo&lt;br&gt;bar
 
                     <p>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is an
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                    {{Element}},
                     and "br" is not an <a href="#allowed-child">allowed
                     child</a> of it, return true.</p>
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is not an
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>,
+                    {{Element}},
                     and "br" is not an <a href="#allowed-child">allowed
                     child</a> of the <a href="#active-range">active range</a>'s
                     [=range/start node=]'s [=tree/parent=], return true.
@@ -14135,8 +13714,7 @@ foo&lt;br&gt;bar
 
                     <p>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                    {{Text}} node and
                     its [=range/start offset=] is
                     zero, call <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
@@ -14151,8 +13729,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is a
-                    <code class="external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                    {{Text}} node and
                     its [=range/start offset=] is the
                     [=Node/length=] of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
@@ -14339,9 +13916,7 @@ foo&lt;br&gt;bar
                 "concept-node">node</a> and [=boundary point/offset=].
                 </li>
 
-                <li>If <var title="">node</var> is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node, and
+                <li>If <var title="">node</var> is a {{Text}} node, and
                 <var title="">offset</var> is neither 0 nor the [=Node/length=] of <var title="">node</var>,
                 call <code class="external" data-anolis-spec="dom" title=
                 "dom-Text-splitText"><a href=
@@ -14349,19 +13924,14 @@ foo&lt;br&gt;bar
                     on <var title="">node</var>.
                 </li>
 
-                <li>If <var title="">node</var> is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node and
+                <li>If <var title="">node</var> is a {{Text}} node and
                 <var title="">offset</var> is its [=Node/length=], set <var title=
                 "">offset</var> to one plus the [=tree/index=] of <var title="">node</var>,
                 then set <var title="">node</var> to its [=tree/parent=].
                 </li>
 
-                <li>If <var title="">node</var> is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> or
-                <code class="external" data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#comment">Comment</a></code> node,
+                <li>If <var title="">node</var> is a {{Text}} or
+                {{Comment}} node,
                 set <var title="">offset</var> to the [=tree/index=] of <var title="">node</var>,
                 then set <var title="">node</var> to its [=tree/parent=].
                 </li>
@@ -14531,10 +14101,7 @@ foo&lt;br&gt;bar
                             block-extend algorithm works, but further thought
                             would be good.</p>
 
-                            <p>While the <code class="external"
-                            data-anolis-spec="dom" title=
-                            "dom-Node-nextSibling"><a href=
-                            "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                            <p>While the {{Node/nextSibling}}
                             of the last member of <var title="">node list</var>
                             is not null and is an <a href=
                             "#allowed-child">allowed child</a> of "p", append
@@ -14835,9 +14402,7 @@ foo&lt;br&gt;bar
                 <li>Unset the <code class="external" data-anolis-spec="html"
                     title="the id attribute"><a href=
                     "http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-id-attribute">
-                    id</a></code> attribute (if any) of each <code class=
-                    "external" data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#element">Element</a></code>
+                    id</a></code> attribute (if any) of each {{Element}}
                     [=tree/descendant=] of
                     <var title="">frag</var> that is not in <var title=
                     "">contained nodes</var>.
@@ -14857,15 +14422,10 @@ foo&lt;br&gt;bar
                     In this case we want to add the [^br^] to the [^p^], not the [^li^]. Likewise for <code title=
                     "">&lt;ol&gt;&lt;li&gt;&lt;p&gt;foo[]&lt;/ol&gt;</code>.</p>
 
-                    <p>While <var title="">container</var>'s <code class=
-                    "external" data-anolis-spec="dom" title=
-                    "dom-Node-lastChild"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
+                    <p>While <var title="">container</var>'s {{Node/lastChild}}
                     is a <a href="#prohibited-paragraph-child">prohibited
                     paragraph child</a>, set <var title="">container</var> to
-                    its <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-lastChild"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>.</p>
+                    its {{Node/lastChild}}.</p>
                 </li>
 
                 <li>While <var title="">new container</var>'s <code class=
@@ -14874,9 +14434,7 @@ foo&lt;br&gt;bar
                     "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>
                     is a <a href="#prohibited-paragraph-child">prohibited
                     paragraph child</a>, set <var title="">new container</var>
-                    to its <code class="external" data-anolis-spec="dom" title=
-                    "dom-Node-lastChild"><a href=
-                    "http://dom.spec.whatwg.org/#dom-node-lastchild">lastChild</a></code>.
+                    to its {{Node/lastChild}}.
                 </li>
 
                 <li>If <var title="">container</var> has no <a href="#visible">
@@ -15152,17 +14710,13 @@ foo&lt;br&gt;bar
                     exactly which we choose.</p>
 
                     <p>If <var title="">node</var> has a [=tree/child=] whose [=tree/index=] is <var title=
-                    "">offset</var> &minus; 1, and that [=tree/child=] is a <code class="external"
-                    data-anolis-spec="dom"><a href=
-                    "http://dom.spec.whatwg.org/#text">Text</a></code> node,
+                    "">offset</var> &minus; 1, and that [=tree/child=] is a {{Text}} node,
                     set <var title="">node</var> to that [=tree/child=], then set <var title=
                     "">offset</var> to <var title="">node</var>'s [=Node/length=].</p>
                 </li>
 
                 <li>If <var title="">node</var> has a [=tree/child=] whose [=tree/index=] is <var title="">offset</var>,
-                and that [=tree/child=] is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node, set
+                and that [=tree/child=] is a {{Text}} node, set
                 <var title="">node</var> to that [=tree/child=], then set <var title=
                 "">offset</var> to zero.
                 </li>
@@ -15192,9 +14746,7 @@ foo&lt;br&gt;bar
                 be the <a href="#active-range">active range</a>'s [=range/start=].
                 </li>
 
-                <li>If <var title="">node</var> is a <code class="external"
-                data-anolis-spec="dom"><a href=
-                "http://dom.spec.whatwg.org/#text">Text</a></code> node:
+                <li>If <var title="">node</var> is a {{Text}} node:
 
                     <ol>
                         <li>Call <code class="external" data-anolis-spec="dom"
@@ -15724,10 +15276,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
                         "">sublist</var>.</li>
 
                         <li>While the first member of <var title="">node
-                        list</var> is the <code class="external"
-                        data-anolis-spec="dom" title=
-                        "dom-Node-nextSibling"><a href=
-                        "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
+                        list</var> is the {{Node/nextSibling}}
                         of the last member of <var title="">sublist</var>, and
                         the first member of <var title="">node list</var> is
                         not an [^ol^] or [^ul^], remove the first member of <var title=
@@ -16011,9 +15560,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
                     "">target</var> be the <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#context-object">context
-                    object</a>'s <code class="external" data-anolis-spec=
-                    "domcore" title="dom-Document-documentElement"><a href=
-                    "http://dom.spec.whatwg.org/#dom-document-documentelement">documentElement</a></code>.</p>
+                    object</a>'s {{Document/documentElement}}.</p>
                 </li>
 
                 <li>If <var title="">target</var> is null, call
