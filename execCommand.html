@@ -1567,12 +1567,7 @@
             "http://dom.spec.whatwg.org/#concept-node" title=
             "concept-node">node</a> from its original [=tree/parent=] (if any), then insert it in the
             new location. In doing so, follow these rules instead of those
-            defined by the <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-node-insert" title=
-            "concept-node-insert">insert</a> and <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-node-remove" title=
-            "concept-node-remove">remove</a> algorithms:</p>
+            defined by the [=insert=] and [=remove=] algorithms:</p>
 
             <p class="note">Many of the algorithms in this specification move
             nodes around in the DOM. The normal rules for range mutation
@@ -2511,9 +2506,7 @@
                     [=range/start node=], it is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> is different from
+                    and its [=Node/length=] is different from
                     <var title="">range</var>'s [=range/start offset=].</p>
                 </li>
 
@@ -2548,10 +2541,7 @@
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node or
                     <var title="">range</var>'s [=range/end offset=] is its
-                    [=range/end node=]'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>.</p>
+                    [=range/end node=]'s [=Node/length=].</p>
                 </li>
             </ul>
 
@@ -4471,10 +4461,7 @@
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     and its [=range/start offset=] is
-                    neither zero nor its [=range/start node=]'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>, call <code class=
+                    neither zero nor its [=range/start node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
@@ -4493,10 +4480,7 @@
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     and its [=range/end offset=] is neither
-                    zero nor its [=range/end node=]'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>, call <code class=
+                    zero nor its [=range/end node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
@@ -5579,10 +5563,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     and its [=range/start offset=] is
-                    neither zero nor its [=range/start node=]'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>, call <code class=
+                    neither zero nor its [=range/start node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
@@ -5601,10 +5582,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     and its [=range/end offset=] is neither
-                    zero nor its [=range/end node=]'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>, call <code class=
+                    zero nor its [=range/end node=]'s [=Node/length=], call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
@@ -6589,10 +6567,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             following algorithm:</p>
 
             <ol>
-                <li>If <var title="">node</var>'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a> is zero, return null.
+                <li>If <var title="">node</var>'s [=Node/length=] is zero, return null.
                 </li>
 
                 <li class="note">We don't want to move into or out of
@@ -6606,9 +6581,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 "">&lt;br&gt;</code>.</li>
 
                 <li>If <var title="">offset</var> is <var title="">node</var>'s
-                <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a>, and <var title=
+                [=Node/length=], and <var title=
                 "">node</var>'s [=tree/parent=] is not null, and
                     <var title="">node</var> is an <a href=
                     "#inline-node">inline node</a>, return (<var title=
@@ -6627,10 +6600,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 position.</li>
 
                 <li>If <var title="">node</var> has a [=tree/child=] with [=tree/index=] <var title="">offset</var>, and
-                that [=tree/child=]'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a> is not zero, and that
+                that [=tree/child=]'s [=Node/length=] is not zero, and that
                     [=tree/child=] is an <a href=
                     "#inline-node">inline node</a>, return (that [=tree/child=], 0).
                 </li>
@@ -6654,10 +6624,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
             following algorithm:</p>
 
             <ol>
-                <li>If <var title="">node</var>'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a> is zero, return null.
+                <li>If <var title="">node</var>'s [=Node/length=] is zero, return null.
                 </li>
 
                 <li>If <var title="">offset</var> is 0, and <var title=
@@ -6669,15 +6636,9 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                 </li>
 
                 <li>If <var title="">node</var> has a [=tree/child=] with [=tree/index=] <var title="">offset</var>
-                &minus; 1, and that [=tree/child=]'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> is not zero, and that
+                &minus; 1, and that [=tree/child=]'s [=Node/length=] is not zero, and that
                     [=tree/child=] is an <a href=
-                    "#inline-node">inline node</a>, return (that [=tree/child=], that [=tree/child=]'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>).
+                    "#inline-node">inline node</a>, return (that [=tree/child=], that [=tree/child=]'s [=Node/length=]).
                 </li>
 
                 <li>Return null.</li>
@@ -6758,10 +6719,7 @@ output is null.
             <p>A [=boundary point=] (<var title="">node</var>,
             <var title="">offset</var>) is a <dfn id="block-end-point">block
             end point</dfn> if either <var title="">node</var>'s [=tree/parent=] is null and <var title=
-            "">offset</var> is <var title="">node</var>'s <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-node-length" title=
-            "concept-node-length">length</a>; or <var title="">node</var> has a
+            "">offset</var> is <var title="">node</var>'s [=Node/length=]; or <var title="">node</var> has a
             [=tree/child=] with [=tree/index=] <var title="">offset</var>, and that
             [=tree/child=] is a <a href="#visible">visible</a>
             <a href="#block-node">block node</a>.</p>
@@ -6867,10 +6825,7 @@ output is null.
 
                     <ol>
                         <li>If <var title="">end offset</var> is <var title="">
-                            end node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>, set it to
+                            end node</var>'s [=Node/length=], set it to
                             one plus <var title="">end node</var>'s [=tree/index=], then set
                             <var title="">end node</var> to its [=tree/parent=].
                         </li>
@@ -6887,9 +6842,7 @@ output is null.
                 </li>
 
                 <li>While <var title="">end offset</var> is <var title="">end
-                node</var>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-node-length"
-                    title="concept-node-length">length</a> and <var title=
+                node</var>'s [=Node/length=] and <var title=
                     "">end node</var>'s [=tree/parent=] is not null, set
                     <var title="">end offset</var> to one plus <var title=
                     "">end node</var>'s [=tree/index=], then set <var title=
@@ -6941,9 +6894,7 @@ output is null.
                         [=tree/child=] with [=tree/index=] <var title=
                             "">offset</var> minus one, then set <var title=
                             "">offset</var> to <var title="">node</var>'s
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            [=Node/length=].
                         </li>
                     </ol>
                 </li>
@@ -6959,9 +6910,7 @@ output is null.
 
             <ol>
                 <li>Let <var title="">offset</var> be <var title=
-                "">node</var>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-node-length"
-                    title="concept-node-length">length</a>.
+                "">node</var>'s [=Node/length=].
                 </li>
 
                 <li>While (<var title="">node</var>, <var title=
@@ -6975,10 +6924,7 @@ output is null.
                         </li>
 
                         <li>If <var title="">offset</var> is <var title=
-                        "">node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> or
+                        "">node</var>'s [=Node/length=] or
                             <var title="">node</var> has no [=tree/children=], set
                             <var title="">offset</var> to one plus <var title=
                             "">node</var>'s [=tree/index=], then set
@@ -7410,10 +7356,7 @@ output is null.
                 <li>If <var title="">end node</var> is a <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                    <var title="">end offset</var> is its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>, set <var title="">end
+                    <var title="">end offset</var> is its [=Node/length=], set <var title="">end
                     offset</var> to one plus the [=tree/index=] of <var title="">end
                     node</var>, then set <var title="">end node</var> to its
                     [=tree/parent=].
@@ -7628,9 +7571,7 @@ output is null.
                 "dom-CharacterData-deleteData"><a href=
                 "http://dom.spec.whatwg.org/#dom-characterdata-deletedata">deleteData()</a></code>
                 on it, with <var title="">start offset</var> as the first
-                argument and (<a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-node-length"
-                    title="concept-node-length">length</a> of <var title=
+                argument and ([=Node/length=] of <var title=
                     "">start node</var> &minus; <var title="">start
                     offset</var>) as the second argument.
                 </li>
@@ -7727,10 +7668,7 @@ output is null.
                             ancestor=] of <var title="">start node</var>,
                             while <var title="">parent</var> is an <a href=
                             "#editable">editable</a> <a href=
-                            "#inline-node">inline node</a> with <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> 0, let
+                            "#inline-node">inline node</a> with [=Node/length=] 0, let
                             <var title="">grandparent</var> be the [=tree/parent=] of
                             <var title="">parent</var>, then remove <var title=
                             "">parent</var> from <var title=
@@ -8017,9 +7955,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "concept-selection">selection</a>, with first
                             argument <var title="">start block</var> and second
                             argument <var title="">start block</var>'s
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            [=Node/length=].
                         </li>
 
                         <li>Let <var title="">reference node</var> be
@@ -8108,9 +8044,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "concept-selection">selection</a>, with first
                             argument <var title="">start block</var> and second
                             argument <var title="">start block</var>'s
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            [=Node/length=].
                         </li>
 
                         <li>If <var title="">end block</var>'s <code class=
@@ -8680,10 +8614,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "">start offset</var> minus one, set <var title=
                             "">start node</var> to that [=tree/child=], then set
                             <var title="">start offset</var> to <var title=
-                            "">start node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            "">start node</var>'s [=Node/length=].
                         </li>
 
                         <li>
@@ -8763,10 +8694,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             unlikely to be the right criterion.</p>
 
                             <p>Otherwise, if <var title="">end offset</var> is
-                            <var title="">end node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> and
+                            <var title="">end node</var>'s [=Node/length=] and
                             <var title="">end node</var> does not <a href=
                             "#precedes-a-line-break" title=
                             "precedes a line break">precede a line break</a>
@@ -8784,10 +8712,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                             value</a> for "white-space" is neither "pre" nor
                             "pre-wrap" and <var title="">end offset</var> is
-                            not <var title="">end node</var>'s <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> and the
+                            not <var title="">end node</var>'s [=Node/length=] and the
                             <var title="">end offset</var>th <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">end node</var>'s
@@ -8862,10 +8787,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "">end offset</var> &minus; 1, set <var title=
                             "">end node</var> to that [=tree/child=], then set
                             <var title="">end offset</var> to <var title="">end
-                            node</var>'s <a class="external" data-anolis-spec=
-                            "dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            node</var>'s [=Node/length=].
                         </li>
 
                         <li>Otherwise, if <var title="">end offset</var> is
@@ -8883,10 +8805,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             "http://dev.w3.org/csswg/cssom/#resolved-value">resolved
                             value</a> for "white-space" is neither "pre" nor
                             "pre-wrap" and <var title="">end offset</var> is
-                            <var title="">end node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> and the last
+                            <var title="">end node</var>'s [=Node/length=] and the last
                             <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">end node</var>'s
@@ -8955,10 +8874,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                         a <code class="external" data-anolis-spec=
                             "dom"><a href="http://dom.spec.whatwg.org/#text">Text</a></code>
                             node or if <var title="">start offset</var> is
-                            <var title="">start node</var>'s <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>, set
+                            <var title="">start node</var>'s [=Node/length=], set
                             <var title="">start offset</var> to one plus
                             <var title="">start node</var>'s [=tree/index=], then set
                             <var title="">start node</var> to its [=tree/parent=].
@@ -11967,10 +11883,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             <a href="#block-node">block node</a> or a
                             [^br^] or an [^img^], set <var title="">node</var> to
                             that [=tree/child=], then set
-                            <var title="">offset</var> to the <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> of
+                            <var title="">offset</var> to the [=Node/length=] of
                             <var title="">node</var>.
                         </li>
 
@@ -12460,10 +12373,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                         </li>
 
                         <li>Set <var title="">start offset</var> to
-                            <var title="">start node</var>'s <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a>.
+                            <var title="">start node</var>'s [=Node/length=].
                         </li>
 
                         <li>Set <var title="">node</var> to <var title="">start
@@ -12537,10 +12447,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                         <li>Otherwise, set <var title="">start node</var> to
                         its [=tree/child=] with [=tree/index=] <var title=
                             "">start offset</var> minus one, then set
-                            <var title="">start offset</var> to the <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> of
+                            <var title="">start offset</var> to the [=Node/length=] of
                             <var title="">start node</var>.
                         </li>
                     </ol>
@@ -13174,10 +13081,7 @@ foo&lt;br&gt;bar
                 <li>Repeat the following steps:
 
                     <ol>
-                        <li>If <var title="">offset</var> is the <a class=
-                        "external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> of
+                        <li>If <var title="">offset</var> is the [=Node/length=] of
                             <var title="">node</var> and <var title=
                             "">node</var>'s <code class="external"
                             data-anolis-spec="dom" title=
@@ -13207,9 +13111,7 @@ foo&lt;br&gt;bar
                         </li>
 
                         <li>Otherwise, if <var title="">offset</var> is the
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> of
+                        [=Node/length=] of
                             <var title="">node</var> and <var title=
                             "">node</var> is an <a href="#inline-node">inline
                             node</a>, or if <var title="">node</var> is
@@ -13241,9 +13143,7 @@ foo&lt;br&gt;bar
                 data-anolis-spec="dom"><a href=
                 "http://dom.spec.whatwg.org/#text">Text</a></code> node and
                 <var title="">offset</var> is not <var title="">node</var>'s
-                <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a>:
+                [=Node/length=]:
 
                     <ol>
                         <li>Let <var title="">end offset</var> be <var title=
@@ -13283,10 +13183,7 @@ foo&lt;br&gt;bar
                             </div>
 
                             <p>While <var title="">end offset</var> is not
-                            <var title="">node</var>'s <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> and the
+                            <var title="">node</var>'s [=Node/length=] and the
                             <var title="">end offset</var>th <a href=
                             "http://dev.w3.org/2006/webapi/WebIDL/#dfn-code-unit">
                             code unit</a> of <var title="">node</var>'s
@@ -13384,9 +13281,7 @@ foo&lt;br&gt;bar
 
                     <ol>
                         <li>If <var title="">end offset</var> is the
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-node-length"
-                            title="concept-node-length">length</a> of
+                            [=Node/length=] of
                             <var title="">end node</var>, set <var title="">end
                             offset</var> to one plus the [=tree/index=] of <var title=
                             "">end node</var> and then set <var title="">end
@@ -13446,10 +13341,7 @@ foo&lt;br&gt;bar
                     <p class="note">Note, any br will do here: a br
                     immediately after a block is always significant.</p>
 
-                    <p>If <var title="">offset</var> is the <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of <var title=
+                    <p>If <var title="">offset</var> is the [=Node/length=] of <var title=
                     "">node</var>, and the [=tree/child=] of <var title="">end
                     node</var> with [=tree/index=] <var title="">end
                     offset</var> is an [^hr^] or [^br^]:</p>
@@ -13765,9 +13657,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>While <var title="">end offset</var> is <var title="">end
-                node</var>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-node-length"
-                    title="concept-node-length">length</a>, and <var title=
+                node</var>'s [=Node/length=], and <var title=
                     "">end node</var>'s [=tree/parent=] is not null, set
                     <var title="">end offset</var> to one plus <var title=
                     "">end node</var>'s [=tree/index=], then set <var title=
@@ -13828,9 +13718,7 @@ foo&lt;br&gt;bar
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
                     its [=range/start offset=] is the
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its [=range/start node=], call
+                    [=Node/length=] of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
@@ -14323,9 +14211,7 @@ foo&lt;br&gt;bar
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
                     its [=range/start offset=] is the
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its [=range/start node=], call
+                    [=Node/length=] of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
@@ -14513,10 +14399,7 @@ foo&lt;br&gt;bar
                 <li>If <var title="">node</var> is a <code class="external"
                 data-anolis-spec="dom"><a href=
                 "http://dom.spec.whatwg.org/#text">Text</a></code> node, and
-                <var title="">offset</var> is neither 0 nor the <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a> of <var title="">node</var>,
+                <var title="">offset</var> is neither 0 nor the [=Node/length=] of <var title="">node</var>,
                 call <code class="external" data-anolis-spec="dom" title=
                 "dom-Text-splitText"><a href=
                 "http://dom.spec.whatwg.org/#dom-text-splittext">splitText(<var title="">offset</var>)</a></code>
@@ -14526,10 +14409,7 @@ foo&lt;br&gt;bar
                 <li>If <var title="">node</var> is a <code class="external"
                 data-anolis-spec="dom"><a href=
                 "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                <var title="">offset</var> is its <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-node-length" title=
-                "concept-node-length">length</a>, set <var title=
+                <var title="">offset</var> is its [=Node/length=], set <var title=
                 "">offset</var> to one plus the [=tree/index=] of <var title="">node</var>,
                 then set <var title="">node</var> to its [=tree/parent=].
                 </li>
@@ -14890,10 +14770,7 @@ foo&lt;br&gt;bar
                     "http://dom.spec.whatwg.org/#concept-range" title=
                     "concept-range">range</a> whose [=range/start=] is the same as the <a href=
                     "#active-range">active range</a>'s, and whose [=range/end=] is (<var title=
-                    "">container</var>, <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of <var title=
+                    "">container</var>, [=Node/length=] of <var title=
                     "">container</var>).
                 </li>
 
@@ -14911,9 +14788,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>While <var title="">new line range</var>'s [=range/start offset=] is the
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its [=range/start node=] and its
+                    [=Node/length=] of its [=range/start node=] and its
                     [=range/start node=] is not a
                     <a href="#prohibited-paragraph-child">prohibited paragraph
                     child</a>, set its [=range/start=] to ([=tree/parent=] of [=range/start node=], 1 +
@@ -15340,10 +15215,7 @@ foo&lt;br&gt;bar
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     set <var title="">node</var> to that [=tree/child=], then set <var title=
-                    "">offset</var> to <var title="">node</var>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a>.</p>
+                    "">offset</var> to <var title="">node</var>'s [=Node/length=].</p>
                 </li>
 
                 <li>If <var title="">node</var> has a [=tree/child=] whose [=tree/index=] is <var title="">offset</var>,
