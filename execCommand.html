@@ -1091,9 +1091,7 @@
         <p>An <dfn id="html-element">HTML element</dfn> is an <code class=
         "external" data-anolis-spec="dom"><a href=
         "http://dom.spec.whatwg.org/#element">Element</a></code> whose
-        <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-element-namespace" title=
-        "concept-element-namespace">namespace</a> is the <a class="external"
+        [=Element/namespace=] is the <a class="external"
         data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#html-namespace">HTML namespace</a>.</p>
 
@@ -1113,9 +1111,7 @@
 
         <p>A <dfn id="prohibited-paragraph-child">prohibited paragraph
         child</dfn> is an <a href="#html-element">HTML element</a> whose
-        <a class="external" data-anolis-spec="dom" href=
-        "http://dom.spec.whatwg.org/#concept-element-local-name" title=
-        "concept-element-local-name">local name</a> is a <a href=
+        [=Element/local name=] is a <a href=
         "#prohibited-paragraph-child-name">prohibited paragraph child
         name</a>.</p>
 
@@ -1713,10 +1709,7 @@
 
             <ol>
                 <li>If <var title="">element</var> is an <a href=
-                "#html-element">HTML element</a> with <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> equal to
+                "#html-element">HTML element</a> with [=Element/local name=] equal to
                     <var title="">new name</var>, return <var title=
                     "">element</var>.
                 </li>
@@ -2292,9 +2285,7 @@
 
             <p>An <dfn id="element-with-inline-contents">element with inline
             contents</dfn> is an <a href="#html-element">HTML element</a> whose
-            <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-element-local-name" title=
-            "concept-element-local-name">local name</a> is a <a href=
+            [=Element/local name=] is a <a href=
             "#name-of-an-element-with-inline-contents">name of an element with
             inline contents</a>.</p>
 
@@ -2347,10 +2338,7 @@
             <ol>
                 <li>If <var title="">parent</var> is "colgroup", "table",
                 "tbody", "tfoot", "thead", "tr", or an <a href="#html-element">
-                    HTML element</a> with <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> equal to
+                    HTML element</a> with [=Element/local name=] equal to
                     one of those, and <var title="">child</var> is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node
@@ -2370,10 +2358,7 @@
 
                     <p>If <var title="">parent</var> is "script", "style",
                     "plaintext", or "xmp", or an <a href="#html-element">HTML
-                    element</a> with <a class="external" data-anolis-spec="dom"
-                    href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> equal to
+                    element</a> with [=Element/local name=] equal to
                     one of those, and <var title="">child</var> is not a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
@@ -2393,9 +2378,7 @@
 
                 <li>If <var title="">child</var> is an <a href="#html-element">
                     HTML element</a>, set <var title="">child</var> to the
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> of
+                    [=Element/local name=] of
                     <var title="">child</var>.
                 </li>
 
@@ -2443,10 +2426,7 @@
                             "h3", "h4", "h5", or "h6", and <var title=
                             "">parent</var> or some [=tree/ancestor=] of
                             <var title="">parent</var> is an <a href=
-                            "#html-element">HTML element</a> with <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            "#html-element">HTML element</a> with [=Element/local name=]
                             "h1", "h2", "h3", "h4", "h5", or "h6", return
                             false.</p>
                         </li>
@@ -2456,10 +2436,7 @@
                             about the parent itself, not ancestors, so we don't
                             need to know the node itself.</p>
 
-                            <p>Let <var title="">parent</var> be the <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            <p>Let <var title="">parent</var> be the [=Element/local name=]
                             of <var title="">parent</var>.</p>
                         </li>
                     </ol>
@@ -5691,9 +5668,7 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <p>A <dfn id="removeformat-candidate">removeFormat candidate</dfn>
             is an <a href="#editable">editable</a> <a href="#html-element">HTML
-            element</a> with <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-element-local-name" title=
-            "concept-element-local-name">local name</a> "abbr", "acronym", "b",
+            element</a> with [=Element/local name=] "abbr", "acronym", "b",
             "bdi", "bdo", "big", "blink", "cite", "code", "dfn", "em", "font",
             "i", "ins", "kbd", "mark", "nobr", "q", "s", "samp", "small",
             "span", "strike", "strong", "sub", "sup", "tt", "u", or "var".</p>
@@ -6147,17 +6122,13 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
 
             <p>A <dfn id="non-list-single-line-container">non-list single-line
             container</dfn> is an <a href="#html-element">HTML element</a> with
-            <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-element-local-name" title=
-            "concept-element-local-name">local name</a> "address", "div", "h1",
+            [=Element/local name=] "address", "div", "h1",
             "h2", "h3", "h4", "h5", "h6", "listing", "p", "pre", or "xmp".</p>
 
             <p>A <dfn id="single-line-container">single-line container</dfn> is
             either a <a href="#non-list-single-line-container">non-list
             single-line container</a>, or an <a href="#html-element">HTML
-            element</a> with <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-element-local-name" title=
-            "concept-element-local-name">local name</a> "li", "dt", or
+            element</a> with [=Element/local name=] "li", "dt", or
             "dd".</p>
 
             <p>The <dfn id="block-node-of">block node of</dfn> a <a class=
@@ -9371,10 +9342,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                 <li>If <var title="">first node</var>'s [=tree/parent=] is an [^ol^] or [^ul^]:
 
                     <ol>
-                        <li>Let <var title="">tag</var> be the <a class=
-                        "external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                        <li>Let <var title="">tag</var> be the [=Element/local name=]
                             of the [=tree/parent=] of
                             <var title="">first node</var>.
                         </li>
@@ -9411,10 +9379,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
                             <p><a href="#wrap">Wrap</a> <var title="">node
                             list</var>, with <var title="">sibling
                             criteria</var> returning true for an <a href=
-                            "#html-element">HTML element</a> with <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            "#html-element">HTML element</a> with [=Element/local name=]
                             <var title="">tag</var> and false otherwise, and
                             <var title="">new parent instructions</var>
                             returning the result of calling <code class=
@@ -11094,10 +11059,7 @@ ol ol ol { list-style-type: lower-roman }
                 <li>If <var title="">mode</var> is "enable", then let
                 <var title="">lists to convert</var> consist of every
                     <a href="#editable">editable</a> <a href=
-                    "#html-element">HTML element</a> with <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a>
+                    "#html-element">HTML element</a> with [=Element/local name=]
                     <var title="">other tag name</var> that is <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#contained">contained</a> in
@@ -11120,10 +11082,7 @@ ol ol ol { list-style-type: lower-roman }
                             "dom-Node-nextSibling"><a href=
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
                             is an <a href="#editable">editable</a> <a href=
-                            "#html-element">HTML element</a> with <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            "#html-element">HTML element</a> with [=Element/local name=]
                             <var title="">tag name</var>:</p>
 
                             <ol>
@@ -11148,11 +11107,8 @@ ol ol ol { list-style-type: lower-roman }
                                     "">children</var>, with <var title=
                                     "">sibling criteria</var> returning true
                                     for an <a href="#html-element">HTML
-                                    element</a> with <a class="external"
-                                    data-anolis-spec="dom" href=
-                                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                                    title="concept-element-local-name">local
-                                    name</a> <var title="">tag name</var> and
+                                    element</a> with [=Element/local
+                                    name=] <var title="">tag name</var> and
                                     false otherwise.
                                 </li>
 
@@ -11252,9 +11208,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                         <li>If the first member of <var title="">sublist</var>
                         is an <a href="#html-element">HTML element</a> with
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                        [=Element/local name=]
                             <var title="">tag name</var>, <a href=
                             "#outdent">outdent</a> it and continue this loop
                             from the beginning.
@@ -11267,10 +11221,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             "http://dom.spec.whatwg.org/#dom-node-nextsibling">nextSibling</a></code>
                             of the last member of <var title="">sublist</var>
                             and is not an <a href="#html-element">HTML
-                            element</a> with <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            element</a> with [=Element/local name=]
                             <var title="">tag name</var>, remove the first
                             member from <var title="">node list</var> and
                             append it to <var title="">sublist</var>.
@@ -11411,9 +11362,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             <p>If <var title="">sublist</var>'s first member's
                             [=tree/parent=] is an
                             <a href="#html-element">HTML element</a> with
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            [=Element/local name=]
                             <var title="">tag name</var>, or if every member of
                             <var title="">sublist</var> is an [^ol^] or [^ul^], continue this loop from the
                             beginning.</p>
@@ -11422,9 +11371,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                         <li>If <var title="">sublist</var>'s first member's
                         [=tree/parent=] is an
                             <a href="#html-element">HTML element</a> with
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            [=Element/local name=]
                             <var title="">other tag name</var>:
 
                             <ol>
@@ -11445,11 +11392,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                     "">sublist</var>, with <var title=
                                     "">sibling criteria</var> returning true
                                     for an <a href="#html-element">HTML
-                                    element</a> with <a class="external"
-                                    data-anolis-spec="dom" href=
-                                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                                    title="concept-element-local-name">local
-                                    name</a> <var title="">tag name</var> and
+                                    element</a> with [=Element/local
+                                    name=] <var title="">tag name</var> and
                                     false otherwise, and <var title="">new
                                     parent instructions</var> returning the
                                     result of calling <code class="external"
@@ -11476,10 +11420,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             <a href="#wrap">Wrap</a> <var title=
                             "">sublist</var>, with <var title="">sibling
                             criteria</var> returning true for an <a href=
-                            "#html-element">HTML element</a> with <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            "#html-element">HTML element</a> with [=Element/local name=]
                             <var title="">tag name</var> and false otherwise,
                             and <var title="">new parent instructions</var>
                             being the following:
@@ -11536,11 +11477,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                     previousSibling</a></code> is not an
                                     <a href="#editable">editable</a> <a href=
                                     "#html-element">HTML element</a> with
-                                    <a class="external" data-anolis-spec="dom"
-                                    href=
-                                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                                    title="concept-element-local-name">local
-                                    name</a> <var title="">tag name</var>, call
+                                    [=Element/local
+                                    name=] <var title="">tag name</var>, call
                                     <code class="external" data-anolis-spec=
                                     "dom" title=
                                     "dom-Document-createElement"><a href=
@@ -11579,11 +11517,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                                     lastChild</a></code> is not an <a href=
                                     "#editable">editable</a> <a href=
                                     "#html-element">HTML element</a> with
-                                    <a class="external" data-anolis-spec="dom"
-                                    href=
-                                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                                    title="concept-element-local-name">local
-                                    name</a> <var title="">tag name</var>, call
+                                    [=Element/local
+                                    name=] <var title="">tag name</var>, call
                                     <code class="external" data-anolis-spec=
                                     "dom" title=
                                     "dom-Document-createElement"><a href=
@@ -13083,9 +13018,7 @@ foo&lt;br&gt;&lt;br&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;[]bar&lt;/table&gt;
                     <a href="#editable">editable</a> <a href=
                     "#html-element">HTML element</a> <a href=
                     "#in-the-same-editing-host">in the same editing host</a>,
-                    whose <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is a
+                    whose [=Element/local name=] is a
                     <a href="#formattable-block-name">formattable block
                     name</a>, and which is not the [=tree/ancestor=] of a <a href=
                     "#prohibited-paragraph-child">prohibited paragraph
@@ -13263,9 +13196,7 @@ foo&lt;br&gt;bar
                             "div" or "p", <var title="">sibling criteria</var>
                             returns false; otherwise it returns true for an
                             <a href="#html-element">HTML element</a> with
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            [=Element/local name=]
                             <var title="">value</var> and no attributes, and
                             false otherwise. <var title="">New parent
                             instructions</var> return the result of running
@@ -13328,10 +13259,7 @@ foo&lt;br&gt;bar
                             "#in-the-same-editing-host">in the same editing
                             host</a> as <var title="">node</var>, and
                             <var title="">node</var> is not an <a href=
-                            "#html-element">HTML element</a> whose <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                            "#html-element">HTML element</a> whose [=Element/local name=]
                             is a <a href="#formattable-block-name">formattable
                             block name</a>, set <var title="">node</var> to its
                             [=tree/parent=].
@@ -13342,19 +13270,13 @@ foo&lt;br&gt;bar
 
                         <li>If <var title="">node</var> is an <a href=
                         "#editable">editable</a> <a href="#html-element">HTML
-                        element</a> whose <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>
+                        element</a> whose [=Element/local name=]
                             is a <a href="#formattable-block-name">formattable
                             block name</a>, and <var title="">node</var> is not
                             the [=tree/ancestor=] of a
                             <a href="#prohibited-paragraph-child">prohibited
                             paragraph child</a>, set <var title="">current
-                            type</var> to <var title="">node</var>'s <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-element-local-name"
-                            title="concept-element-local-name">local name</a>.
+                            type</var> to <var title="">node</var>'s [=Element/local name=].
                         </li>
 
                         <li>If <var title="">type</var> is null, set
@@ -13424,9 +13346,7 @@ foo&lt;br&gt;bar
                     "#in-the-same-editing-host">in the same editing host</a> as
                     <var title="">node</var>, and <var title="">node</var> is
                     not an <a href="#html-element">HTML element</a> whose
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is a
+                    [=Element/local name=] is a
                     <a href="#formattable-block-name">formattable block
                     name</a>, set <var title="">node</var> to its [=tree/parent=].</p>
                 </li>
@@ -13448,17 +13368,11 @@ foo&lt;br&gt;bar
 
                     <p>If <var title="">node</var> is an <a href=
                     "#editable">editable</a> <a href="#html-element">HTML
-                    element</a> whose <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is a
+                    element</a> whose [=Element/local name=] is a
                     <a href="#formattable-block-name">formattable block
                     name</a>, and <var title="">node</var> is not the [=tree/ancestor=] of a <a href=
                     "#prohibited-paragraph-child">prohibited paragraph
-                    child</a>, return <var title="">node</var>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a>,
+                    child</a>, return <var title="">node</var>'s [=Element/local name=],
                     <a class="external" data-anolis-spec="domcore" href=
                     "http://dom.spec.whatwg.org/#converted-to-ascii-lowercase">converted
                     to ASCII lowercase</a>.</p>
@@ -15020,10 +14934,7 @@ foo&lt;br&gt;bar
                     "#editable">editable</a> <a href=
                     "#single-line-container">single-line container</a> <a href=
                     "#in-the-same-editing-host">in the same editing host</a> as
-                    <var title="">node</var>, and its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is "p" or
+                    <var title="">node</var>, and its [=Element/local name=] is "p" or
                     "div":</p>
 
                     <ol>
@@ -15219,10 +15130,7 @@ foo&lt;br&gt;bar
                         don't.</p>
                     </div>
 
-                    <p>If <var title="">container</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is
+                    <p>If <var title="">container</var>'s [=Element/local name=] is
                     "address", "listing", or "pre":</p>
 
                     <ol>
@@ -15284,10 +15192,7 @@ foo&lt;br&gt;bar
                     <p class="note">Including dt/dd here follows Firefox
                     5.0a2, as with the special dt/dd handling below.</p>
 
-                    <p>If <var title="">container</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> is "li",
+                    <p>If <var title="">container</var>'s [=Element/local name=] is "li",
                     "dt", or "dd"; and either it has no [=tree/children=] or it has a single
                     [=tree/child=] and that [=tree/child=] is a [^br^]:</p>
 
@@ -15430,9 +15335,7 @@ foo&lt;br&gt;bar
                     Opera 11.10 do not, and I follow them, since it makes more
                     sense (such a &lt;br&gt; is invisible).</p>
 
-                    <p>If the <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> of
+                    <p>If the [=Element/local name=] of
                     <var title="">container</var> is "h1", "h2", "h3", "h4",
                     "h5", or "h6", and <var title="">end of line</var> is true,
                     let <var title="">new container name</var> be the <a href=
@@ -15448,28 +15351,20 @@ foo&lt;br&gt;bar
                     assuming a definition list somehow winds up inside the
                     content (like via formatBlock).</p>
 
-                    <p>Otherwise, if the <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> of
+                    <p>Otherwise, if the [=Element/local name=] of
                     <var title="">container</var> is "dt" and <var title="">end
                     of line</var> is true, let <var title="">new container
                     name</var> be "dd".</p>
                 </li>
 
-                <li>Otherwise, if the <a class="external" data-anolis-spec=
-                "dom" href=
-                "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> of
+                <li>Otherwise, if the [=Element/local name=] of
                     <var title="">container</var> is "dd" and <var title="">end
                     of line</var> is true, let <var title="">new container
                     name</var> be "dt".
                 </li>
 
                 <li>Otherwise, let <var title="">new container name</var> be
-                the <a class="external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-element-local-name"
-                    title="concept-element-local-name">local name</a> of
+                the [=Element/local name=] of
                     <var title="">container</var>.
                 </li>
 
