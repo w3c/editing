@@ -601,22 +601,13 @@
             command</a>. The other <a href="#command" title=
             "command">commands</a> defined here are <a href=
             "#enabled">enabled</a> if the <a href="#active-range">active
-            range</a> is not null, its <a class="external" data-anolis-spec=
-            "dom" href="http://dom.spec.whatwg.org/#concept-range-start-node"
-            title="concept-range-start-node">start node</a> is either <a href=
+            range</a> is not null, its [=range/start node=] is either <a href=
             "#editable">editable</a> or an <a href="#editing-host">editing
-            host</a>, its <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-            "concept-range-end-node">end node</a> is either <a href=
+            host</a>, its [=range/end node=] is either <a href=
             "#editable">editable</a> or an <a href="#editing-host">editing
             host</a>, and there is some <a href="#editing-host">editing
             host</a> that is an [=tree/inclusive ancestor=] of
-            both its <a class="external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-start-node" title=
-            "concept-range-start-node">start node</a> and its <a class=
-            "external" data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-            "concept-range-end-node">end node</a>.</p>
+            both its [=range/start node=] and its [=range/end node=].</p>
         </section>
     </section>
 
@@ -716,24 +707,14 @@
                     <a href="#editing-host">editing host</a> that is an
                     [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
-                        range</a>'s <a class="external" data-anolis-spec="dom"
-                        href=
-                        "http://dom.spec.whatwg.org/#concept-range-start-node"
-                        title="concept-range-start-node">start node</a> and
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-range-end-node"
-                        title="concept-range-end-node">end node</a>, and is not
+                        range</a>'s [=range/start node=] and
+                        [=range/end node=], and is not
                         the [=tree/ancestor=] of any
                         <a href="#editing-host">editing host</a> that is an
                         [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
-                        range</a>'s <a class="external" data-anolis-spec="dom"
-                        href=
-                        "http://dom.spec.whatwg.org/#concept-range-start-node"
-                        title="concept-range-start-node">start node</a> and
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-range-end-node"
-                        title="concept-range-end-node">end node</a>.
+                        range</a>'s [=range/start node=] and
+                        [=range/end node=].
 
                         <p class="note">Such an editing host must exist,
                         because otherwise the command would not be <a href=
@@ -787,24 +768,14 @@
                     <a href="#editing-host">editing host</a> that is an
                     [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
-                        range</a>'s <a class="external" data-anolis-spec="dom"
-                        href=
-                        "http://dom.spec.whatwg.org/#concept-range-start-node"
-                        title="concept-range-start-node">start node</a> and
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-range-end-node"
-                        title="concept-range-end-node">end node</a>, and is not
+                        range</a>'s [=range/start node=] and
+                        [=range/end node=], and is not
                         the [=tree/ancestor=] of any
                         <a href="#editing-host">editing host</a> that is an
                         [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
-                        range</a>'s <a class="external" data-anolis-spec="dom"
-                        href=
-                        "http://dom.spec.whatwg.org/#concept-range-start-node"
-                        title="concept-range-start-node">start node</a> and
-                        <a class="external" data-anolis-spec="dom" href=
-                        "http://dom.spec.whatwg.org/#concept-range-end-node"
-                        title="concept-range-end-node">end node</a>.
+                        range</a>'s [=range/start node=] and
+                        [=range/end node=].
 
                         <p class="XXX">This new affected editing host is what
                         we'll fire the input event at in a couple of lines. We
@@ -2537,31 +2508,21 @@
                     &lt;b&gt;f[]oo&lt;/b&gt;.</p>
 
                     <p><var title="">node</var> is <var title="">range</var>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, it is a
+                    [=range/start node=], it is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
                     and its <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a> is different from
-                    <var title="">range</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a>.</p>
+                    <var title="">range</var>'s [=range/start offset=].</p>
                 </li>
 
                 <li>
                     <var title="">node</var> is <var title="">range</var>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a>, it is a <code class=
+                    [=range/end node=], it is a <code class=
                     "external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and <var title="">range</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a> is not 0.
+                    and <var title="">range</var>'s [=range/end offset=] is not 0.
                 </li>
 
                 <li>
@@ -2576,31 +2537,18 @@
                     <p><var title="">node</var> has at least one [=tree/child=]; and all its [=tree/children=] are <a href=
                     "#effectively-contained">effectively contained</a> in
                     <var title="">range</var>; and either <var title=
-                    "">range</var>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is not a
+                    "">range</var>'s [=range/start node=] is not a
                     [=tree/descendant=] of
                     <var title="">node</var> or is not a <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node or
-                    <var title="">range</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is
-                    zero; and either <var title="">range</var>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a> is not a [=tree/descendant=] of
+                    <var title="">range</var>'s [=range/start offset=] is
+                    zero; and either <var title="">range</var>'s [=range/end node=] is not a [=tree/descendant=] of
                     <var title="">node</var> or is not a <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node or
-                    <var title="">range</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a> is its
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a>'s <a class="external"
+                    <var title="">range</var>'s [=range/end offset=] is its
+                    [=range/end node=]'s <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a>.</p>
@@ -2813,10 +2761,7 @@
             either no <a href="#formattable-node">formattable node</a> is
             <a href="#effectively-contained">effectively contained</a> in the
             <a href="#active-range">active range</a>, and the <a href=
-            "#active-range">active range</a>'s <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-start-node" title=
-            "concept-range-start-node">start node</a>'s <a href=
+            "#active-range">active range</a>'s [=range/start node=]'s <a href=
             "#effective-command-value">effective command value</a> is one of
             the given values; or if there is at least one <a href=
             "#formattable-node">formattable node</a> <a href=
@@ -2858,10 +2803,7 @@
             "#effectively-contained">effectively contained</a> in the <a href=
             "#active-range">active range</a>; or if there is no such node, the
             <a href="#effective-command-value">effective command value</a> of
-            the <a href="#active-range">active range</a>'s <a class="external"
-            data-anolis-spec="dom" href=
-            "http://dom.spec.whatwg.org/#concept-range-start-node" title=
-            "concept-range-start-node">start node</a>; or if that is null, the
+            the <a href="#active-range">active range</a>'s [=range/start node=]; or if that is null, the
             empty string.</p>
 
             <p class="note">The notions of inline command activated values and
@@ -4530,71 +4472,42 @@
                     the resulting range a bit.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is an
+                    [=range/start node=] is an
                     <a href="#editable">editable</a> <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is
-                    neither zero nor its <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s <a class=
+                    and its [=range/start offset=] is
+                    neither zero nor its [=range/start node=]'s <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a>, call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
-                    on the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, with
+                    on the <a href="#active-range">active range</a>'s [=range/start node=], with
                     argument equal to the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a>. Then
+                    range</a>'s [=range/start offset=]. Then
                     set the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> to the
-                    result, and its <a class="external" data-anolis-spec="dom"
-                    href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> to
+                    [=range/start node=] to the
+                    result, and its [=range/start offset=] to
                     zero.</p>
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a> is an <a href=
+                    [=range/end node=] is an <a href=
                     "#editable">editable</a> <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a> is neither
-                    zero nor its <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end-node"
-                    title="concept-range-end-node">end node</a>'s <a class=
+                    and its [=range/end offset=] is neither
+                    zero nor its [=range/end node=]'s <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a>, call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
-                    on the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a>, with argument equal
-                    to the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a>.
+                    on the <a href="#active-range">active range</a>'s [=range/end node=], with argument equal
+                    to the <a href="#active-range">active range</a>'s [=range/end offset=].
                 </li>
 
                 <li>Let <var title="">element list</var> be all <a href=
@@ -5244,10 +5157,7 @@
                     contained</a> in the <a href="#active-range">active
                     range</a>, or if there is no such node, the <a href=
                     "#effective-command-value">effective command value</a> of
-                    the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, in either
+                    the <a href="#active-range">active range</a>'s [=range/start node=], in either
                     case interpreted as a number of pixels.</p>
                 </li>
 
@@ -5670,71 +5580,42 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
                     resulting range a bit.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is an
+                    [=range/start node=] is an
                     <a href="#editable">editable</a> <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is
-                    neither zero nor its <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s <a class=
+                    and its [=range/start offset=] is
+                    neither zero nor its [=range/start node=]'s <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a>, call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
-                    on the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, with
+                    on the <a href="#active-range">active range</a>'s [=range/start node=], with
                     argument equal to the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a>. Then
+                    range</a>'s [=range/start offset=]. Then
                     set the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> to the
-                    result, and its <a class="external" data-anolis-spec="dom"
-                    href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> to
+                    [=range/start node=] to the
+                    result, and its [=range/start offset=] to
                     zero.</p>
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a> is an <a href=
+                    [=range/end node=] is an <a href=
                     "#editable">editable</a> <code class="external"
                     data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node,
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a> is neither
-                    zero nor its <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end-node"
-                    title="concept-range-end-node">end node</a>'s <a class=
+                    and its [=range/end offset=] is neither
+                    zero nor its [=range/end node=]'s <a class=
                     "external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
                     "concept-node-length">length</a>, call <code class=
                     "external" data-anolis-spec="dom" title=
                     "dom-Text-splitText"><a href=
                     "http://dom.spec.whatwg.org/#dom-text-splittext">splitText()</a></code>
-                    on the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                    "concept-range-end-node">end node</a>, with argument equal
-                    to the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end-offset"
-                    title="concept-range-end-offset">end offset</a>.
+                    on the <a href="#active-range">active range</a>'s [=range/end node=], with argument equal
+                    to the <a href="#active-range">active range</a>'s [=range/end offset=].
                 </li>
 
                 <li>Let <var title="">node list</var> consist of all
@@ -6928,13 +6809,7 @@ output is null.
             <ol>
                 <li>Let <var title="">start node</var>, <var title="">start
                 offset</var>, <var title="">end node</var>, and <var title="">
-                    end offset</var> be the <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start" title=
-                    "concept-range-start">start</a> and <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> <a class="external"
+                    end offset</var> be the [=range/start=] and [=range/end=] <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">nodes</a> and [=boundary point/offsets=] of <var title=
@@ -7030,13 +6905,7 @@ output is null.
                 <li>Let <var title="">new range</var> be a new <a class=
                 "external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-range" title=
-                "concept-range">range</a> whose <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a> and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-end" title=
-                "concept-range-end">end</a> <a class="external"
+                "concept-range">range</a> whose [=range/start=] and [=range/end=] <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">nodes</a> and [=boundary point/offsets=] are <var title=
@@ -7480,33 +7349,25 @@ output is null.
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>.
+                    range</a>'s [=range/start=].
                 </li>
 
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a>.
+                    range</a>'s [=range/end=].
                 </li>
 
                 <li>Let (<var title="">start node</var>, <var title="">start
                 offset</var>) be the <a href="#last-equivalent-point">last
                 equivalent point</a> for the <a href="#active-range">active
-                range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>.
+                range</a>'s [=range/start=].
                 </li>
 
                 <li>Let (<var title="">end node</var>, <var title="">end
                 offset</var>) be the <a href="#first-equivalent-point">first
                 equivalent point</a> for the <a href="#active-range">active
-                range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a>.
+                range</a>'s [=range/end=].
                 </li>
 
                 <li>If (<var title="">end node</var>, <var title="">end
@@ -7599,10 +7460,7 @@ output is null.
                 </li>
 
                 <li>Let <var title="">start block</var> be the <a href=
-                "#active-range">active range</a>'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>.
+                "#active-range">active range</a>'s [=range/start node=].
                 </li>
 
                 <li>While <var title="">start block</var>'s [=tree/parent=] is <a href=
@@ -7657,10 +7515,7 @@ output is null.
                 </li>
 
                 <li>Let <var title="">end block</var> be the <a href=
-                "#active-range">active range</a>'s <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-end-node" title=
-                "concept-range-end-node">end node</a>.
+                "#active-range">active range</a>'s [=range/end node=].
                 </li>
 
                 <li>While <var title="">end block</var>'s [=tree/parent=] is <a href=
@@ -7916,18 +7771,14 @@ output is null.
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>, with <var title=
+                    range</a>'s [=range/start=], with <var title=
                     "">fix collapsed space</var> false.
                 </li>
 
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a>, with <var title="">fix
+                    range</a>'s [=range/end=], with <var title="">fix
                     collapsed space</var> false.
                 </li>
 
@@ -10963,12 +10814,7 @@ ol ol ol { list-style-type: lower-roman }
                 <li>Let <var title="">items</var> be a list of all
                     [^li^]s that are [=tree/inclusive
                     ancestors=] of the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a> and/or <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> <a class="external"
+                    range</a>'s [=range/start=] and/or [=range/end=] <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">node</a>.
@@ -11930,14 +11776,8 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                 <li>Create a new <a class="external" data-anolis-spec="dom"
                 href="http://dom.spec.whatwg.org/#concept-range" title=
-                "concept-range">range</a> with <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a> (<var title="">node</var>,
-                <var title="">start offset</var>) and <a class="external"
-                data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-end" title=
-                "concept-range-end">end</a> (<var title="">node</var>,
+                "concept-range">range</a> with [=range/start=] (<var title="">node</var>,
+                <var title="">start offset</var>) and [=range/end=] (<var title="">node</var>,
                 <var title="">end offset</var>), and set the <a class=
                 "external" data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#context-object">context
@@ -12047,16 +11887,11 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
 
                     <p><a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>.</p>
+                    range</a>'s [=range/start=].</p>
                 </li>
 
                 <li>Let <var title="">node</var> and <var title="">offset</var>
-                be the <a href="#active-range">active range</a>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a> <a class="external"
+                be the <a href="#active-range">active range</a>'s [=range/start=] <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> and [=boundary point/offset=].
@@ -12365,13 +12200,7 @@ not &lt;ul&gt;&lt;li&gt;foo&lt;/ul&gt;&lt;ol&gt;&lt;li&gt;[bar&lt;/ol&gt;&lt;ul&
                             <a href="#block-extend">Block-extend</a> the
                             <a class="external" data-anolis-spec="dom" href=
                             "http://dom.spec.whatwg.org/#concept-range" title=
-                            "concept-range">range</a> whose <a class="external"
-                            data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-start"
-                            title="concept-range-start">start</a> and <a class=
-                            "external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-end"
-                            title="concept-range-end">end</a> are both
+                            "concept-range">range</a> whose [=range/start=] and [=range/end=] are both
                             (<var title="">node</var>, 0), and let <var title=
                             "">new range</var> be the result.
                         </li>
@@ -13347,16 +13176,11 @@ foo&lt;br&gt;bar
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>.
+                    range</a>'s [=range/start=].
                 </li>
 
                 <li>Let <var title="">node</var> and <var title="">offset</var>
-                be the <a href="#active-range">active range</a>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a> <a class="external"
+                be the <a href="#active-range">active range</a>'s [=range/start=] <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> and [=boundary point/offset=].
@@ -13812,12 +13636,7 @@ foo&lt;br&gt;bar
                 <li>Let <var title="">items</var> be a list of all
                     [^li^]s that are [=tree/inclusive
                     ancestors=] of the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a> and/or <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> <a class="external"
+                    range</a>'s [=range/start=] and/or [=range/end=] <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">node</a>.
@@ -13947,12 +13766,7 @@ foo&lt;br&gt;bar
                 <li>Let <var title="">start node</var>, <var title="">start
                 offset</var>, <var title="">end node</var>, and <var title="">
                     end offset</var> be the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a> and <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> <a class="external"
+                    range</a>'s [=range/start=] and [=range/end=] <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">nodes</a> and [=boundary point/offsets=].
@@ -13999,9 +13813,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
@@ -14012,59 +13824,37 @@ foo&lt;br&gt;bar
                     empty text node.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                    its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is
+                    its [=range/start offset=] is
                     zero, call <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#context-object">context
                     object</a>'s <a href="#concept-selection" title=
                     "concept-selection">selection</a>, with first argument the
-                    <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/parent=] and second argument the
-                    <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/index=].</p>
+                    <a href="#active-range">active range</a>'s [=range/start node=]'s [=tree/parent=] and second argument the
+                    <a href="#active-range">active range</a>'s [=range/start node=]'s [=tree/index=].</p>
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                    its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is the
+                    its [=range/start offset=] is the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, call
+                    "concept-node-length">length</a> of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#context-object">context
                     object</a>'s <a href="#concept-selection" title=
                     "concept-selection">selection</a>, with first argument the
-                    <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/parent=], and the second argument
+                    <a href="#active-range">active range</a>'s [=range/start node=]'s [=tree/parent=], and the second argument
                     one plus the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/index=].
+                    [=range/start node=]'s [=tree/index=].
                 </li>
 
                 <li>Let <var title="">hr</var> be the result of calling
@@ -14187,9 +13977,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
@@ -14243,9 +14031,7 @@ foo&lt;br&gt;bar
                     </div>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <a href="#block-node">block node</a>:</p>
 
                     <ol>
@@ -14254,16 +14040,11 @@ foo&lt;br&gt;bar
                         "#collapsed-block-prop">collapsed block prop</a>
                         [=tree/children=] of the
                             <a href="#active-range">active range</a>'s
-                            <a class="external" data-anolis-spec="dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-start-node"
-                            title="concept-range-start-node">start node</a>
+                            [=range/start node=]
                             that have [=tree/index=] greater than
                             or equal to the <a href="#active-range">active
-                            range</a>'s <a class="external" data-anolis-spec=
-                            "dom" href=
-                            "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                            title="concept-range-start-offset">start
-                            offset</a>.
+                            range</a>'s [=range/start
+                            offset=].
                         </li>
 
                         <li>For each <var title="">node</var> in <var title="">
@@ -14300,9 +14081,7 @@ foo&lt;br&gt;bar
                     content: that's the author's lookout.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <a href="#block-node">block node</a> with no <a href=
                     "#visible">visible</a> [=tree/children=], call <code class=
                     "external" data-anolis-spec="dom" title=
@@ -14311,10 +14090,7 @@ foo&lt;br&gt;bar
                     on the <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#context-object">context
                     object</a> and append the result as the last child of the
-                    <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>.</p>
+                    <a href="#active-range">active range</a>'s [=range/start node=].</p>
                 </li>
 
                 <li>
@@ -14392,9 +14168,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
@@ -14402,17 +14176,9 @@ foo&lt;br&gt;bar
                 <li>
                     <p class="note">Same logic as with insertHTML.</p>
 
-                    <p>If <var title="">range</var>'s <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
-                    <a href="#block-node">block node</a> whose sole [=tree/child=] is a [^br^], and its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is 0,
-                    remove its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/child=] from it.</p>
+                    <p>If <var title="">range</var>'s [=range/start node=] is a
+                    <a href="#block-node">block node</a> whose sole [=tree/child=] is a [^br^], and its [=range/start offset=] is 0,
+                    remove its [=range/start node=]'s [=tree/child=] from it.</p>
                 </li>
 
                 <li>Let <var title="">img</var> be the result of calling
@@ -14521,9 +14287,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
@@ -14532,9 +14296,7 @@ foo&lt;br&gt;bar
                     <p class="note">script, xmp, table, . . .</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is an
+                    [=range/start node=] is an
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#element">Element</a></code>,
                     and "br" is not an <a href="#allowed-child">allowed
@@ -14542,16 +14304,12 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is not an
+                    [=range/start node=] is not an
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#element">Element</a></code>,
                     and "br" is not an <a href="#allowed-child">allowed
                     child</a> of the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/parent=], return true.
+                    [=range/start node=]'s [=tree/parent=], return true.
                 </li>
 
                 <li>
@@ -14560,14 +14318,10 @@ foo&lt;br&gt;bar
                     empty text node.</p>
 
                     <p>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                    its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is
+                    its [=range/start offset=] is
                     zero, call <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
@@ -14575,30 +14329,18 @@ foo&lt;br&gt;bar
                     object</a>'s <a href="#concept-selection" title=
                     "concept-selection">selection</a>, with first argument
                     equal to the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/parent=] and second argument equal
-                    to the <a href="#active-range">active range</a>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/index=].</p>
+                    [=range/start node=]'s [=tree/parent=] and second argument equal
+                    to the <a href="#active-range">active range</a>'s [=range/start node=]'s [=tree/index=].</p>
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is a
+                    [=range/start node=] is a
                     <code class="external" data-anolis-spec="dom"><a href=
                     "http://dom.spec.whatwg.org/#text">Text</a></code> node and
-                    its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is the
+                    its [=range/start offset=] is the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, call
+                    "concept-node-length">length</a> of its [=range/start node=], call
                     <code title="dom-Selection-collapse"><a href=
                     "#dom-selection-collapse">collapse()</a></code> on the
                     <a class="external" data-anolis-spec="dom" href=
@@ -14606,13 +14348,9 @@ foo&lt;br&gt;bar
                     object</a>'s <a href="#concept-selection" title=
                     "concept-selection">selection</a>, with first argument
                     equal to the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/parent=] and second argument equal
+                    [=range/start node=]'s [=tree/parent=] and second argument equal
                     to one plus the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>'s [=tree/index=].
+                    [=range/start node=]'s [=tree/index=].
                 </li>
 
                 <li>Let <var title="">br</var> be the result of calling
@@ -14775,18 +14513,13 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
 
                 <li>Let <var title="">node</var> and <var title="">offset</var>
-                be the <a href="#active-range">active range</a>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a> <a class="external"
+                be the <a href="#active-range">active range</a>'s [=range/start=] <a class="external"
                 data-anolis-spec="dom" href=
                 "http://dom.spec.whatwg.org/#concept-node" title=
                 "concept-node">node</a> and [=boundary point/offset=].
@@ -14930,11 +14663,8 @@ foo&lt;br&gt;bar
                                     <p>If <var title="">tag</var> is not an
                                     <a href="#allowed-child">allowed child</a>
                                     of the <a href="#active-range">active
-                                    range</a>'s <a class="external"
-                                    data-anolis-spec="dom" href=
-                                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                                    title="concept-range-start-node">start
-                                    node</a>, return true.</p>
+                                    range</a>'s [=range/start
+                                    node=], return true.</p>
                                 </li>
 
                                 <li>Set <var title="">container</var> to the
@@ -15173,14 +14903,8 @@ foo&lt;br&gt;bar
                 <li>Let <var title="">new line range</var> be a new
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-range" title=
-                    "concept-range">range</a> whose <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start" title=
-                    "concept-range-start">start</a> is the same as the <a href=
-                    "#active-range">active range</a>'s, and whose <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> is (<var title=
+                    "concept-range">range</a> whose [=range/start=] is the same as the <a href=
+                    "#active-range">active range</a>'s, and whose [=range/end=] is (<var title=
                     "">container</var>, <a class="external" data-anolis-spec=
                     "dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
@@ -15195,51 +14919,20 @@ foo&lt;br&gt;bar
                     block nodes are fine, and we'll add a [^br^] later, but empty inline nodes are bad, since
                     the user can't interact with them.</p>
 
-                    <p>While <var title="">new line range</var>'s <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is zero
-                    and its <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is not a
+                    <p>While <var title="">new line range</var>'s [=range/start offset=] is zero
+                    and its [=range/start node=] is not a
                     <a href="#prohibited-paragraph-child">prohibited paragraph
-                    child</a>, set its <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start" title=
-                    "concept-range-start">start</a> to ([=tree/parent=] of <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, [=tree/index=] of <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>).</p>
+                    child</a>, set its [=range/start=] to ([=tree/parent=] of [=range/start node=], [=tree/index=] of [=range/start node=]).</p>
                 </li>
 
-                <li>While <var title="">new line range</var>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start-offset"
-                    title="concept-range-start-offset">start offset</a> is the
+                <li>While <var title="">new line range</var>'s [=range/start offset=] is the
                     <a class="external" data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node-length" title=
-                    "concept-node-length">length</a> of its <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> and its
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is not a
+                    "concept-node-length">length</a> of its [=range/start node=] and its
+                    [=range/start node=] is not a
                     <a href="#prohibited-paragraph-child">prohibited paragraph
-                    child</a>, set its <a class="external" data-anolis-spec=
-                    "dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start" title=
-                    "concept-range-start">start</a> to ([=tree/parent=] of <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>, 1 +
-                    [=tree/index=] of <a class="external"
-                    data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a>).
+                    child</a>, set its [=range/start=] to ([=tree/parent=] of [=range/start node=], 1 +
+                    [=tree/index=] of [=range/start node=]).
                 </li>
 
                 <li>Let <var title="">end of line</var> be true if
@@ -15603,9 +15296,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>If the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> is neither
+                    [=range/start node=] is neither
                     <a href="#editable">editable</a> nor an <a href=
                     "#editing-host">editing host</a>, return true.
                 </li>
@@ -15644,10 +15335,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>Let <var title="">node</var> and <var title="">offset</var>
-                be the <a href="#active-range">active range</a>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start-node"
-                    title="concept-range-start-node">start node</a> and
+                be the <a href="#active-range">active range</a>'s [=range/start node=] and
                     [=boundary point/offset=].
                 </li>
 
@@ -15703,10 +15391,7 @@ foo&lt;br&gt;bar
                 </li>
 
                 <li>Let (<var title="">node</var>, <var title="">offset</var>)
-                be the <a href="#active-range">active range</a>'s <a class=
-                "external" data-anolis-spec="dom" href=
-                "http://dom.spec.whatwg.org/#concept-range-start" title=
-                "concept-range-start">start</a>.
+                be the <a href="#active-range">active range</a>'s [=range/start=].
                 </li>
 
                 <li>If <var title="">node</var> is a <code class="external"
@@ -15802,18 +15487,14 @@ foo&lt;br&gt;bar
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a>, with <var title=
+                    range</a>'s [=range/start=], with <var title=
                     "">fix collapsed space</var> false.
                 </li>
 
                 <li>
                     <a href="#canonicalize-whitespace">Canonicalize
                     whitespace</a> at the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a>, with <var title="">fix
+                    range</a>'s [=range/end=], with <var title="">fix
                     collapsed space</var> false.
                 </li>
 
@@ -15822,9 +15503,7 @@ foo&lt;br&gt;bar
                 "http://encoding.spec.whatwg.org/#ascii-whitespace" title=
                 "ascii whitespace">space character</a>, <a href="#autolink">
                     autolink</a> the <a href="#active-range">active range</a>'s
-                    <a class="external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-start" title=
-                    "concept-range-start">start</a>.
+                    [=range/start=].
                 </li>
 
                 <li>Call <code title="dom-Selection-collapseToEnd"><a href=
@@ -16153,12 +15832,7 @@ foo&lt;br&gt;bar
                 <li>Let <var title="">items</var> be a list of all
                     [^li^]s that are [=tree/inclusive
                     ancestors=] of the <a href="#active-range">active
-                    range</a>'s <a class="external" data-anolis-spec="dom"
-                    href="http://dom.spec.whatwg.org/#concept-range-start"
-                    title="concept-range-start">start</a> and/or <a class=
-                    "external" data-anolis-spec="dom" href=
-                    "http://dom.spec.whatwg.org/#concept-range-end" title=
-                    "concept-range-end">end</a> <a class="external"
+                    range</a>'s [=range/start=] and/or [=range/end=] <a class="external"
                     data-anolis-spec="dom" href=
                     "http://dom.spec.whatwg.org/#concept-node" title=
                     "concept-node">node</a>.
