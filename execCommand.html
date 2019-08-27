@@ -657,9 +657,7 @@
         <p>When the <dfn id="execcommand()" title=
         "execCommand()"><code>execCommand(<var title="">command</var>,
         <var title="">show UI</var>, <var title="">value</var>)</code></dfn>
-        method on the <code class="external" data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must run
+        method on the {{Document}} interface is invoked, the user agent must run
         the following steps:</p>
 
         <ol>
@@ -808,10 +806,7 @@
 
         <p>When the <dfn id="querycommandenabled()" title=
         "queryCommandEnabled()"><code>queryCommandEnabled(<var title=
-        "">command</var>)</code></dfn> method on the <code class="external"
-        data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must run
+        "">command</var>)</code></dfn> method on the {{Document}} interface is invoked, the user agent must run
         the following steps:</p>
 
         <ol>
@@ -828,10 +823,7 @@
 
         <p>When the <dfn id="querycommandindeterm()" title=
         "queryCommandIndeterm()"><code>queryCommandIndeterm(<var title=
-        "">command</var>)</code></dfn> method on the <code class="external"
-        data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must run
+        "">command</var>)</code></dfn> method on the {{Document}} interface is invoked, the user agent must run
         the following steps:</p>
 
         <ol>
@@ -891,10 +883,7 @@
 
         <p>When the <dfn id="querycommandstate()" title=
         "queryCommandState()"><code>queryCommandState(<var title=
-        "">command</var>)</code></dfn> method on the <code class="external"
-        data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must run
+        "">command</var>)</code></dfn> method on the {{Document}} interface is invoked, the user agent must run
         the following steps:</p>
 
         <ol>
@@ -937,20 +926,14 @@
 
         <p>When the <dfn id="querycommandsupported()" title=
         "queryCommandSupported()"><code>queryCommandSupported(<var title=
-        "">command</var>)</code></dfn> method on the <code class="external"
-        data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must
+        "">command</var>)</code></dfn> method on the {{Document}} interface is invoked, the user agent must
         return true if <var title="">command</var> is <a href=
         "#supported">supported</a> and available within the current script on
         the current site, and false otherwise.</p>
 
         <p>When the <dfn id="querycommandvalue()" title=
         "queryCommandValue()"><code>queryCommandValue(<var title=
-        "">command</var>)</code></dfn> method on the <code class="external"
-        data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> interface is invoked, the user agent must run
+        "">command</var>)</code></dfn> method on the {{Document}} interface is invoked, the user agent must run
         the following steps:</p>
 
         <ol>
@@ -1378,9 +1361,7 @@
         "http://dom.spec.whatwg.org/#context-object">context object</a>. (Thus
         the <a href="#active-range">active range</a> may be null.)</p>
 
-        <p>Each <code class="external" data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> has a boolean <dfn id="css-styling-flag">CSS
+        <p>Each {{Document}} has a boolean <dfn id="css-styling-flag">CSS
         styling flag</dfn> associated with it, which must initially be false.
         (<a href="#the-stylewithcss-command">The <code title=
         "">styleWithCSS</code> command</a> can be used to modify or query it,
@@ -1388,9 +1369,7 @@
         and <code><a href="#querycommandstate()">queryCommandState()</a></code>
         methods.)</p>
 
-        <p>Each <code class="external" data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> is associated with a string known as the
+        <p>Each {{Document}} is associated with a string known as the
         <dfn id="default-single-line-container-name">default single-line
         container name</dfn>, which must initially be "div". (<a href=
         "#the-defaultparagraphseparator-command">The <code title=
@@ -1400,9 +1379,7 @@
         "#querycommandvalue()">queryCommandValue()</a></code> methods.)</p>
 
         <p>For some <a href="#command" title="command">commands</a>, each
-        <code class="external" data-anolis-spec="html"><a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#htmldocument">
-        HTMLDocument</a></code> must have a boolean <dfn id=
+        {{Document}} must have a boolean <dfn id=
         "state-override">state override</dfn> and/or a string <dfn id=
         "value-override">value override</dfn>. These do not change the <a href=
         "#command">command</a>'s <a href="#state">state</a> or <a href=
