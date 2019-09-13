@@ -11,6 +11,9 @@ Date: September 20th, 2019
     
     Objectives:
     1. todo: provide links to the issues.
+    1. Static Ranges [applicability](https://github.com/whatwg/dom/issues/590)
+    1. Range in native elements
+    1. Range events
     1. Is the proposal in a good enough shape to be moved into a spec draft phase? If so, is CSSWG a good place for it to live in?
 
 - [Remaining gaps in async clipboard API](https://bugs.chromium.org/p/chromium/issues/detail?id=931839) (2 hours) 
@@ -27,10 +30,6 @@ Date: September 20th, 2019
     
     Objectives:
 
-- [PenEvents](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/PenEvents/explainer.md) (30 minutes)
-
-    Objectives:
-
 - Spellcheck APIs (30minutes)- inspired by https://github.com/w3c/editing/issues/166.
 
     Objectives:
@@ -41,18 +40,3 @@ Date: September 20th, 2019
     
     Objectives:
 
-- SIP coordinates (30 mins) - today, on Windows, Input service communicates the coordinates of the SIP once it shows up on the screen. Office online has expressed the desire to for these events to be exposed to JS. We wanted to gauge interest in the community for this API. Somewhat overlaps with [this](https://github.com/w3c/editing/issues/183)?
-
-    Objectives:
-
-- Static Ranges [applicability](https://github.com/whatwg/dom/issues/590) (30 mins)
-
-    Objectives:
-
-- Range in native elements (1 hour)
-
-    Objectives
-
-- Range events (1 hour)
-    
-    Objectives:
