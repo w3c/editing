@@ -22,7 +22,7 @@ Date: September 20th, 2019
 
     We are thinking of picking up the work where Chrome's team left of. Specifically, building support for html mime type and implementing clipboardChange event.
 
-- [Raw Clipboard Access](https://tinyurl.com/raw-clipboard-access-design) - (1hour) Discuss the API with other browser vendors and interested developers.
+- [Raw Clipboard Access](https://tinyurl.com/raw-clipboard-access-design) - (1 hour) Discuss the API with other browser vendors and interested developers.
 
     Objectives:
 
