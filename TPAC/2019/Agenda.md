@@ -2,6 +2,26 @@
 
 Date: September 20th, 2019
 
+Timing:
+- 8:30 - 9:15 EditContext 
+- 9:15 - 09:20 Break (5 mins)
+- 9:20 - 10:05 EditContext
+- 10:05 -10:20 Break (15 mins)
+- 10:20 -11:05 EditContext/contenteditable-disabled
+- 11:05- 11:10 Break (5 mins)
+- 11:10 - 11:55 contenteditable-disabled/HighlightAPI
+- 11:55 - 13:00 Lunch
+- 13:00 - 13:45 HighlightAPI
+- 13:45 - 13:50 Break (5 mins)
+- 13:50 - 14:35 HighlightAPI
+- 14:35 - 14:50 Break (15 mins)
+- 14:50 - 15:50 Undo Manager/Spellcheck API 
+- 15:50 - 16:35 Clipboard
+- 16:25 - 16:40 Break (15 mins)
+- 16:40 -  17:25 Clipboard
+- 17:25 - 17:40 Break  (15 mins)
+- 17:40 - 18:30 Clipboard
+
 ## Topics:
 - [EditContext API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md) (2 hours)
     
