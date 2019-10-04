@@ -59,4 +59,10 @@ Timing:
 - [SIP policy](https://github.com/whatwg/html/issues/4876) (30 mins)- we've received a request from Excel online and Google Docs asking for a way to control SIP. Excel's use case is to prevent SIP from showing up when editable element is focused. Google Docs has mentioned to have an explicit API for the virtual keyboard on touchscreen devices, particularly for showing/hiding the keyboard and querying its current state.. This is needed in cases where users would want to maintain editability of an element without invoking the SIP. We wanted to gauge interest in the community for this API
     
     Objectives:
+    
+ - [Undo Manager](https://whsieh.github.io/UndoManager/) (30 mins)- Give JavaScript a way to manipulate the browser's undo stack.
+ 
+   Objectives:
+   
+   [Spec Draft](https://rniwa.github.io/undo-api/)
 
