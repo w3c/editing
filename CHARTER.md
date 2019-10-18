@@ -8,15 +8,18 @@
 
 ### Abstract
 
-Enabling rich editing experience on the web is currently a challenging task. Reasons are many. For example, lack of requirements in the behavior of the `contenteditable` attribute in HTML, currently, the only browser primitive providing rich editing surface to web developers. Also, lack of support for low level editing APIs that would allow web developers to build rich editing experiences without getting browsers interference in this process. 
+  
 
-Editing Task Force sets out to explore existing limitations in existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs. The goal is to facilitate the creation of full-featured editing systems as well as small editors using JavaScript. 
+Enabling rich editing experience on the web is currently a challenging task. Reasons are many. For example, lack of requirements in the behavior of the `contenteditable` attribute in HTML, currently, the only browser primitive providing rich editing surface to web developers. Also, lack of support for low level editing APIs that would allow web developers to build rich editing experiences without getting browsers interference in this process.  
+
+Editing Task Force sets out to explore limitations in existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs. The goal is to facilitate the creation of fully-featured editing systems as well as small editors using JavaScript. 
 
 The Task Force (TF) is part of the [W3C WebApps Working Group](https://w3c.github.io/webappswg/). The TF works primarily within its editing community on [Github](https://github.com/w3c/editing) and will report the results of its activities back to  [W3C WebApps Working Group](https://w3c.github.io/webappswg/).
 
 TF is leveraging the existing editing [GitHub](https://github.com/w3c/editing) repo with well-known locations and history of discussions on a variety of editing-related topics in order to “incubate” new editing-specific standards.
 
 This charter is intended to reflect on the current direction of the TF group, so that there is common agreement. It may be altered at any point in order to reflect new priorities or work items. 
+  
 
 ### 1. Scope
 
@@ -32,11 +35,11 @@ The scope of Editing TF covers multiple aspects of editing, which may  include:
 - Highlighting parts of text ranges without inducing DOM mutations. 
 
 Experts who are contributing members of the task force will contribute to documents produced by the group, as described in the section on deliverables below. 
+ 
 
 ### 2. Deliverables
 
 This Task Force will
-
 - ensure that browsers are developing APIs that meet the expectations of editing framework authors of varying skill and team sizes.   
 - allow a network of experts to share information about gaps and requirements for building editing frameworks on the web.  
 
@@ -64,6 +67,7 @@ The group encourages questions, comments and all technical discussions on its pu
 
 Participants are reminded of the  [W3C's Code of Ethical Conduct](https://www.w3.org/Consortium/cepc/).
 
+ 
 ### 4. Decision Policy
 
-Editing Task Force group will seek to make decisions when there is consensus. In cases where there is a need to formally produce a group resolution about a particular issue, its chair(s) will put a question about the issue to the group and gather responses (including any formal objections to formally publishing a document into the appropriate WG); then, after due consideration of all the responses, the Chair(s) will record a group resolution (possibly after a formal vote and also along with responding to any formal objections).
+Editing Task Force group will seek to make decisions when there is consensus. In cases where there is a need to formally produce a group resolution about a particular issue, its chair(s) will put a question about the issue to the group and gather responses (including any formal objections to formally publishing a document into the appropriate WG); then, after due consideration of all the responses, the Chair(s) will record a group resolution (possibly after a formal vote and also along with responding to any formal objections). 
