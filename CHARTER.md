@@ -8,8 +8,6 @@
 
 ### Abstract
 
-  
-
 Enabling rich editing experience on the web is currently a challenging task. Reasons are many. For example, lack of requirements in the behavior of the `contenteditable` attribute in HTML, currently, the only browser primitive providing rich editing surface to web developers. Also, lack of support for low level editing APIs that would allow web developers to build rich editing experiences without getting browsers interference in this process.  
 
 Editing Task Force sets out to explore limitations in existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs. The goal is to facilitate the creation of fully-featured editing systems as well as small editors using JavaScript. 
