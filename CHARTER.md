@@ -12,7 +12,7 @@ Enabling rich editing experience on the web is currently a challenging task. Rea
 
 Editing Task Force sets out to explore limitations in existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs. The goal is to facilitate the creation of fully-featured editing systems as well as small editors using JavaScript. 
 
-The Task Force (TF) is part of the [W3C WebApps Working Group](https://w3c.github.io/webappswg/). The TF works primarily within its editing community on [Github](https://github.com/w3c/editing) and will report the results of its activities back to  [W3C WebApps Working Group](https://w3c.github.io/webappswg/).
+The Task Force (TF) is part of the [W3C WebApps Working Group](https://w3c.github.io/webappswg/). The TF works primarily within its editing community on [Github](https://github.com/w3c/editing) and will report the results of its activities back to  [W3C WebApps Working Group](https://www.w3.org/2019/webapps/).
 
 TF is leveraging the existing editing [GitHub](https://github.com/w3c/editing) repo with well-known locations and history of discussions on a variety of editing-related topics in order to “incubate” new editing-specific standards.
 
