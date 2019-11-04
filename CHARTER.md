@@ -55,7 +55,7 @@ The TF is expected to work on the following efforts until the end of the charter
 - [Input Events](https://www.w3.org/TR/input-events-1/) 
 - [ContentEditable](https://w3c.github.io/contentEditable/) 
 
-Deliverables are expected to eventually be shipped as standards recommendation by the Web Applications Working Group, CSS Working Group or any other group where a draft specification may fall into.
+Deliverables are expected to eventually be shipped as Recommendations by the Web Applications Working Group, CSS Working Group or any other group where a draft specification may fall into.
 
 ### 3. Participation
 
