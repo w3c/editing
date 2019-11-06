@@ -60,6 +60,8 @@ Deliverables are expected to eventually be shipped as Recommendations by the Web
 
 This task force is designed to make participation relatively easy for people not currently involved in the standards process (typically, developers of editing tool libraries) who may not be amenable to signing up to a large in scope discussions that can be found in, for instance, the main Web Applications Working Group.
 
+#### As per W3C IPR requirements, if a participant plans on making more than light editorial changes or propose new approaches and APIs, TF chairs will need to be notified and nominate you to become an Invited Expert.
+
 The group encourages questions, comments and all technical discussions on its public [mailing list](https://lists.w3.org/Archives/Public/public-editing-tf/) and [document repositories](https://github.com/w3c/editing).
 
 Participants are reminded of the  [W3C's Code of Ethical Conduct](https://www.w3.org/Consortium/cepc/).
