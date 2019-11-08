@@ -69,4 +69,4 @@ Participants are reminded of the  [W3C's Code of Ethical Conduct](https://www.w
  
 ### 4. Decision Policy
 
-Editing Task Force group will seek to make decisions when there is consensus. In cases where there is a need to formally produce a group resolution about a particular issue, its chair(s) will put a question about the issue to the group and gather responses (including any formal objections to formally publishing a document into the appropriate WG); then, after due consideration of all the responses, the Chair(s) will record a group resolution (possibly after a formal vote and also along with responding to any formal objections). 
+The Editing Task force operates under the WebApps Working Group's [decision policy](https://www.w3.org/2019/05/webapps-charter.html#decisions) and adheres to the WebApps WG [working mode](https://www.w3.org/2019/05/webapps-charter.html#working-mode).
