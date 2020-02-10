@@ -602,10 +602,10 @@
             "command">commands</a> defined here are <a href=
             "#enabled">enabled</a> if the <a href="#active-range">active
             range</a> is not null, its [=range/start node=] is either <a href=
-            "#editable">editable</a> or an <a href="#editing-host">editing
+            "#editable">editable</a> or an <a data-cite="html">editing
             host</a>, its [=range/end node=] is either <a href=
-            "#editable">editable</a> or an <a href="#editing-host">editing
-            host</a>, and there is some <a href="#editing-host">editing
+            "#editable">editable</a> or an <a data-cite="html">editing
+            host</a>, and there is some <a data-cite="html">editing
             host</a> that is an [=tree/inclusive ancestor=] of
             both its [=range/start node=] and its [=range/end node=].</p>
         </section>
@@ -702,13 +702,13 @@
 
                 <ol>
                     <li>Let <var title="">affected editing host</var> be the
-                    <a href="#editing-host">editing host</a> that is an
+                    <a data-cite="html">editing host</a> that is an
                     [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
                         range</a>'s [=range/start node=] and
                         [=range/end node=], and is not
                         the [=tree/ancestor=] of any
-                        <a href="#editing-host">editing host</a> that is an
+                        <a data-cite="html">editing host</a> that is an
                         [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
                         range</a>'s [=range/start node=] and
@@ -751,13 +751,13 @@
                     </li>
 
                     <li>Let <var title="">affected editing host</var> be the
-                    <a href="#editing-host">editing host</a> that is an
+                    <a data-cite="html">editing host</a> that is an
                     [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
                         range</a>'s [=range/start node=] and
                         [=range/end node=], and is not
                         the [=tree/ancestor=] of any
-                        <a href="#editing-host">editing host</a> that is an
+                        <a data-cite="html">editing host</a> that is an
                         [=tree/inclusive
                         ancestor=] of the <a href="#active-range">active
                         range</a>'s [=range/start node=] and
@@ -1066,12 +1066,12 @@
         <p>Something is <dfn id="editable">editable</dfn> if it is a <a class=
         "external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
-        "concept-node">node</a>; it is not an <a href="#editing-host">editing
+        "concept-node">node</a>; it is not an <a data-cite="html">editing
         host</a>; it does not have a <code class="external" data-anolis-spec=
         "html" title="attr-contenteditable"><a href=
         "http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#attr-contenteditable">
         contenteditable</a></code> attribute set to the false state; its
-        [=tree/parent=] is an <a href="#editing-host">editing
+        [=tree/parent=] is an <a data-cite="html">editing
         host</a> or <a href="#editable">editable</a>; and either it is an
         <a href="#html-element">HTML element</a>, or it is an <code class=
         "external" data-anolis-spec="html"><a href=
@@ -1090,11 +1090,11 @@
 
         <p>The <dfn id="editing-host-of">editing host of</dfn> <var title=
         "">node</var> is null if <var title="">node</var> is neither <a href=
-        "#editable">editable</a> nor an <a href="#editing-host">editing
+        "#editable">editable</a> nor an <a data-cite="html">editing
         host</a>; <var title="">node</var> itself, if <var title="">node</var>
-        is an <a href="#editing-host">editing host</a>; or the nearest
+        is an <a data-cite="html">editing host</a>; or the nearest
         [=tree/ancestor=] of <var title="">node</var> that
-        is an <a href="#editing-host">editing host</a>, if <var title=
+        is an <a data-cite="html">editing host</a>, if <var title=
         "">node</var> is <a href="#editable">editable</a>.</p>
 
         <p>Two <a class="external" data-anolis-spec="dom" href=
@@ -7146,8 +7146,7 @@ output is null.
                     </div>
 
                     <p>If <var title="">start block</var> is neither a <a href=
-                    "#block-node">block node</a> nor an <a href=
-                    "#editing-host">editing host</a>, or "span" is not an
+                    "#block-node">block node</a> nor an <a data-cite="html">editing host</a>, or "span" is not an
                     <a href="#allowed-child">allowed child</a> of <var title=
                     "">start block</var>, or <var title="">start block</var> is
                     a [^td^] or [^th^], set <var title="">start block</var> to
@@ -7166,7 +7165,7 @@ output is null.
                 </li>
 
                 <li>If <var title="">end block</var> is neither a <a href=
-                "#block-node">block node</a> nor an <a href="#editing-host">
+                "#block-node">block node</a> nor an <a data-cite="html">
                     editing host</a>, or "span" is not an <a href=
                     "#allowed-child">allowed child</a> of <var title="">end
                     block</var>, or <var title="">end block</var> is a
@@ -7325,8 +7324,7 @@ output is null.
                             of</a> <var title="">parent</var> has no <a href=
                             "#visible">visible</a> [=tree/children=], and
                             <var title="">parent</var> is <a href=
-                            "#editable">editable</a> or an <a href=
-                            "#editing-host">editing host</a>, call <code class=
+                            "#editable">editable</a> or an <a data-cite="html">editing host</a>, call <code class=
                             "external" data-anolis-spec="dom" title=
                             "dom-Document-createElement"><a href=
                             "http://dom.spec.whatwg.org/#dom-document-createelement">
@@ -8228,7 +8226,7 @@ foo[&lt;p&gt;]bar&lt;/p&gt;
 
             <ol>
                 <li>If <var title="">node</var> is neither <a href="#editable">
-                    editable</a> nor an <a href="#editing-host">editing
+                    editable</a> nor an <a data-cite="html">editing
                     host</a>, abort these steps.
                 </li>
 
@@ -13182,8 +13180,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>
@@ -13342,8 +13339,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>
@@ -13530,8 +13526,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>
@@ -13649,8 +13644,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>
@@ -13869,8 +13863,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>Let <var title="">node</var> and <var title="">offset</var>
@@ -14620,8 +14613,7 @@ foo&lt;br&gt;bar
 
                 <li>If the <a href="#active-range">active range</a>'s
                     [=range/start node=] is neither
-                    <a href="#editable">editable</a> nor an <a href=
-                    "#editing-host">editing host</a>, return true.
+                    <a href="#editable">editable</a> nor an <a data-cite="html">editing host</a>, return true.
                 </li>
 
                 <li>If <var title="">value</var>'s <a href=
@@ -15660,7 +15652,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         behavior, please say so.</p>
 
         <p>When the user instructs the user agent to insert a line break inside
-        an <a href="#editing-host">editing host</a>, such as by pressing the
+        an <a data-cite="html">editing host</a>, such as by pressing the
         Enter key while the cursor is in an <a href="#editable">editable</a>
         <a class="external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
@@ -15670,7 +15662,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         relevant [=document=].</p>
 
         <p>When the user instructs the user agent to insert a line break inside
-        an <a href="#editing-host">editing host</a> without breaking out of the
+        an <a data-cite="html">editing host</a> without breaking out of the
         current block, such as by pressing Shift-Enter or Option-Enter while
         the cursor is in an <a href="#editable">editable</a> <a class=
         "external" data-anolis-spec="dom" href=
@@ -15681,7 +15673,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         relevant [=document=].</p>
 
         <p>When the user instructs the user agent to delete the previous
-        character inside an <a href="#editing-host">editing host</a>, such as
+        character inside an <a data-cite="html">editing host</a>, such as
         by pressing the Backspace key while the cursor is in an <a href=
         "#editable">editable</a> <a class="external" data-anolis-spec="dom"
         href="http://dom.spec.whatwg.org/#concept-node" title=
@@ -15691,7 +15683,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         [=document=].</p>
 
         <p>When the user instructs the user agent to delete the next character
-        inside an <a href="#editing-host">editing host</a>, such as by pressing
+        inside an <a data-cite="html">editing host</a>, such as by pressing
         the Delete key while the cursor is in an <a href=
         "#editable">editable</a> <a class="external" data-anolis-spec="dom"
         href="http://dom.spec.whatwg.org/#concept-node" title=
@@ -15701,7 +15693,7 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         relevant [=document=].</p>
 
         <p>When the user instructs the user agent to insert text inside an
-        <a href="#editing-host">editing host</a>, such as by typing on the
+        <a data-cite="html">editing host</a>, such as by typing on the
         keyboard while the cursor is in an <a href="#editable">editable</a>
         <a class="external" data-anolis-spec="dom" href=
         "http://dom.spec.whatwg.org/#concept-node" title=
