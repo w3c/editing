@@ -10,7 +10,7 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 ## Actively developed specs
 
 * [Content Editable Disabled](https://github.com/w3c/editing/blob/gh-pages/Active%20Documents/contentEditableDisabled.html)
-* [Virtual Keyboard Policy ](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
+* [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
 * [Selection API](https://w3c.github.io/selection-api/)
 
 ## Graduated
