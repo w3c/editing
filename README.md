@@ -1,7 +1,7 @@
 Editing Task Force
 =================
 
-Editing Task Force is considered to be a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/). 
+Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/). 
 
 Its purpose is to gather and incubate emerging issues in the area of rich text editor development. 
 
