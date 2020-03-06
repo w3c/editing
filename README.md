@@ -5,7 +5,7 @@ Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.i
 
 Its mission is to gather and incubate emerging ideas as they pertain to rich text editor development. 
 
-Details can be found in the [Group Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md).
+Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.  
 
 ## Actively developed specs
 
