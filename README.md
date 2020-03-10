@@ -1,19 +1,65 @@
 Editing Task Force
 =================
 
-These are specifications and explainers related to the work of the Editing Task Force. 
+Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/). 
 
-**Actively developed specs:**
+Its mission is to gather and incubate emerging ideas as they pertain to rich text editor development. 
 
-* See the [Editing Taskforce Charter](CHARTER.md)
+Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.  
 
-* See the [Selection API](https://w3c.github.io/selection-api/) specification, which defines the `Selection` interface, the `getSelection()` method, and the `selectstart` and `selectionchange` events.
+## Actively developed specs
 
+* [Content Editable Disabled](https://github.com/w3c/editing/blob/gh-pages/Active%20Documents/contentEditableDisabled.html)
+* [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
+* [Selection API](https://w3c.github.io/selection-api/)
 
-**These specs are incomplete and it is not expected that they will advance beyond draft status:**
+## Graduated[^graduated-def]
+
+[Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
+
+## Backlog[^backlog-def]
+* [EditContextAPI](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md)
+
+## Archive[^archive-def]
 
 * [Content Editable True](http://w3c.github.io/editing/contentEditableTrue.html)
 
 * [execCommand](http://w3c.github.io/editing/execCommand.html)
 
+## Process
 
+### Participation
+Participation from ALL who are passionate about writing text editors on the web or have a question/suggestion on the topic is welcomed!
+
+There are couple of things you should know before you proceed.
+
+In accordance with W3C contribution requirements, if you intend to create PRs and/or spend a significant amount of time on these discussions, you should follow [Web Apps WG contribution guidance](https://github.com/w3c/editing/blob/gh-pages/CONTRIBUTING.md).
+
+
+### Meetings
+[Recurring Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
+
+
+### Details:
+Editing TF meets remotely at 9:00AM PST, on second Friday of every month.
+
+Currently planned dates: April 10th, 2020 | May 8th, 2020 | etc.
+
+Meeting [agenda query](https://github.com/w3c/editing/labels/Agenda%2B)
+
+[Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
+
+IRC:
+[irc.w3.org](http://irc.w3.org/)
+#editing
+
+**If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
+
+
+## Footnote
+
+[^graduated-def]:Proposals that resulted in being sent to the appropriate WG as a recommendation to be specced.
+
+[^backlog-def]: Proposals that we haven't gotten to discussing yet.
+
+[^archive-def]: Anything that have been discussed but the proposal got rejected for some reason. Or any other doc that is no longer relevant.
