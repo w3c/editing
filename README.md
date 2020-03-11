@@ -13,14 +13,14 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 * [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
 * [Selection API](https://w3c.github.io/selection-api/)
 
-## Graduated[^graduated-def]
+## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
 [Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
 
-## Backlog[^backlog-def]
+## Backlog <sup id="backlogdRef">[2](#backlogdefFootnote)</sup>
 * [EditContextAPI](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md)
 
-## Archive[^archive-def]
+## Archive <sup id="archivedRef">[3](#archivedFootnote)</sup>
 
 * [Content Editable True](http://w3c.github.io/editing/contentEditableTrue.html)
 
@@ -58,8 +58,8 @@ IRC:
 
 ## Footnote
 
-[^graduated-def]:Proposals that resulted in being sent to the appropriate WG as a recommendation to be specced.
+<b id="graddefFootnote">1 </b>Proposals that resulted in being sent to the appropriate WG as a recommendation to be specced.[↩](#graddedRef)
 
-[^backlog-def]: Proposals that we haven't gotten to discussing yet.
+<b id="backlogdefFootnote">2 </b>Proposals that we haven't gotten to discussing yet.[↩](#backlogdRef)
 
-[^archive-def]: Anything that have been discussed but the proposal got rejected for some reason. Or any other doc that is no longer relevant.
+<b id="archivedFootnote">3 </b>Anything that have been discussed but the proposal got rejected for some reason. Or any other doc that is no longer relevant.[↩](#archivedRef)
