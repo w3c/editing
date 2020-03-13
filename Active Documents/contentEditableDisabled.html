@@ -3,16 +3,23 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>ContentEditableDisabled</title>
+    <title>Editing UI Directives</title>
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
-            editors: [{
-                name: "Johannes Wilm",
-                mailto: "johannes@fiduswriter.org",
-                company: "Invited Expert"
-            }, ],
-            github: "https://github.com/w3c/editing/contentEditableDisabled.html",
+            editors: [
+                {
+                    name: "Johannes Wilm",
+                    mailto: "johannes@fiduswriter.org",
+                    company: "Invited Expert"
+                },
+                {
+                    name: "Bo Cupp",
+                    mailto: "pcupp@microsoft.com",
+                    company: "Microsoft"
+                }
+            ],
+            github: "https://github.com/w3c/editing",
             shortName: "contenteditable-interface",
             wg: "Web Applications Working Group",
             wgURI: "https://www.w3.org/2019/webapps/",
@@ -25,65 +32,65 @@
 
 <body>
     <section id='abstract'>
-        <p>
-            <code>contentEditableDisabled</code> allows the disabling of certain editing actions on contenteditable editing hosts.
-        </p>
+        <p>This document defines a mechanism to suppress editing-related, user-agent-supplied user interface elements.</p>
     </section>
     <section id='sotd'>
-      <p>
-      </p>
+      <p></p>
     </section>
-    <section data-dfn-for="DOMCommandTokenList">
-        <h2>The <dfn>DOMCommandTokenList</dfn></h2>
-        <pre class="idl">
-           interface DOMCommandTokenList : DOMTokenList {
-             [SameObject] readonly attribute DOMString supported;
-           };
-        </pre>
-        <p>The <dfn><code>supported</code></dfn> attribute returns the supported tokens as a string.</p>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>In editable regions of documents, some user agents provide contextual user interface (UI) elements to help 
+        accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors 
+        create customized editors that aren’t compatible with user agent UI, it leads to confused users.</p>
+
+        <p>This spec provides the means for authors to indicate, using well-known names of editing commands, types of 
+        input not compatible with their editor.</p>
     </section>
-    <section data-dfn-for="ElementContentEditable">
-        <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
-        <pre class="idl">
-           partial interface ElementContentEditable {
-             [SameObject, PutForwards=value] readonly attribute DOMCommandTokenList contentEditableDisabled;
-           };
-        </pre>
-        <p>The <dfn><code>contentEditableDisabled</code></dfn> attribute, when specified on an element that is a contenteditable host,
-            restricts the types of editing operations available by means of user agent native user interfaces and keyboard shortcuts handlers. Its value
-            must be an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens>unordered
-            set of unique space-separated tokens</a> [[HTML]] that
-            are <a href=https://infra.spec.whatwg.org/#ascii-case-insensitive>ASCII case-insensitive</a> [[INFRA]]. The allowed values are:
-        </p>
-        <ul>
-            <li><code>history</code>: makes the element not be part of any browser-provided undo stack.</li>
-            <li><code>inserHorizontalRule</code></li>
-            <li><code>unorderedList</code></li>
-            <li><code>orderedList</code></li>
-            <li><code>insertLink</code></li>
-            <li><code>insertLineBreak</code></li>
-            <li><code>insertParagraph</code></li>
-            <li><code>formatBold</code></li>
-            <li><code>formatItalic</code></li>
-            <li><code>formatUnderline</code></li>
-            <li><code>formatStrikeThrough</code></li>
-            <li><code>formatSuperscript</code></li>
-            <li><code>formatSubscript</code></li>
-            <li><code>formatJustifyFull</code></li>
-            <li><code>formatJustifyCenter</code></li>
-            <li><code>formatJustifyRight</code></li>
-            <li><code>formatJustifyLeft</code></li>
-            <li><code>formatJustify</code>: combines <code>formatJustifyFull</code>, <code>formatJustifyCenter</code>, <code>formatJustifyRight</code> and <code>formatJustifyLeft</code></li>
-            <li><code>formatIndent</code></li>
-            <li><code>formatOutdent</code></li>
-            <li><code>formatDent</code>: combines <code>formatIndent</code> and <code>formatOutdent</code></li>
-            <li><code>formatSetBlockTextDirection</code></li>
-            <li><code>formatSetInlineTextDirection</code></li>
-            <li><code>formatFontColor</code></li>
-            <li><code>formatBackColor</code></li>
-            <li><code>formatFontName</code></li>
-        </ul>
-        <p>Unless specified, each specified token input controls that would otherwise trigger input events with <a href=https://www.w3.org/TR/input-events-1/#events-inputevents>Input Types</a> [[input-events-1]] of the same value.</p>
+    <section id='conformance'>
+        <p></p>
+    </section>
+    <section>
+        <h2>Conforming Implementations</h2>
+        <p>A user agent conforming with this specification MUST disable all visible user interface elements that would
+        trigger an incompatible editing command, including, but not limited to, context menu entries, virtual 
+        keyboard buttons, and floating toolbar UI.</p>
+
+        <p>Triggering an incompatible editing command from a non-visible user interface element MUST NOT be disabled, 
+        so long as the command correlates with a cancellable event that the author can use to prevent unwanted
+        manipulation of the DOM by the command.  The canonical example of non-visible UI is a keyboard shortcut.</p>
+    </section>
+    <section>
+        <h2>Supported Commands</h2>
+        <p><ul>
+            <li>BackColor</li>
+            <li>Bold</li>
+            <li>CreateLink</li>
+            <li>FontName</li>
+            <li>FontSize</li>
+            <li>ForeColor</li>
+            <li>FormatBlock</li>
+            <li>HiliteColor</li>
+            <li>Indent</li>
+            <li>InsertHorizontalRule</li>
+            <li>InsertImage</li>
+            <li>InsertOrderedList</li>
+            <li>InsertUnorderedList</li>
+            <li>Italic</li>
+            <li>JustifyCenter</li>
+            <li>JustifyFull</li>
+            <li>JustifyLeft</li>
+            <li>JustifyNone</li>
+            <li>JustifyRight</li>
+            <li>Outdent</li>
+            <li>Redo</li>
+            <li>RemoveFormat</li>
+            <li>Strikethrough</li>
+            <li>Subscript</li>
+            <li>Superscript</li>
+            <li>Underline</li>
+            <li>Undo</li>
+            <li>Unlink</li>
+        </ul></p>
     </section>
 </body>
 
