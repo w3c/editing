@@ -7,18 +7,20 @@ Its mission is to gather and incubate emerging ideas as they pertain to rich tex
 
 Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.  
 
-## Actively developed specs
+## Actively developed ideas/specs
 
 * [Content Editable Disabled](https://github.com/w3c/editing/blob/gh-pages/Active%20Documents/contentEditableDisabled.html)
 * [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
-* [Selection API](https://w3c.github.io/selection-api/)
+
+* [EditContextAPI](ActiveDocuments/EditContext/explainer.md)
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
 [Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
 
 ## Backlog <sup id="backlogdRef">[2](#backlogdefFootnote)</sup>
-* [EditContextAPI](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md)
+
+* [Selection API](https://w3c.github.io/selection-api/)
 
 ## Archive <sup id="archivedRef">[3](#archivedFootnote)</sup>
 
