@@ -37,7 +37,7 @@ Changes to the editable contents can also come from external events, such as col
 
 ## API Details
 
-```focus``` is used to activate an EditContext and a way to tell the OS that the author wants advanced text input methods enabled and that the metadata required for suggestions, where text input UI should appear, what the input mode is, etc. should all come from this particular editContext instance. This will create a strong reference (internally) from document to that editContext. The typical owner of an editContext instance will be the web app or widget that needs to enable text input.
+`focus` is used to activate an EditContext and a way to tell the OS that the author wants advanced text input methods enabled and that the metadata required for suggestions, where text input UI should appear, what the input mode is, etc. should all come from this particular editContext instance. This will create a strong reference (internally) from document to that editContext. The typical owner of an editContext instance will be the web app or widget that needs to enable text input.
 
 ```blur``` is used to deactivate an EditContext and it will also release the strong-ref by the Document. After calling blur, the EditContext instance won't receive any text input events from text input services.
 
