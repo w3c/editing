@@ -607,44 +607,6 @@
       <h2 id="methods-to-query-and-execute-commands">
         Methods to query and execute commands
       </h2>
-      <p class="XXX">
-        We fire events as requested in <a href=
-        "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13118">bug 13118</a>.
-        This is a new feature does not currently match any browser. <strong>If
-        you are implementing this, please make sure to file any feedback as
-        bugs. The spec is not finalized yet and can still be easily
-        changed.</strong>
-      </p>
-      <pre class="idl">
-            [Exposed=Window,
-             Constructor(DOMString type, optional EditingBeforeInputEventInit eventInitDict = {})]
-            interface EditingBeforeInputEvent : Event {
-              readonly attribute DOMString command;
-              readonly attribute DOMString value;
-            };
-            
-            dictionary EditingBeforeInputEventInit : EventInit {
-              DOMString command = "";
-              DOMString value = "";
-            };
-
-            [Exposed=Window,
-             Constructor(DOMString type, optional EditingInputEventInit eventInitDict = {})]
-            interface EditingInputEvent : Event {
-              readonly attribute DOMString command;
-              readonly attribute DOMString value;
-            };
-            
-            dictionary EditingInputEventInit : EventInit {
-              DOMString command = "";
-              DOMString value = "";
-            };
-        </pre>
-      <p class="XXX">
-        We have two different interfaces because we might want to add
-        additional members to the input event but not the beforeinput event,
-        such as a list of nodes that were affected.
-      </p>
       <p class="note">
         TODO: Define behavior for <var title="">show UI</var>.
       </p>
@@ -4784,7 +4746,7 @@
         </h3>
         <div class="note">
           <p>
-            Color interpretations: 
+            Color interpretations:
             <!-- I wanted the table to stretch out to the left.  CSS doesn't support this
 directly, but where there's a will, there's a way! -->
           </p>
