@@ -1,22 +1,22 @@
 Editing Task Force
 =================
 
-Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/). 
+Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/).
 
-Its mission is to gather and incubate emerging ideas as they pertain to rich text editor development. 
+Its mission is to gather and incubate emerging ideas as they pertain to rich text editor development.
 
-Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.  
+Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.
 
 ## Actively developed ideas/specs
 
 * [Content Editable Disabled](https://w3c.github.io/editing/ActiveDocuments/contentEditableDisabled.html)
+* [execCommand](http://w3c.github.io/editing/ActiveDocuments/execCommand.html)
 * [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
-
 * [EditContextAPI](ActiveDocuments/EditContext/explainer.md)
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
-[Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
+* [Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
 
 ## Backlog <sup id="backlogdRef">[2](#backlogdefFootnote)</sup>
 
@@ -25,8 +25,6 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 ## Archive <sup id="archivedRef">[3](#archivedFootnote)</sup>
 
 * [Content Editable True](http://w3c.github.io/editing/Archive/contentEditableTrue.html)
-
-* [execCommand](http://w3c.github.io/editing/Archive/execCommand.html)
 
 ## Process
 
