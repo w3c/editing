@@ -17,6 +17,16 @@
                     name: "Bo Cupp",
                     mailto: "pcupp@microsoft.com",
                     company: "Microsoft"
+                },
+                {
+                    name: "Alex Keng",
+                    mailto: "shihken@microsoft.com",
+                    company: "Microsoft"
+                },
+                {
+                    name: "Grisha Lyukshin",
+                    mailto: "glyuk@microsoft.com",
+                    company: "Microsoft"
                 }
             ],
             github: "https://github.com/w3c/editing",
@@ -33,31 +43,56 @@
 <body>
     <section id='abstract'>
         <p>This document defines a mechanism to suppress editing-related, user-agent-supplied user interface elements.</p>
+
+        <p class="issue">Rename this file to something that best reflects the purpose of this API.  Was contenteditable-disabled.  Before rethinking its purpose to focus solely on formatting commands I renamed edit UI directives.  Now thinking somethig that means unsupported formats.  It is only applicable to contenteditable.  Maybe it should go back to being contenteditable-disabled?</p>
     </section>
     <section id='sotd'>
       <p></p>
     </section>
     <section id="introduction">
         <h2>Introduction</h2>
+        <p class="issue">Provide introduction that discusses the need for rich text editors to support different levels of richness.</p>
+
+        <p class="issue">Provide an example using a popular markdown editor.</p>
+        
         <p>In editable regions of documents, some user agents provide contextual user interface (UI) elements to help 
         accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors 
         create customized editors that aren’t compatible with user agent UI, it leads to confused users.</p>
 
+        <p>This specification purposefully does not prescribe the means by which a user agent will indicate to the user that some commands are not applicable in a given editable region.  The user agent is free to disable or remove the UI or do something else of their choosing.</p>
+
+        <h3>Goals</h3>
+        <ul>
+            <li>Hiding or disabling UI that will not perform the expected task when the command is not supported within an editable region of the document.</li>
+        </ul>
+
+        <h3>Non-goals</h3>
+        <ul>
+            <li>Preventing shortcut keys from triggering default browser behaviors.</li>
+            <li>Hiding user interface elements to provide more room for application UI.</li>
+        </ul>
+
         <p>This spec provides the means for authors to indicate, using well-known names of editing commands, types of 
         input not compatible with their editor.</p>
 
-        <p>TODO: example code here with attribute called...
-            <ul>
-                <li>disableeditui</li>
-                <li>suppresseditui</li>
-                <li>removeeditui</li>
-            </ul>
+        <code>
+            <div contenteditable="true" 
+                 commanddisabled="
+                    fontname fontsize forecolor
+                    indent outdent justify 
+                    subscript superscript 
+                    underline
+                 ">
+            </div>
+        </code>
     </section>
     <section id='conformance'>
         <p></p>
     </section>
     <section>
         <h2>Conforming Implementations</h2>
+        <p class="issue">Revise this text to work better with current scope.  Ensure this language leaves UAs with the freedom to choose how they communicate to the user that the UI is not applicable.</p>
+
         <p>A user agent conforming with this specification MUST disable all visible user interface elements that would
         trigger an incompatible editing command, including, but not limited to, context menu entries, virtual 
         keyboard buttons, and floating toolbar UI.</p>
@@ -68,36 +103,62 @@
     </section>
     <section>
         <h2>Supported Commands</h2>
+
+        <p class="issue">Make the criteria listed below into some type of note to clearly separate it from any normative text.</p>
+
+        Criteria for being included in this list:
+        <ul>
+            <li>Commands that perform some rich formatting of the content that may not be applicable to all editors.</li>
+        </ul>
+
+        <p class="issue">Include references to other specs (like the beforeinput types).</p>
+        Sources of information:
+
+        Input types from beforeinput event
+
+        <p class="issue">fontSize / insertImage is missing from beforeInput.  Why?  Discuss?  File issue?</p>
+
+<h3>Recommended List</h3>
         <p><ul>
-            <li>BackColor</li>
-            <li>Bold</li>
-            <li>CreateLink</li>
-            <li>FontName</li>
-            <li>FontSize</li>
-            <li>ForeColor</li>
-            <li>FormatBlock</li>
-            <li>HiliteColor</li>
-            <li>Indent</li>
-            <li>InsertHorizontalRule</li>
-            <li>InsertImage</li>
-            <li>InsertOrderedList</li>
-            <li>InsertUnorderedList</li>
-            <li>Italic</li>
-            <li>JustifyCenter</li>
-            <li>JustifyFull</li>
-            <li>JustifyLeft</li>
-            <li>JustifyNone</li>
-            <li>JustifyRight</li>
-            <li>Outdent</li>
-            <li>Redo</li>
-            <li>RemoveFormat</li>
-            <li>Strikethrough</li>
-            <li>Subscript</li>
-            <li>Superscript</li>
-            <li>Underline</li>
-            <li>Undo</li>
-            <li>Unlink</li>
+<li>FormatJustifyCenter</li>
+<li>FormatJustifyFull</li>
+<li>FormatJustifyLeft</li>
+<li>FormatJustifyRight</li>
+<li>FormatBackColor</li>
+<li>FormatBold</li>
+<li>InsertLink</li>
+<li>FormatFontName</li>
+<li>FormatFontSize</li>
+<li>FormatFontColor</li>
+<li>FormatIndent</li>
+<li>InsertHorizontalRule</li>
+<li>InsertOrderedList</li>
+<li>InsertUnorderedList</li>
+<li>FormatItalic</li>
+<li>FormatOutdent</li>
+<li>FormatRemove</li>
+<li>FormatStrikeThrough</li>
+<li>FormatSubscript</li>
+<li>FormatSuperscript</li>
+<li>FormatUnderline</li>
+</ul></p>
+
+<h3>Shortcuts</h3>
+        <p><ul>
+            <li>FormatJustify</li>
+<li>FormatFont</li>
+<li>FormatDent</li>
+<li>InsertList</li>
+<li>FormatScript</li>
         </ul></p>
+
+        <p> class="issue">Cleanup the list above and put it in a standard format for describing an attribute and its associated values.</p>
+        
+        <p class="issue">Review the need for a JS API that manipulates these as a DOM token list.</p>
+
+        <p class="issue">Indicate in a note that there is no "all" value for contenteditable-disabled since contenteditable="plaintext-only" will accomplish the same.</p>    
+    </section>
+    <section id="issue-summary">
     </section>
 </body>
 
