@@ -3,11 +3,10 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>Content Editable Disabled</title>
+    <title>ContentEditable-Disabled</title>
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
-            format: "markdown",
             editors: [
                 {
                     name: "Johannes Wilm",
@@ -45,141 +44,152 @@
     <section id='abstract'>
         <h2>Abstract</h2>
         <p>
-            This specification defines a mechanism to supp                  ress editing-related, user-agent-supplied user interface elements, using well-known names of editing commands, types of input not compatible with their editor.</p>
-        <p>
-            This specification purposefully does not prescribe the means by which a user agent will indicate to the user that some commands are not applicable in a given editable region.  The user agent is free to disable or remove the UI or do something else of their choosing.
+            This specification defines an API that indicates to user agents which editing-related commands are applicable to contenteditable regions of a document.  User agents SHOULD take this information into account when presenting any editing-related UI to ensure its applicability.
         </p>
-        <p class="issue">Rename this file to something that best reflects the purpose of this API.  Was contenteditable-disabled.  Before rethinking its purpose to focus solely on formatting commands I renamed edit UI directives.  Now thinking something that means unsupported formats.  It is only applicable to contenteditable.  Maybe it should go back to being contenteditable-disabled?</p>
-        <p class="issue">fontSize / insertImage is missing from beforeInput.  Why?  Discuss?  File issue?</p>
-        <p class="issue">Review the need for a JS API that manipulates these as a DOM token list.</p>
+        <p>
+            This specification purposefully does not prescribe the means by which a user agent will indicate to the user that some commands are not applicable in a given contenteditable region.
+        </p>
     </section>
     <section id='sotd'>
       <p></p>
     </section>
+    <section id='conformance'>
+      <p></p>
+    </section>
     <section id="introduction">
         <h2>Introduction</h2>
-        <!-- <p class="issue">Provide introduction that discusses the need for rich text editors to support different levels of richness.</p> -->
-        <p>Modern rich text editors on the web seek to build unique edit functionality. A combination of general purpose as well as highly customized markdown editors creates a need in building custom editing experiences.
-            This oftentimes, results in the need to disable some or all user agent (UA) provided edit functionality.</p>
-         <p>In editable regions of documents, some user agents provide contextual user interface (UI) elements to help 
-            accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors 
-            create customized editors that aren’t compatible with user agent UI, it leads to confused users.</p>
-        <!-- <p class="issue">Provide an example using a popular markdown editor.</p> -->
-        <p>One such example is <a href="https://stackedit.io/">stackedit</a> - online markdown editor. It does not any of the editing UI provide by UA because it makes no sense in the context of markdown experience.
         <p>
-            In this undesirable scenario, users end up seeing something like below - an UI that does not do anything:
+            In contenteditable regions of documents, some user agents provide contextual user interface (UI) elements to help accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors create customized editors that aren’t compatible with user agent UI, it leads to confused users.
         </p>
         <p>
-            <img src="stackedit.jpg"/>
+            WYSIWYG markdown editors provide a canonical example. While markdown editors typically support bold or italicized text, they often don't support font color or font family customization. System or browser UI elements like those shown for iOS or the Mac Touchbar below don't have any indication as to which formatting commands are applicable to a particular contenteditable element and should be displayed, and which ones should be disabled or omitted.
         </p>
+        <figure>
+            <img src="images/mac-touchbar.png" alt="Mac Touchbar showing editing buttons">
+            <figcaption>
+                Mac Touchbar showing editing buttons
+            </figcaption>
+        </figure>
+        <figure>
+            <img src="images/ios-editing-buttons.png" width="300" alt="iOS selection menu showing editing buttons">
+            <figcaption>
+                iOS selection menu showing editing buttons
+            </figcaption>
+        </figure>
+        <p>
+            To address the issue, a new contenteditable-disabled attribute can be applied as shown in the example below.
         </p>
-        <p>To avoid user confusion and improve overall editing experiences, UAs need to expose ability to control its UI to web developers.</p>
+        <pre class="example">
+            &lt;div contenteditable="true" contenteditable-disabled="
+                formatbackcolor
+                formatdent
+                formatfont
+                formatjustify
+                formatscript
+                formatstrikethrough
+                formatunderline
+                inserthorizontalrule">
+                This is a contenteditable region of a document that supports:
+                &lt;ul>
+                    &lt;li>bold text&lt;/li>
+                    &lt;li>italic text&lt;/li>
+                    &lt;li>links&lt;/li>
+                    &lt;li>lists&lt;/li>
+                    &lt;li>and possibly other formatting outside the scope of this specification.&lt;/li>
+                &lt;/ul>
+                
+                This contenteditable region explicitly does not support:
+                &lt;ul>
+                    &lt;li>background colors&lt;/li>
+                    &lt;li>indentation&lt;/li>
+                    &lt;li>font name, size or color customization&lt;/li>
+                    &lt;li>justification&lt;/li>
+                    &lt;li>superscript or subscript text&lt;/li>
+                    &lt;li>strikethrough&lt;/li>
+                    &lt;li>underlines&lt;/li>
+                    &lt;li>horizontal rules&lt;/li>
+                &lt;/ul>
+            &lt;/div>
+        </pre>
     </section>
-    <section id="main">
+    <section id="contenteditable-disabled">
         <h2>
-            <code>contenteditable-disabled</code> attribute.
+            <code>contenteditable-disabled</code> DOM Content Attribute.
         </h2>
-        <p>This specification defines a new an <a href="https://html.spec.whatwg.org/#enumerated-attribute">enumerated attribute</a> <code>contenteditable-disabled</code>. It allows the disabling of certain editing UI on <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a> host by supplying a well-known list of input types.
+        <p>
+            The <dfn><code>contenteditable-disabled</code></dfn> attribute indicates which user agent-supplied editing UI SHOULD be disabled.  If specified, the attribute must have a value that is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens>unordered
+            set of unique space-separated tokens</a> [[HTML]] which
+            are <a href=https://infra.spec.whatwg.org/#ascii-case-insensitive>ASCII case-insensitive</a> [[INFRA]].
+        </p>
+        <p>
+            The allowed set of tokens are listed below.  Each token matches the name of an <a href=https://www.w3.org/TR/input-events-1/#events-inputevents>Input Type</a> [[input-events-1]], or is a shortcut that is equivalent to specifying a set tokens.
+        </p>
+        <p>
+            When a token is specified, any user agent-supplied editing UI, that when invoked, would result in a beforeinput event having and inputType that matches one of the tokens in the attribute's value, or matches a token that is represented by a shortcut that is included in the attribute's value, SHOULD be disabled, omitted, or otherwise indicated by the user agent to be not applicable.  The exact mechanism for that indication is beyond the scope of this specification.
         </p>
         <h3>
-            Supported UI Commands
+            <code>contenteditable-disabled</code> Allowed Tokens.
         </h3>
-        <!-- <p class="issue">Make the criteria listed below into some type of note to clearly separate it from any normative text.</p> -->
-        <p class="note">
-            Only commands that perform some rich formatting of the content that may not be applicable to all editors have been included in the list.
-        </p>
-        <!-- <p class="issue">Cleanup the list below and put it in a standard format for describing an attribute and its associated values.</p> -->
-        <h3>Recommended Commands</h3>
         <p>
             <ul>
-                <li>formatjustifycenter</li>
-                <li>formatjustifyfull</li>
-                <li>formatjustifyleft</li>
-                <li>formatjustifyright</li>
-                <li>formatbackcolor</li>
-                <li>formatbold</li>
-                <li>insertlink</li>
-                <li>formatfontName</li>
-                <li>formatfontSize</li>
-                <li>formatfontColor</li>
-                <li>formatindent</li>
-                <li>inserthorizontalrule</li>
-                <li>insertorderedlist</li>
-                <li>insertunorderedlist</li>
-                <li>formatitalic</li>
-                <li>formatoutdent</li>
-                <li>formatremove</li>
-                <li>formatstrikethrough</li>
-                <li>formatsubscript</li>
-                <li>formatsuperscript</li>
-                <li>formatunderline</li>
+                <li><code>formatjustifycenter</code></li>
+                <li><code>formatjustifyfull</code></li>
+                <li><code>formatjustifyleft</code></li>
+                <li><code>formatjustifyright</code></li>
+                <li><code>formatbackcolor</code></li>
+                <li><code>formatbold</code></li>
+                <li><code>insertlink</code></li>
+                <li><code>formatfontname</code></li>
+                <li><code>formatfontsize</code></li>
+                <li><code>formatfontcolor</code></li>
+                <li><code>formatindent</code></li>
+                <li><code>inserthorizontalrule</code></li>
+                <li><code>insertorderedlist</code></li>
+                <li><code>insertunorderedlist</code></li>
+                <li><code>formatitalic</code></li>
+                <li><code>formatoutdent</code></li>
+                <li><code>formatremove</code></li>
+                <li><code>formatstrikethrough</code></li>
+                <li><code>formatsubscript</code></li>
+                <li><code>formatsuperscript</code></li>
+                <li><code>formatunderline</code></li>
             </ul>
         </p>
-        <p>Some commands such as font formatting related commands would normally be disabled together. As such, shortcuts can be used to disable classes of commands</p>
+        <p class="issue" title="missing fontSize and insertImage">
+            fontSize / insertImage is missing from beforeInput.  Why?  It seems that it should be listed to create a more complete set.
+        </p>
+        <h3>
+            <code>contenteditable-disabled</code> Allowed Token Shortcuts.
+        </h3>
+        <p>
+            The following tokens are also supported by the <code>contenteditable-disabled</code> attribute and serve as shorthands for specifying a set of tokens from contenteditable-disabled Allowed Tokens:
+        </p>
         <p>
             <ul>
-                <li>formatjustify</li>
-                <li>formatfont</li>
-                <li>formatdent</li>
-                <li>insertlist</li>
-                <li>formatscript</li>
+                <li><code>formatjustify</code>: combines <code>formatjustifycenter</code>, <code>formatjustifyfull</code>, <code>formatjustifyleft</code>, and <code>formatjustifyright</code>.</li>
+                <li><code>formatfont</code>: combines <code>formatfontname</code>, <code>formatfontsize</code>, and <code>formatfontcolor</code></li>
+                <li><code>formatdent</code>: combines <code>formatindent</code> and <code>formatoutdent</code></li>
+                <li><code>insertlist</code>: combines <code>insertorderedlist</code> and <code>insertunorderedlist</code></li>
+                <li><code>formatscript</code>: combines <code>formatsubscript</code> and <code>formatsuperscript</code></li>
             </ul>
         </p>
-        <!-- <p class="issue">Indicate in a note that there is no "all" value for contenteditable-disabled since contenteditable="plaintext-only" will accomplish the same.</p> -->
         <p class="note">
-            Please note that this specification does not intend to add <code>all</code> attribute value for disabling of all UI commands as this is possible to achieve today with <code>contenteditable="plaintext-only"</code>.
+            Note that this specification does not have a shortcut to disable all editing UI.  Authors should consider using a <code>textarea</code> or <code>contenteditable="plaintext-only"</code> for this purpose.
         </p>
     </section>
-
-    <section>
-        <h3>Usage Example</h3>
-
-        <div contenteditable="true"
-         contenteditable-disabled="fontname 
-                            fontsize
-                            forecolor
-                            indent
-                            outdent
-                            justify
-                            subscript
-                            superscript
-                            underline">
-        </div>
-
-    </section>
-    <section>
-        <h2>IDL</h2>
+    <section id="element-contenteditable-mixin">
+        <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
-        [Exposed=Window]
-        interface ElementContentEditableDisabled {
-            attribute DOMString contentEditableDisabled;
-        };
+            [Exposed=Window]
+            interface ElementContentEditable {
+                [SameObject, PutForwards=value] readonly attribute DOMTokenList contentEditableDisabled;
+            };
         </pre>
         <p>
-            The <code>contenteditable-disabled</code> content attribute is an enumerated attribute whose keywords are at least one of the commands from the Supported UI Commands list in section 2.1.
-            <p class="issue">Need to discuss possible states for attribute values.</p>
-            <p class="issue">Should we allow an empty string to be passed in as a value? What should happen then?</p>
+            The <code>contentEditableDisabled</code> WebIDL property reflects the contenteditable-disabled DOM content attribute.
         <p>
     </section>
-    <section id='conformance'>
-    </section>
-    <section>
-        <h2>Conforming Implementations</h2>
-        <!-- <p class="issue">Revise this text to work better with current scope.  Ensure this language leaves UAs with the freedom to choose how they communicate to the user that the UI is not applicable.</p> -->
-        <p>A user agent conforming with this specification MUST make all visible user interface elements that would
-        trigger an incompatible editing command non-actionable. Including, but not limited to, context menu entries, virtual 
-        keyboard buttons, and floating toolbar UI.</p>
-        <p>Triggering an incompatible editing command from a non-visible user interface element MUST NOT be disabled, 
-        so long as the command correlates with a cancellable event that the author can use to prevent unwanted
-        manipulation of the DOM by the command.  The canonical example of non-visible UI is a keyboard shortcut.</p>
-    </section>
-    <!-- <p class="issue">Include references to other specs (like the beforeinput types).</p> -->
     <section id="issue-summary">
-    </section>
-    <section id="references">
-        <a href="https://w3c.github.io/input-events/">beforeinput event Level 1</a>
-        <br/>
-        <a href="https://rawgit.com/w3c/input-events/v1/index.html">beforeinput event Level 2</a>
     </section>
 </body>
 
