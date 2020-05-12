@@ -660,8 +660,8 @@
             consistency's sake.
           </p>
           <ol>
-            <li>Let <var title="">affected editing host</var> be the [=editing
-            host=] that is an [=tree/inclusive ancestor=] of the <a href=
+            <li>Let <var>affected editing host</var> be the [=editing host=]
+            that is an [=tree/inclusive ancestor=] of the <a href=
             "#active-range">active range</a>'s [=range/start node=] and
             [=range/end node=], and is not the [=tree/ancestor=] of any
             [=editing host=] that is an [=tree/inclusive ancestor=] of the
@@ -672,12 +672,10 @@
                 would not be <a href="#enabled">enabled</a>.
               </p>
             </li>
-            <li>[=Dispatch=] an [=event=] at <var>affected editing host</var>
-            using {{InputEvent}} interface. The event's {{Event/type}}
-            attribute must be initialized to "beforeinput"; its
-            {{Event/bubbles}} and {{Event/cancelable}} attributes must be
-            initialized to true; and its {{InputEvent/data}} attribute must be
-            initialized to null.
+            <li>[=Fire an event=] named "beforeinput" at <var>affected editing
+            host</var> using {{InputEvent}}, with its {{Event/bubbles}} and
+            {{Event/cancelable}} attributes initialized to true, and its
+            {{InputEvent/data}} attribute initialized to null.
             </li>
             <li>If the value returned by the previous step is false, return
             false.
