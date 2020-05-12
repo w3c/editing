@@ -716,13 +716,13 @@
         </li>
         <li>If the previous step returned false, return false.
         </li>
-        <li>If the action modified DOM tree, then [=Dispatch=] an [= event=] at
+        <li>If the action modified DOM tree, then [=dispatch=] an [=event=] at
         <var>affected editing host</var> using {{InputEvent}} interface. The
         event's {{Event/type}} attribute must be initialized to "input"; its
         {{Event/isTrusted}} and {{Event/bubbles}} attributes must be
         initialized to true; its {{InputEvent/inputType}} attribute must be
-        initialized to the <a data-lt="map an edit command to input type value"
-        >mapped value</a> of <var>command</var>; and its {{InputEvent/data}}
+        initialized to the [=map an edit command to input type value|mapped
+        value=] of <var>command</var>; and its {{InputEvent/data}}
         attribute must be initialized to null.
         </li>
         <li>Return true.
