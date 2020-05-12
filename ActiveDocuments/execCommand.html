@@ -6,7 +6,7 @@
       execCommand
     </title>
     <script async class='remove' src=
-    '//www.w3.org/Tools/respec/respec-w3c-common'></script>
+    'https://www.w3.org/Tools/respec/respec-w3c'></script>
     <script class='remove'>
     var respecConfig = {
       specStatus: "unofficial",
@@ -603,48 +603,10 @@
         </p>
       </section>
     </section>
-    <section>
+    <section data-cite="ui-events">
       <h2 id="methods-to-query-and-execute-commands">
         Methods to query and execute commands
       </h2>
-      <p class="XXX">
-        We fire events as requested in <a href=
-        "https://www.w3.org/Bugs/Public/show_bug.cgi?id=13118">bug 13118</a>.
-        This is a new feature does not currently match any browser. <strong>If
-        you are implementing this, please make sure to file any feedback as
-        bugs. The spec is not finalized yet and can still be easily
-        changed.</strong>
-      </p>
-      <pre class="idl">
-            [Exposed=Window,
-             Constructor(DOMString type, optional EditingBeforeInputEventInit eventInitDict = {})]
-            interface EditingBeforeInputEvent : Event {
-              readonly attribute DOMString command;
-              readonly attribute DOMString value;
-            };
-            
-            dictionary EditingBeforeInputEventInit : EventInit {
-              DOMString command = "";
-              DOMString value = "";
-            };
-
-            [Exposed=Window,
-             Constructor(DOMString type, optional EditingInputEventInit eventInitDict = {})]
-            interface EditingInputEvent : Event {
-              readonly attribute DOMString command;
-              readonly attribute DOMString value;
-            };
-            
-            dictionary EditingInputEventInit : EventInit {
-              DOMString command = "";
-              DOMString value = "";
-            };
-        </pre>
-      <p class="XXX">
-        We have two different interfaces because we might want to add
-        additional members to the input event but not the beforeinput event,
-        such as a list of nodes that were affected.
-      </p>
       <p class="note">
         TODO: Define behavior for <var title="">show UI</var>.
       </p>
@@ -698,8 +660,8 @@
             consistency's sake.
           </p>
           <ol>
-            <li>Let <var title="">affected editing host</var> be the [=editing
-            host=] that is an [=tree/inclusive ancestor=] of the <a href=
+            <li>Let <var>affected editing host</var> be the [=editing host=]
+            that is an [=tree/inclusive ancestor=] of the <a href=
             "#active-range">active range</a>'s [=range/start node=] and
             [=range/end node=], and is not the [=tree/ancestor=] of any
             [=editing host=] that is an [=tree/inclusive ancestor=] of the
@@ -710,17 +672,10 @@
                 would not be <a href="#enabled">enabled</a>.
               </p>
             </li>
-            <li>[=Dispatch=] an [=event=] at <var title="">affected editing
-            host</var> that uses the <a>EditingBeforeInputEvent</a> interface.
-            The event's {{Event/type}} attribute must be initialized to
-            "beforeinput"; its {{Event/isTrusted}}, {{Event/bubbles}}, and
-            {{Event/cancelable}} attributes must be initialized to true; its
-            <code title="dom-EditingBeforeInputEvent-command"><a href=
-            "#dom-editingbeforeinputevent-command">command</a></code> attribute
-            must be initialized to <var title="">command</var>; and its
-            <code title="dom-EditingBeforeInputEvent-value"><a href=
-            "#dom-editingbeforeinputevent-value">value</a></code> attribute
-            must be initialized to <var title="">value</var>.
+            <li>[=Fire an event=] named "beforeinput" at <var>affected editing
+            host</var> using {{InputEvent}}, with its {{Event/bubbles}} and
+            {{Event/cancelable}} attributes initialized to true, and its
+            {{InputEvent/data}} attribute initialized to null.
             </li>
             <li>If the value returned by the previous step is false, return
             false.
@@ -759,23 +714,47 @@
         </li>
         <li>If the previous step returned false, return false.
         </li>
-        <li>If <var title="">command</var> is not in the <a href=
-        "#miscellaneous-commands">Miscellaneous commands</a> section, then
-        [=Dispatch=] an [= event=] at <var title="">affected editing host</var>
-        that uses the <a>EditingInputEvent</a> interface. The event's
-        {{Event/type}} attribute must be initialized to "input"; its
-        {{Event/isTrusted}} and {{Event/bubbles}} attributes must be
-        initialized to true; its <code title=
-        "dom-EditingInputEvent-command"><a href=
-        "#dom-editinginputevent-command">command</a></code> attribute must be
-        initialized to <var title="">command</var>; and its <code title=
-        "dom-EditingInputEvent-value"><a href=
-        "#dom-editinginputevent-value">value</a></code> attribute must be
-        initialized to <var title="">value</var>.
+        <li>If the action modified DOM tree, then [=fire an event=] named
+        "input" at <var>affected editing host</var> using {{InputEvent}}, with
+        its {{Event/isTrusted}} and {{Event/bubbles}} attributes initialized to
+        true, {{InputEvent/inputType}} attribute initialized to the [=map an
+        edit command to input type value|mapped value=] of <var>command</var>,
+        and its {{InputEvent/data}} attribute initialized to null.
         </li>
         <li>Return true.
         </li>
       </ol>
+      <p>
+        To <dfn>map an edit command to input type value</dfn>, follow this table:
+        <table>
+          <tr><th>edit command<th>inputType
+          <tr><td>backColor<td>formatBackColor
+          <tr><td>bold<td>formatBold
+          <tr><td>createLink<td>insertLink
+          <tr><td>fontName<td>formatFontName
+          <tr><td>foreColor<td>formatFontColor
+          <tr><td>strikethrough<td>formatStrikeThrough
+          <tr><td>superscript<td>formatSuperscript
+          <tr><td>delete<td>deleteContentBackward
+          <tr><td>forwardDelete<td>deleteContentForward
+          <tr><td>insertHorizontalRule<td>insertHorizontalRule
+          <tr><td>insertLineBreak<td>insertLineBreak
+          <tr><td>insertOrderedList<td>insertOrderedList
+          <tr><td>insertParagraph<td>insertParagraph
+          <tr><td>insertText<td>insertText
+          <tr><td>insertUnorderedList<td>insertUnorderedList
+          <tr><td>justifyCenter<td>formatJustifyCenter
+          <tr><td>justifyFull<td>formatJustifyFull
+          <tr><td>justifyLeft<td>formatJustifyLeft
+          <tr><td>justifyRight<td>formatJustifyRight
+          <tr><td>outdent<td>formatIndent
+          <tr><td>cut<td>deleteByCut
+          <tr><td>paste<td>insertFromPaste
+          <tr><td>redo<td>historyRedo
+          <tr><td>undo<td>historyUndo
+        </table>
+        If no mapping exists, return an empty string.
+      </p>
       <p>
         When the <dfn id="querycommandenabled()" title=
         "queryCommandEnabled()"><code>queryCommandEnabled(<var title=
@@ -4784,7 +4763,7 @@
         </h3>
         <div class="note">
           <p>
-            Color interpretations: 
+            Color interpretations:
             <!-- I wanted the table to stretch out to the left.  CSS doesn't support this
 directly, but where there's a will, there's a way! -->
           </p>
