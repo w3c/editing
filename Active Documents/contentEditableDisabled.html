@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>ContentEditable-Disabled</title>
+    <title>contenteditabledisabled</title>
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
@@ -25,57 +25,40 @@
                 }
             ],
             github: "https://github.com/w3c/editing",
-            shortName: "contenteditable-disabled",
+            shortName: "contenteditabledisabled",
             wg: "Web Applications Working Group",
             wgURI: "https://www.w3.org/2019/webapps/",
             wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
-            license: "w3c-software-doc"
+            license: "w3c-software-doc",
+            xref: "web-platform" // we will be citing html, infra, and friends.
         };
     </script>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
 <body>
     <section id='abstract'>
-        <h2>Abstract</h2>
         <p>
-            This specification defines an API that indicates to user agents which editing-related commands are applicable to contenteditable regions of a document.  User agents SHOULD take this information into account when presenting any editing-related UI to ensure its applicability.
+            This specification defines an API that indicates to user agents which editing-related commands are applicable to contenteditable regions of a document. User agents can take this information into account when presenting any editing-related UI to ensure it is applicable to a given contenteditable region.
         </p>
         <p>
-            This specification purposefully does not prescribe the means by which a user agent will indicate to the user that some commands are not applicable in a given contenteditable region.
+            This specification purposefully does not prescribe the means by which a user agent will indicate to the user the applicability of any editing command. The user agent could, for example, omit editing UI, disable it, or choose some other appropriate UI treatment.
         </p>
     </section>
     <section id='sotd'>
-      <p></p>
+        <p>This is a work in progress and subject to change without warning.</p>
     </section>
-    <section id='conformance'>
-      <p></p>
     </section>
     <section id="introduction">
         <h2>Introduction</h2>
         <p>
-            In contenteditable regions of documents, some user agents provide contextual user interface (UI) elements to help accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors create customized editors that aren’t compatible with user agent UI, it leads to confused users.
+            In contenteditable regions of documents, some user agents provide contextual user interface (UI) elements to help accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors create customized editors that aren't compatible with user agent UI, it leads to confused users.
         </p>
         <p>
-            WYSIWYG markdown editors provide a canonical example. While markdown editors typically support bold or italicized text, they often don't support font color or font family customization. System or browser UI elements like those shown for iOS or the Mac Touch Bar below don't have any indication as to which formatting commands are applicable to a particular contenteditable element and should be displayed, and which ones should be disabled or omitted.
+            To address the issue, a new `contenteditabledisabled` attribute can be applied as shown in the example below.
         </p>
-        <figure>
-            <img src="images/mac-touchbar.png" alt="Mac Touch Bar showing editing buttons">
-            <figcaption>
-                Mac Touch Bar showing editing buttons
-            </figcaption>
-        </figure>
-        <figure>
-            <img src="images/ios-editing-buttons.png" width="300" alt="iOS selection menu showing editing buttons">
-            <figcaption>
-                iOS selection menu showing editing buttons
-            </figcaption>
-        </figure>
-        <p>
-            To address the issue, a new contenteditable-disabled attribute can be applied as shown in the example below.
-        </p>
-        <pre class="example">
-            &lt;div contenteditable="true" contenteditable-disabled="
+        <pre class="example html">
+            &lt;div contenteditable="true" contenteditabledisabled="
                 formatbackcolor
                 formatdent
                 formatfont
@@ -107,23 +90,21 @@
             &lt;/div>
         </pre>
     </section>
-    <section id="contenteditable-disabled">
+    <section id="contenteditabledisabled">
         <h2>
-            <code>contenteditable-disabled</code> DOM Content Attribute.
+            <code>contenteditabledisabled</code> DOM Content Attribute.
         </h2>
         <p>
-            The <dfn><code>contenteditable-disabled</code></dfn> attribute indicates which user agent-supplied editing UI SHOULD be disabled.  If specified, the attribute must have a value that is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens>unordered
-            set of unique space-separated tokens</a> [[HTML]] which
-            are <a href=https://infra.spec.whatwg.org/#ascii-case-insensitive>ASCII case-insensitive</a> [[INFRA]].
+            The <code><dfn data-dfn-type="element-attr">contenteditabledisabled</dfn></code> attribute indicates which user agent-supplied editing UI SHOULD be disabled.  When specified, the attribute can contain an [=unordered set of unique space-separated tokens=] that are treated as [=ASCII case-insensitive=].
         </p>
         <p>
-            The allowed set of tokens are listed below.  Each token matches the name of an <a href=https://www.w3.org/TR/input-events-1/#events-inputevents>Input Type</a> [[input-events-1]], or is a shortcut that is equivalent to specifying a set tokens.
+            The allowed set of tokens are listed below.  Each token matches the name of an <a data-cite="input-events-1#events-inputevents">Input Type</a>, or is a shortcut that is equivalent to specifying a set tokens.
         </p>
         <p>
             When a token is specified, any user agent-supplied editing UI, that when invoked, would result in a beforeinput event having and inputType that matches one of the tokens in the attribute's value, or matches a token that is represented by a shortcut that is included in the attribute's value, SHOULD be disabled, omitted, or otherwise indicated by the user agent to be not applicable.  The exact mechanism for that indication is beyond the scope of this specification.
         </p>
         <h3>
-            <code>contenteditable-disabled</code> Allowed Tokens.
+            <code>contenteditabledisabled</code> Allowed Tokens.
         </h3>
         <p>
             <ul>
@@ -155,10 +136,10 @@
             <a href="https://github.com/w3c/editing/issues/249">Issue 249</a>
         </p>
         <h3>
-            <code>contenteditable-disabled</code> Allowed Token Shortcuts.
+            <code>contenteditabledisabled</code> Allowed Token Shortcuts.
         </h3>
         <p>
-            The following tokens are also supported by the <code>contenteditable-disabled</code> attribute and serve as shorthands for specifying a set of tokens from contenteditable-disabled Allowed Tokens:
+            The following tokens are also supported by the <code>contenteditabledisabled</code> attribute and serve as shorthands for specifying a set of tokens from contenteditabledisabled Allowed Tokens:
         </p>
         <p>
             <ul>
@@ -182,11 +163,12 @@
             };
         </pre>
         <p>
-            The <code>contentEditableDisabled</code> WebIDL property reflects the contenteditable-disabled DOM content attribute.
+            The <code>contentEditableDisabled</code> WebIDL property reflects the contenteditabledisabled DOM content attribute.
         <p>
     </section>
     <section id="issue-summary">
     </section>
+    <section id='conformance'></section>
 </body>
 
 </html>
