@@ -3,7 +3,7 @@
 The EditContext is a new API that simplifies the process of integrating a web app with [advanced text input methods](#example-text-input-methods), improves accessibility and performance, and unlocks new capabilities for web-based editors.
 
 ## Motivation
-The web platform provides out-of-the-box editing experiences for single lines of plain-text (input), small amounts of multi-line plain-text (textarea) and a starting point for building an HTML document editing experience (contenteditable elements).  
+The web platform provides out-of-the-box editing experiences for single lines of plain-text (input), small amounts of multi-line plain-text (textarea) and a starting point for building an HTML document editing experience (contenteditable elements).
 
 Each of the editable elements provided by the web platform comes with built-in editing behaviors that are often inadequate to power the desired editing experience. As a result, web-based editors don't incorporate the web platform's editable elements into their view. Unfortunately, the only API provided by the web platform today to enable [advanced text input](#example-text-input-methods) experiences is to place an editable element in the DOM and focus it.
 
@@ -32,7 +32,7 @@ To work around this problem, Word Online waits until the composition finishes be
 Google Docs is listening for events to ensure the contenteditable element is focused and positioned appropriately near the insertion point before composition starts.  It isn't aware of all events, or in some cases doesn't receive any events, when other text input UI like the emoji picker is displayed.  As a result, the emoji window is positioned near the top of the app (not near the insertion point) and input isn't received since focus isn't currently in an editable element.
 
 ### Trouble Composing Across Page Boundaries
-[In this video](https://www.youtube.com/watch?v=iXgttLgJY_I) Native Word on Windows is shown updating its view while in an active composition. The scenario demonstrated requires Word to relocate the active composition into a different page based on layout constraints.  
+[In this video](https://www.youtube.com/watch?v=iXgttLgJY_I) Native Word on Windows is shown updating its view while in an active composition. The scenario demonstrated requires Word to relocate the active composition into a different page based on layout constraints.
 
 Because the web platform integrates with the OS text input services through its HTML DOM view, updating the view while composition is in progress may cancel the composition and prevent text input.  Using the EditContext, however, the view can be updated and new locations for where composition is occurring can be reported without canceling the composition.
 
@@ -428,7 +428,7 @@ Editable elements can apply paint-time effects to mark an active composition and
 ## Alternatives:
 Multiple approaches have been discussed during F2F editing meetings and through online discussions.
 
-* New `contenteditable` attributes: The group has [considered](https://w3c.github.io/editing/contentEditable.html) adding new attribute values to contenteditable (events, caret, typing) that in would allow web authors to prevent certain input types or to modify some input before it has made it into the markup. These proposals continue to couple text input with the view which has limitations discussed above that the EditContext aims to overcome.
+* New `contenteditable` attributes: The group has [considered](https://w3c.github.io/contentEditable/) adding new attribute values to contenteditable (events, caret, typing) that in would allow web authors to prevent certain input types or to modify some input before it has made it into the markup. These proposals continue to couple text input with the view which has limitations discussed above that the EditContext aims to overcome.
 
 * `beforeInput` event: [Level 1](https://www.w3.org/TR/input-events-1/) (Blink implementation) and [Level 2](https://www.w3.org/TR/input-events-2/) (Webkit implementation). The idea behind this event was to allow authors greater insight into the user's intent, and to allow editors to handle that intent without needing to intercept all the arcs through which that input could have been initiated, e.g. context menus, keyboard shortcuts, shaking the phone to undo, etc.  This approach makes it easier to handle various events but still leaves text input coupled with the view.
 
