@@ -39,7 +39,7 @@ In accordance with W3C contribution requirements, if you intend to create PRs an
 
 
 ### Meetings
-[Recurring Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
+[Google Hangouts](https://meet.google.com/pdx-dnmm-cen)
 
 
 ### Details:
