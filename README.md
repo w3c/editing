@@ -9,7 +9,7 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 
 ## Actively developed ideas/specs
 
-* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled.html)
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/)
 * [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
 
 * [EditContextAPI](docs/EditContext/explainer.md)
@@ -24,9 +24,9 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 
 ## Archive <sup id="archivedRef">[3](#archivedFootnote)</sup>
 
-* [Content Editable True](http://w3c.github.io/editing/docs/inactive/contentEditableTrue.html)
+* [Content Editable True](http://w3c.github.io/editing/docs/contentEditableTrue/)
 
-* [execCommand](http://w3c.github.io/editing/docs/inactive/execCommand.html)
+* [execCommand](http://w3c.github.io/editing/docs/execCommand/)
 
 ## Process
 
