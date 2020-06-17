@@ -44,7 +44,7 @@ The specifications the Editing Taskforce is producing may be driven to the spec 
 The TF is expected to work on the following efforts until the end of the charter but it is not meant to be an exhaustive list:
 
 - [Async Clipboard API](https://bugs.chromium.org/p/chromium/issues/detail?id=931839)
-- [ContentEditableDisabled](http://w3c.github.io/editing/docs/contentEditableDisabled.html) - ability to disable system UI
+- [ContentEditableDisabled](http://w3c.github.io/editing/docs/contentEditableDisabled/) - ability to disable system UI
 - [EditContext API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md)
 - [Highlight API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/highlight/explainer.md)
 - Native Selection and Caret behaviors
