@@ -61,7 +61,7 @@ Additionally, the EditContext communicates events driven from text input UI to J
 
 ### EditContext Event Sequence:
 
-This section describes the sequences of events that get fired on the EditContext and focused element when the EditContext has focus and IME is active. In this event sequence, the user types in two characters, then commits to the first IME candidate by hitting 'Space'.
+This section describes the sequences of events that get fired on the EditContext and focused element when the EditContext and IME are active. In this event sequence, the user types in two characters, then commits to the first IME candidate by hitting 'Space'.
 
 |  Event                | EventTarget        |  Related key in sequence
 | -------------         | -----------------  | -------------------
@@ -168,8 +168,8 @@ dictionary EditContextInit {
 interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
 
-    void focus();
-    void blur();
+    void activate();
+    void deactivate();
     void updateSelection(unsigned long start, unsigned long end);
     void updateLayout(DOMRect controlBounds, DOMRect selectionBounds);
     void updateText(unsigned long start, unsigned long end, DOMString newText);
@@ -191,7 +191,7 @@ interface EditContext : EventTarget {
 
 ## EditContext Usage
 ### Example 1
-Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
+Create an EditContext and have it start receiving events (`activate` it) when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
 
 ```javascript
 let editContainer = document.querySelector("#editContainer");
@@ -210,13 +210,13 @@ let editContext = new EditContext(editContextInit);
 let model = new EditModel(editContext, editContextInit.text, editContextInit.selectionStart, editContextInit.selectionEnd);
 let view = new EditView(editContext, model, editContainer);
 
-// Delegate focus to an EditContext when an "editable" part of the view is focused in the web app.
+// Delegate to an EditContext when an "editable" part of the view is focused in the web app.
 editContainer.addEventListener("focus", () => editContext.focus());
 window.requestAnimationFrame(() => {
     editContext.updateLayout(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
 });
 
-editContainer.focus();
+editContainer.activate();
 ```
 
 The following code registers for `textupdate` and keyboard related events (note that keydown/keyup are still delivered to the edit container, i.e. the activeElement).  Note that `model` represents the document model for the editable content, and `view` represents an object that produces an HTML view of that document.
