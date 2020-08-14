@@ -171,7 +171,7 @@ interface EditContext : EventTarget {
     void focus();
     void blur();
     void updateSelection(unsigned long start, unsigned long end);
-    void updateLayout(DOMRect controlBounds, DOMRect selectionBounds);
+    void updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
     void updateText(unsigned long start, unsigned long end, DOMString newText);
 
     attribute DOMString text;
@@ -191,7 +191,7 @@ interface EditContext : EventTarget {
 
 ## EditContext Usage
 ### Example 1
-Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
+Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateBounds`.
 
 ```javascript
 let editContainer = document.querySelector("#editContainer");
@@ -213,7 +213,7 @@ let view = new EditView(editContext, model, editContainer);
 // Delegate focus to an EditContext when an "editable" part of the view is focused in the web app.
 editContainer.addEventListener("focus", () => editContext.focus());
 window.requestAnimationFrame(() => {
-    editContext.updateLayout(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
+    editContext.updateBounds(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
 });
 
 editContainer.focus();
@@ -344,7 +344,7 @@ class EditableView {
     }
 
     notifyLayoutChanged() {
-        this.editContext.updateLayout(this.computeBoundingBox(), this.computeSelectionBoundingBox());
+        this.editContext.updateBounds(this.computeBoundingBox(), this.computeSelectionBoundingBox());
     }
 
     convertTextToHTML(text, selection) {
