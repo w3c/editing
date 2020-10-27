@@ -28,7 +28,7 @@ The existing Async Clipboard API’s re-encoding is still encouraged for use cas
 ## Non-goals
 *   Allow interoperability with legacy native applications, without update. This was explored in a [raw clipboard proposal](https://github.com/WICG/raw-clipboard-access/blob/master/explainer.md), and may be explored further in the future, but comes with significant security challenges (remote code execution in system native applications).
 *   Modify design of original Async Clipboard API, where not relevant to pickling.
-*   Anything not related to Async Clipboard API, including the DataTransfer API.
+*   Anything not related to Async Clipboard API, including the DataTransfer API or Drag-and-Drop. Pickling as described in this explainer should be extensible to also work for Drag-and-Drop, but this explainer's scope is limited to clipboard.
 
 ## Additional Background
 This design aims to allow access to custom, web-originated formats. This is referred to as Pickling, because this is [historically](https://bugzilla.mozilla.org/show_bug.cgi?id=860857) what web platform engineers have [referred to this idea as](https://github.com/w3ctag/design-reviews/issues/406#issuecomment-542310250). This name likely originates from a [Python serialization structure](https://docs.python.org/3/library/pickle.html) of the same name, as WebKit and Blink both offer unstandardized (and minimally documented) implementations of custom formats via similar implementations involving serialized structures. This proposal aims not only to add this support to the Async Clipboard API, but also to standardize such behavior, opening up related unstandardized DataTransfer implementations to become standardized in the future.
