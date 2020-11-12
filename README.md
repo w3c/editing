@@ -39,6 +39,9 @@ In accordance with W3C contribution requirements, if you intend to create PRs an
 
 
 ### Meetings
+
+[Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
+
 [Google Hangouts](https://meet.google.com/pdx-dnmm-cen)
 
 
@@ -48,8 +51,6 @@ Editing TF meets remotely at 9:00AM PST, on second Friday of every month.
 Currently planned dates: April 10th, 2020 | May 8th, 2020 | etc.
 
 Meeting [agenda query](https://github.com/w3c/editing/labels/Agenda%2B)
-
-[Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
 
 IRC:
 [irc.w3.org](http://irc.w3.org/)
