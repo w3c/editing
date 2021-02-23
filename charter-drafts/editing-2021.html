@@ -74,8 +74,7 @@
       <h1 id="title">PROPOSED Editing Working Group Charter</h1>
       <!-- delete PROPOSED after AC review completed -->
 
-      <p class="mission">The <strong>mission</strong> of the <a href="">Editing Working Group</a> is to explore limitations of existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs, relevant to text editing.
-        The goal is simplifying the creation of fully featured editing systems as well as small editors using JavaScript.</p>
+      <p class="mission">The <strong>mission</strong> of the <a href="">Editing Working Group</a> is to explore limitations in existing browser primitives, provide use cases for new APIs and suggest solutions either by standardizing of existing behaviors or introducing new APIs <strong>relevant for text editing</strong>. The goal is to facilitate the creation of fully-featured editing systems as well as small editors using JavaScript.</p>
 
       <div class="noprint">
         <p class="join"><a href="https://www.w3.org/2004/01/pp-impl/#####/join">Join the Editing Working Group.</a></p>
@@ -133,7 +132,7 @@
               Meeting Schedule
             </th>
             <td>
-              <strong>Teleconferences:</strong> topic-specific calls may be held on a monthly cadence.</i>
+              <strong>Teleconferences:</strong> Not more often than once per month.</i>
               <br>
               <strong>Face-to-face:</strong> we will meet during the W3C's annual Technical Plenary week; additional face-to-face meetings may be scheduled by consent of the participants, usually no more than 3 times per year.
             </td>
@@ -167,6 +166,9 @@
             <ul class="out-of-scope">
               <li>
                 Non DOM-based editing, e.g. canvas or media content.
+              </li>
+              <li>
+                Editing of content other than text and text related content. For example, an image editor, a 3D modeler or a movie cutter would be out of scope.
               </li>
             </ul>
         </section>
@@ -214,11 +216,11 @@
             Group charter</a>
              <p class="milestone"><b>Expected completion:</b> <i class="todo">[Q1–4 yyyy]</i></p>
           </dd>
-    <dt id="1323" class='spec'>
-            <a href='https://www.w3.org/TR/input-events-1/' rel=
-            'versionof'>Input Events Level 1</a><br>
+          <dt id="1421" class='spec'>
+            <a href='https://www.w3.org/TR/input-events-2/' rel=
+            'versionof'>Input Events</a><br>
             Latest publication: <a href=
-            'https://www.w3.org/TR/2019/WD-input-events-1-20190530/'>30 May 2019</a>
+            'https://www.w3.org/TR/2019/WD-input-events-2-20190530/'>Draft 30 May 2019</a>
           </dt>
           <dd>
             Reference Draft: <a href=
@@ -230,17 +232,6 @@
             2017<br>
             Produced under Working Group Charter:
             <a href="https://www.w3.org/2015/10/webplatform-charter.html">https://www.w3.org/2015/10/webplatform-charter.html</a>
-             <p class="milestone"><b>Expected completion:</b> <i class="todo">[Q1–4 yyyy]</i></p>
-          </dd>
-          <dt id="1421" class='spec'>
-            <a href='https://www.w3.org/TR/input-events-2/' rel=
-            'versionof'>Input Events Level 2</a><br>
-            Latest publication: <a href=
-            'https://www.w3.org/TR/2019/WD-input-events-2-20190530/'>Draft 30 May 2019</a>
-          </dt>
-          <dd>
-            Reference Draft: <a href=
-            "https://www.w3.org/TR/2017/WD-input-events-2-20170321/">https://www.w3.org/TR/2017/WD-input-events-2-20170321/</a><br>
              <p class="milestone"><b>Expected completion:</b> <i class="todo">[Q1–4 yyyy]</i></p>
           </dd>
           <dt id="1195" class='spec'>
@@ -305,7 +296,7 @@
 
 	<section id="success-criteria">
 	  <h2>Success Criteria</h2>
-	  <p>In order to advance to <a href="https://www.w3.org/Consortium/Process/#RecsPR" title="Proposed Recommendation">Proposed Recommendation</a>, each normative specification is expected to have <a href="https://www.w3.org/Consortium/Process/#implementation-experience">at least two independent implementations</a> of every feature defined in the specification.</p>
+	  <p>The Working Group is successful if it has been able to produce specs and standardize browser behavior so that it is possible to write a basic JS text editor that works across scripts with no more than 3 years development effort.</p>
 	  <p>Each specification should contain a section detailing all known security and privacy implications for implementers, Web authors, and end users.</p>
 	  <p>There should be testing plans for each specification, starting from the earliest drafts.</p>
 	  <p>Each specification should contain a section on accessibility, privacy, internationalization that describe the benefits and impacts, including ways specification features can be used to address them, and
@@ -385,12 +376,11 @@
           Most Editing Working Group teleconferences will focus on discussion of particular specifications, and will be conducted on an as-needed basis.
         </p>
         <p>
-          This group primarily conducts its technical work on the public mailing list <a id="public-name" href="mailto:public-editing-tf@w3.org">public-editing-tf@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-editing-tf/">archive</a>)
-          and <a id="public-github" href="https://github.com/w3c/editing/">GitHub issues</a>.
+          This group primarily conducts its technical work in <a id="public-github" href="https://github.com/w3c/editing/">GitHub issues</a>.
           The public is invited to review, discuss, and contribute to this work.
         </p>
         <p>
-          The group may use a Member-confidential mailing list for administrative purposes and, at the discretion of the Chairs and members of the group, for member-only discussions in special cases when a participant requests such a discussion.
+          The group may use its public mailing list <a id="public-name" href="mailto:public-editing-tf@w3.org">public-editing-tf@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-editing-tf/">archive</a>) for administrative purposes.
         </p>
       </section>
 
