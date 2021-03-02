@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>VirtualKeyboardAPI</title>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+    <script class='remove'>
+        var respecConfig = {
+              specStatus:   "ED"
+          ,   shortName:    "virtualKeyboard"
+          ,   editors:      [{ name: "Grisha Lyukshin",
+                               mailto: "glyuk@microsoft.com",
+                               company: "Microsoft Corporation"},]
+          ,   license:      "w3c-software-doc"
+          ,   wgPublicList: "public-editing-tf"
+	  ,   otherLinks: [{
+                  key: 'Participate',
+                  data: [{
+                      value: 'We are on GitHub.',
+                      href: 'https://github.com/w3c/editing'
+                  }, {
+                      value: 'File a bug.',
+                      href: 'https://github.com/w3c/editing/issues'
+                  }, {
+                      value: 'Commit history.',
+                      href: 'https://github.com/w3c/editing/commits/gh-pages'
+                  }, {
+                      value: 'Mailing list.',
+                      href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
+                  }]
+              }]
+          ,   wg: "Web Applications Working Group"
+          ,   wgURI: "https://www.w3.org/2019/webapps/"
+          ,   wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status"
+          ,   edDraftURI:   "http://w3c.github.io/editing/docs/virtualKeyboard/"
+        };
+    </script>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+</head>
+
+<body>
+    <section id='abstract'>
+        <p>
+            <code>navigator.virtualKeyboard</code> provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK), rect occlusion information as well as some events that occur during its transition on the screen.
+        </p>
+    </section>
+    <section id='sotd'>
+      <p>
+      </p>
+    </section>
+    <section>
+        <h2>Introduction</h2>
+        <section>
+            <h3>Overview</h3>
+            <p>
+            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike a hardware keyboard, a VK can adapt its shape to optimize for the expected type of input.
+            In addition, user agents respond to the presence of the VK, without any exposure of this information to a web developer. This document proposes a new web API surface for VK that developers can use to enable better customization of their webpage's content and experiences.
+            </p>
+        </section>
+        <section id="conformance">
+          <p>
+            This specification defines conformance criteria that apply to a single
+            product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
+            it contains.
+          </p>
+          <p>
+            Conformance requirements phrased as algorithms or specific steps may be
+            implemented in any manner, so long as the end result is equivalent. (In
+            particular, the algorithms defined in this specification are intended
+            to be easy to follow, and not intended to be performant.)
+          </p>
+        </section>
+    </section>
+    <section data-dfn-for="VirtualKeyboard">
+        <h2>The <dfn>VirtualKeyboard</dfn> Interface</h2>
+        <pre class="idl">
+            partial interface Navigator {
+                [SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
+            };
+            
+            [SecureContext, Exposed=Window]
+            interface VirtualKeyboard : EventTarget {
+                Promise<undefined> show();
+                Promise<undefined> hide();
+                readonly attribute DOMRect boundingRect;
+                attribute boolean overlaysContent;
+                attribute EventHandler ongeometrychange;
+            };
+        </pre>
+        <dl>
+            <dt>
+                <dfn>show()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>If the <a>document</a> doesn't have sticky user activation, abort these steps.
+                  </li>
+                  <li>Let |p| be a new [=Promise=].
+                  </li>
+                  <li>Trigger virtualKeyboard show call that calls the system API to show the keyboard.
+                  </li>
+                  <li>Let |data| be the return value from the call that triggered <a>show()</a>.</li>
+                  <li>Resolve |p| with |data|.</li>
+                  
+                </ol>
+               </dd>
+            <dt>
+                <dfn>hide()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>If the <a>document</a> doesn't have sticky user activation, abort these steps.
+                  </li>
+                  <li>Let |p| be a new [=Promise=].
+                  </li>
+                  <li>Trigger virtualKeyboard hide call that calls the system API to hide the keyboard.
+                  </li>
+                  <li>Let |data| be the return value from the call that triggered <a>hide()</a>.</li>
+                  <li>Resolve |p| with |data|.</li>
+                  
+                </ol>
+               </dd>
+            <dt>
+              <dfn>overlaysContent</dfn>
+            </dt>
+            <dd>
+              <p>
+                The attribute enables the author to opt-out of resizing of the visual viewport.
+              </p>
+            </dd>
+            <dt>
+              <dfn>boundingRect</dfn>
+            </dt>
+            <dd>
+            <p>
+                The attribute reports the intersection of the virtual keyboard with the layout viewport in client coordinates.
+            </p>
+            </dd>
+            <dt>
+                <dfn>ongeometrychange</dfn>
+              </dt>
+              <dd>
+              <p>
+                  The event is dispatched when the intersection of the virtual keyboard and the layout viewport changes, e.g. in response to the virtual keyboard being shown or hidden or the browser window being repositioned.
+              </p>
+              </dd>
+        </dl>
+    </section>
+    <section data-dfn-for="ElementContentEditable">
+        <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
+        <pre class="idl">
+           partial interface ElementContentEditable {
+            [CEReactions, Reflect, ReflectOnly=("auto","manual")] 
+            attribute DOMString virtualKeyboardPolicy;
+           };
+        </pre>
+        <p>The <dfn><code>virtualKeyboardPolicy</code></dfn> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the empty string, auto, and manual.
+        <p>When specified on an element that is a contenteditable host, <dfn><code>auto</code></dfn> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <dfn><code>manual</code></dfn> 
+            decouples focus and taps on the editable element from changes in the VK’s current state - the VK remains as it was.
+        </p>
+    </section>
+    <section>
+        <h2>Examples</h2>
+            <section>
+                <h3>Example with usage of VK control APIs.</h3>
+                <aside class="example" title="VirtualKeyboardPolicy">
+                    <pre>
+                        <xmp>
+                        <div contenteditable virtualkeyboardpolicy="manual" inputmode="text"
+                        style="height:50px;width:300px;border:1px solid black;"data-formula="12+30">42</div>
+                        <script>
+                            let div = document.querySelector("div")
+                            div.addEventListener("focusout", handleFocusOut)
+                            div.addEventListener("dblclick", handleDblClick)
+    
+                            function handleFocusOut() {
+                                let formula = parseIntoFormula(div.firstChild.data)
+                                div.setAttribute("data-formula", formula)
+                                div.firstChild.data = evaluateFormula(formula)
+                            }
+    
+                            function handleDblClick(e) {
+                                div.firstChild.data = div.getAttribute("data-formula")
+    
+                                if (e.pointerType == "touch") {
+                                    navigator.virtualKeyboard.show()
+                                    .then(handleSuccessfulShow)
+                                    .catch(handleFailedShow)
+                                }
+                            }
+    
+                            function parseIntoFormula(text) {
+                                return "12+30"
+                            }
+    
+                            function evaluateFormula(formula) {
+                                return "42"
+                            }
+    
+                            function handleSuccessfulShow() {
+                                // handle success of VK shown
+                            }
+    
+                            function handleFailedShow() {
+                                // handle failure of VK shown
+                            }
+                        </script>
+                        </xmp>
+                    </pre>
+                </aside>
+            </section>
+            <section>
+                <h3>Examples with usage of geometry and ovelay events as a result VK showing.</h3>
+                <aside class="example" title="Repositioning Content using CSS with overlaysContent ">
+                    <pre>
+                        <xmp>
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <style>
+                                body {
+                                    display: grid;
+                                    margin: 8px;
+                                    height: calc(100vh - 16px);
+                                    grid-template: 
+                                    "messages"  1fr
+                                    "input"     auto
+                                    "keyboard"  env(keyboard-inset-height, 0px);
+                                }
+                                input[type=text]::placeholder {
+                                    color: #444;
+                                }
+                                input[type=text] {
+                                    padding: 10px;
+                                    font-size: 24px;
+                                    border: 4px solid black;
+                                    border-radius: 4px;
+                                    background-color: #86DBF6;
+                                    justify-self: center;
+                                }
+                            </style>
+                            <div id="messages">...</div>
+                            <input type="text" placeholder="type...">
+                            <script>
+                                if ("virtualKeyboard" in navigator) {
+                                    navigator.virtualKeyboard.overlaysContent = true
+                                }
+                            </script>
+                        </xmp>
+                    </pre>
+                    </aside>
+                    <aside class="example" title="Repositioning Content using JavaScript geometrychange">
+                        <pre>
+                            <xmp>
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <style>
+                                    body {
+                                        display: grid;
+                                        margin: 0;
+                                        height: 100vh;
+                                        grid-template:
+                                        "controls" min-content
+                                        "cells"    1fr;
+                                    }
+                                    #controls {
+                                        height: 100px;
+                                        background-color: #139CFF;
+                                    }
+                                    canvas {
+                                        justify-self: stretch;
+                                        align-self: stretch;
+                                    }
+                                </style>
+                                <div id="controls">...</div>
+                                <canvas></canvas>
+                                <script type="module">
+                                    navigator.virtualKeyboard.overlaysContent = true
+            
+                                    navigator.virtualKeyboard.addEventListener("geometrychange", () => {
+                                        // Request the canvas be repainted so it can reposition
+                                        // the active cell above the virtual keyboard.
+                                        requestAnimationFrame(paintCanvas)
+                                    })
+            
+                                    paintCanvas() {
+                                        let keyboardRect = navigator.virtualKeyboard.boundingRect
+                                        // Use keyboard rect in omitted code below to paint cells in the 
+                                        // proper position accounting for the keyboard rect along with
+                                        // any panning of the cell area that the user may have performed.
+                                    }
+                                </script>
+                            </xmp>
+                        </pre>
+                        </aside>
+                        <aside class="example" title="Repositioning Content on Foldable Devices with overlaysContent">
+                        <pre>
+                            <xmp>
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <style>
+                                    @media (spanning: single-fold-vertical) {
+                                        body {
+                                            display: grid;
+                                            margin: 0;
+                                            height: 100vh;
+                                            grid-template-columns: env(fold-left) calc(100vw - env(fold-right));
+                                            grid-column-gap: calc(env(fold-right) - env(fold-left));
+                                        }
+                                        .map {
+                                            grid-column: 1;
+                                            grid-row: 1;
+                                        }
+                                        .search-box {
+                                        /* overlay into same grid column as the map */
+                                            grid-column: 1;
+                                            grid-row: 1;
+            
+                                            /* position the search box at the bottom of the cell, centered */
+                                            align-self: end;
+            
+                                            /* margin when keyboard not showing on left screen */
+                                            margin: 20px;
+            
+                                            /* give it a little style */
+                                            padding: 10px;
+                                            font-size: 24px;
+                                            border: 4px solid black;
+                                            border-radius: 4px;
+                                            background-color: #86DBF6;
+                                        }
+                                        .locations-list {
+                                            grid-column: 2;
+                                            grid-row: 1;
+                                        }
+            
+                                        @media (env(keyboard-inset-right) <= env(fold-left)) {
+                                        /* keyboard is on the left screen, adjust search box */
+                                            .search-box {
+                                                margin-bottom: calc(20px + env(keyboard-inset-height));
+                                            }
+                                        }
+                                    }
+                                </style>
+                                <div class="map">...</div>
+                                <input class="search-box" type="search" placeholder="search...">
+                                <div class="locations-list">...</div>
+                                <script type="module">
+                                    navigator.virtualKeyboard.overlaysContent = true
+                                </script>
+                            </xmp>
+                        </pre>
+                        </aside>
+            </section>
+    </section>
+    <section>
+        <h2>Privacy and Security Considerations</h2>
+        VirtualKeyboard API may have privacy implications such as fingerprinting:
+
+        1. The height of the VK.
+        2. Specific intersection of the VK with the layout viewport.
+
+        The first concern is not new on the web and can currrently be inferred with usage of visual viewport API.
+
+        The second concern can be partially mitigated.
+        If the virtual keyboard doesn't fully span the width of the viewport, it may not be key to 
+        the experience, for example if a virtual keyboard had some gaps to either side (centered at
+        the bottom of the viewport) the user agent need not report the extra space and can instead 
+        describe the instersection as taking up the full width of the viewport. If the intersection
+        is key to the experience, as it is with foldable devices, then the same information can
+        likely be discovered by the author through other APIs, for example by checking the number
+        of window segments, which are necessary so that optimized experiences can be developed for
+        these devices.
+
+        In summary, with some user agent mitigations, authors won't gain any new information for use in fingerprinting.
+
+        
+
+
+    </section>
+
+</body>
+
+</html>
