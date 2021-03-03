@@ -82,10 +82,10 @@
                 [SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
             };
             
-            [SecureContext, Exposed=Window]
+            [Exposed=Window]
             interface VirtualKeyboard : EventTarget {
-                Promise<undefined> show();
-                Promise<undefined> hide();
+                undefined show();
+                undefined hide();
                 readonly attribute DOMRect boundingRect;
                 attribute boolean overlaysContent;
                 attribute EventHandler ongeometrychange;
@@ -102,11 +102,11 @@
                 <ol>
                   <li>If the <a>document</a> doesn't have sticky user activation, abort these steps.
                   </li>
-                  <li>Let |p| be a new [=Promise=].
+                  <li>Let |p:Promise| be a new {{Promise}}.
                   </li>
-                  <li>Trigger virtualKeyboard show call that calls the system API to show the keyboard.
+                  <li>Trigger {{VirtualKeyboard/show()}} call that calls the system API to show the keyboard.
                   </li>
-                  <li>Let |data| be the return value from the call that triggered <a>show()</a>.</li>
+                  <li>Let |data| be the return value from the call that triggered {{VirtualKeyboard/show()}}.</li>
                   <li>Resolve |p| with |data|.</li>
                   
                 </ol>
@@ -121,11 +121,11 @@
                 <ol>
                   <li>If the <a>document</a> doesn't have sticky user activation, abort these steps.
                   </li>
-                  <li>Let |p| be a new [=Promise=].
+                  <li>Let |p:Promise| be a new {{Promise}}.
                   </li>
-                  <li>Trigger virtualKeyboard hide call that calls the system API to hide the keyboard.
+                  <li>Trigger {{VirtualKeyboard/hide()}}call that calls the system API to hide the keyboard.
                   </li>
-                  <li>Let |data| be the return value from the call that triggered <a>hide()</a>.</li>
+                  <li>Let |data| be the return value from the call that triggered {{VirtualKeyboard/hide()}}.</li>
                   <li>Resolve |p| with |data|.</li>
                   
                 </ol>
@@ -168,6 +168,48 @@
         <p>When specified on an element that is a contenteditable host, <dfn><code>auto</code></dfn> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <dfn><code>manual</code></dfn> 
             decouples focus and taps on the editable element from changes in the VK’s current state - the VK remains as it was.
         </p>
+    </section>
+    <section>
+        <h2>
+          Virtual Keyboard Visibility Change CSS environment variables.
+        </h2>
+        <p>
+          The {{VirtualKeyboard}} API proposes six new <a href="https://drafts.csswg.org/css-env-1/#environment">CSS environment variables</a> that the web developers can utilize to calculate the virtual keyboard's size and adjust layout in a declarative way.
+        </p>
+        <p class="note">
+          These CSS env should be added to the <a href="https://drafts.csswg.org/css-env-1/#env-function">CSS env variable spec</a>.
+        </p>
+        <section>
+            <h3>Keyboard inset variables</h3>
+            <table data-for="env()">
+                <tr>
+                    <th>Name
+                    <th>Value
+                <tr>
+                    <td><dfn>keyboard-inset-top</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-right</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-bottom</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-left</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-width</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-height</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+            </table>
+            
+            <p>The keyboard insets are six <a href="https://drafts.csswg.org/css-env-1/#environment">environment variables</a> that define a rectangle by
+            its top, right, bottom, and left insets from the edge of the viewport. The width & height insets is calculated from the other insets for developer
+            ergonomics.
+            </p>
+        </section>
     </section>
     <section>
         <h2>Examples</h2>
