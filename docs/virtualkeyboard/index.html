@@ -8,7 +8,10 @@
         var respecConfig = {
               specStatus:   "ED"
           ,   shortName:    "virtualKeyboard"
-          ,   editors:      [{ name: "Grisha Lyukshin",
+          ,   editors:      [{ name: "Anupam Snigdha",
+                               mailto: "snianu@microsoft.com",
+                               company: "Microsoft Corporation"},
+                               { name: "Grisha Lyukshin",
                                mailto: "glyuk@microsoft.com",
                                company: "Microsoft Corporation"},]
           ,   license:      "w3c-software-doc"
@@ -33,6 +36,7 @@
           ,   wgURI: "https://www.w3.org/2019/webapps/"
           ,   wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status"
           ,   edDraftURI:   "http://w3c.github.io/editing/docs/virtualKeyboard/"
+          , xref: ["WebIDL", "DOM", "HTML"]
         };
     </script>
     <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
@@ -41,7 +45,7 @@
 <body>
     <section id='abstract'>
         <p>
-            <code>navigator.virtualKeyboard</code> provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK), rect occlusion information as well as some events that occur during its transition on the screen.
+            <code>virtualKeyboard</code> interface provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK), rect occlusion information as well as some events that occur during its transition on the screen.
         </p>
     </section>
     <section id='sotd'>
@@ -357,28 +361,44 @@
     </section>
     <section>
         <h2>Privacy and Security Considerations</h2>
-        VirtualKeyboard API may have privacy implications such as fingerprinting:
+        Because VirtualKeyboard APIs may reveal some aspects about layout of user's VK, user agents must ensure that no extra information is exposed
+        to the script that it already has through existing APIs.
 
-        1. The height of the VK.
-        2. Specific intersection of the VK with the layout viewport.
+    <section>
+        <h3><code>hide()</code> and <code>show()</code> functions and <code>virtualKeyboardPolicy</code> attribute</h3>
+        <p>
+            No considerable privacy concerns are expected for the following reasons:
+            <ul>
+                <li>
+                    No information about an user is being shared with script. The API only controls what should happen to the virtual keyboard followed by the user action.
+                </li>
+            </ul>
+        </p>
+    </section>
+    <section>
+        <h3><code>boundingRect</code>, <code>overlaysContent</code> and <code>ongeometrychange</code> attributes</h3>
+       These attributes may have privacy implications through  fingerprinting in the following cases:
 
-        The first concern is not new on the web and can currrently be inferred with usage of visual viewport API.
+        <ol>
+            <li>The height of the VK.</li>
+            <li>Specific intersection of the VK with the layout viewport.</li>
+        </ol>
 
-        The second concern can be partially mitigated.
-        If the virtual keyboard doesn't fully span the width of the viewport, it may not be key to 
-        the experience, for example if a virtual keyboard had some gaps to either side (centered at
-        the bottom of the viewport) the user agent need not report the extra space and can instead 
-        describe the instersection as taking up the full width of the viewport. If the intersection
-        is key to the experience, as it is with foldable devices, then the same information can
-        likely be discovered by the author through other APIs, for example by checking the number
-        of window segments, which are necessary so that optimized experiences can be developed for
-        these devices.
+        <p>
+            The first concern is not new on the web and can currrently be inferred with usage of visual viewport API.
+        </p>
 
-        In summary, with some user agent mitigations, authors won't gain any new information for use in fingerprinting.
-
-        
-
-
+        <p>
+            The second concern can be partially mitigated with help of user agents.
+            In a single screen instances where knowledge of the VK width does not enable new scenarios the user agent could always report VK taking full width of the viewport.
+            
+            If the intersection is key to the experience, as it is with foldable devices, then the same information can
+            likely be discovered by the author through other APIs, for example by checking the number
+            of window segments, which are necessary so that optimized experiences can be developed for
+            these devices.
+        </p>
+    </section>
+        In summary, with some user agent mitigations, and the fact that this API is not adding new ways to that compromise user privacy, authors will not gain any new information for use in fingerprinting.
     </section>
 
 </body>
