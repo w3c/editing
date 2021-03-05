@@ -36,16 +36,19 @@
           ,   wgURI: "https://www.w3.org/2019/webapps/"
           ,   wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status"
           ,   edDraftURI:   "http://w3c.github.io/editing/docs/virtualKeyboard/"
-          , xref: ["WebIDL", "DOM", "HTML"]
+          , xref: ["WebIDL"
+          , "DOM"
+          , "HTML"
+          , "geometry"]
         };
     </script>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
 <body>
     <section id='abstract'>
         <p>
-            <code>virtualKeyboard</code> interface provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK), rect occlusion information as well as some events that occur during its transition on the screen.
+            The {{VirtualKeyboard}} API provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK). The API also provides information about VK geometry, such as rect occlusion and gives ability to opt-out from a resizing of the visual viewport in the browser.
         </p>
     </section>
     <section id='sotd'>
@@ -54,27 +57,25 @@
     </section>
     <section>
         <h2>Introduction</h2>
-        <section>
-            <h3>Overview</h3>
-            <p>
-            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike a hardware keyboard, a VK can adapt its shape to optimize for the expected type of input.
+        <P>This section is non-normative.</P>
+        <p>
+            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike a hardware keyboard, VK can adapt its shape to optimize for the expected type of input.
             In addition, user agents respond to the presence of the VK, without any exposure of this information to a web developer. This document proposes a new web API surface for VK that developers can use to enable better customization of their webpage's content and experiences.
-            </p>
-        </section>
-        <section id="conformance">
-          <p>
-            This specification defines conformance criteria that apply to a single
-            product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
-            it contains.
-          </p>
-          <p>
-            Conformance requirements phrased as algorithms or specific steps may be
-            implemented in any manner, so long as the end result is equivalent. (In
-            particular, the algorithms defined in this specification are intended
-            to be easy to follow, and not intended to be performant.)
-          </p>
-        </section>
+        </p>
     </section>
+    <section id="conformance">
+        <p>
+          This specification defines conformance criteria that apply to a single
+          product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
+          it contains.
+        </p>
+        <p>
+          Conformance requirements phrased as algorithms or specific steps may be
+          implemented in any manner, so long as the end result is equivalent. (In
+          particular, the algorithms defined in this specification are intended
+          to be easy to follow, and not intended to be performant.)
+        </p>
+      </section>
     <section data-dfn-for="VirtualKeyboard">
         <h2>The <dfn>VirtualKeyboard</dfn> Interface</h2>
         <pre class="idl">
@@ -213,6 +214,10 @@
     </section>
     <section>
         <h2>Examples</h2>
+        <p class="note">
+            Few folks have expressed that <code>show()</code> and <code>hide()</code> methods to be promise-based. While the IDL and examples are geared towards 
+            this design, there is also a sceptisism around real use cases around needing promisess in this type of operation.
+          </p>
             <section>
                 <h3>Example with usage of VK control APIs.</h3>
                 <aside class="example" title="VirtualKeyboardPolicy">
@@ -407,7 +412,7 @@
         to the script that it already has through existing APIs.
 
     <section>
-        <h3><code>hide()</code> and <code>show()</code> functions and <code>virtualKeyboardPolicy</code> attribute</h3>
+        <h3><code>hide()</code> and <code>show()</code> methods and <code>virtualKeyboardPolicy</code> attribute</h3>
         <p>
             No considerable privacy concerns are expected for the following reasons:
             <ul>
@@ -442,7 +447,16 @@
     </section>
         In summary, with some user agent mitigations, and the fact that this API is not adding new ways to that compromise user privacy, authors will not gain any new information for use in fingerprinting.
     </section>
-
+    <section id="idl-index" class="appendix">
+        <!-- All the Web IDL will magically appear here -->
+    </section>
+    <section>
+        <h2>Contributors</h2>
+        <ul id="gh-contributors">
+          <!-- list of contributors will appear here,
+               along with link to their GitHub profiles -->
+        </ul>
+      </section>
 </body>
 
 </html>
