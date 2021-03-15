@@ -95,8 +95,7 @@ dictionary TextUpdateEventInit {
 
 [Exposed=Window]
 interface TextUpdateEvent : Event {
-    constructor(optional TextUpdateEventInit eventInitDict = {});
-
+    constructor(optional TextUpdateEventInit options = {});
     readonly attribute unsigned long updateRangeStart;
     readonly attribute unsigned long updateRangeEnd;
     readonly attribute DOMString updateText;
@@ -109,23 +108,27 @@ dictionary TextFormatUpdateEventInit {
     unsigned long formatRangeEnd;
     DOMString underlineColor;
     DOMString backgroundColor;
-    DOMString textDecorationColor;
-    DOMString textUnderlineStyle;
+    DOMString suggestionHighlightColor;
+    DOMString textColor;
+    DOMString underlineThickness;
+    DOMString underlineStyle;
 };
 
 [Exposed=Window]
 interface TextFormatUpdateEvent : Event {
-    constructor(optional TextFormatUpdateEventInit eventInitDict = {});
-
+    constructor(optional TextFormatUpdateEventInit options = {});
     readonly attribute unsigned long formatRangeStart;
     readonly attribute unsigned long formatRangeEnd;
     readonly attribute DOMString underlineColor;
     readonly attribute DOMString backgroundColor;
-    readonly attribute DOMString textDecorationColor;
-    readonly attribute DOMString textUnderlineStyle;
+    readonly attribute DOMString suggestionHighlightColor;
+    readonly attribute DOMString textColor;
+    readonly attribute DOMString underlineThickness;
+    readonly attribute DOMString underlineStyle;
 };
 
 enum EditContextInputMode {
+    "none",
     "text",
     "decimal",
     "search",
@@ -146,7 +149,7 @@ enum EditContextEnterKeyHint {
     "send"
 };
 
-enum EditContextInputPolicy {
+enum EditContextInputPanelPolicy {
     "auto",
     "manual"
 };
@@ -178,7 +181,7 @@ interface EditContext : EventTarget {
     attribute unsigned long selectionStart;
     attribute unsigned long selectionEnd;
     attribute EditContextInputMode inputMode;
-    attribute EditContextInputPolicy inputPolicy;
+    attribute EditContextInputPanelPolicy inputPanelPolicy;
     attribute EditContextEnterKeyHint enterKeyHint;
 
     // Event handler attributes
