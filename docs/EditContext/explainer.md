@@ -191,7 +191,25 @@ interface EditContext : EventTarget {
     attribute EventHandler oncompositionend;
 };
 ```
+## Difference between DIV with Contenteditable and DIV with EditContext
 
+![contenteditable_vs_editcontext](contenteditable_vs_editcontext.jpg)
+[TODO: redraw using powerpoint and add some desciption]
+
+In the DIV with EditContext scenario:
+* Div receives all beforeinput events as if it is a contenteditable div.
+* Div doesn't receive any input events or composition events (compositionstart, compositionupdate, compositionend).
+* The InsertText input event fired on div is replaced by TextUpdate event fired on EditContext.
+* A new event TextFormatUpdate is fired on EditContext.
+* compositoinstart and compositionend are fired on EditContext. There is no compositionupdate event.
+
+
+| abc |	\<div contentEditable>  | 	\<div> with EditContext |
+| --- | ----------------------- | ------------------------- |
+| div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	IF EditContext is active, i.e., EditContext.focus() is called: <ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
+|English typing |<ul><li>beforeinput (insertText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertText) -> div </li> | <ul><li>beforeinput (insertText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
+|Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
+[TODO: finish the table]
 ## EditContext Usage
 ### Example 1
 Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
