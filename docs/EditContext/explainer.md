@@ -211,7 +211,47 @@ In the DIV with EditContext scenario:
 |Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
 [TODO: finish the table]
 ## EditContext Usage
-### Example 1
+### Example 1: initialization
+[TODO: add description]
+```javascript
+    var editContext = new EditContext();
+    editContext.focus();
+    div.editContext = editContext;
+```
+
+### Example 2: event handler
+[TODO: add some description]
+```javascript
+    editContext.addEventListener("textupdate", e => {
+        let s = document.getSelection();
+        let textNode = s.anchorNode;
+        let offset = s.anchorOffset;
+        let string = textNode.textContent;
+        // update the text Node
+        textNode.textContent = string.substring(0, offset) + e.updateText + string.substring(offset);
+    });
+
+    editContext.addEventListener("textformatupdate", e => { 
+        decoration.style.borderBottom = "3px " + e.underlineStyle;
+    });
+```
+### Example 3: mapping from DOM space to EditContext (plain text) space
+[TODO: add some description]
+```javascript
+    document.addEventListener("selectionchange", e => {
+        let s = document.getSelection();
+
+        // calculate the offset in plain text
+        let range = document.createRange();
+        range.setEnd(s.anchorNode, s.anchorOffset);
+        range.setStartBefore(parentSpan);
+        let plainText = range.toString();
+
+        editContext.updateSelection(plainText.length, plainText.length);
+    });
+```
+
+### Example 4
 Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
 
 ```javascript
@@ -272,7 +312,7 @@ editContext.addEventListener("textformatupdate", e => {
 });
 ```
 
-### Example 2
+### Example 5
 
 Example of a user-defined EditModel class that contains the underlying model for the editable content
 ```javascript
@@ -324,7 +364,7 @@ class EditModel {
 }
 ```
 
-### Example 3
+### Example 6
 Example of a user defined class that can compute an HTML view, based on the text model
 ```javascript
 class EditableView {
@@ -384,6 +424,7 @@ class EditableView {
 ## Example Application
 This [example application](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
 
+This [example application](native_selection_demo.html) shows how to leverage native selection when using EditContext.
 ## Interaction with Other Browser Editing Features
 By decoupling the view from text input, the EditContext opts out of some editing behaviors that are currently only available through the DOM. An inventory of those features and their interaction with the EditContext follows:
 
