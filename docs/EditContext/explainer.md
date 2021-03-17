@@ -204,12 +204,22 @@ In the DIV with EditContext scenario:
 * compositoinstart and compositionend are fired on EditContext. There is no compositionupdate event.
 
 
-| abc |	\<div contentEditable>  | 	\<div> with EditContext |
+| |	\<div contentEditable>  | 	\<div> with EditContext |
 | --- | ----------------------- | ------------------------- |
 | div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	IF EditContext is active, i.e., EditContext.focus() is called: <ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
 |English typing |<ul><li>beforeinput (insertText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertText) -> div </li> | <ul><li>beforeinput (insertText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
 |Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
-[TODO: finish the table]
+| During composition (text input and arrow keys) | <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li></ul> | <ul><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li></ul> |
+| Commit comosition (hit Enter)| <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li><li>Compositoinend -> div</li></ul> | <ul><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li><li>compositionend -> EditContext</li></ul> |
+| Ctrl+B / Ctrl+I / etc. | <ul><li>beforeinput (formatBold) -> div</li><li>div.innerHTML gets updated</li><li>input (formatBold) -> div</li></ul>|<ul><li>beforeinput (formatBold) -> div</li></ul> |
+|Arrow keys (with shift) / Home / End / PageUp / PageDown / etc.|<ul><li>caret/selection is updated</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li><li>It will require web authors to map selection position from DOM space to EditContext's plain text space</li></ul>|
+|Mouse click (with shift)|<ul><li>caret/selection is updated</li><li>selectionstart</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li></ul>|
+|Spell check replacement|<ul><li>beforeinput (insertReplacementText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertReplacementText) -> div</li></ul>|<ul><li>beforeinput (insertReplacementText) -> div</li></ul>|
+|Drag & drop selected words|<ul><li>beforeinput (deleteByDrag) -> div</li><li>input (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromDrop) -> div</li></ul>|<ul><li>beforeinput (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li></ul>|
+|Cut (ctrl+x)|<ul><li>beforeinput (deleteByCut) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteByCut) -> div</li></ul>|<ul><li>beforeinput (deleteByCut) -> div</li></ul>|
+|Copy|n/a|n/a|
+|Paste (ctrl+v)|<ul><li>beforeinput (insertFromPaste) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromPaste) -> div</li></ul>|<ul><li>beforeinput</li></ul>|(insertFromPaste) -> div
+
 ## EditContext Usage
 ### Example 1: initialization
 [TODO: add description]
