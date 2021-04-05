@@ -196,12 +196,12 @@ interface EditContext : EventTarget {
 ![contenteditable_vs_editcontext](contenteditable_vs_editcontext.jpg)
 [TODO: redraw using powerpoint and add some desciption]
 
-In the DIV with EditContext scenario:
-* Div receives all beforeinput events as if it is a contenteditable div.
-* Div doesn't receive any input events or composition events (compositionstart, compositionupdate, compositionend).
-* The InsertText input event fired on div is replaced by TextUpdate event fired on EditContext.
-* A new event TextFormatUpdate is fired on EditContext.
-* compositoinstart and compositionend are fired on EditContext. There is no compositionupdate event.
+When a div is associated with an EditContext:
+* The div receives all beforeinput events as if it is a contenteditable div.
+* The div doesn't receive any input events or composition events (compositionstart, compositionupdate, compositionend).
+* The InsertText input event fired on the div is replaced by TextUpdate event fired on the EditContext.
+* A new event TextFormatUpdate is fired on the EditContext.
+* Compositoinstart and compositionend are fired on the EditContext. There is no compositionupdate event.
 
 
 | |	\<div contentEditable>  | 	\<div> with EditContext |
