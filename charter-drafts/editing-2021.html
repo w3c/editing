@@ -180,7 +180,7 @@
           Deliverables
         </h2>
 
-        <p>More detailed milestones and updated publication schedules are available on the <a href="https://www.w3.org/wiki/[groupname]/PubStatus">group publication status page</a>.</p>
+        <p>More detailed milestones and updated publication schedules are available on the <a href="https://www.w3.org/groups/wg/Editing/publications">group publication status page</a>.</p>
 
         <p><i>Draft state</i> indicates the state of the deliverable at the time of the charter approval. <i>Expected completion</i> indicates when the deliverable is projected to become a Recommendation, or otherwise reach a stable state.</p>
 
@@ -191,16 +191,26 @@
           <p>
             The Working Group will deliver the following W3C normative specifications:
           </p>
-          <dl>
-            <dd>
    <dl>
-    <dt id="551" class='spec'>
-            <a href='https://www.w3.org/TR/clipboard-apis/' rel=
-            'versionof'>Clipboard API and events</a><br>
-            Latest publication: <a href=
-            'https://www.w3.org/TR/2021/WD-clipboard-apis-20210203/'>3 February 2021</a>
+    <dt>
+      <a href='https://w3c.github.io/clipboard-apis/' rel=
+            'versionof'>Clipboard API and events</a>
           </dt>
           <dd>
+             <p>This document describes APIs for accessing data on the system clipboard. It provides operations for overriding the default clipboard actions (cut, copy and paste), and for directly accessing the clipboard contents.</p>
+              <p class="draft-status"><b>Draft state:</b> <a href="https://www.w3.org/TR/2021/WD-clipboard-apis-20210203/">Working Draft</a></p>
+             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
+             <dl>
+              <dt id="551" class='spec'>
+              <a href='https://www.w3.org/TR/clipboard-apis/' rel=
+              'versionof'>Clipboard API and events</a><br>
+              Latest publication: <a href=
+              'https://www.w3.org/TR/2021/WD-clipboard-apis-20210203/'>3 February 2021</a>
+              </dt>
+          <dd>
+            <b>Latest publication</b>: <a href=
+            'https://www.w3.org/TR/2021/WD-clipboard-apis-20210203/'>3 February 2021</a><br>
+
             Reference Draft: <a href=
             'https://www.w3.org/TR/2015/WD-clipboard-apis-20151215/'>https://www.w3.org/TR/2015/WD-clipboard-apis-20151215/</a><br>
 
@@ -211,8 +221,18 @@
             Produced under <a href=
             "https://www.w3.org/2006/webapi/admin/charter">Web API Working
             Group charter</a>
-             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
+            </dd>
+            </dl>
           </dd>
+          <dt>
+          <a href='https://w3c.github.io/input-events/' rel=
+            'versionof'>Input Events</a>
+          </dt>
+          <dd>
+             <p>This specification defines additions to events for text and related input to allow for the monitoring and manipulation of default browser behavior in the context of text editor applications and other applications that deal with text input and text formatting. This specification builds on the UI events spec.</p>
+              <p class="draft-status"><b>Draft state:</b> <a href="https://www.w3.org/TR/2019/WD-input-events-2-20190530/">Working Draft</a></p>
+             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
+             <dl>
           <dt id="1421" class='spec'>
             <a href='https://www.w3.org/TR/input-events-2/' rel=
             'versionof'>Input Events</a><br>
@@ -229,8 +249,20 @@
             2017<br>
             Produced under Working Group Charter:
             <a href="https://www.w3.org/2015/10/webplatform-charter.html">https://www.w3.org/2015/10/webplatform-charter.html</a>
-             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
+             
           </dd>
+        </dl>
+      </dd>
+      <dt>
+      <a href='https://w3c.github.io/selection-api/' rel=
+            'versionof'>Selection API</a>
+          </dt>
+          <dd>
+             <p>This document is a preliminary draft of a specification for the Selection API and selection related functionality. It replaces a couple of old sections of the HTML specification, the selection part of the old DOM Range specification.</p>
+             <p>This document defines APIs for selection, which allows users and authors to select a portion of a document or specify a point of interest for copy, paste, and other editing operations.</p>
+              <p class="draft-status"><b>Draft state:</b> <a href="https://www.w3.org/TR/2020/WD-selection-api-20201219/">Working Draft</a></p>
+             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
+             <dl>
           <dt id="1195" class='spec'>
             <a href='https://www.w3.org/TR/selection-api/' rel=
             'versionof'>Selection API</a><br>
@@ -248,11 +280,9 @@
             Produced under <a href=
             "https://www.w3.org/2014/06/webapps-charter.html">Web Applications
             Working Group charter</a>
-             <p class="milestone"><b>Expected completion:</b> <i>Q3 2022</i></p>
           </dd>
-    <dt>
-    </dd>
-    </dl>
+        </dl>
+      </dd>
   </dl>
   </section>
   <section id="ig-other-deliverables">
@@ -262,12 +292,20 @@
     <p>
       Depending on the working group progress, the Group may also produce W3C Recommendations for the following documents:
     </p>
-    <ul>
-      <li>VirtualKeyboardAPI</li>
-      <li>EditContextAPI</li>
-      <li>SpellcheckAPI</li>
-      <li>Primer or Best Practice documents to support web developers when designing applications.</li>
-    </ul>
+    <dl>
+      <dt><a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/VirtualKeyboardAPI/explainer.md">VirtualKeyboardAPI</a></dt>
+      <dd>
+        <p>Today on the web, User Agents respond to the presence of the virtual (software) keyboard, without any exposure of this information to the web page. This document proposes a new web API surface for virtual keyboards that developers can use to enable better customization of their webpage's content and experiences.</p>
+        <p class="draft-status"><b>Draft state:</b> Explainer.</p></dd>
+      <dt><a href="https://w3c.github.io/editing/docs/EditContext/explainer.html">EditContextAPI</a></dt>
+      <dd>
+        <p>The EditContext is a new API that simplifies the process of integrating a web app with advanced text input methods, improves accessibility and performance, and unlocks new capabilities for web-based editors.</p>
+        <p class="draft-status"><b>Draft state:</b> Explainer.</p></dd>
+      <dt>SpellcheckAPI</dt>
+      <dd><p class="draft-status"><b>Draft state:</b> No draft, see <a href="https://lists.w3.org/Archives/Public/public-editing-tf/2019Oct/0004.html">Minutes from Editing TF Fukuoka TPAC Meeting</a>.</p></dd>
+      <dt>Primer or Best Practice documents to support web developers when designing applications.</dt>
+      <dd><p class="draft-status"><b>Draft state:</b> No draft.</p></dd>
+    </dl>
   </section>
 
   <section id="timeline">
@@ -285,8 +323,7 @@
 	  <p>The Working Group is successful if it has been able to produce specs and standardize browser behavior so that it is possible to write a basic JS text editor that works across writing systems with no more than 3 years development effort.</p>
 	  <p>Each specification should contain separate sections detailing all known security and privacy implications for implementers, Web authors, and end users.</p>
 	  <p>There should be testing plans for each specification, starting from the earliest drafts.</p>
-	  <p>Each specification should contain a section on accessibility, privacy, internationalization that describe the benefits and impacts, including ways specification features can be used to address them, and
-		recommendations for maximizing aforementioned topics in implementations.</p>
+	  <p>Each specification should contain a section on accessibility that describes the benefits and impacts, including ways specification features can be used to address them, and recommendations for maximising accessibility in implementations.</p>
 	  <p>To promote interoperability, all changes made to specifications should have <a href='https://www.w3.org/2019/02/testing-policy.html'>tests</a> where applicable.</p>
 	</section>
 
