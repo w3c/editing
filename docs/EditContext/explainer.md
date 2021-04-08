@@ -193,29 +193,32 @@ interface EditContext : EventTarget {
 ```
 ## Difference between DIV with Contenteditable and DIV with EditContext
 
-![contenteditable_vs_editcontext](contenteditable_vs_editcontext.jpg)
+![contenteditable_vs_editcontext](contenteditable_vs_editcontext.png)
 
-One can think of a div with Contenteditable as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
+One can think of a div with Contenteditable (on the left in the above figure) as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
 
-When a div is associated with an EditContext, the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
+When a div is associated with an EditContext (on the right in the above figure), the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
 
-Note that EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (ex. drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (ex. ctrl+B, outdent/indent) are out of scope of EditContext. Here are several key points when a div is associated with an EditContext:
-* The div won't receive InsertText, deleteContentBackward, deleteContentForward, CompositionStart, CompositionEnd and CompositionUpdate input events.
-* The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext.
+Note that EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (ex. drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (ex. ctrl+B, outdent/indent) are out of scope of EditContext, however, the beforeinput events for these manipulation will still fire on the div to serve as user intent and it'll be editors's responsibility to handle the editing operations. 
+
+Here are several key points when a div is associated with an EditContext:
+* The div won't receive any input event, and no text input will directly manipulate the DOM.
+* The div will receive all beforeinput events as if it were a contentEditable div.
+* The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext. The corresponding beforeinput event can be used to cancel the operation.
 * CompositionStart and CompositionEnd are fired on the EditContext. There is no CompositionUpdate event.
 * A new event TextFormatUpdate is fired on the EditContext.
-* Other than mentioend above, the div will behave exactly the same as a contenteditable div, which means it will receive all the beforeinput events, and caret navigation, formatting commands, copy/paste will all happen in the DOM space (i.e. will all manipulate the DOM), and the web authors will need to map the change from the DOM space into the plain text space if the commands are not cancelled.
+* Caret naviation will happen in the DOM space and the web authors will need to map the selection change from the DOM space to the plain text space if they choose to use native selection.
 
-The following table provides a summary of differences regarding several common editing commands: 
+The following table summarizes the difference between div with contentEditable and div with EditContext for each common editing commands:
 | |	\<div contentEditable>  | 	\<div> with EditContext |
 | --- | ----------------------- | ------------------------- |
 | div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	IF EditContext is active, i.e., EditContext.focus() is called: <ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
 |English typing |<ul><li>beforeinput (insertText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertText) -> div </li> | <ul><li>beforeinput (insertText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
 |Backspace |<ul><li>beforeinput (deleteContentBackward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentBackward) -> div </li> | <ul><li>beforeinput (deleteContentBackward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
 |Delete |<ul><li>beforeinput (deleteContentForward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentForward) -> div </li> | <ul><li>beforeinput (deleteContentForward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
-|Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
-| During composition (text input and arrow keys) | <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li></ul> | <ul><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li></ul> |
-| Commit comosition (hit Enter)| <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li><li>Compositoinend -> div</li></ul> | <ul><li>beforeinput (insertCompositionText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li><li>compositionend -> EditContext</li></ul> |
+|Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
+| During composition (text input and arrow keys) | <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li></ul> | <ul><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li></ul> |
+| Commit comosition (hit Enter)| <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li><li>Compositoinend -> div</li></ul> | <ul><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li><li>compositionend -> EditContext</li></ul> |
 | Ctrl+B / Ctrl+I / etc. | <ul><li>beforeinput (formatBold) -> div</li><li>div.innerHTML gets updated</li><li>input (formatBold) -> div</li></ul>|<ul><li>beforeinput (formatBold) -> div</li></ul> |
 |Arrow keys (with shift) / Home / End / PageUp / PageDown / etc.|<ul><li>caret/selection is updated</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li><li>It will require web authors to map selection position from DOM space to EditContext's plain text space</li></ul>|
 |Mouse click (with shift)|<ul><li>caret/selection is updated</li><li>selectionstart</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li></ul>|
@@ -223,11 +226,10 @@ The following table provides a summary of differences regarding several common e
 |Drag & drop selected words|<ul><li>beforeinput (deleteByDrag) -> div</li><li>input (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromDrop) -> div</li></ul>|<ul><li>beforeinput (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li></ul>|
 |Cut (ctrl+x)|<ul><li>beforeinput (deleteByCut) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteByCut) -> div</li></ul>|<ul><li>beforeinput (deleteByCut) -> div</li></ul>|
 |Copy|n/a|n/a|
-|Paste (ctrl+v)|<ul><li>beforeinput (insertFromPaste) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromPaste) -> div</li></ul>|<ul><li>beforeinput</li></ul>|(insertFromPaste) -> div
+|Paste (ctrl+v)|<ul><li>beforeinput (insertFromPaste) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromPaste) -> div</li></ul>|<ul><li>beforeinput (insertFromPaste) -> div</li></ul>|
 
 ## EditContext Usage
 ### Example 1: initialization
-[TODO: add description]
 ```javascript
     var editContext = new EditContext();
     editContext.focus();
@@ -235,7 +237,6 @@ The following table provides a summary of differences regarding several common e
 ```
 
 ### Example 2: event handler
-[TODO: add some description]
 ```javascript
     editContext.addEventListener("textupdate", e => {
         let s = document.getSelection();
@@ -251,7 +252,6 @@ The following table provides a summary of differences regarding several common e
     });
 ```
 ### Example 3: mapping from DOM space to EditContext (plain text) space
-[TODO: add some description]
 ```javascript
     document.addEventListener("selectionchange", e => {
         let s = document.getSelection();
