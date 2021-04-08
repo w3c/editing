@@ -203,7 +203,7 @@ Note that EditContext only decouples and handles the manipulation of the plain t
 
 Here are several key points when a div is associated with an EditContext:
 * The div won't receive any input event, and no text input will directly manipulate the DOM.
-* The div will receive all beforeinput events as if it were a contentEditable div.
+* The div will receive all beforeinput events  as if it were a contentEditable div except beforeinput(insertCompositionText).
 * The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext. The corresponding beforeinput event can be used to cancel the operation.
 * CompositionStart and CompositionEnd are fired on the EditContext. There is no CompositionUpdate event.
 * A new event TextFormatUpdate is fired on the EditContext.
