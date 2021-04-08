@@ -193,7 +193,7 @@ interface EditContext : EventTarget {
 ```
 ## Difference between DIV with Contenteditable and DIV with EditContext
 
-![contenteditable_vs_editcontext](contenteditable_vs_editcontext.png)
+![contenteditable_vs_editcontext](contentEditable_vs_editContext.png)
 
 One can think of a div with Contenteditable (on the left in the above figure) as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
 
