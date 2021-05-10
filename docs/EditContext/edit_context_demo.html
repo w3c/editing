@@ -100,7 +100,6 @@ class EditableView {
         }
     }
     focus() {
-        this.editContext.focus();
         this.caretOn = true;
         this.updateCaret();
     }
@@ -549,11 +548,9 @@ window.addEventListener("load", () => {
     }
     select.addEventListener("focus", () => {
         let type = select.options[select.selectedIndex].value
-        contextTypes[type].focus()
     })
     select.addEventListener("change", () => {
         let type = select.options[select.selectedIndex].value
-        contextTypes[type].focus()
     })
 })
 </script>

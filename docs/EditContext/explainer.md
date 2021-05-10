@@ -171,8 +171,6 @@ dictionary EditContextInit {
 interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
 
-    void focus();
-    void blur();
     void updateSelection(unsigned long start, unsigned long end);
     void updateLayout(DOMRect controlBounds, DOMRect selectionBounds);
     void updateText(unsigned long start, unsigned long end, DOMString newText);
@@ -212,7 +210,7 @@ Here are several key points when a div is associated with an EditContext:
 The following table summarizes the difference between div with contentEditable and div with EditContext for each common editing commands:
 | |	\<div contentEditable>  | 	\<div> with EditContext |
 | --- | ----------------------- | ------------------------- |
-| div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	IF EditContext is active, i.e., EditContext.focus() is called: <ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
+| div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
 |English typing |<ul><li>beforeinput (insertText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertText) -> div </li> | <ul><li>beforeinput (insertText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
 |Backspace |<ul><li>beforeinput (deleteContentBackward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentBackward) -> div </li> | <ul><li>beforeinput (deleteContentBackward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
 |Delete |<ul><li>beforeinput (deleteContentForward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentForward) -> div </li> | <ul><li>beforeinput (deleteContentForward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
@@ -232,7 +230,6 @@ The following table summarizes the difference between div with contentEditable a
 ### Example 1: initialization
 ```javascript
     var editContext = new EditContext();
-    editContext.focus();
     div.editContext = editContext;
 ```
 
@@ -286,8 +283,6 @@ let editContext = new EditContext(editContextInit);
 let model = new EditModel(editContext, editContextInit.text, editContextInit.selectionStart, editContextInit.selectionEnd);
 let view = new EditView(editContext, model, editContainer);
 
-// Delegate focus to an EditContext when an "editable" part of the view is focused in the web app.
-editContainer.addEventListener("focus", () => editContext.focus());
 window.requestAnimationFrame(() => {
     editContext.updateLayout(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
 });
@@ -437,9 +432,10 @@ class EditableView {
 ```
 
 ## Example Application
-This [example application](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
+This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
 
-This [example application](native_selection_demo.html) shows how to leverage native selection when using EditContext.
+This [example](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
+
 ## Interaction with Other Browser Editing Features
 By decoupling the view from text input, the EditContext opts out of some editing behaviors that are currently only available through the DOM. An inventory of those features and their interaction with the EditContext follows:
 
