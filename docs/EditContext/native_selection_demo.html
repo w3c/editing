@@ -1,26 +1,16 @@
 <style>
     span:focus { outline: none; }
 </style>
-<script>
-   // var cnt=0;var handle=setInterval(()=>{console.log(`${cnt++}: [${document.activeElement.value}] width=${document.activeElement.style.width}`);}, 2000);
-</script>
 
 <div id="decoration" style="position:absolute"></div>
 
 <br><br>
 <span id=parentSpan style="padding:5px; font-size:40px;white-space:pre;"><span style="font-size: 28px">    一二三 </span><span style="font-weight:800;">hello </span><span style="font-style:italic">world </span><span style="background-color:yellow">四五六</span></span>
 
-<!-- <br><br>
-(with zwnj)
-<span id=mydiv2 style="padding:5px; font-size:40px;white-space:pre;">    一‌二‌三‌ ‌abc‌四‌五‌六</span>
- -->
 <script>
     var editContext = new EditContext();
-    editContext.focus();
     parentSpan.editContext = editContext;
     editContext.text = parentSpan.textContent;
-
-    //mydiv2.editContext = editContext;
 
     let compositionNode = null;
     let compositionStartOffset = null
