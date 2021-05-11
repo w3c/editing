@@ -189,7 +189,7 @@ interface EditContext : EventTarget {
     attribute EventHandler oncompositionend;
 };
 ```
-## Difference between DIV with Contenteditable and DIV with EditContext
+## Difference between Contenteditable element and the EditContext element.
 
 ![contenteditable_vs_editcontext](contentEditable_vs_editContext.png)
 
