@@ -172,7 +172,7 @@ interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
 
     void updateSelection(unsigned long start, unsigned long end);
-    void updateLayout(DOMRect controlBounds, DOMRect selectionBounds);
+    void updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
     void updateText(unsigned long start, unsigned long end, DOMString newText);
 
     attribute DOMString text;
@@ -264,7 +264,7 @@ The following table summarizes the difference between div with contentEditable a
 ```
 
 ### Example 4
-Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
+Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateBounds`.
 
 ```javascript
 let editContainer = document.querySelector("#editContainer");
@@ -284,7 +284,7 @@ let model = new EditModel(editContext, editContextInit.text, editContextInit.sel
 let view = new EditView(editContext, model, editContainer);
 
 window.requestAnimationFrame(() => {
-    editContext.updateLayout(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
+    editContext.updateBounds(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
 });
 
 editContainer.focus();
@@ -415,7 +415,7 @@ class EditableView {
     }
 
     notifyLayoutChanged() {
-        this.editContext.updateLayout(this.computeBoundingBox(), this.computeSelectionBoundingBox());
+        this.editContext.updateBounds(this.computeBoundingBox(), this.computeSelectionBoundingBox());
     }
 
     convertTextToHTML(text, selection) {
