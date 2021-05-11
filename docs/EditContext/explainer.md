@@ -205,7 +205,7 @@ Here are several key points when a div is associated with an EditContext:
 * The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext. The corresponding beforeinput event can be used to cancel the operation.
 * CompositionStart and CompositionEnd are fired on the EditContext. There is no CompositionUpdate event.
 * A new event TextFormatUpdate is fired on the EditContext.
-* Caret naviation will happen in the DOM space and the web authors will need to map the selection change from the DOM space to the plain text space if they choose to use native selection.
+* Caret navigation will happen in the DOM space and the web authors will need to map the selection change from the DOM space to the plain text space if they choose to use native selection.
 
 The following table summarizes the difference between div with contentEditable and div with EditContext for each common editing commands:
 | |	\<div contentEditable>  | 	\<div> with EditContext |
