@@ -107,7 +107,7 @@ const customTextBlob = await clipboardItem.getType('text/custom');
 ## Detailed design discussion
 
 ### Pickled version for sanitized formats
-Sanitization of clipboard formats, while important for security reasons, may impair correctness and completeness of a clipboard format, by removing potentially useful information in a clipboard format. For HTML, <script>s  may be stripped, and in JPG, metadata like orientation or GPS location may be stripped. 
+Sanitization of clipboard formats, while important for security reasons, may impair correctness and completeness of a clipboard format, by removing potentially useful information in a clipboard format. For HTML, `<script>`s  may be stripped, and in JPG, metadata like orientation or GPS location may be stripped.
 
 Sites can read or write pickled versions of sanitized formats, by providing the format in the `{direct: []}` list. This should be done sparingly, only where sites are concerned about metadata scrubbed by sanitization. This is because on write, this would require another payload to be written, which could be slow for large payloads. Similarly, on read, pickled data is not guaranteed to be secure or protected by the sanitization process.
 
@@ -143,9 +143,26 @@ That said, this would make it impossible to specify which `ClipboardItem`s shoul
 ### Alternative Considered: direct if not supported by the Async Clipboard API.
 A much simpler approach would be to simply omit any `direct` `ClipboardItemOption` at all, and simply read or write a pickled format whenever the Async Clipboard API doesn’t already support a sanitized version of the format. This has the same caveats as `direct:true`, as it operates like `direct:true` always being applied. In addition, it makes it difficult to apply a user gesture requirement for direct clipboard, as it would be awkward and unclear for this requirement to be only active when a pickled format is requested, and not when only sanitized formats are requested.
 
+## Risks
+Pickling clipboard API proposal consists of the below parts:
+
+1. Shape of the API to read/write pickled data.
+2. Format of pickled data on the native clipboard.
+
+For #1 we need to update all browsers and convince web developers to migrate to the new API.
+For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as html, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
+
+## Privacy and Security
+
+This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new.
+
+Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. The existing Web Platform has an API that supports the most popular standardized data types (html, text, image etc) across all platforms and some types have sanitizers(html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
+
+For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
+
 ## Stakeholder Feedback / Opposition
 *   Implementers:
-    *   Edge : No Signals
+    *   Edge : [Positive](https://crbug.com/106449#c19)
     *   Firefox : No Signals
     *   Safari : No Signals
 *   Stakeholders:
