@@ -3,6 +3,7 @@
 
 ## Author:
 *   huangdarwin@chromium.org
+*   snianu@microsoft.com
 
 ## Introduction
 Powerful web applications would like to exchange data payloads with web and native applications via the OS clipboard (copy-paste). The existing Web Platform has an API that supports the most popular standardized data types (text, image, rich text) across all platforms. However, this API does not scale to the long tail of specialized formats. In particular, custom formats, non-web-standard formats like TIFF (a large image format), and proprietary formats like .docx (a document format), are not supported by the current Web Platform. Pickling for Async Clipboard API aims to provide a solution to this problem, by letting web applications read and write custom, unsanitized, web-originated payloads using a standardized pickling format.
@@ -122,14 +123,6 @@ On Linux, ChromeOS, and Android, MIME types are often used (though Linux and Chr
 
 On Test and Headless platforms, MIME types will be used for consistency with Linux, ChromeOS, and Android.
 
-### User Gesture Requirement
-On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a user gesture, so that the site will not be able to silently read or write clipboard information. This will be gated when the `{direct: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
-
-This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as direct clipboard would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
-
-### Permissions
-Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for direct clipboard. Given that Clipboard API read and write are already permitted, direct clipboard read and write will be permitted as is.
-
 ### Caveat: Unclear Clipboard format source on read.
 A site may potentially read a format from one of two roughly equivalent sources: sanitized or pickled. It may be unclear or confusing which equivalent format is actually being read from. This could allow malicious sites to for example write a malicious pickled text/plain format, while also providing an innocuous sanitized text/plain format. Most folks will only ever see the innocuous content, but folks using a site that expects pickled content may surprisingly be exposed to the malicious content. It could also be confusing for sites that a native application expecting a sanitized format cannot get access to the same content as another native application expecting the equivalent pickled format.
 
@@ -154,17 +147,25 @@ For #2 we need to update all browsers and native apps to consume this new custom
 
 ## Privacy and Security
 
-This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new.
+This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new. These custom formats may be less visible to the user compared to the plain-text format so it might still be possible to transfer PII data without the knowledge of the user.
 
-Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. The existing Web Platform has an API that supports the most popular standardized data types (html, text, image etc) across all platforms and some types have sanitizers(html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
+Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. Popular standardized data types (html, text, image etc) are available across all platforms and some types have sanitizers(html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
 
 For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
+
+### User Gesture Requirement
+On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a user gesture, so that the site will not be able to silently read or write clipboard information. This will be gated when the `{direct: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
+
+This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as direct clipboard would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
+
+### Permissions
+Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for direct clipboard. Given that Clipboard API read and write are already permitted, direct clipboard read and write will be permitted as is.
 
 ## Stakeholder Feedback / Opposition
 *   Implementers:
     *   Edge : [Positive](https://crbug.com/106449#c19)
-    *   Firefox : No Signals
-    *   Safari : No Signals
+    *   Firefox : [Request for position](https://github.com/mozilla/standards-positions/issues/525)
+    *   Safari : [Request for position](https://lists.webkit.org/pipermail/webkit-dev/2021-May/031855.html)
 *   Stakeholders:
     *   Figma : [Positive](https://crbug.com/150835#c73)
     *   Sketchup : [Positive](https://discourse.wicg.io/t/proposal-raw-clipboard-access/3979/4)
