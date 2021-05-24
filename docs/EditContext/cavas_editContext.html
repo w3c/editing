@@ -1,0 +1,69 @@
+<head>
+    <style>
+        canvas:hover {
+            cursor: default;
+        }
+    </style>
+</head>
+Click somewhere in the Canvas below, start typing Chinese/Japanese/Korean,<br>
+and change candidate characters to see how EditContext works with Canvas regarding IME: <br><br>
+<canvas id="myCanvas" width="400" height="200" style="border:1px solid #000000;">
+</canvas>
+
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let canvasContext2D = canvas.getContext("2d");
+    canvasContext2D.font = "30px Arial";
+
+    let editContext = new EditContext();
+    canvas.editContext = editContext;
+    canvas.focus();
+
+    let anchorX = 0; // the anchor point of the composition
+    let anchorY = 0;
+    let charWidth = 30; // assuming the width of the chinese character is 30px.
+    let selection = 0; // selection i.e the index of the caret position
+    let caretLength = 28;
+
+    function renderCaret(x, y) {
+        canvasContext2D.beginPath();
+        canvasContext2D.moveTo(x + 2, y + 5);
+        canvasContext2D.lineTo(x + 2, y - caretLength);
+        canvasContext2D.strokeStyle = 'green';
+        canvasContext2D.stroke();
+    }
+
+    function render() {
+        canvasContext2D.clearRect(0,0, canvas.width, canvas.height);
+        
+        // Draw texts in EditContext's buffer
+        canvasContext2D.strokeText(editContext.text, anchorX, anchorY);
+
+        let caretX = anchorX + selection * charWidth;
+        let caretY = anchorY;
+        renderCaret(caretX, caretY);
+
+        // Update bounds for IME.
+        let controlBound = canvas.getBoundingClientRect();
+        selectoinClientX = caretX + canvas.offsetLeft;
+        selectoinClientY = caretY + canvas.offsetTop;
+        let selectionBound = DOMRect.fromRect({x:selectoinClientX, y:selectoinClientY, width:1, height:10});
+
+        editContext.updateLayout(controlBound, selectionBound);
+    }
+
+    // when user typing, draw EditContext's text buffer to the canvas.
+    editContext.addEventListener("textupdate", e => {
+        console.log(`editContext::textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
+        selection = e.newSelectionStart;
+        render();
+    });
+
+    canvas.addEventListener('click', function(event) {
+        let elemLeft = canvas.offsetLeft + canvas.clientLeft;
+        let elemTop = canvas.offsetTop + canvas.clientTop;
+        anchorX = event.pageX - elemLeft;
+        anchorY = event.pageY - elemTop;
+        render();
+    });
+</script>
