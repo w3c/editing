@@ -14,20 +14,19 @@ and change candidate characters to see how EditContext works with Canvas regardi
     let canvas = document.getElementById("myCanvas");
     let canvasContext2D = canvas.getContext("2d");
     canvasContext2D.font = "30px Arial";
+    let charWidth = 30; // The width of the character is 30px.
+    let caretLength = 30;
 
     let editContext = new EditContext();
     canvas.editContext = editContext;
-    canvas.focus();
 
     let anchorX = 0; // the anchor point of the composition
     let anchorY = 0;
-    let charWidth = 30; // assuming the width of the chinese character is 30px.
     let selection = 0; // selection i.e the index of the caret position
-    let caretLength = 28;
 
     function renderCaret(x, y) {
         canvasContext2D.beginPath();
-        canvasContext2D.moveTo(x + 2, y + 5);
+        canvasContext2D.moveTo(x + 2, y + 9);
         canvasContext2D.lineTo(x + 2, y - caretLength);
         canvasContext2D.strokeStyle = 'green';
         canvasContext2D.stroke();
@@ -36,23 +35,25 @@ and change candidate characters to see how EditContext works with Canvas regardi
     function render() {
         canvasContext2D.clearRect(0,0, canvas.width, canvas.height);
         
-        // Draw texts in EditContext's buffer
+        // rener texts in EditContext's buffer
         canvasContext2D.strokeText(editContext.text, anchorX, anchorY);
 
         let caretX = anchorX + selection * charWidth;
         let caretY = anchorY;
         renderCaret(caretX, caretY);
 
-        // Update bounds for IME.
+        // update layout info through EditContext so IME can show candidate window in the correct position.
         let controlBound = canvas.getBoundingClientRect();
         selectoinClientX = caretX + canvas.offsetLeft;
         selectoinClientY = caretY + canvas.offsetTop;
         let selectionBound = DOMRect.fromRect({x:selectoinClientX, y:selectoinClientY, width:1, height:10});
-
         editContext.updateLayout(controlBound, selectionBound);
+
+        // TODO: render composition decoration, ex dotted underline, using textformatupdate events.
     }
 
-    // when user typing, draw EditContext's text buffer to the canvas.
+    // when EditContext is active (i.e. the associated element is focused)
+    // it'll receive textupdate events when there is user input.
     editContext.addEventListener("textupdate", e => {
         console.log(`editContext::textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
         selection = e.newSelectionStart;
