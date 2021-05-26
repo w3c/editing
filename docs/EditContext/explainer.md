@@ -432,6 +432,8 @@ class EditableView {
 ```
 
 ## Example Application
+This [example](canvas_editContext.html) shows how an author can use EditContext with &lt;canvas&gt; to handle IME input.
+
 This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
 
 This [example](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
