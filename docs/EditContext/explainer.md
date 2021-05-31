@@ -523,5 +523,7 @@ Multiple approaches have been discussed during F2F editing meetings and through 
 ### IME Composition
 ![IME Compositions](Composition.gif)
 
+### Dictation
+![Dictation](dictation.png)
 ---
 [Related issues](https://github.com/MicrosoftEdge/MSEdgeExplainers/labels/EditContext) | [Open a new issue](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?title=%5BEditContext%5D)
