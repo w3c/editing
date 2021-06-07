@@ -32,6 +32,35 @@ and change candidate characters to see how EditContext works with Canvas regardi
         canvasContext2D.stroke();
     }
 
+    function renderUnderlineDecoration(rangeStart, rangeEnd, style, thickness) {
+        let lineStartX = anchorX + rangeStart * charWidth;
+        let offsetX = 2; // space between underlines of different phrases
+        let lineEndX = anchorX + rangeEnd * charWidth - offsetX;
+        let offsetY = 7; // space between chars and the underline
+        let lineY = anchorY + offsetY;
+        let thickWidth = 3;
+        let thinWidth = 2;
+
+        // Japanese IME returns 'Squiggle' while Chinese returns 'Dotted' for active composition.
+        // For simplicity we draw dotted line for both.
+        if (style == 'Squiggle' || style == 'Dotted') {
+            canvasContext2D.setLineDash([1, 1]); // dotted line pattern
+            canvasContext2D.beginPath();
+            canvasContext2D.moveTo(lineStartX,lineY);
+            canvasContext2D.lineTo(lineEndX, lineY);
+            canvasContext2D.stroke();
+            canvasContext2D.setLineDash([]); // reset line pattern
+
+        } else if (style == 'Solid') { // Draw solid lines for "phrases" in Japenese IME
+            canvasContext2D.lineWidth = (thickness == 'Thick')? thickWidth : thinWidth;
+            canvasContext2D.beginPath();
+            canvasContext2D.moveTo(lineStartX, lineY);
+            canvasContext2D.lineTo(lineEndX, lineY);
+            canvasContext2D.stroke();
+            canvasContext2D.lineWidth = 1; // reset line width.
+        }
+    }
+
     function render() {
         canvasContext2D.clearRect(0,0, canvas.width, canvas.height);
         
@@ -55,7 +84,7 @@ and change candidate characters to see how EditContext works with Canvas regardi
     // when EditContext is active (i.e. the associated element is focused)
     // it'll receive textupdate events when there is user input.
     editContext.addEventListener("textupdate", e => {
-        console.log(`editContext::textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
+        console.log(`textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
         selection = e.newSelectionStart;
         render();
     });
@@ -64,6 +93,7 @@ and change candidate characters to see how EditContext works with Canvas regardi
         console.log(`textformatupdate:range(${e.formatRangeStart}, ${e.formatRangeEnd}),
         ${e.underlineColor}, ${e.backgroundColor}, ${e.suggestionHighlightColor}
         ${e.textColor}, ${e.underlineThickness}, ${e.underlineStyle}`);
+        renderUnderlineDecoration(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle, e.underlineThickness);
     });
 
     canvas.addEventListener('click', function(event) {
