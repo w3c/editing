@@ -60,6 +60,12 @@ and change candidate characters to see how EditContext works with Canvas regardi
         render();
     });
 
+    editContext.addEventListener("textformatupdate", e => { 
+        console.log(`textformatupdate:range(${e.formatRangeStart}, ${e.formatRangeEnd}),
+        ${e.underlineColor}, ${e.backgroundColor}, ${e.suggestionHighlightColor}
+        ${e.textColor}, ${e.underlineThickness}, ${e.underlineStyle}`);
+    });
+
     canvas.addEventListener('click', function(event) {
         let elemLeft = canvas.offsetLeft + canvas.clientLeft;
         let elemTop = canvas.offsetTop + canvas.clientTop;
