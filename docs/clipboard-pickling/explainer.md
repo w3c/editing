@@ -55,10 +55,10 @@ const image = await clipboardItem.getType('image/png');
 
 ## Pickling Write
 Pickled formats will be written when the site tries to use a format that:
-1. Is included in a `{direct: ['format1', 'format2']}` list of formats for the `ClipboardItem`’s `ClipboardItemOption`. 
+1. Is included in a `{unsanitized: ['format1', 'format2']}` list of formats for the `ClipboardItem`’s `ClipboardItemOption`.
 2. Regardless of whether a sanitized format is also written.
 
-For example, writing the format `"text/plain"`, which is recognized by the Clipboard API as a sanitized format, will write this format to the clipboard as usual. On the other hand, writing a format `"text/custom-format"`, while also providing a `{direct: ['text/custom-format']}` list will result in a pickled format corresponding to `"text/custom-format"` to be written to the clipboard. And writing “text/plain” with a `{direct: ['text/plain']}` list will write both a sanitized and pickled payload. This API change allows a potential related pickling and sanitized format to coexist on the clipboard at the same time, which allows sites to interoperate with the more widely used sanitized format, while also getting the increased fidelity of the unmodified pickled format.
+For example, writing the format `"text/plain"`, which is recognized by the Clipboard API as a sanitized format, will write this format to the clipboard as usual. On the other hand, writing a format `"text/custom-format"` with a `{unsanitize: ['text/custom-format']}` list, which is not recognized by the Clipboard API as a sanitized format, will result in a pickled format corresponding to `"text/custom-format"` to be written to the clipboard. And writing “text/plain” with a `{unsanitized: ['text/plain']}` list will write both a sanitized and pickled payload. This API change allows a potential related pickling and sanitized format to coexist on the clipboard at the same time, which allows sites to interoperate with the more widely used sanitized format, while also getting the increased fidelity of the unmodified pickled format.
 
 ```js
 // Pickling write example.
@@ -66,7 +66,7 @@ For example, writing the format `"text/plain"`, which is recognized by the Clipb
 // written as usual.
 const text = new Blob(['text'], {type: 'text/plain'});
 // This format 'text/custom' is not sanitized by the Clipboard API. It will be
-// pickled if the format is specified in the {direct: []} formats list.
+// pickled if the format is specified in the {unsanitized: []} formats list.
 const customText = new Blob(
   ['<custom_markup>pickled_text</custom_markup>'], {type: 'text/custom'});
 
@@ -77,9 +77,9 @@ const clipboardItem = new ClipboardItem({
   'text/plain': text,       /* Sanitized format. */
   'text/custom': customText /* Pickled format. This new format will be accepted
                             and written without rejection, as long as the new
-                            direct list contains this format. */
+                            unsanitized list contains this format. */
 }, 
-{direct: ['text/custom']} /* This new list specifies the pickled format
+{unsanitized: ['text/custom']} /* This new list specifies the pickled format
                           'text/custom'. */
 );
 navigator.clipboard.write([clipboard_item]);
@@ -87,20 +87,20 @@ navigator.clipboard.write([clipboard_item]);
 
 ## Pickling Read
 Pickled formats will be read and placed in the relevant `ClipboardItem`, instead of sanitized formats, when the site tries to use a format that:
-1. Is included in a `{direct: ['format1', 'format2']}` list of formats for the overall read() call.
+1. Is included in a `{unsanitized: ['format1', 'format2']}` list of formats for the overall read() call.
 2. This will be preferred over a sanitized payload available on the same clipboard.
 
 ```js
 // Pickling read example. ClipboardItems returned by clipboard.read() may 
 // contain pickled formats.
 const clipboardItems = await navigator.clipboard.read(
-    {direct: ['text/custom']} /* This new list specifies the pickled format
+    {unsanitized: ['text/custom']} /* This new list specifies the pickled format
                               'text/custom' for all read ClipboardItems. */
   );
 const clipboardItem = clipboardItems[0];
 
 const textBlob = await clipboardItem.getType('text/plain');
-// This format reads as a pickled format, only if it is included in the direct
+// This format reads as a pickled format, only if it is included in the unsanitized
 // format list.
 const customTextBlob = await clipboardItem.getType('text/custom');
 ```
@@ -110,7 +110,7 @@ const customTextBlob = await clipboardItem.getType('text/custom');
 ### Pickled version for sanitized formats
 Sanitization of clipboard formats, while important for security reasons, may impair correctness and completeness of a clipboard format, by removing potentially useful information in a clipboard format. For HTML, `<script>`s  may be stripped, and in JPG, metadata like orientation or GPS location may be stripped.
 
-Sites can read or write pickled versions of sanitized formats, by providing the format in the `{direct: []}` list. This should be done sparingly, only where sites are concerned about metadata scrubbed by sanitization. This is because on write, this would require another payload to be written, which could be slow for large payloads. Similarly, on read, pickled data is not guaranteed to be secure or protected by the sanitization process.
+Sites can read or write pickled versions of sanitized formats, by providing the format in the `{unsanitized: []}` list. This should be done sparingly, only where sites are concerned about metadata scrubbed by sanitization. This is because on write, this would require another payload to be written, which could be slow for large payloads. Similarly, on read, pickled data is not guaranteed to be secure or protected by the sanitization process.
 
 ### OS-Interaction: Format Naming
 Native applications will only be able to interact with these formats if they explicitly add support for these pickled formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
@@ -128,13 +128,38 @@ A site may potentially read a format from one of two roughly equivalent sources:
 
 ## Considered alternatives
 
-### Alternative Considered: direct:true.
-Instead of providing a long list of formats, which requires repeating formats sites would like to be direct, sites could simply offer a `direct: true` flag, and read or write all formats not supported by the Async Clipboard API as pickled formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
+### Alternative Considered: unsanitized:true.
+Instead of providing a long list of formats, which requires repeating formats sites would like to be direct, sites could simply offer a `unsanitized: true` flag, and read or write all formats not supported by the Async Clipboard API as pickled formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
 
-That said, this would make it impossible to specify which `ClipboardItem`s should be direct. When writing a `{direct: true}` ClipboardItem, a site would have to write all sanitized payloads with their pickled equivalents, even if they only intended to use one direct format, resulting in much longer time to write. Similarly, when reading, this would mean that all ClipboardItems must have all formats be direct or not.
+That said, this would make it impossible to specify which `ClipboardItem`s should be unsanitized. When writing a `{unsanitized: true}` ClipboardItem, a site would have to write all sanitized payloads with their pickled equivalents, even if they only intended to use one unsanitized format, resulting in much longer time to write. Similarly, when reading, this would mean that all ClipboardItems must have all formats be unsanitized or not.
 
-### Alternative Considered: direct if not supported by the Async Clipboard API.
-A much simpler approach would be to simply omit any `direct` `ClipboardItemOption` at all, and simply read or write a pickled format whenever the Async Clipboard API doesn’t already support a sanitized version of the format. This has the same caveats as `direct:true`, as it operates like `direct:true` always being applied. In addition, it makes it difficult to apply a user gesture requirement for direct clipboard, as it would be awkward and unclear for this requirement to be only active when a pickled format is requested, and not when only sanitized formats are requested.
+### Alternative Considered: unsanitized if not supported by the Async Clipboard API.
+A much simpler approach would be to simply omit any `unsanitized` `ClipboardItemOption` at all, and simply read or write a pickled format whenever the Async Clipboard API doesn’t already support a sanitized version of the format. This has the same caveats as `unsanitized:true`, as it operates like `unsanitized:true` always being applied. In addition, it makes it difficult to apply a user gesture requirement for unsanitized clipboard, as it would be awkward and unclear for this requirement to be only active when a pickled format is requested, and not when only sanitized formats are requested.
+
+## Risks
+Pickling clipboard API proposal consists of the below parts:
+
+1. Shape of the API to read/write pickled data.
+2. Format of pickled data on the native clipboard.
+
+For #1 we need to update all browsers and convince web developers to migrate to the new API.
+For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as html, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
+
+## Privacy and Security
+
+This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new. These custom formats may be less visible to the user compared to the plain-text format so it might still be possible to transfer PII data without the knowledge of the user.
+
+Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. Popular standardized data types (html, text, image etc) are available across all platforms and some types have sanitizers (html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
+
+For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
+
+### User Gesture Requirement
+On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a [transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#transient-activation), so that the site will not be able to silently read or write clipboard information. This will be gated when the `{unsanitized: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
+
+This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as unsanitized clipboard would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
+
+### Permissions
+Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for unsanitized clipboard. Given that Clipboard API read and write are already permitted, unsanitized clipboard read and write will be permitted as is.
 
 ## Risks
 Pickling clipboard API proposal consists of the below parts:
