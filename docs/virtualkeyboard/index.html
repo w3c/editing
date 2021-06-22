@@ -48,7 +48,7 @@
 <body>
     <section id='abstract'>
         <p>
-            The {{VirtualKeyboard}} API provides web developers with a more granular control of an on-screen keyboard (virtual keyboard or VK). The API also provides information about VK geometry, such as rect occlusion and gives ability to opt-out from a resizing of the visual viewport in the browser.
+            The {{VirtualKeyboard}} API provides web developers a more granular control of on-screen keyboard (virtual keyboard or VK). The API also provides information about VK geometry, such as rect occlusion and gives ability to opt-out from resizing of the visual viewport in the browser.
         </p>
     </section>
     <section id='sotd'>
@@ -59,8 +59,8 @@
         <h2>Introduction</h2>
         <P>This section is non-normative.</P>
         <p>
-            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike a hardware keyboard, VK can adapt its shape to optimize for the expected type of input.
-            In addition, user agents respond to the presence of the VK, without any exposure of this information to a web developer. This document proposes a new web API surface for VK that developers can use to enable better customization of their webpage's content and experiences.
+            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike hardware keyboard, VK can adapt its shape to optimize for the expected type of input.
+            In addition, user agents respond to the presence of the VK, without any exposure of this information to web developers. This document proposes a new web API surface for VK that developers can use to enable better customization of their webpage's content and experiences.
         </p>
     </section>
     <section id="conformance">
@@ -104,13 +104,8 @@
                   <li>If the <a>document</a> doesn't have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
 
                   </li>
-                  <li>Let |p:Promise| be a new {{Promise}}.
+                  <li>Trigger {{VirtualKeyboard/show()}} call that invokes a system API to show the VK.
                   </li>
-                  <li>Trigger {{VirtualKeyboard/show()}} call that calls the system API to show the keyboard.
-                  </li>
-                  <li>Let |data| be the return value from the call that triggered {{VirtualKeyboard/show()}}.</li>
-                  <li>Resolve |p| with |data|.</li>
-                  
                 </ol>
                </dd>
             <dt>
@@ -121,27 +116,24 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-<<<<<<< HEAD
-                  <li>If the <a>document</a> doesn't have sticky user activation, abort these steps.
-=======
                   <li>If the <a>document</a> doesn't have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
->>>>>>> 258ab1964f268930bf88bfa58d1f4cedf477696b
                   </li>
-                  <li>Let |p:Promise| be a new {{Promise}}.
+                  <li>Trigger {{VirtualKeyboard/hide()}}call that invokes a system API to hide the keyboard.
                   </li>
-                  <li>Trigger {{VirtualKeyboard/hide()}}call that calls the system API to hide the keyboard.
-                  </li>
-                  <li>Let |data| be the return value from the call that triggered {{VirtualKeyboard/hide()}}.</li>
-                  <li>Resolve |p| with |data|.</li>
-                  
                 </ol>
                </dd>
+               <p class="note">
+                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}.
+              </p>
+              <p class="note">
+                A few people have expressed concerns around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we couldn't find any real use cases around needing promises in this type of operation.
+              </p>
             <dt>
               <dfn>overlaysContent</dfn>
             </dt>
             <dd>
               <p>
-                The attribute enables the author to opt-out of resizing of the visual viewport.
+                The attribute enables the author to opt-out of resizing the visual viewport.
               </p>
             </dd>
             <dt>
@@ -149,7 +141,7 @@
             </dt>
             <dd>
             <p>
-                The attribute reports the intersection of the virtual keyboard with the layout viewport in client coordinates.
+                The attribute reports the intersection of the VK with the layout viewport in client coordinates.
             </p>
             </dd>
             <dt>
@@ -157,7 +149,7 @@
               </dt>
               <dd>
               <p>
-                  The event is dispatched when the intersection of the virtual keyboard and the layout viewport changes, e.g. in response to the virtual keyboard being shown or hidden or the browser window being repositioned.
+                  The event is dispatched when the intersection of the VK and the layout viewport changes, e.g. in response to the VK being shown or hidden or the browser window being repositioned.
               </p>
               </dd>
         </dl>
@@ -172,7 +164,7 @@
         </pre>
         <p>The <dfn><code>virtualKeyboardPolicy</code></dfn> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the empty string, auto, and manual.
         <p>When specified on an element that is a contenteditable host, <dfn><code>auto</code></dfn> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <dfn><code>manual</code></dfn> 
-            decouples focus and taps on the editable element from changes in the VK’s current state - the VK remains as it was.
+            decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
         </p>
     </section>
     <section>
@@ -219,10 +211,6 @@
     </section>
     <section>
         <h2>Examples</h2>
-        <p class="note">
-            Few folks have expressed that <code>show()</code> and <code>hide()</code> methods to be promise-based. While the IDL and examples are geared towards 
-            this design, there is also a sceptisism around real use cases around needing promisess in this type of operation.
-          </p>
             <section>
                 <h3>Example with usage of VK control APIs.</h3>
                 <aside class="example" title="VirtualKeyboardPolicy">
