@@ -2,7 +2,7 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8'>
-    <title>VirtualKeyboardAPI</title>
+    <title>VirtualKeyboard API</title>
     <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
     <script class='remove'>
         var respecConfig = {
@@ -45,7 +45,7 @@
     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
-<body>
+<body contenteditable="true">
     <section id='abstract'>
         <p>
             The {{VirtualKeyboard}} API provides web developers a more granular control of on-screen keyboard (virtual keyboard or VK). The API also provides information about VK geometry, such as rect occlusion and gives ability to opt-out from resizing of the visual viewport in the browser.
@@ -101,10 +101,19 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                  <li>If the <a>document</a> doesn't have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
-
+                    <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
-                  <li>Trigger {{VirtualKeyboard/show()}} call that invokes a system API to show the VK.
+                  <li>
+                    If the focused element's <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a> value is false, then abort these steps.
+                  </li>
+                  <li>
+                    If the <code>virtualKeyboardPolicy</code> is not <code></code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                  </li>
+                  <li>
+                      Call the system API to show the VK.
+                  </li>
+                  <li>
+                    When the VK is shown by the system, {{VirtualKeyboard/ongeometrychange()}} event is fired that contains the intersection of the keyboard geometry and layout viewport in client coordinates.
                   </li>
                 </ol>
                </dd>
@@ -116,24 +125,37 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                  <li>If the <a>document</a> doesn't have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                  <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
-                  <li>Trigger {{VirtualKeyboard/hide()}}call that invokes a system API to hide the keyboard.
+                  <li>
+                    If the focused element's <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a> value is false, then abort these steps.
                   </li>
+                  <li>
+                    If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                </li>
+                <li>
+                    Call the system API to hide the VK.
+                </li>
+                <li>
+                    When the VK is hidden by the system, {{VirtualKeyboard/ongeometrychange()}} event is fired that contains the intersection of the keyboard geometry and layout viewport in client coordinates.
+                </li>
                 </ol>
                </dd>
                <p class="note">
-                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}.
+                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., On Windows the pointer type has to be
+                touch or pen.
               </p>
               <p class="note">
-                A few people have expressed concerns around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we couldn't find any real use cases around needing promises in this type of operation.
+                A few people have expressed concerns around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we could not find any real use cases around needing promises in this type of operation.
               </p>
             <dt>
               <dfn>overlaysContent</dfn>
             </dt>
             <dd>
               <p>
-                The attribute enables the author to opt-out of resizing the visual viewport.
+                To set the attribute to opt-out of resizing the visual viewport, 
+                <br> 
+                set {{VirtualKeyboard/overlaysContent}} to <code>true</code>.
               </p>
             </dd>
             <dt>
@@ -142,6 +164,9 @@
             <dd>
             <p>
                 The attribute reports the intersection of the VK with the layout viewport in client coordinates.
+                If a script calls a get on {{VirtualKeyboard/boundingRect}} then
+                <br>
+                Return the intersection of the VK with the layout viewport in client coordinates.
             </p>
             </dd>
             <dt>
@@ -149,7 +174,7 @@
               </dt>
               <dd>
               <p>
-                  The event is dispatched when the intersection of the VK and the layout viewport changes, e.g. in response to the VK being shown or hidden or the browser window being repositioned.
+                  The event is dispatched when the intersection of the VK and the layout viewport changes, e.g., in response to the VK being shown or hidden or the browser window being repositioned.
               </p>
               </dd>
         </dl>
@@ -162,10 +187,24 @@
             attribute DOMString virtualKeyboardPolicy;
            };
         </pre>
-        <p>The <dfn><code>virtualKeyboardPolicy</code></dfn> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the empty string, auto, and manual.
-        <p>When specified on an element that is a contenteditable host, <dfn><code>auto</code></dfn> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <dfn><code>manual</code></dfn> 
+        <p>The <code>virtualKeyboardPolicy</code> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>.
+            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code> 
             decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
+            <br>
+            The change in setting of any attribute, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
+            <ul>
+                <li>
+                 When <dfn>auto</dfn> enumerated attribute is set, the VK is handled by the browser. 
+                </li>
+                <li>
+                 When <dfn>manual</dfn> enumerated attribute is set, it prevents the default handling of the VK in a browser and needs to be handled by the script.
+                </li>
+                <li>
+                When <dfn>empty string</dfn> enumerated attribute is set, the VK is handled by the browser.
+                </li>
+            </ul>
         </p>
+        
     </section>
     <section>
         <h2>
@@ -204,8 +243,8 @@
             </table>
             
             <p>The keyboard insets are six <a href="https://drafts.csswg.org/css-env-1/#environment">environment variables</a> that define a rectangle by
-            its top, right, bottom, and left insets from the edge of the viewport. The width & height insets is calculated from the other insets for developer
-            ergonomics.
+            its top, right, bottom, and left insets from the edge of the viewport. Default value of the keyboard insets are "0px" if a fallback value is not provided else it gets updated when {{VirtualKeyboard/boundingRect}} value changes.
+            The width & height insets are calculated from the remaining insets for developer ergonomics.
             </p>
         </section>
     </section>
@@ -234,8 +273,6 @@
     
                                 if (e.pointerType == "touch") {
                                     navigator.virtualKeyboard.show()
-                                    .then(handleSuccessfulShow)
-                                    .catch(handleFailedShow)
                                 }
                             }
     
@@ -410,14 +447,14 @@
             No considerable privacy concerns are expected for the following reasons:
             <ul>
                 <li>
-                    No information about an user is being shared with script. The API only controls what should happen to the virtual keyboard followed by the user action.
+                    No information about a user is being shared with script. The API only controls what should happen to the virtual keyboard followed by the user action.
                 </li>
             </ul>
         </p>
     </section>
     <section>
         <h3><code>boundingRect</code>, <code>overlaysContent</code> and <code>ongeometrychange</code> attributes</h3>
-       These attributes may have privacy implications through  fingerprinting in the following cases:
+       These attributes may have privacy implications through fingerprinting in the following cases:
 
         <ol>
             <li>The height of the VK.</li>
@@ -425,12 +462,12 @@
         </ol>
 
         <p>
-            The first concern is not new on the web and can currrently be inferred with usage of visual viewport API.
+            The first concern is not new on the web and can currently be inferred with usage of visual viewport API.
         </p>
 
         <p>
-            The second concern can be partially mitigated with help of user agents.
-            In a single screen instances where knowledge of the VK width does not enable new scenarios the user agent could always report VK taking full width of the viewport.
+            The second concern can be partially mitigated with the help of user agents.
+            In a single screen instance where knowledge of the VK width does not enable new scenarios the user agent could always report VK taking full width of the viewport.
             
             If the intersection is key to the experience, as it is with foldable devices, then the same information can
             likely be discovered by the author through other APIs, for example by checking the number
@@ -438,7 +475,7 @@
             these devices.
         </p>
     </section>
-        In summary, with some user agent mitigations, and the fact that this API is not adding new ways to that compromise user privacy, authors will not gain any new information for use in fingerprinting.
+        In summary, with some user agent mitigations, and the fact that this API is not adding new ways to compromise user privacy, authors will not gain any new information for use in fingerprinting.
     </section>
     <section id="idl-index" class="appendix">
         <!-- All the Web IDL will magically appear here -->
