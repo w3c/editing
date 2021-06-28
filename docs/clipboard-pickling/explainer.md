@@ -129,7 +129,7 @@ A site may potentially read a format from one of two roughly equivalent sources:
 ## Considered alternatives
 
 ### Alternative Considered: unsanitized:true.
-Instead of providing a long list of formats, which requires repeating formats sites would like to be direct, sites could simply offer a `unsanitized: true` flag, and read or write all formats not supported by the Async Clipboard API as pickled formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
+Instead of providing a long list of formats, which requires repeating formats sites would like to be unsanitized, sites could simply offer a `unsanitized: true` flag, and read or write all formats not supported by the Async Clipboard API as pickled formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
 
 That said, this would make it impossible to specify which `ClipboardItem`s should be unsanitized. When writing a `{unsanitized: true}` ClipboardItem, a site would have to write all sanitized payloads with their pickled equivalents, even if they only intended to use one unsanitized format, resulting in much longer time to write. Similarly, when reading, this would mean that all ClipboardItems must have all formats be unsanitized or not.
 
@@ -179,12 +179,12 @@ Websites or native apps need to explicitly opt-in to consume these formats which
 For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
 
 ### User Gesture Requirement
-On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a user gesture, so that the site will not be able to silently read or write clipboard information. This will be gated when the `{direct: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
+On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a user gesture, so that the site will not be able to silently read or write clipboard information. This will be gated when the `{unsanitized: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
 
-This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as direct clipboard would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
+This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as unsanitized formats would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
 
 ### Permissions
-Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for direct clipboard. Given that Clipboard API read and write are already permitted, direct clipboard read and write will be permitted as is.
+Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for direct clipboard. Given that Clipboard API read and write are already permitted, clipboard read and write with unsanitized formats will be permitted as is.
 
 ## Stakeholder Feedback / Opposition
 *   Implementers:
