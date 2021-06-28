@@ -161,31 +161,6 @@ This requirement isn’t enforced for the Async Clipboard API overall, as such a
 ### Permissions
 Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for unsanitized clipboard. Given that Clipboard API read and write are already permitted, unsanitized clipboard read and write will be permitted as is.
 
-## Risks
-Pickling clipboard API proposal consists of the below parts:
-
-1. Shape of the API to read/write pickled data.
-2. Format of pickled data on the native clipboard.
-
-For #1 we need to update all browsers and convince web developers to migrate to the new API.
-For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as html, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
-
-## Privacy and Security
-
-This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new. These custom formats may be less visible to the user compared to the plain-text format so it might still be possible to transfer PII data without the knowledge of the user.
-
-Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. Popular standardized data types (html, text, image etc) are available across all platforms and some types have sanitizers(html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
-
-For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
-
-### User Gesture Requirement
-On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a user gesture, so that the site will not be able to silently read or write clipboard information. This will be gated when the `{unsanitized: ['format1', 'format2']}` list is present, and will reject if the user gesture is not present.
-
-This requirement isn’t enforced for the Async Clipboard API overall, as such a change would be web-incompatible, breaking sites that already use this API with the expectation that user gesture was not a requirement. That said, as unsanitized formats would be a new, more powerful API, it will be required to protect the user’s privacy. Additionally, it may be notable that Safari already requires a user gesture for all Async Clipboard API interactions.
-
-### Permissions
-Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for direct clipboard. Given that Clipboard API read and write are already permitted, clipboard read and write with unsanitized formats will be permitted as is.
-
 ## Stakeholder Feedback / Opposition
 *   Implementers:
     *   Edge : [Positive](https://crbug.com/106449#c19)
