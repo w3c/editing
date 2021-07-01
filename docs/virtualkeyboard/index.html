@@ -78,11 +78,6 @@
                 Figure showing virtual keyboard on single-touch screen device
                 <img style="margin-left:auto; margin-right:auto; display: block;" src="single-touch-screen-device.png" width="500" height="200" alt="Figure showing virtual keyboard on single-touch screen device"/>
             </p>
-
-            <p>
-                Figure showing virtual keyboard on the spreadsheet app
-                <img style="margin-left:auto; margin-right:auto; display: block;" src="spreadsheet-example.svg" width="500" height="200" alt="Figure showing virtual keyboard on single-touch screen device"/>
-            </p>
         </p>
     </section>
     <section id="conformance">
@@ -102,10 +97,10 @@
         <h2>The <dfn>VirtualKeyboard</dfn> Interface</h2>
         <pre class="idl">
             partial interface Navigator {
-                [SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
+                [SecureContext, SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
             };
             
-            [Exposed=Window]
+            [Exposed=Window, SecureContext]
             interface VirtualKeyboard : EventTarget {
                 undefined show();
                 undefined hide();
@@ -171,7 +166,7 @@
             </dt>
             <dd>
               <p>
-                To set the attribute to opt-out of resizing the visual viewport, 
+                When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport. 
                 <br> 
                 set {{VirtualKeyboard/overlaysContent}} to <code>true</code>.
               </p>
@@ -352,6 +347,10 @@
                         </xmp>
                     </pre>
                     </aside>
+                    <p>
+                        The figure and markup below is a representation of a canvas-based spreadsheet that repositions the active cell when the VK is shown. The `geometrychange` event triggers a paint request for the canvas. The painting code can then use the `boundingRect` property to render the active cell in the proper location.
+                        <img style="margin-left:auto; margin-right:auto; display: block;" src="spreadsheet-example.svg" width="700" height="300" alt="Figure showing virtual keyboard on single-touch screen device"/>
+                    </p>
                     <aside class="example" title="Repositioning Content using JavaScript geometrychange">
                         <pre>
                             <xmp>
@@ -395,6 +394,9 @@
                             </xmp>
                         </pre>
                         </aside>
+                        The figure below represents a map application that presents a map on one window segment and search results on another.
+                        Using the proposal for <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Foldables/explainer.md">Window Segments</a> and media queries, the search box shown will increase its bottom margin to remain visible whenever the virtual keyboard appears on the left side of the foldable device.
+                        <img style="margin-left:auto; margin-right:auto; display: block;" src="example.png" width="700" height="300" alt="Figure showing virtual keyboard on single-touch screen device"/>
                         <aside class="example" title="Repositioning Content on Foldable Devices with overlaysContent">
                         <pre>
                             <xmp>
