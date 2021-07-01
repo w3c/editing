@@ -48,7 +48,7 @@
 <body>
     <section id='abstract'>
         <p>
-            The {{VirtualKeyboard}} API provides web developers a more granular control of on-screen keyboard (virtual keyboard or VK). The API also provides information about VK geometry, such as rect occlusion and gives ability to opt-out from resizing of the visual viewport in the browser.
+            The {{VirtualKeyboard}} API provides authors with greater control over the visibility of the virtual keyboard (VK), and greater ability to adapt the layout of web pages when VK visibility changes.
         </p>
     </section>
     <section id='sotd'>
@@ -59,8 +59,30 @@
         <h2>Introduction</h2>
         <P>This section is non-normative.</P>
         <p>
-            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available. Unlike hardware keyboard, VK can adapt its shape to optimize for the expected type of input.
-            In addition, user agents respond to the presence of the VK, without any exposure of this information to web developers. This document proposes a new web API surface for VK that developers can use to enable better customization of their webpage's content and experiences.
+            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available.
+            User agents respond to the presence of the VK, without any exposure of this information to web developers in the following way:
+                1. Repositioning the user agent above the VK
+                2. Reducing the size of the layout viewport so the VK doesn't occlude it
+                3. Reducing the size of the visual viewport and padding the layout viewport to ensure it can be shifted above the VK
+
+            This API provides a fourth option that allows the user agent to leave its layout and visual viewports unchanged and instead
+            provide information about the intersection of the VK and layout viewport so that the author can adapt the layout of their web
+            pages using JavaScript or CSS environment variables.
+
+            <p>
+                Figure showing virtual keyboard on dual screen device
+                <img style="margin-left:auto; margin-right:auto; display: block;" src="dual-screen-device.png" width="500" height="200" alt="Figure showing virtual keyboard on dual screen device"/>
+            </p>
+
+            <p>
+                Figure showing virtual keyboard on single-touch screen device
+                <img style="margin-left:auto; margin-right:auto; display: block;" src="single-touch-screen-device.png" width="500" height="200" alt="Figure showing virtual keyboard on single-touch screen device"/>
+            </p>
+
+            <p>
+                Figure showing virtual keyboard on the spreadsheet app
+                <img style="margin-left:auto; margin-right:auto; display: block;" src="spreadsheet-example.svg" width="500" height="200" alt="Figure showing virtual keyboard on single-touch screen device"/>
+            </p>
         </p>
     </section>
     <section id="conformance">
@@ -104,16 +126,16 @@
                     <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
-                    If the focused element's <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a> value is false, then abort these steps.
+                    If the focused element is not a form control (such as the value of <a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">textarea</a> elements), or an <a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-host">editing host</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
                   </li>
                   <li>
-                    If the <code>virtualKeyboardPolicy</code> is not <code></code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                    If the <code>virtualKeyboardPolicy</code> is not <code></code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
                   </li>
                   <li>
                       Call the system API to show the VK.
                   </li>
                   <li>
-                    When the VK is shown by the system, {{VirtualKeyboard/ongeometrychange()}} event is fired that contains the intersection of the keyboard geometry and layout viewport in client coordinates.
+                    When the VK is shown by the system, fire {{VirtualKeyboard/ongeometrychange()}} event.
                   </li>
                 </ol>
                </dd>
@@ -128,10 +150,7 @@
                   <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
-                    If the focused element's <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a> value is false, then abort these steps.
-                  </li>
-                  <li>
-                    If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                    If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
                 </li>
                 <li>
                     Call the system API to hide the VK.
@@ -142,11 +161,10 @@
                 </ol>
                </dd>
                <p class="note">
-                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., On Windows the pointer type has to be
-                touch or pen.
+                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., on Windows the pointer type has to be touch or pen.
               </p>
               <p class="note">
-                A few people have expressed concerns around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we could not find any real use cases around needing promises in this type of operation.
+                A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we could not find any real use cases around needing promises in this type of operation.
               </p>
             <dt>
               <dfn>overlaysContent</dfn>
