@@ -6,9 +6,10 @@
     <script src='https://www.w3.org/Tools/respec/respec-w3c-common' defer class='remove'></script>
     <script class='remove'>
         var respecConfig = {
-              specStatus:   "ED"
-          ,   shortName:    "virtualKeyboard"
-          ,   editors:      [{ name: "Anupam Snigdha",
+            github: "w3c/editing"
+            ,specStatus:   "ED"
+            ,shortName:    "virtualKeyboard"
+            ,editors:      [{ name: "Anupam Snigdha",
                                mailto: "snianu@microsoft.com",
                                company: "Microsoft Corporation"},
                                { name: "Grisha Lyukshin",
@@ -32,7 +33,7 @@
                       href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
                   }]
               }]
-          ,   wg: "Web Applications Working Group"
+          ,   wg: "Web Editing Working Group"
           ,   wgURI: "https://www.w3.org/2019/webapps/"
           ,   wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status"
           ,   edDraftURI:   "http://w3c.github.io/editing/docs/virtualKeyboard/"
@@ -195,9 +196,8 @@
     <section data-dfn-for="ElementContentEditable">
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
-           partial interface ElementContentEditable {
-            [CEReactions, Reflect, ReflectOnly=("auto","manual")] 
-            attribute DOMString virtualKeyboardPolicy;
+            partial interface ElementContentEditable {
+                [CEReactions, Reflect, ReflectOnly=("auto","manual")]  attribute DOMString virtualKeyboardPolicy;
            };
         </pre>
         <p>The <code>virtualKeyboardPolicy</code> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>.
@@ -461,39 +461,24 @@
         Because VirtualKeyboard APIs may reveal some aspects about layout of user's VK, user agents must ensure that no extra information is exposed
         to the script that it already has through existing APIs.
 
+        To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.
     <section>
-        <h3><code>hide()</code> and <code>show()</code> methods and <code>virtualKeyboardPolicy</code> attribute</h3>
+        
+        <h3><code>hide()</code> and <code>show()</code> methods</h3>
         <p>
-            No considerable privacy concerns are expected for the following reasons:
             <ul>
                 <li>
-                    No information about a user is being shared with script. The API only controls what should happen to the virtual keyboard followed by the user action.
+                    User Agent MUST execute {{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} APIs in the <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                </li>
+                <li>
+                    User Agent MUST preempt executing {{VirtualKeyboard/show()}} with <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>.
                 </li>
             </ul>
         </p>
     </section>
     <section>
         <h3><code>boundingRect</code>, <code>overlaysContent</code> and <code>ongeometrychange</code> attributes</h3>
-       These attributes may have privacy implications through fingerprinting in the following cases:
-
-        <ol>
-            <li>The height of the VK.</li>
-            <li>Specific intersection of the VK with the layout viewport.</li>
-        </ol>
-
-        <p>
-            The first concern is not new on the web and can currently be inferred with usage of visual viewport API.
-        </p>
-
-        <p>
-            The second concern can be partially mitigated with the help of user agents.
-            In a single screen instance where knowledge of the VK width does not enable new scenarios the user agent could always report VK taking full width of the viewport.
-            
-            If the intersection is key to the experience, as it is with foldable devices, then the same information can
-            likely be discovered by the author through other APIs, for example by checking the number
-            of window segments, which are necessary so that optimized experiences can be developed for
-            these devices.
-        </p>
+        User Agent MUST execute {{VirtualKeyboard/overlaysContent}} API in the <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a> and it is in <a href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context"> top-level browsing context</a>
     </section>
         In summary, with some user agent mitigations, and the fact that this API is not adding new ways to compromise user privacy, authors will not gain any new information for use in fingerprinting.
     </section>
@@ -507,6 +492,7 @@
                along with link to their GitHub profiles -->
         </ul>
       </section>
+      <section id="references" class="appendix"></section>
 </body>
 
 </html>
