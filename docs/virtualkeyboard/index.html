@@ -143,7 +143,7 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                  <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                  <li>If the browsing context is not focused, abort these steps.
                   </li>
                   <li>
                     If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
@@ -160,16 +160,14 @@
                 Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., on Windows the pointer type has to be touch or pen.
               </p>
               <p class="note">
-                A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based. However, we could not find any real use cases around needing promises in this type of operation.
+                A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based, but we believe it is a better design for web developers to use {{VirtualKeyboard/ongeometrychange}} event since it is fired when VK visibility changes, making the return values unnecessary.
               </p>
             <dt>
               <dfn>overlaysContent</dfn>
             </dt>
             <dd>
               <p>
-                When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport. 
-                <br> 
-                set {{VirtualKeyboard/overlaysContent}} to <code>true</code>.
+                When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport.
               </p>
             </dd>
             <dt>
@@ -178,9 +176,6 @@
             <dd>
             <p>
                 The attribute reports the intersection of the VK with the layout viewport in client coordinates.
-                If a script calls a get on {{VirtualKeyboard/boundingRect}} then
-                <br>
-                Return the intersection of the VK with the layout viewport in client coordinates.
             </p>
             </dd>
             <dt>
@@ -197,14 +192,20 @@
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
             partial interface ElementContentEditable {
-                [CEReactions, Reflect, ReflectOnly=("auto","manual")]  attribute DOMString virtualKeyboardPolicy;
+                [CEReactions, Reflect, ReflectOnly=("auto","manual")] attribute DOMString virtualKeyboardPolicy;
            };
         </pre>
+        <p class="issue">
+            Add handling of input and textarea.
+          </p>
         <p>The <code>virtualKeyboardPolicy</code> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>.
             When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code> 
             decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
             <br>
-            The change in setting of any attribute, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
+            The change in setting of any <code>virtualKeyboardPolicy</code> attribute value, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
+            <p class="issue">
+                Specify timing relative to events like focus.
+            </p>
             <ul>
                 <li>
                  When <dfn>auto</dfn> enumerated attribute is set, the VK is handled by the browser. 
@@ -468,29 +469,27 @@
         <p>
             <ul>
                 <li>
-                    User Agent MUST execute {{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} APIs in the <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                    User Agent MUST only allow {{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
                 </li>
                 <li>
-                    User Agent MUST preempt executing {{VirtualKeyboard/show()}} with <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>.
+                    User Agent MUST only allow the {{VirtualKeyboard/show()}} method to be called when <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a> is present.
                 </li>
             </ul>
         </p>
     </section>
     <section>
         <h3><code>boundingRect</code>, <code>overlaysContent</code> and <code>ongeometrychange</code> attributes</h3>
-        User Agent MUST execute {{VirtualKeyboard/overlaysContent}} API in the <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a> and it is in <a href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context"> top-level browsing context</a>
+        User Agent MUST only allow {{VirtualKeyboard/overlaysContent}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">secure</a>, <a href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context"> top-level browsing context.</a>
     </section>
-        In summary, with some user agent mitigations, and the fact that this API is not adding new ways to compromise user privacy, authors will not gain any new information for use in fingerprinting.
     </section>
     <section id="idl-index" class="appendix">
         <!-- All the Web IDL will magically appear here -->
     </section>
     <section>
         <h2>Contributors</h2>
-        <ul id="gh-contributors">
-          <!-- list of contributors will appear here,
-               along with link to their GitHub profiles -->
-        </ul>
+        <p class="ednote">
+            add contributors
+        </p>
       </section>
       <section id="references" class="appendix"></section>
 </body>
