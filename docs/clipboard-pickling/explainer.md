@@ -115,11 +115,33 @@ Sites can read or write pickled versions of sanitized formats, by providing the 
 ### OS-Interaction: Format Naming
 Native applications will only be able to interact with these formats if they explicitly add support for these pickled formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
 
-On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"custom/format"` will be transformed to `"com.web.custom.format"`. Note that the pickling prefix `"com.web"` precedes the transformed format name `"custom.format"`, and the slash is converted to a period.
+On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats, so nobody will be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well so we are proposing a new approach for custom format namings and payload serialization/deserialization format which will be safer from a security prespective and also deterministic as to how many custom formats are guranteed to be available in the clipboard inserted via pickling APIs. Generation of clipboard formats dynamically risks exhaustion of the atom pool.
 
-On Windows, clipboard formats are often named using capital words separated by a space. Therefore, a MIME type `"custom/format"` will be transformed to `"Web Custom Format`”. Note that the prefix `"Web"` precedes the transformed format name.
+There will be a custom format map which contains a JSON payload that will have a mapping of custom format MIME type to web custom format. There can only be 100 custom format per user session and it will be registered when the web authors request for a custom format. Since this format is allocated in the global atom space on Windows, even if the sites register it multiple times, the format strings will only be allocated once and `RegisterClipboardFormat` system function call will just return the unique value corresponding to that format.
 
-On Linux, ChromeOS, and Android, MIME types are often used (though Linux and ChromeOS don’t have strong recommendations regarding clipboard format naming conventions). Therefore, a MIME type `"custom/format"` will be transformed to `"application/web;type="custom/format""`. Note that the pickling prefix `"application/web;type="` precedes the transformed format name, which has quotes around the format name.
+Native apps will need to read the web custom format map and parse its payload as an alternative to `EnumFormats` on Windows to fetch the mapping of the custom MIME type to web custom format. Using this the native app can then request for the web custom format corresponding to a particular MIME type of interest. This also helps in [Delay Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) of formats on Windows where the native app just provides an indication to the clipboard that a format is available and when it is requested by some other app, it renders the content on-demand.
+
+The web custom format map will have the below naming convention per platform:
+
+On Windows it will be inserted as `Web Custom Format Map`, on MacOS `com.web.custom.format.map` & On Linux/Android/CrOS etc `application/web;type="web/customformatmap"`.
+The payload in this format map will be of type JSON with the key representing the MIME type and the web custom format as the value.
+e.g. On Windows the web custom format map will have the below payload:
+```
+{
+
+  "text/html" : "Web Custom Format0",
+  "text/plain" : "Web Custom Format1",
+  "text/csv" : "Web Custom Format2"
+}
+```
+
+The web custom format in the value contains the actual payload of the custom MIME type. It will be serialized in terms of raw bytes and will have the below formating naming convention:
+
+On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"custom/format"` will be transformed to `"com.web.custom.format(0-99)"`. Note that the pickling prefix `"com.web"` precedes the transformed format name `"custom.format"`, and the slash is converted to a period.
+
+On Windows, clipboard formats are often named using capital words separated by a space. Therefore, a MIME type `"custom/format"` will be transformed to `"Web Custom Format(0-99)`”. Note that the prefix `"Web"` precedes the transformed format name.
+
+On Linux, ChromeOS, and Android, MIME types are often used (though Linux and ChromeOS don’t have strong recommendations regarding clipboard format naming conventions). Therefore, a MIME type `"custom/format"` will be transformed to `"application/web;type="custom/format(0-99)""`. Note that the pickling prefix `"application/web;type="` precedes the transformed format name, which has quotes around the format name.
 
 On Test and Headless platforms, MIME types will be used for consistency with Linux, ChromeOS, and Android.
 
@@ -143,13 +165,13 @@ Pickling clipboard API proposal consists of the below parts:
 2. Format of pickled data on the native clipboard.
 
 For #1 we need to update all browsers and convince web developers to migrate to the new API.
-For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as html, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
+For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as HTML, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
 
 ## Privacy and Security
 
 This feature introduces custom clipboard formats with unsanitized content that will be exposed to both native apps and websites. Through the custom clipboard formats, PII may be transferable from web to native apps or vice versa. Currently copy-paste operation (e.g. plain text payloads) does expose highly sensitive PII such as SSN, DOB, passwords etc. and this feature doesn't expose anything new. These custom formats may be less visible to the user compared to the plain-text format so it might still be possible to transfer PII data without the knowledge of the user.
 
-Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. Popular standardized data types (html, text, image etc) are available across all platforms and some types have sanitizers (html format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
+Websites or native apps need to explicitly opt-in to consume these formats which will mitigate the concerns about remote code execution in legacy apps. Popular standardized data types (HTML, text, image etc) are available across all platforms and some types have sanitizers (HTML format) to strip out `<script>` and `comment` tags and decoders(for image formats), but for custom formats the content is unsanitized and could open up (by-design) a whole new world of attacks related to data types. This feature adds a [user gesture requirement](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#user-gesture-requirement) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
 
 For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
 
