@@ -115,15 +115,15 @@ Sites can read or write pickled versions of sanitized formats, by providing the 
 ### OS-Interaction: Format Naming
 Native applications will only be able to interact with these formats if they explicitly add support for these pickled formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
 
-On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats, so nobody will be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well so we are proposing a new approach for custom format namings and payload serialization/deserialization format which will be safer from a security prespective and also deterministic as to how many custom formats are guranteed to be available in the clipboard inserted via pickling APIs. Generation of clipboard formats dynamically risks exhaustion of the atom pool.
+On Windows & Linux, generation of clipboard formats dynamically risks exhaustion of the atom pool. On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats. Applications will not be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well so a new approach for custom format naming and payload serialization/deserialization format will be used which is safer from a security perspective and deterministic as to how many custom formats are guaranteed to be available in the clipboard inserted via pickling APIs.
 
-There will be a custom format map which contains a JSON payload that will have a mapping of custom format MIME type to web custom format. There can only be 100 custom format per user session and it will be registered when the web authors request for a custom format. Since this format is allocated in the global atom space on Windows, even if the sites register it multiple times, the format strings will only be allocated once and `RegisterClipboardFormat` system function call will just return the unique value corresponding to that format.
+To avoid exhausting the atom pool, we will limit each user session to 100 custom formats. These custom formats will be registered when the web authors request a custom format. They will be accompanied by a custom format metadata payload which will have a mapping of custom format MIME type to web custom format in JSON format. Since this format is allocated in the global atom space on Windows, even if the sites register it multiple times, the format strings will only be allocated once and `RegisterClipboardFormat` system function call will just return the unique value corresponding to that format.
 
-Native apps will need to read the web custom format map and parse its payload as an alternative to `EnumFormats` on Windows to fetch the mapping of the custom MIME type to web custom format. Using this the native app can then request for the web custom format corresponding to a particular MIME type of interest. This also helps in [Delay Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) of formats on Windows where the native app just provides an indication to the clipboard that a format is available and when it is requested by some other app, it renders the content on-demand.
+Native apps will need to read the web custom format map and parse its payload as an alternative to `EnumFormats` on Windows to fetch the mapping of the custom MIME type to web custom format. It can then request for the web custom format corresponding to a particular MIME type of interest. This also helps in [Delayed Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) of formats on Windows where the native app just provides an indication to the clipboard that a format is available. When this format is requested by some other app, it renders the content on-demand.
 
 The web custom format map will have the below naming convention per platform:
 
-On Windows it will be inserted as `Web Custom Format Map`, on MacOS `com.web.custom.format.map` & On Linux/Android/CrOS etc `application/web;type="web/customformatmap"`.
+On Windows it will be inserted as `Web Custom Format Map`, on MacOS `com.web.custom.format.map` & On Linux/Android/CrOS etc `application/web;type="custom/formatmap"`.
 The payload in this format map will be of type JSON with the key representing the MIME type and the web custom format as the value.
 e.g. On Windows the web custom format map will have the below payload:
 ```
@@ -135,13 +135,33 @@ e.g. On Windows the web custom format map will have the below payload:
 }
 ```
 
-The web custom format in the value contains the actual payload of the custom MIME type. It will be serialized in terms of raw bytes and will have the below formating naming convention:
+On MacOS
+```
+{
 
-On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"custom/format"` will be transformed to `"com.web.custom.format(0-99)"`. Note that the pickling prefix `"com.web"` precedes the transformed format name `"custom.format"`, and the slash is converted to a period.
+  "text/html" : "com.web.custom.format0",
+  "text/plain" : "com.web.custom.format1",
+  "text/csv" : "com.web.custom.format2"
+}
+```
 
-On Windows, clipboard formats are often named using capital words separated by a space. Therefore, a MIME type `"custom/format"` will be transformed to `"Web Custom Format(0-99)`”. Note that the prefix `"Web"` precedes the transformed format name.
+On Linux, ChromeOS, and Android
+```
+{
 
-On Linux, ChromeOS, and Android, MIME types are often used (though Linux and ChromeOS don’t have strong recommendations regarding clipboard format naming conventions). Therefore, a MIME type `"custom/format"` will be transformed to `"application/web;type="custom/format(0-99)""`. Note that the pickling prefix `"application/web;type="` precedes the transformed format name, which has quotes around the format name.
+  "text/html" : "application/web;type="custom/format0",
+  "text/plain" : "application/web;type="custom/format1",
+  "text/csv" : "application/web;type="custom/format2"
+}
+```
+
+The value in the JSON payload mentioned above contains the actual payload of the custom MIME type. It will be serialized in terms of raw bytes and will have the below formatting naming convention:
+
+On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"text/html"` will be transformed to `"com.web.custom.format0"`. Note that the pickling prefix `"com.web"` precedes the transformed format name `"custom.format0"`.
+
+On Windows, clipboard formats are often named using capital words separated by a space. Therefore, a MIME type `"text/html"` will be transformed to `"Web Custom Format0`.
+
+On Linux, ChromeOS, and Android, MIME types are often used (though Linux and ChromeOS don’t have strong recommendations regarding clipboard format naming conventions). Therefore, a MIME type `"text/html"` will be transformed to `"application/web;type="custom/format0""`.
 
 On Test and Headless platforms, MIME types will be used for consistency with Linux, ChromeOS, and Android.
 
