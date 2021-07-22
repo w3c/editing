@@ -115,17 +115,18 @@ Sites can read or write pickled versions of sanitized formats, by providing the 
 ### OS-Interaction: Format Naming
 Native applications will only be able to interact with these formats if they explicitly add support for these pickled formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
 
-On Windows & Linux, generation of clipboard formats dynamically risks exhaustion of the atom pool. On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats. Applications will not be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well so a new approach for custom format naming and payload serialization/deserialization format will be used which is safer from a security perspective and deterministic as to how many custom formats are guaranteed to be available in the clipboard inserted via pickling APIs.
+On Windows & Linux, generation of clipboard formats dynamically risks exhaustion of the atom pool. On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats. Applications will not be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well so a new approach for custom format naming and payload serialization/deserialization format will be used. This approach will be safer from a security perspective, and also deterministic as to how many custom formats are guaranteed to be available in the clipboard via pickling APIs.
 
-To avoid exhausting the atom pool, we will limit each user session to 100 custom formats. These custom formats will be registered when the web authors request a custom format. They will be accompanied by a custom format metadata payload which will have a mapping of custom format MIME type to web custom format in JSON format. Since this format is allocated in the global atom space on Windows, even if the sites register it multiple times, the format strings will only be allocated once and `RegisterClipboardFormat` system function call will just return the unique value corresponding to that format.
+To avoid exhausting the atom pool, we will limit each user session to 100 custom formats. These custom formats will be registered when the web authors request a custom format. A site can use up to 100 custom formats at a time for copy/paste scenarios. They will be accompanied by a custom format metadata payload which will have a mapping of custom format MIME type to web custom format in JSON format. Since this format is allocated in the global atom space on Windows, even if the sites register it multiple times, the format strings will only be allocated once and `RegisterClipboardFormat` system function call will just return the unique value corresponding to that format.
 
-Native apps will need to read the web custom format map and parse its payload as an alternative to `EnumFormats` on Windows to fetch the mapping of the custom MIME type to web custom format. It can then request for the web custom format corresponding to a particular MIME type of interest. This also helps in [Delayed Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) of formats on Windows where the native app just provides an indication to the clipboard that a format is available. When this format is requested by some other app, it renders the content on-demand.
+Native apps will need to read the web custom format map. They need to parse its payload as an alternative to `EnumFormats` on Windows to fetch the mapping of the custom MIME type to web custom format. It can then request for the web custom format corresponding to a particular MIME type of interest. This also helps in [Delayed Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) of formats on Windows.  [Delayed Rendering](https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard-operations#delayed-rendering) provides a way for the native app to indicate to the clipboard that a format is available, without rendering the content synchronously. When this format is requested by some other app, it renders the content on-demand.
 
 The web custom format map will have the below naming convention per platform:
 
 On Windows it will be inserted as `Web Custom Format Map`, on MacOS `com.web.custom.format.map` & On Linux/Android/CrOS etc `application/web;type="custom/formatmap"`.
 The payload in this format map will be of type JSON with the key representing the MIME type and the web custom format as the value.
-e.g. On Windows the web custom format map will have the below payload:
+e.g. The web custom format map will have the below payload
+#### On Windows
 ```
 {
 
@@ -135,7 +136,7 @@ e.g. On Windows the web custom format map will have the below payload:
 }
 ```
 
-On MacOS
+#### On MacOS
 ```
 {
 
@@ -145,7 +146,7 @@ On MacOS
 }
 ```
 
-On Linux, ChromeOS, and Android
+#### On Linux, ChromeOS, and Android
 ```
 {
 
