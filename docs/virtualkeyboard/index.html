@@ -116,7 +116,7 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                    <li>If the browsing context's <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-window">active window</a> does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                    <li>If the <a href="https://heycam.github.io/webidl/#this">this's </a><a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a> is a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a> and does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element is not a form control (such as the value of <a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">textarea</a> elements), or an <a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-host">editing host</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
@@ -128,7 +128,7 @@
                       Call the system API to show the VK.
                   </li>
                   <li>
-                    When the VK is shown by the system, fire {{VirtualKeyboard/ongeometrychange()}} event.
+                    When the VK is shown by the system, the OS reports the bounding rectangle of the keyboard. Calculate the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
                   </li>
                 </ol>
                </dd>
@@ -140,7 +140,7 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                  <li>If the browsing context is not focused, abort these steps.
+                    <li>If the <a href="https://heycam.github.io/webidl/#this">this's </a><a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a> is a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a> and does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
@@ -149,7 +149,7 @@
                     Call the system API to hide the VK.
                 </li>
                 <li>
-                    When the VK is hidden by the system, {{VirtualKeyboard/ongeometrychange()}} event is fired that contains the intersection of the keyboard geometry and layout viewport in client coordinates.
+                    When the VK is hidden by the system, the OS reports the bounding rectangle of the keyboard (which has all 0 values). Calculate the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
                 </li>
                 </ol>
                </dd>
@@ -164,7 +164,13 @@
             </dt>
             <dd>
               <p>
-                When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport.
+                A boolean, initially false. When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport.
+              </p>
+              <p>
+                The {{VirtualKeyboard/overlaysContent}} getter steps are to return <a href="https://heycam.github.io/webidl/#this">this's </a>{{VirtualKeyboard/overlaysContent}}.
+              </p>
+              <p>
+                The {{VirtualKeyboard/overlaysContent}} setter steps are to set <a href="https://heycam.github.io/webidl/#this">this's</a> {{VirtualKeyboard/overlaysContent}} to the given value.
               </p>
             </dd>
             <dt>
@@ -172,7 +178,10 @@
             </dt>
             <dd>
             <p>
-                The attribute reports the intersection of the VK with the layout viewport in client coordinates.
+                A <a href="https://drafts.fxtf.org/geometry/#DOMRect">DOMRect</a>, initially has zero values. The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired.
+            </p>
+            <p>
+                The {{VirtualKeyboard/boundingRect}} getter steps are to return <a href="https://heycam.github.io/webidl/#this">this's </a>{{VirtualKeyboard/boundingRect}}.
             </p>
             </dd>
             <dt>
