@@ -37,10 +37,9 @@
           , xref: ["WebIDL"
           , "DOM"
           , "HTML"
-          , "geometry"]
+          , "geometry-1"]
         };
     </script>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
 <body>
@@ -198,17 +197,17 @@
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
             partial interface ElementContentEditable {
-                [CEReactions, Reflect, ReflectOnly=("auto","manual")] attribute DOMString virtualKeyboardPolicy;
+                [CEReactions] attribute DOMString virtualKeyboardPolicy;
            };
         </pre>
         <p class="issue">
             Add handling of input and textarea.
           </p>
-        <p>The <code>virtualKeyboardPolicy</code> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>.
-            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code>
+        <p>The <dfn>virtualKeyboardPolicy</dfn> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>. The IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect </a>the respective content attributes of the same name.
+            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code> 
             decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
             <br>
-            The change in setting of any <code>virtualKeyboardPolicy</code> attribute value, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
+            The change in setting of any {{ElementContentEditable/virtualKeyboardPolicy}} attribute value, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
             <p class="issue">
                 Specify timing relative to events like focus.
             </p>
