@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <title>VirtualKeyboard API</title>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' defer class='remove'></script>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' defer class='remove'></script>
     <script class='remove'>
         var respecConfig = {
             github: "w3c/editing"
@@ -15,7 +15,6 @@
                                { name: "Grisha Lyukshin",
                                mailto: "glyuk@microsoft.com",
                                company: "Microsoft Corporation"},]
-          ,   license:      "w3c-software-doc"
           ,   wgPublicList: "public-editing-tf"
 	  ,   otherLinks: [{
                   key: 'Participate',
@@ -33,10 +32,8 @@
                       href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
                   }]
               }]
-          ,   wg: "Web Editing Working Group"
-          ,   wgURI: "https://www.w3.org/2019/webapps/"
-          ,   wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status"
-          ,   edDraftURI:   "http://w3c.github.io/editing/docs/virtualKeyboard/"
+          ,   group: "webediting"
+          ,   edDraftURI:   "https://w3c.github.io/editing/docs/virtualKeyboard/"
           , xref: ["WebIDL"
           , "DOM"
           , "HTML"
@@ -100,7 +97,7 @@
             partial interface Navigator {
                 [SecureContext, SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
             };
-            
+
             [Exposed=Window, SecureContext]
             interface VirtualKeyboard : EventTarget {
                 undefined show();
@@ -199,7 +196,7 @@
             Add handling of input and textarea.
           </p>
         <p>The <code>virtualKeyboardPolicy</code> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>.
-            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code> 
+            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code>
             decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
             <br>
             The change in setting of any <code>virtualKeyboardPolicy</code> attribute value, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
@@ -208,7 +205,7 @@
             </p>
             <ul>
                 <li>
-                 When <dfn>auto</dfn> enumerated attribute is set, the VK is handled by the browser. 
+                 When <dfn>auto</dfn> enumerated attribute is set, the VK is handled by the browser.
                 </li>
                 <li>
                  When <dfn>manual</dfn> enumerated attribute is set, it prevents the default handling of the VK in a browser and needs to be handled by the script.
@@ -218,7 +215,7 @@
                 </li>
             </ul>
         </p>
-        
+
     </section>
     <section>
         <h2>
@@ -255,7 +252,7 @@
                     <td><dfn>keyboard-inset-height</dfn>
                     <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
             </table>
-            
+
             <p>The keyboard insets are six <a href="https://drafts.csswg.org/css-env-1/#environment">environment variables</a> that define a rectangle by
             its top, right, bottom, and left insets from the edge of the viewport. Default value of the keyboard insets are "0px" if a fallback value is not provided else it gets updated when {{VirtualKeyboard/boundingRect}} value changes.
             The width & height insets are calculated from the remaining insets for developer ergonomics.
@@ -275,33 +272,33 @@
                             let div = document.querySelector("div")
                             div.addEventListener("focusout", handleFocusOut)
                             div.addEventListener("dblclick", handleDblClick)
-    
+
                             function handleFocusOut() {
                                 let formula = parseIntoFormula(div.firstChild.data)
                                 div.setAttribute("data-formula", formula)
                                 div.firstChild.data = evaluateFormula(formula)
                             }
-    
+
                             function handleDblClick(e) {
                                 div.firstChild.data = div.getAttribute("data-formula")
-    
+
                                 if (e.pointerType == "touch") {
                                     navigator.virtualKeyboard.show()
                                 }
                             }
-    
+
                             function parseIntoFormula(text) {
                                 return "12+30"
                             }
-    
+
                             function evaluateFormula(formula) {
                                 return "42"
                             }
-    
+
                             function handleSuccessfulShow() {
                                 // handle success of VK shown
                             }
-    
+
                             function handleFailedShow() {
                                 // handle failure of VK shown
                             }
@@ -321,7 +318,7 @@
                                     display: grid;
                                     margin: 8px;
                                     height: calc(100vh - 16px);
-                                    grid-template: 
+                                    grid-template:
                                     "messages"  1fr
                                     "input"     auto
                                     "keyboard"  env(keyboard-inset-height, 0px);
@@ -378,16 +375,16 @@
                                 <canvas></canvas>
                                 <script type="module">
                                     navigator.virtualKeyboard.overlaysContent = true
-            
+
                                     navigator.virtualKeyboard.addEventListener("geometrychange", () => {
                                         // Request the canvas be repainted so it can reposition
                                         // the active cell above the virtual keyboard.
                                         requestAnimationFrame(paintCanvas)
                                     })
-            
+
                                     paintCanvas() {
                                         let keyboardRect = navigator.virtualKeyboard.boundingRect
-                                        // Use keyboard rect in omitted code below to paint cells in the 
+                                        // Use keyboard rect in omitted code below to paint cells in the
                                         // proper position accounting for the keyboard rect along with
                                         // any panning of the cell area that the user may have performed.
                                     }
@@ -419,13 +416,13 @@
                                         /* overlay into same grid column as the map */
                                             grid-column: 1;
                                             grid-row: 1;
-            
+
                                             /* position the search box at the bottom of the cell, centered */
                                             align-self: end;
-            
+
                                             /* margin when keyboard not showing on left screen */
                                             margin: 20px;
-            
+
                                             /* give it a little style */
                                             padding: 10px;
                                             font-size: 24px;
@@ -437,7 +434,7 @@
                                             grid-column: 2;
                                             grid-row: 1;
                                         }
-            
+
                                         @media (env(keyboard-inset-right) <= env(fold-left)) {
                                         /* keyboard is on the left screen, adjust search box */
                                             .search-box {
@@ -464,7 +461,7 @@
 
         To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.
     <section>
-        
+
         <h3><code>hide()</code> and <code>show()</code> methods</h3>
         <p>
             <ul>
