@@ -106,6 +106,17 @@
                 attribute EventHandler ongeometrychange;
             };
         </pre>
+        <p>
+            The {{VirtualKeyboard}} object has an associated:
+        </p>
+        <dfn>boundingRect</dfn>
+        <p>
+            A {{DOMRect}}, initially has zero values.
+        </p>
+        <dfn>overlaysContent</dfn>
+        <p>
+            A boolean, initially `false`. When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or <a href="https://wicg.github.io/visual-viewport/#dom-visualviewport">visual viewport</a>.
+        </p>
         <dl>
             <dt>
                 <dfn>show()</dfn> method
@@ -115,7 +126,11 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                    <li>If the <a href="https://heycam.github.io/webidl/#this">this's </a><a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a> is a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a> and does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                  <li>
+                    Let `window` be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If window is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                  </li>
+                  <li>
+                    If `window` does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element is not a form control (such as the value of <a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">textarea</a> elements), or an <a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-host">editing host</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
@@ -139,17 +154,21 @@
                   The method must follow these steps:
                 </p>
                 <ol>
-                    <li>If the <a href="https://heycam.github.io/webidl/#this">this's </a><a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a> is a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a> and does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                  <li>
+                    Let `window` be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If window is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                  </li>
+                  <li>
+                    If `window` does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
-                </li>
-                <li>
+                  </li>
+                  <li>
                     Call the system API to hide the VK.
-                </li>
-                <li>
+                  </li>
+                  <li>
                     When the VK is hidden by the system, the OS reports the bounding rectangle of the keyboard (which has all 0 values). Calculate the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
-                </li>
+                  </li>
                 </ol>
                </dd>
                <p class="note">
@@ -159,28 +178,40 @@
                 A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based, but we believe it is a better design for web developers to use {{VirtualKeyboard/ongeometrychange}} event since it is fired when VK visibility changes, making the return values unnecessary.
               </p>
             <dt>
-              <dfn>overlaysContent</dfn>
+              <p>{{VirtualKeyboard/overlaysContent}}</p>
             </dt>
             <dd>
               <p>
-                A boolean, initially false. When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or visual viewport.
+                The {{VirtualKeyboard/overlaysContent}} getter steps are to return [=this=]'s {{VirtualKeyboard/overlaysContent}}.
               </p>
               <p>
-                The {{VirtualKeyboard/overlaysContent}} getter steps are to return <a href="https://heycam.github.io/webidl/#this">this's </a>{{VirtualKeyboard/overlaysContent}}.
-              </p>
-              <p>
-                The {{VirtualKeyboard/overlaysContent}} setter steps are to set <a href="https://heycam.github.io/webidl/#this">this's</a> {{VirtualKeyboard/overlaysContent}} to the given value.
+                The {{VirtualKeyboard/overlaysContent}} setter steps are to set [=this=]'s {{VirtualKeyboard/overlaysContent}} to the given value.
               </p>
             </dd>
             <dt>
-              <dfn>boundingRect</dfn>
+              <p>{{VirtualKeyboard/boundingRect}}</p>
             </dt>
             <dd>
             <p>
-                A <a href="https://drafts.fxtf.org/geometry/#DOMRect">DOMRect</a>, initially has zero values. The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired.
+                The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired.
+                Setter steps are as follows:
+                <ol>
+                    <li>
+                        Let `osk` be the on-screen keyboard rectangle in CSS pixels that is provided by the OS when the VK visibility changes.
+                    </li>
+                    <li>
+                        Let `lv` be the layout viewport's bounds in CSS pixels.
+                    </li>
+                    <li>
+                        Set [=this=]'s {{VirtualKeyboard/boundingRect}} to be the intersection of `lv` and `osk` in CSS pixels.
+                    </li>
+                    <li>
+                        
+                    </li>
+                </ol>
             </p>
             <p>
-                The {{VirtualKeyboard/boundingRect}} getter steps are to return <a href="https://heycam.github.io/webidl/#this">this's </a>{{VirtualKeyboard/boundingRect}}.
+                The {{VirtualKeyboard/boundingRect}} getter steps are to return [=this=]'s </a>{{VirtualKeyboard/boundingRect}}.
             </p>
             </dd>
             <dt>
