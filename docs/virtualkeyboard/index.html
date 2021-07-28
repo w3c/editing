@@ -127,10 +127,10 @@
                 </p>
                 <ol>
                   <li>
-                    Let `window` be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If window is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                    Let |window| be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If |window| is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
                   </li>
                   <li>
-                    If `window` does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                    If |window| does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element is not a form control (such as the value of <a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">textarea</a> elements), or an <a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-host">editing host</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
@@ -142,7 +142,7 @@
                       Call the system API to show the VK.
                   </li>
                   <li>
-                    When the VK is shown by the system, the OS reports the bounding rectangle of the keyboard. Calculate the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
+                    When the VK is shown by the system, <a href="https://html.spec.whatwg.org/#in-parallel">in parallel</a> the OS reports the bounding rectangle of the keyboard. Update the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
                   </li>
                 </ol>
                </dd>
@@ -155,10 +155,10 @@
                 </p>
                 <ol>
                   <li>
-                    Let `window` be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If window is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                    Let |window| be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If |window| is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
                   </li>
                   <li>
-                    If `window` does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                    If |window| does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
                   </li>
                   <li>
                     If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
@@ -167,7 +167,7 @@
                     Call the system API to hide the VK.
                   </li>
                   <li>
-                    When the VK is hidden by the system, the OS reports the bounding rectangle of the keyboard (which has all 0 values). Calculate the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
+                    When the VK is hidden by the system, <a href="https://html.spec.whatwg.org/#in-parallel">in parallel</a> the OS reports the bounding rectangle of the keyboard (which has all 0 values). Create a {{DOMRect}} with 0 values and return it when {{VirtualKeyboard/boundingRect}} is queried. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
                   </li>
                 </ol>
                </dd>
@@ -193,8 +193,7 @@
             </dt>
             <dd>
             <p>
-                The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired.
-                Setter steps are as follows:
+                The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired. To create a {{VirtualKeyboard/boundingRect}} follow these steps:
                 <ol>
                     <li>
                         Let `osk` be the on-screen keyboard rectangle in CSS pixels that is provided by the OS when the VK visibility changes.
@@ -203,7 +202,13 @@
                         Let `lv` be the layout viewport's bounds in CSS pixels.
                     </li>
                     <li>
-                        Set [=this=]'s {{VirtualKeyboard/boundingRect}} to be the intersection of `lv` and `osk` in CSS pixels.
+                        Let `bounds` be a {{DOMRect}} object.
+                    </li>
+                    <li>
+                        Set `bounds` to be the intersection of `lv` and `osk` in CSS pixels.
+                    </li>
+                    <li>
+                        Return `bounds`.
                     </li>
                 </ol>
             </p>
