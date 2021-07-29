@@ -115,7 +115,7 @@
         </p>
         <dfn>overlaysContent</dfn>
         <p>
-            A boolean, initially `false`. When this attribute is set to `true`, a user agent MUST NOT resize its layout viewport or <a href="https://wicg.github.io/visual-viewport/#dom-visualviewport">visual viewport</a>.
+            A boolean, initially `false`. When this attribute is set to `true`, a user agent MUST NOT resize its [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> or <a href="https://wicg.github.io/visual-viewport/#dom-visualviewport">visual viewport</a>.
         </p>
         <dl>
             <dt>
@@ -127,23 +127,28 @@
                 </p>
                 <ol>
                   <li>
-                    Let |window| be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If |window| is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
                   </li>
                   <li>
-                    If |window| does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                    If |window| does not have [=sticky activation=]</a>, abort these steps.
                   </li>
                   <li>
-                    If the focused element is not a form control (such as the value of <a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element">textarea</a> elements), or an <a href="https://html.spec.whatwg.org/multipage/interaction.html#editing-host">editing host</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
+                    If the focused element is not a form control (such as the value of the [=textarea=] element), or an [=editing host=]</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
                   </li>
                   <li>
-                    If the <code>virtualKeyboardPolicy</code> is not <code></code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                    If the {{ElementContentEditable/virtualKeyboardPolicy}} is not {{manual}} or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
                   </li>
                   <li>
                       Call the system API to show the VK.
                   </li>
                   <li>
-                    When the VK is shown by the system, <a href="https://html.spec.whatwg.org/#in-parallel">in parallel</a> the OS reports the bounding rectangle of the keyboard. Update the {{VirtualKeyboard/boundingRect}} which is the intersection of the keyboard rectangle reported by the OS and the layout viewport. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
-                  </li>
+                    [=In parallel=], follow these steps:
+                    <ol>
+                        <li>Wait for the virtual keyboard to be shown by the system.</li>
+                        <li>Call {{VirtualKeyboard/set the virtual keyboard bounding rect}} with the keyboard's OS reported bounding rectangle and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle.</li>
+                        <li>[=Fire an event=] named "geometrychange" at [=this=].</li>
+                    </ol>
+                   </li>
                 </ol>
                </dd>
             <dt>
@@ -155,24 +160,29 @@
                 </p>
                 <ol>
                   <li>
-                    Let |window| be [=this=]'s <a href="https://html.spec.whatwg.org/#concept-relevant-global">relevant global object</a>. If |window| is not a <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window object</a>, then abort these steps.
+                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
                   </li>
                   <li>
-                    If |window| does not have <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a>, abort these steps.
+                    If |window| does not have [=sticky activation=]</a>, abort these steps.
                   </li>
                   <li>
-                    If the focused element's <code>virtualKeyboardPolicy</code> is not <code>manual</code> or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                    If the focused element's {{ElementContentEditable/virtualKeyboardPolicy}} is not {{manual}} or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
                   </li>
                   <li>
                     Call the system API to hide the VK.
                   </li>
                   <li>
-                    When the VK is hidden by the system, <a href="https://html.spec.whatwg.org/#in-parallel">in parallel</a> the OS reports the bounding rectangle of the keyboard (which has all 0 values). Create a {{DOMRect}} with 0 values and return it when {{VirtualKeyboard/boundingRect}} is queried. Fire {{VirtualKeyboard/ongeometrychange()}} event to JS.
-                  </li>
+                    [=In parallel=], follow these steps:
+                    <ol>
+                        <li>Wait for the virtual keyboard to be hidden by the system.</li>
+                        <li>Call {{VirtualKeyboard/set the virtual keyboard bounding rect}} with the keyboard's OS reported bounding rectangle (which has all 0 values) and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle.</li>
+                        <li>[=Fire an event=] named "geometrychange" at [=this=].</li>
+                    </ol>
+                   </li>
                 </ol>
                </dd>
                <p class="note">
-                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., on Windows the pointer type has to be touch or pen.
+                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., on Windows the pointer type MUST be touch or pen.
               </p>
               <p class="note">
                 A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based, but we believe it is a better design for web developers to use {{VirtualKeyboard/ongeometrychange}} event since it is fired when VK visibility changes, making the return values unnecessary.
@@ -193,24 +203,34 @@
             </dt>
             <dd>
             <p>
-                The attribute reports the intersection of the VK with the layout viewport in client coordinates. It is set when {{VirtualKeyboard/ongeometrychange}} event is fired. To create a {{VirtualKeyboard/boundingRect}} follow these steps:
-                <ol>
-                    <li>
-                        Let `osk` be the on-screen keyboard rectangle in CSS pixels that is provided by the OS when the VK visibility changes.
-                    </li>
-                    <li>
-                        Let `lv` be the layout viewport's bounds in CSS pixels.
-                    </li>
-                    <li>
-                        Let `bounds` be a {{DOMRect}} object.
-                    </li>
-                    <li>
-                        Set `bounds` to be the intersection of `lv` and `osk` in CSS pixels.
-                    </li>
-                    <li>
-                        Return `bounds`.
-                    </li>
-                </ol>
+                The attribute reports the intersection of the VK with the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> in client coordinates. Call {{VirtualKeyboard/set the virtual keyboard bounding rect}}.
+                <p>
+                    <p><dfn>set the virtual keyboard bounding rect</dfn></p>
+                    To compute the intersection of VK with the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a>, run these steps:
+                    <ol>
+                        <li>
+                            Let |osk| be the on-screen keyboard rectangle that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
+                        </li>
+                        <li>
+                            Let |lv| be the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
+                        </li>
+                        <li>
+                            Map |osk| to the coordinate space of |lv|.
+                        </li>
+                        <li>
+                            Let |bounds| be a {{DOMRect}} object.
+                        </li>
+                        <li>
+                            Update |bounds| by intersecting |lv| with the |osk|.
+                        </li>
+                        <li>
+                            Map |bounds| to the coordinate space of |lv|.
+                        </li>
+                        <li>
+                            Return |bounds|.
+                        </li>
+                    </ol>
+               </p>
             </p>
             <p>
                 The {{VirtualKeyboard/boundingRect}} getter steps are to return [=this=]'s </a>{{VirtualKeyboard/boundingRect}}.
@@ -221,7 +241,7 @@
               </dt>
               <dd>
               <p>
-                  The event is dispatched when the intersection of the VK and the layout viewport changes, e.g., in response to the VK being shown or hidden or the browser window being repositioned.
+                  The event is dispatched when the intersection of the VK and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> changes, e.g., in response to the VK being shown or hidden or the browser window being repositioned.
               </p>
               </dd>
         </dl>
@@ -349,7 +369,7 @@
                 </aside>
             </section>
             <section>
-                <h3>Examples with usage of geometry and ovelay events as a result VK showing.</h3>
+                <h3>Examples with usage of overlaysContent and geometry event as a result of VK showing.</h3>
                 <aside class="example" title="Repositioning Content using CSS with overlaysContent ">
                     <pre>
                         <xmp>
@@ -387,7 +407,7 @@
                     </pre>
                     </aside>
                     <p>
-                        The figure and markup below is a representation of a canvas-based spreadsheet that repositions the active cell when the VK is shown. The `geometrychange` event triggers a paint request for the canvas. The painting code can then use the `boundingRect` property to render the active cell in the proper location.
+                        The figure and markup below are a representation of a canvas-based spreadsheet that repositions the active cell when the VK is shown. The `geometrychange` event triggers a paint request for the canvas. The painting code can then use the `boundingRect` property to render the active cell in the proper location.
                         <img style="margin-left:auto; margin-right:auto; display: block;" src="spreadsheet-example.svg" width="700" height="300" alt="Figure showing virtual keyboard on single-touch screen device"/>
                     </p>
                     <aside class="example" title="Repositioning Content using JavaScript geometrychange">
@@ -503,21 +523,21 @@
         To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.
     <section>
 
-        <h3><code>hide()</code> and <code>show()</code> methods</h3>
+        <h3>{{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} methods</h3>
         <p>
             <ul>
                 <li>
                     User Agent MUST only allow {{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
                 </li>
                 <li>
-                    User Agent MUST only allow the {{VirtualKeyboard/show()}} method to be called when <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">sticky user activation</a> is present.
+                    User Agent MUST only allow the {{VirtualKeyboard/show()}} method to be called when [=sticky activation=] is present.
                 </li>
             </ul>
         </p>
     </section>
     <section>
-        <h3><code>boundingRect</code>, <code>overlaysContent</code> and <code>ongeometrychange</code> attributes</h3>
-        User Agent MUST only allow {{VirtualKeyboard/overlaysContent}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">secure</a>, <a href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context"> top-level browsing context.</a>
+        <h3>{{VirtualKeyboard/boundingRect}}, {{VirtualKeyboard/overlaysContent}} and {{VirtualKeyboard/ongeometrychange}} attributes</h3>
+        User Agent MUST only allow {{VirtualKeyboard/overlaysContent}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">secure</a>, [= top-level browsing context=].
     </section>
     </section>
     <section id="idl-index" class="appendix">
@@ -526,7 +546,7 @@
     <section>
         <h2>Contributors</h2>
         <p class="ednote">
-            add contributors
+            Add contributors
         </p>
       </section>
       <section id="references" class="appendix"></section>
