@@ -40,6 +40,18 @@ and/or spend a significant amount of time on these discussions, you should
 [join the Working Group](https://www.w3.org/2004/01/pp-impl/131776/join) and 
 follow our [Web Editing WG contribution guidance](https://github.com/w3c/editing/blob/gh-pages/CONTRIBUTING.md).
 
+### Mailing List
+
+The group continues to use the legacy 
+<a href="mailto:public-editing-tf@w3.org">public-editing-tf@w3.org</a> for archived 
+email communications. [View the archive](https://lists.w3.org/Archives/Public/public-editing-tf/)
+
+### IRC
+
+Server: [irc.w3.org](http://irc.w3.org/)
+
+Channel: #editing
+
 ### Meetings
 
 [Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
@@ -59,10 +71,6 @@ For 2021:
 * December 10
 
 Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
-
-IRC:
-[irc.w3.org](http://irc.w3.org/)
-#editing
 
 ## Footnote
 
