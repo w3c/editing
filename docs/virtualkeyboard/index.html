@@ -206,13 +206,13 @@
                 The attribute reports the intersection of the VK with the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> in client coordinates. Call {{VirtualKeyboard/set the virtual keyboard bounding rect}}.
                 <p>
                     <p><dfn>set the virtual keyboard bounding rect</dfn></p>
-                    To compute the intersection of VK with the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a>, run these steps:
+                    To set the virtual keyboard bounding rect, with |osk| (a DOMRect representing the on-screen keyboard rectangle), and |lv| (a DOMRect representing the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle) as inputs, run the following steps:
                     <ol>
                         <li>
                             Let |osk| be the on-screen keyboard rectangle that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
                         </li>
                         <li>
-                            Let |lv| be the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
+                            Let |lv| be the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
                         </li>
                         <li>
                             Map |osk| to the coordinate space of |lv|.
