@@ -1,22 +1,22 @@
-Editing Task Force
-=================
+Web Editing Working Group
+=========================
 
-Editing Task Force is a part of [W3C WebApps Working Group](https://w3c.github.io/webappswg/). 
+Welcome to the GitHub repository of the Web Editing Working Group 
+(formerly Editing Task Force of the Web Apps Working Group). Its
+mission is to gather and incubate emerging ideas as they pertain 
+to rich text editor development.
 
-Its mission is to gather and incubate emerging ideas as they pertain to rich text editor development. 
-
-Details can be found in the [Editing Task Force Charter](https://github.com/w3c/editing/blob/gh-pages/CHARTER.md). Please see also the [Web Apps Working Group Charter](https://www.w3.org/2019/05/webapps-charter.html), under which this task force operates.  
+Details can be found in the [Web Editing Working Group Charter](https://www.w3.org/2021/06/web-editing-wg-charter.html).
 
 ## Actively developed ideas/specs
 
-* [Content Editable Disabled](https://w3c.github.io/editing/ActiveDocuments/contentEditableDisabled.html)
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/)
 * [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/VirtualKeyboardPolicy/explainer.md)
-
-* [EditContextAPI](ActiveDocuments/EditContext/explainer.md)
+* [EditContextAPI](docs/EditContext/explainer.md)
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
-[Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
+* [Highlight API](https://drafts.csswg.org/css-highlight-api-1/)
 
 ## Backlog <sup id="backlogdRef">[2](#backlogdefFootnote)</sup>
 
@@ -24,39 +24,53 @@ Details can be found in the [Editing Task Force Charter](https://github.com/w3c/
 
 ## Archive <sup id="archivedRef">[3](#archivedFootnote)</sup>
 
-* [Content Editable True](http://w3c.github.io/editing/Archive/contentEditableTrue.html)
-
-* [execCommand](http://w3c.github.io/editing/Archive/execCommand.html)
+* [Content Editable True](http://w3c.github.io/editing/docs/contentEditableTrue/)
+* [execCommand](http://w3c.github.io/editing/docs/execCommand/)
 
 ## Process
 
 ### Participation
-Participation from ALL who are passionate about writing text editors on the web or have a question/suggestion on the topic is welcomed!
+Participation from ALL who are passionate about writing text editors on the web 
+or have a question/suggestion on the topic is welcomed!
 
 There are couple of things you should know before you proceed.
 
-In accordance with W3C contribution requirements, if you intend to create PRs and/or spend a significant amount of time on these discussions, you should follow [Web Apps WG contribution guidance](https://github.com/w3c/editing/blob/gh-pages/CONTRIBUTING.md).
+In accordance with W3C contribution requirements, if you intend to create PRs 
+and/or spend a significant amount of time on these discussions, you should 
+[join the Working Group](https://www.w3.org/2004/01/pp-impl/131776/join) and 
+follow our [Web Editing WG contribution guidance](https://github.com/w3c/editing/blob/gh-pages/CONTRIBUTING.md).
 
+### Mailing List
+
+The group continues to use the legacy 
+<a href="mailto:public-editing-tf@w3.org">public-editing-tf@w3.org</a> for archived 
+email communications. [View the archive](https://lists.w3.org/Archives/Public/public-editing-tf/)
+
+### IRC
+
+Server: [irc.w3.org](http://irc.w3.org/)
+
+Channel: #editing
 
 ### Meetings
-[Recurring Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
 
+[Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
 
-### Details:
-Editing TF meets remotely at 9:00AM PST, on second Friday of every month.
+[Google Hangouts](https://meet.google.com/pdx-dnmm-cen)
 
-Currently planned dates: April 10th, 2020 | May 8th, 2020 | etc.
+#### Details:
+The Editing Working Group meets remotely at 9:00AM PST, on second Friday of every month.
 
-Meeting [agenda query](https://github.com/w3c/editing/labels/Agenda%2B)
+For 2021:
+* June 11
+* July 9
+* August 13
+* September 10
+* October 8
+* November 12
+* December 10
 
-[Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDRhYWhjY2NjdnE0Y2RyY2l2N2oybTdnZmVfMjAyMDAzMTNUMTYwMDAwWiBnbHl1a0BtaWNyb3NvZnQuY29t&tmsrc=glyuk%40microsoft.com&scp=ALL)
-
-IRC:
-[irc.w3.org](http://irc.w3.org/)
-#editing
-
-**If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
-
+Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
 
 ## Footnote
 
