@@ -15077,19 +15077,11 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
           Otherwise, set the [=CSS styling flag=] to false. Either way, return
           true.
         </p>
-        <p>
-          Since the effect of this command is the opposite of what one would
-          expect, authors are encouraged to use <code title=
-          "the stylewithcss command"><a href=
-          "#the-stylewithcss-command">styleWithCSS</a></code> instead.
-        </p>
         <p class="note">
-          No [=state=] is defined for this command, so
-          <code title="queryCommandState()"><a href=
-          "#querycommandstate()">queryCommandState("useCSS")</a></code> must
-          always return false. To query the [=CSS styling flag=]'s current
-          value, authors have to use <a href="#the-stylewithcss-command">the
-          <code title="">styleWithCSS</code> command</a>.
+          This command works the same as [=the styleWithCSS
+          command|styleWithCSS=] but with the opposite values and with no <a
+          data-lt="querycommandstate(command)">queryCommandState()</a> support.
+          Authors are encouraged to use [=the styleWithCSS command=] instead.
         </p>
       </section>
     </section>
