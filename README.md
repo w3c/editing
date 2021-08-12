@@ -14,7 +14,6 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
 * [Input Events](https://w3c.github.io/input-events/)
 * [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/)
 * [Virtual Keyboard API](https://w3c.github.io/editing/docs/virtualkeyboard/index.html)
-* [Virtual Keyboard Policy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/VirtualKeyboardPolicy/explainer.md)
 * [EditContextAPI](docs/EditContext/explainer.md)
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
