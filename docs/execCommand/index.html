@@ -23,11 +23,9 @@
           retiredDate: "2014-02-13",
         },
       ],
-      wg: "Web Applications Working Group",
-      wgURI: "https://www.w3.org/2019/webapps/",
+      group: "webediting",
       wgPublicList: "public-editing-tf",
-      wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
-      edDraftURI: "https://w3c.github.io/editing/docs/inactive/execCommand.html",
+      edDraftURI: "https://w3c.github.io/editing/docs/execCommand/",
       license: "cc0",
       additionalCopyrightHolders:
         "Copyright © 2015 This specification may be used under the terms of the CC0 1.0 Universal License and the W3C Community Contributor License Agreement (CLA). Thus anyone may reuse, modify, and redistribute them without restriction. W3C Editing APIs Community Group & W3C® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark and document use rules apply.",
@@ -748,7 +746,7 @@
           <tr><td>justifyFull<td>formatJustifyFull
           <tr><td>justifyLeft<td>formatJustifyLeft
           <tr><td>justifyRight<td>formatJustifyRight
-          <tr><td>outdent<td>formatIndent
+          <tr><td>outdent<td>formatOutdent
           <tr><td>cut<td>deleteByCut
           <tr><td>paste<td>insertFromPaste
           <tr><td>redo<td>historyRedo
@@ -5241,6 +5239,8 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
           <a href="#inline-command-activated-values">Inline command activated
           values</a>: "line-through"
         </p>
+      </section>
+      <section>
         <h3 id="the-subscript-command">
           <dfn>The <code title="">subscript</code> command</dfn>
         </h3>
@@ -15068,50 +15068,20 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         </p>
       </section>
       <section>
-        <h3 id="the-usecss-command">
-          <dfn>The <code title="">useCSS</code> command</dfn>
+        <h3>
+          <dfn>The <code>useCSS</code> command</dfn>
         </h3>
-        <div class="note">
-          <p>
-            Supported by Firefox 4.0, but not IE9 or Opera 11.00 (which don't
-            support styleWithCSS either), nor by Chrome 12 dev (which does
-            support styleWithCSS). useCSS was the original feature in Mozilla
-            1.3, but the meaning is backward, so Gecko added styleWithCSS as a
-            replacement. No state is defined, since only Gecko supports useCSS
-            at all, and as of Firefox 6.0a2, it doesn't support
-            queryCommandState() for it.
-          </p>
-          <p>
-            As of September 2011, WebKit is <a href=
-            "https://bugs.webkit.org/show_bug.cgi?id=36683">adding support</a>
-            for this command, so it can no longer be considered deprecated.
-          </p>
-        </div>
         <p>
-          <a href="#action">Action</a>: If <var title="">value</var> is an
-          <a class="external" data-anolis-spec="domcore" href=
-          "http://dom.spec.whatwg.org/#ascii-case-insensitive">ASCII
-          case-insensitive</a> match for the string "false", set the <a href=
-          "#css-styling-flag">CSS styling flag</a> to true. Otherwise, set the
-          <a href="#css-styling-flag">CSS styling flag</a> to false. Either
-          way, return true.
-        </p>
-        <p>
-          Since the effect of this command is the opposite of what one would
-          expect, user agents are encouraged to point authors to <code title=
-          "the stylewithcss command"><a href=
-          "#the-stylewithcss-command">styleWithCSS</a></code> when <code title=
-          "the usecss command"><a href="#the-usecss-command">useCSS</a></code>
-          is used, such as by logging a warning to an error console.
+          [=Action=]: If <var>value</var> is an [=ASCII case-insensitive=]
+          match for the string "false", set the [=CSS styling flag=] to true.
+          Otherwise, set the [=CSS styling flag=] to false. Either way, return
+          true.
         </p>
         <p class="note">
-          No <a href="#state">state</a> is defined for this command, so
-          <code title="queryCommandState()"><a href=
-          "#querycommandstate()">queryCommandState("useCSS")</a></code> must
-          always return false. To query the <a href="#css-styling-flag">CSS
-          styling flag</a>'s current value, authors have to use <a href=
-          "#the-stylewithcss-command">the <code title="">styleWithCSS</code>
-          command</a>.
+          This command works the same as [=the styleWithCSS
+          command|styleWithCSS=] but with the opposite values and with no <a
+          data-lt="querycommandstate(command)">queryCommandState()</a> support.
+          Authors are encouraged to use [=the styleWithCSS command=] instead.
         </p>
       </section>
     </section>

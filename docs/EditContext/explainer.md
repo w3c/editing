@@ -95,8 +95,7 @@ dictionary TextUpdateEventInit {
 
 [Exposed=Window]
 interface TextUpdateEvent : Event {
-    constructor(optional TextUpdateEventInit eventInitDict = {});
-
+    constructor(optional TextUpdateEventInit options = {});
     readonly attribute unsigned long updateRangeStart;
     readonly attribute unsigned long updateRangeEnd;
     readonly attribute DOMString updateText;
@@ -109,23 +108,27 @@ dictionary TextFormatUpdateEventInit {
     unsigned long formatRangeEnd;
     DOMString underlineColor;
     DOMString backgroundColor;
-    DOMString textDecorationColor;
-    DOMString textUnderlineStyle;
+    DOMString suggestionHighlightColor;
+    DOMString textColor;
+    DOMString underlineThickness;
+    DOMString underlineStyle;
 };
 
 [Exposed=Window]
 interface TextFormatUpdateEvent : Event {
-    constructor(optional TextFormatUpdateEventInit eventInitDict = {});
-
+    constructor(optional TextFormatUpdateEventInit options = {});
     readonly attribute unsigned long formatRangeStart;
     readonly attribute unsigned long formatRangeEnd;
     readonly attribute DOMString underlineColor;
     readonly attribute DOMString backgroundColor;
-    readonly attribute DOMString textDecorationColor;
-    readonly attribute DOMString textUnderlineStyle;
+    readonly attribute DOMString suggestionHighlightColor;
+    readonly attribute DOMString textColor;
+    readonly attribute DOMString underlineThickness;
+    readonly attribute DOMString underlineStyle;
 };
 
 enum EditContextInputMode {
+    "none",
     "text",
     "decimal",
     "search",
@@ -146,7 +149,7 @@ enum EditContextEnterKeyHint {
     "send"
 };
 
-enum EditContextInputPolicy {
+enum EditContextInputPanelPolicy {
     "auto",
     "manual"
 };
@@ -168,17 +171,15 @@ dictionary EditContextInit {
 interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
 
-    void focus();
-    void blur();
     void updateSelection(unsigned long start, unsigned long end);
-    void updateLayout(DOMRect controlBounds, DOMRect selectionBounds);
+    void updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
     void updateText(unsigned long start, unsigned long end, DOMString newText);
 
     attribute DOMString text;
     attribute unsigned long selectionStart;
     attribute unsigned long selectionEnd;
     attribute EditContextInputMode inputMode;
-    attribute EditContextInputPolicy inputPolicy;
+    attribute EditContextInputPanelPolicy inputPanelPolicy;
     attribute EditContextEnterKeyHint enterKeyHint;
 
     // Event handler attributes
@@ -188,10 +189,82 @@ interface EditContext : EventTarget {
     attribute EventHandler oncompositionend;
 };
 ```
+## Difference between Contenteditable element and the EditContext element.
+
+![contenteditable_vs_editcontext](contentEditable_vs_editContext.png)
+
+One can think of a div with Contenteditable (on the left in the above figure) as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
+
+When a div is associated with an EditContext (on the right in the above figure), the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
+
+Note that EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (ex. drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (ex. ctrl+B, outdent/indent) are out of scope of EditContext, however, the beforeinput events for these manipulation will still fire on the div to serve as user intent and it'll be editors's responsibility to handle the editing operations. 
+
+Here are several key points when a div is associated with an EditContext:
+* The div won't receive any input event, and no text input will directly manipulate the DOM.
+* The div will receive all beforeinput events  as if it were a contentEditable div except beforeinput(insertCompositionText).
+* The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext. The corresponding beforeinput event can be used to cancel the operation.
+* CompositionStart and CompositionEnd are fired on the EditContext. There is no CompositionUpdate event.
+* A new event TextFormatUpdate is fired on the EditContext.
+* Caret navigation will happen in the DOM space and the web authors will need to map the selection change from the DOM space to the plain text space if they choose to use native selection.
+
+The following table summarizes the difference between div with contentEditable and div with EditContext for each common editing commands:
+| |	\<div contentEditable>  | 	\<div> with EditContext |
+| --- | ----------------------- | ------------------------- |
+| div gets focus (by clicking or .focus()) |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |	<ul><li>Show focus ring</li><li>Show blinking caret</li></ul> |
+|English typing |<ul><li>beforeinput (insertText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertText) -> div </li> | <ul><li>beforeinput (insertText) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
+|Backspace |<ul><li>beforeinput (deleteContentBackward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentBackward) -> div </li> | <ul><li>beforeinput (deleteContentBackward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
+|Delete |<ul><li>beforeinput (deleteContentForward) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteContentForward) -> div </li> | <ul><li>beforeinput (deleteContentForward) -> div</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li> |
+|Very first Composition input|<ul><li>Compositoinstart -> div</li><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li> |<ul><li> compositionstart -> EditContext</li><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li> |
+| During composition (text input and arrow keys) | <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li></ul> | <ul><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li></ul> |
+| Commit comosition (hit Enter)| <ul><li>beforeinput (insertCompositionText) -> div</li><li>Compositionupdate -> div</li><li>div.innerHTML gets updated</li><li>input (insertCompositionText) -> div</li><li>Compositoinend -> div</li></ul> | <ul><li>editContext.text gets updated</li><li>textupdate -> EditContext</li><li>textformatupdate -> EditContext</li><li>compositionend -> EditContext</li></ul> |
+| Ctrl+B / Ctrl+I / etc. | <ul><li>beforeinput (formatBold) -> div</li><li>div.innerHTML gets updated</li><li>input (formatBold) -> div</li></ul>|<ul><li>beforeinput (formatBold) -> div</li></ul> |
+|Arrow keys (with shift) / Home / End / PageUp / PageDown / etc.|<ul><li>caret/selection is updated</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li><li>It will require web authors to map selection position from DOM space to EditContext's plain text space</li></ul>|
+|Mouse click (with shift)|<ul><li>caret/selection is updated</li><li>selectionstart</li><li>selectionchange -> document</li></ul>|<ul><li>caret/selection is updated (in DOM space)</li><li>selectionchange -> document</li><li>EditContext's selection is NOT auto updated</li></ul>|
+|Spell check replacement|<ul><li>beforeinput (insertReplacementText) -> div</li><li>div.innerHTML gets updated</li><li>input (insertReplacementText) -> div</li></ul>|<ul><li>beforeinput (insertReplacementText) -> div</li></ul>|
+|Drag & drop selected words|<ul><li>beforeinput (deleteByDrag) -> div</li><li>input (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromDrop) -> div</li></ul>|<ul><li>beforeinput (deleteByDrag) -> div</li><li>beforeinput (insertFromDrop) -> div</li></ul>|
+|Cut (ctrl+x)|<ul><li>beforeinput (deleteByCut) -> div</li><li>div.innerHTML gets updated</li><li>input (deleteByCut) -> div</li></ul>|<ul><li>beforeinput (deleteByCut) -> div</li></ul>|
+|Copy|n/a|n/a|
+|Paste (ctrl+v)|<ul><li>beforeinput (insertFromPaste) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromPaste) -> div</li></ul>|<ul><li>beforeinput (insertFromPaste) -> div</li></ul>|
 
 ## EditContext Usage
-### Example 1
-Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateLayout`.
+### Example 1: initialization
+```javascript
+    var editContext = new EditContext();
+    div.editContext = editContext;
+```
+
+### Example 2: event handler
+```javascript
+    editContext.addEventListener("textupdate", e => {
+        let s = document.getSelection();
+        let textNode = s.anchorNode;
+        let offset = s.anchorOffset;
+        let string = textNode.textContent;
+        // update the text Node
+        textNode.textContent = string.substring(0, offset) + e.updateText + string.substring(offset);
+    });
+
+    editContext.addEventListener("textformatupdate", e => { 
+        decoration.style.borderBottom = "3px " + e.underlineStyle;
+    });
+```
+### Example 3: mapping from DOM space to EditContext (plain text) space
+```javascript
+    document.addEventListener("selectionchange", e => {
+        let s = document.getSelection();
+
+        // calculate the offset in plain text
+        let range = document.createRange();
+        range.setEnd(s.anchorNode, s.anchorOffset);
+        range.setStartBefore(parentSpan);
+        let plainText = range.toString();
+
+        editContext.updateSelection(plainText.length, plainText.length);
+    });
+```
+
+### Example 4
+Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateBounds`.
 
 ```javascript
 let editContainer = document.querySelector("#editContainer");
@@ -210,10 +283,8 @@ let editContext = new EditContext(editContextInit);
 let model = new EditModel(editContext, editContextInit.text, editContextInit.selectionStart, editContextInit.selectionEnd);
 let view = new EditView(editContext, model, editContainer);
 
-// Delegate focus to an EditContext when an "editable" part of the view is focused in the web app.
-editContainer.addEventListener("focus", () => editContext.focus());
 window.requestAnimationFrame(() => {
-    editContext.updateLayout(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
+    editContext.updateBounds(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
 });
 
 editContainer.focus();
@@ -251,7 +322,7 @@ editContext.addEventListener("textformatupdate", e => {
 });
 ```
 
-### Example 2
+### Example 5
 
 Example of a user-defined EditModel class that contains the underlying model for the editable content
 ```javascript
@@ -303,7 +374,7 @@ class EditModel {
 }
 ```
 
-### Example 3
+### Example 6
 Example of a user defined class that can compute an HTML view, based on the text model
 ```javascript
 class EditableView {
@@ -344,7 +415,7 @@ class EditableView {
     }
 
     notifyLayoutChanged() {
-        this.editContext.updateLayout(this.computeBoundingBox(), this.computeSelectionBoundingBox());
+        this.editContext.updateBounds(this.computeBoundingBox(), this.computeSelectionBoundingBox());
     }
 
     convertTextToHTML(text, selection) {
@@ -361,7 +432,9 @@ class EditableView {
 ```
 
 ## Example Application
-This [example application](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
+This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
+
+This [example](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
 
 ## Interaction with Other Browser Editing Features
 By decoupling the view from text input, the EditContext opts out of some editing behaviors that are currently only available through the DOM. An inventory of those features and their interaction with the EditContext follows:

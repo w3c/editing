@@ -1,7 +1,12 @@
+## This is the old Editing Task Force Charter.
+
+**The current Editing Working Group Charter is here: https://www.w3.org/2021/06/web-editing-wg-charter.html**
+
+---
 
 **Confidentiality:** Proceedings are [public](https://www.w3.org/2005/10/Process-20051014/comm.html#confidentiality-levels)
 
-**Chairs(acting as delegates from the WebApps WG chairs):** Johannes Wilm (Invited Expert), Grisha Lyukshin (Microsoft)
+**Chairs (acting as delegates from the WebApps WG chairs):** Johannes Wilm (Invited Expert), Grisha Lyukshin (Microsoft)
 
 **Meeting Schedules:** Teleconferences: On an as-needed basis. Preferably, a minimum of one status meeting per month. Face-to-face meetings: On an as-needed basis. Video Conferences: On an as-needed basis.
 
@@ -44,7 +49,7 @@ The specifications the Editing Taskforce is producing may be driven to the spec 
 The TF is expected to work on the following efforts until the end of the charter but it is not meant to be an exhaustive list:
 
 - [Async Clipboard API](https://bugs.chromium.org/p/chromium/issues/detail?id=931839)
-- [ContentEditableDisabled](http://w3c.github.io/editing/docs/contentEditableDisabled.html) - ability to disable system UI
+- [ContentEditableDisabled](http://w3c.github.io/editing/docs/contentEditableDisabled/) - ability to disable system UI
 - [EditContext API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/EditContext/explainer.md)
 - [Highlight API](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/master/highlight/explainer.md)
 - Native Selection and Caret behaviors
