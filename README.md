@@ -10,11 +10,11 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
 
 ## Actively developed ideas/specs
 
-* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/)
-* [Input Events](https://w3c.github.io/input-events/)
-* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/)
-* [Virtual Keyboard API](https://w3c.github.io/editing/docs/virtualkeyboard/index.html)
-* [EditContextAPI](docs/EditContext/explainer.md)
+* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/))
+* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/))
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) (this Repo)
+* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/))
+* [EditContextAPI](docs/EditContext/explainer.md) (this Repo)
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
