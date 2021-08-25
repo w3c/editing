@@ -1,0 +1,109 @@
+<style>
+    span:focus { outline: none; }
+</style>
+
+<div id="decoration" style="position:absolute"></div>
+
+<br><br>
+<span id=parentSpan style="padding:5px; font-size:40px;white-space:pre;"><span style="font-size: 28px">    一二三 </span><span style="font-weight:800;">hello </span><span style="font-style:italic">world </span><span style="background-color:yellow">四五六</span></span>
+
+<script>
+    var editContext = new EditContext();
+    parentSpan.editContext = editContext;
+    editContext.text = parentSpan.textContent;
+
+    let compositionNode = null;
+    let compositionStartOffset = null
+
+    editContext.addEventListener("compositionstart", e => { 
+        console.log(`editContext::compositionstart: e.data=[${e.data}]`);
+        let s = document.getSelection();
+        let range = s.getRangeAt(0);
+        //console.log(`compositionstart:Range.startContainer[${range.startContainer}], startOffset[${range.startOffset}]`);
+        compositionNode = range.startContainer;
+        compositionStartOffset = range.startOffset;
+    });
+
+    editContext.addEventListener("textupdate", e => {
+        console.log(`editContext::textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
+        console.log(`editContext.text[${editContext.text}]`);
+
+        let s = document.getSelection();
+        console.log(`anchor (${s.anchorNode}, ${s.anchorOffset}), textContent [${s.anchorNode.textContent}], focus (${s.focusNode}, ${s.focusOffset})`);
+
+    // English typing
+        if (!compositionNode) {
+            let textNode = s.anchorNode;
+            let offset = s.anchorOffset;
+            let string = textNode.textContent;
+            // update the text Node
+            textNode.textContent = string.substring(0, offset) + e.updateText + string.substring(offset);
+            // update the caret
+            s.collapse(s.anchorNode, offset + e.updateText.length);
+            console.log(`After textupdate: textContent[${s.anchorNode.textContent}]`);
+    // Composition
+        } else {
+            let compositionLength = e.updateRangeEnd - e.updateRangeStart;
+            console.log(`compositionNode[${compositionNode}], compositionStartOffset[${compositionStartOffset}], textContent[${compositionNode.textContent}]`);
+            let string = compositionNode.textContent;
+            // update the text Node
+            compositionNode.textContent = string.substring(0, compositionStartOffset) + e.updateText + string.substring(compositionStartOffset + compositionLength);
+            // update the caret
+            let selectionLocalOffset = e.newSelectionStart - e.updateRangeStart;
+            let selectionGlobalOffset = compositionStartOffset + selectionLocalOffset;
+            s.collapse(compositionNode, selectionGlobalOffset);
+
+            // Update bounds for IME.
+            let controlBound = parentSpan.getBoundingClientRect();
+            controlBound = scaleDOMRect(controlBound, window.devicePixelRatio);
+            let selectionBound = s.getRangeAt(0).getBoundingClientRect();
+            selectionBound = scaleDOMRect(selectionBound, window.devicePixelRatio);
+            editContext.updateLayout(controlBound, selectionBound);
+
+            // Update decoration
+            let range = document.createRange();
+            range.setStart(compositionNode, compositionStartOffset);
+            const compositionEndOffset = compositionStartOffset + e.updateText.length;
+            range.setEnd(compositionNode, compositionEndOffset);
+            const clientRect = range.getBoundingClientRect();
+            decoration.style.left = `${clientRect.x}px`;
+            decoration.style.top = `${clientRect.y}px`;
+            decoration.style.width = `${clientRect.width}px`;
+            decoration.style.height = `${clientRect.height}px`;
+        }
+    });
+
+    editContext.addEventListener("textformatupdate", e => { 
+        console.log(`editContext::textformatupdate: e.underlineStyle=[${e.underlineStyle}]`);
+        decoration.style.borderBottom = "3px " + e.underlineStyle;
+    });
+
+    editContext.addEventListener("compositionend", e => { 
+        console.log(`editContext::compositionend: e.data=[${e.data}]`);
+        decoration.style.width = `0px`;
+        compositionNode = null;
+    });
+
+    document.addEventListener("selectionchange", e => {
+        let s = document.getSelection();
+        console.log(`selectionchange:[anchorNode: ${s.anchorNode}: ${s.anchorOffset}], focusNode: ${s.focusNode}: ${s.focusOffset}]`);
+
+        // calculate the offset in plain text
+        let range = document.createRange();
+        range.setEnd(s.anchorNode, s.anchorOffset);
+        range.setStartBefore(parentSpan);
+        // console.log(`Range.startContainer[${range.startContainer}], startOffset[${range.startOffset}], endContainer[${range.endContainer}], endOffset[${range.endOffset}]`);
+        let plainText = range.toString();
+        console.log(`plain text before caret: [${plainText}], length[${plainText.length}]`);
+        editContext.updateSelection(plainText.length, plainText.length);
+        console.log(`editContext.text[${editContext.text}]`);
+    });
+
+    function scaleDOMRect(rect, scale) {
+        rect.x = rect.x * scale;
+        rect.y = rect.y * scale;
+        rect.width = rect.width * scale;
+        rect.height = rect.height * scale;
+        return rect;
+    }
+</script>

@@ -1,9 +1,9 @@
-# Web Applications Working Group
+# Web Editing Working Group
 
 Contributions to this repository are intended to become part of Recommendation-track documents governed by the
 [W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
-[Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
-in the relevant W3C Working Group or make a non-member patent licensing commitment.
+[Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must participate
+in this W3C Working Group or make a non-member patent licensing commitment.
 
 If you are not the sole contributor to a contribution (pull request), please identify all 
 contributors in the pull request comment.

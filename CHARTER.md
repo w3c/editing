@@ -1,7 +1,12 @@
+## This is the old Editing Task Force Charter.
+
+**The current Editing Working Group Charter is here: https://www.w3.org/2021/06/web-editing-wg-charter.html**
+
+---
 
 **Confidentiality:** Proceedings are [public](https://www.w3.org/2005/10/Process-20051014/comm.html#confidentiality-levels)
 
-**Chairs(acting as delegates from the WebApps WG chairs):** Johannes Wilm (Invited Expert), Grisha Lyukshin (Microsoft)
+**Chairs (acting as delegates from the WebApps WG chairs):** Johannes Wilm (Invited Expert), Grisha Lyukshin (Microsoft)
 
 **Meeting Schedules:** Teleconferences: On an as-needed basis. Preferably, a minimum of one status meeting per month. Face-to-face meetings: On an as-needed basis. Video Conferences: On an as-needed basis.
 

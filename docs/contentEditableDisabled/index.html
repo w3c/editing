@@ -17,21 +17,13 @@
                     name: "Bo Cupp",
                     mailto: "pcupp@microsoft.com",
                     company: "Microsoft"
-                },
-                {
-                    name: "Grisha Lyukshin",
-                    mailto: "glyuk@microsoft.com",
-                    company: "Microsoft"
                 }
             ],
             github: "https://github.com/w3c/editing",
             shortName: "contenteditabledisabled",
-            wg: "Web Applications Working Group",
-            wgURI: "https://www.w3.org/2019/webapps/",
-            wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
-            xref: "web-platform" // we will be citing html, infra, and friends.
+            group: "webediting"
         };
-    </script>
+     </script>
      <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
@@ -149,6 +141,15 @@
         <p class="note">
             Note that this specification does not have a shortcut to disable all editing UI.  Authors should consider using a <code>textarea</code> for this purpose.
         </p>
+    </section>
+    <section data-dfn-for="DOMCommandTokenList">
+        <h2>The <dfn>DOMCommandTokenList</dfn></h2>
+        <pre class="idl">
+           interface DOMCommandTokenList : DOMTokenList {
+             [SameObject] readonly attribute DOMString supported;
+           };
+        </pre>
+        <p>The <dfn><code>supported</code></dfn> attribute returns the supported tokens as a string.</p>
     </section>
     <section id="element-contenteditable-mixin">
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
