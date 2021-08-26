@@ -7,28 +7,145 @@
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
-            editors: [{
-                name: "Johannes Wilm",
-                mailto: "johannes@fiduswriter.org",
-                company: "Invited Expert"
-            }, ],
-            github: "https://github.com/w3c/editing/docs/contentEditableDisabled/",
-            shortName: "contenteditable-interface",
-            group: "webediting",
+            editors: [
+                {
+                    name: "Johannes Wilm",
+                    mailto: "johannes@fiduswriter.org",
+                    company: "Invited Expert"
+                },
+                {
+                    name: "Bo Cupp",
+                    mailto: "pcupp@microsoft.com",
+                    company: "Microsoft"
+                },
+                {
+                    name: "Grisha Lyukshin",
+                    mailto: "grisha@seafluence.io",
+                    retiredDate: "2021-07-08",
+                }
+            ],
+            github: "https://github.com/w3c/editing",
+            shortName: "contenteditabledisabled",
+            group: "webediting"
         };
-    </script>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
+     </script>
+     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 </head>
 
 <body>
     <section id='abstract'>
         <p>
-            <code>contentEditableDisabled</code> allows the disabling of certain editing actions on contenteditable editing hosts.
+            This specification defines an API that indicates which editing-related commands are applicable to `contenteditable` regions of a document.  User agents can take this information into account when presenting any editing-related UI to ensure its applicability.
+        </p>
+        <p>
+            This specification purposefully does not prescribe the means by which a user agent will indicate to the user the applicability of any editing command. The user agent could, for example, omit editing UI, disable it, or choose some other appropriate UI treatment.
         </p>
     </section>
     <section id='sotd'>
-      <p>
-      </p>
+        <p>This is a work in progress and subject to change without warning.</p>
+    </section>
+
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+            In contenteditable regions of documents, some user agents provide contextual user interface (UI) elements to help accelerate common editing operations.  The UI is meant to enhance the editing experience, but when authors create customized editors that are not compatible with user agent UI, it leads to confused users.
+        </p>
+        <p>
+            To address the issue, a new `contenteditabledisabled` attribute can be applied as shown in the example below.
+        </p>
+        <pre class="example html">
+            &lt;div contenteditable="true" contenteditabledisabled="
+                formatbackcolor
+                formatdent
+                formatfont
+                formatjustify
+                formatscript
+                formatstrikethrough
+                formatunderline
+                inserthorizontalrule">
+                This is a contenteditable region of a document that supports:
+                &lt;ul>
+                    &lt;li>bold text&lt;/li>
+                    &lt;li>italic text&lt;/li>
+                    &lt;li>links&lt;/li>
+                    &lt;li>lists&lt;/li>
+                    &lt;li>and possibly other formatting outside the scope of this specification.&lt;/li>
+                &lt;/ul>
+
+                This contenteditable region explicitly does not support:
+                &lt;ul>
+                    &lt;li>background colors&lt;/li>
+                    &lt;li>indentation&lt;/li>
+                    &lt;li>font name, size or color customization&lt;/li>
+                    &lt;li>justification&lt;/li>
+                    &lt;li>superscript or subscript text&lt;/li>
+                    &lt;li>strikethrough&lt;/li>
+                    &lt;li>underlines&lt;/li>
+                    &lt;li>horizontal rules&lt;/li>
+                &lt;/ul>
+            &lt;/div>
+        </pre>
+    </section>
+    <section id="contenteditabledisabled">
+        <h2>
+            <code>contenteditabledisabled</code> DOM Content Attribute.
+        </h2>
+        <p>
+            The <code><dfn data-dfn-type="element-attr">contenteditabledisabled</dfn></code> attribute indicates which user agent-supplied editing UI MUST convey the inapplicability of editing command in a given context.  When specified, the attribute can contain an [=unordered set of unique space-separated tokens=] that are treated as [=ASCII case-insensitive=].
+        </p>
+        <p>
+            The allowed set of tokens are listed below.  Each token matches the name of an <a data-cite="input-events-1#events-inputevents">Input Type</a>, or is a shortcut that is equivalent to specifying a set tokens.
+        </p>
+        <p>
+            When a token is specified, an user agent MUST NOT be display UI that indicates an editing command is applicable if when invoked, would result in a beforeinput event having and inputType that matches one of the tokens in the attribute's value, or matches a token that is represented by a shortcut that is included in the attribute's value. The exact mechanism for that indication is beyond the scope of this specification.
+        </p>
+        <h3>
+            <code>contenteditabledisabled</code> Allowed Tokens.
+        </h3>
+        <p>
+            <ul>
+                <li><code>formatjustifycenter</code></li>
+                <li><code>formatjustifyfull</code></li>
+                <li><code>formatjustifyleft</code></li>
+                <li><code>formatjustifyright</code></li>
+                <li><code>formatbackcolor</code></li>
+                <li><code>formatbold</code></li>
+                <li><code>insertlink</code></li>
+                <li><code>formatfontname</code></li>
+                <li><code>formatfontsize</code></li>
+                <li><code>formatfontcolor</code></li>
+                <li><code>formatindent</code></li>
+                <li><code>inserthorizontalrule</code></li>
+                <li><code>insertorderedlist</code></li>
+                <li><code>insertunorderedlist</code></li>
+                <li><code>formatitalic</code></li>
+                <li><code>formatoutdent</code></li>
+                <li><code>formatremove</code></li>
+                <li><code>formatstrikethrough</code></li>
+                <li><code>formatsubscript</code></li>
+                <li><code>formatsuperscript</code></li>
+                <li><code>formatunderline</code></li>
+            </ul>
+        </p>
+        <p class="issue" data-number="249"></p>
+        <h3>
+            <code>contenteditabledisabled</code> Allowed Token Shortcuts.
+        </h3>
+        <p>
+            The following tokens are also supported by the <code>contenteditabledisabled</code> attribute and serve as shorthands for specifying a set of tokens from contenteditabledisabled Allowed Tokens:
+        </p>
+        <p>
+            <ul>
+                <li><code>formatjustify</code>: combines <code>formatjustifycenter</code>, <code>formatjustifyfull</code>, <code>formatjustifyleft</code>, and <code>formatjustifyright</code>.</li>
+                <li><code>formatfont</code>: combines <code>formatfontname</code>, <code>formatfontsize</code>, and <code>formatfontcolor</code></li>
+                <li><code>formatdent</code>: combines <code>formatindent</code> and <code>formatoutdent</code></li>
+                <li><code>insertlist</code>: combines <code>insertorderedlist</code> and <code>insertunorderedlist</code></li>
+                <li><code>formatscript</code>: combines <code>formatsubscript</code> and <code>formatsuperscript</code></li>
+            </ul>
+        </p>
+        <p class="note">
+            Note that this specification does not have a shortcut to disable all editing UI.  Authors should consider using a <code>textarea</code> for this purpose.
+        </p>
     </section>
     <section data-dfn-for="DOMCommandTokenList">
         <h2>The <dfn>DOMCommandTokenList</dfn></h2>
@@ -39,49 +156,21 @@
         </pre>
         <p>The <dfn><code>supported</code></dfn> attribute returns the supported tokens as a string.</p>
     </section>
-    <section data-dfn-for="ElementContentEditable">
+    <section id="element-contenteditable-mixin">
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
-           partial interface ElementContentEditable {
-             [SameObject, PutForwards=value] readonly attribute DOMCommandTokenList contentEditableDisabled;
-           };
+            [Exposed=Window]
+            interface ElementContentEditable {
+                [SameObject, PutForwards=value] readonly attribute DOMTokenList contentEditableDisabled;
+            };
         </pre>
-        <p>The <dfn><code>contentEditableDisabled</code></dfn> attribute, when specified on an element that is a contenteditable host,
-            restricts the types of editing operations available by means of user agent native user interfaces and keyboard shortcuts handlers. Its value
-            must be an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens>unordered
-            set of unique space-separated tokens</a> [[HTML]] that
-            are <a href=https://infra.spec.whatwg.org/#ascii-case-insensitive>ASCII case-insensitive</a> [[INFRA]]. The allowed values are:
-        </p>
-        <ul>
-            <li><code>history</code>: makes the element not be part of any browser-provided undo stack.</li>
-            <li><code>inserHorizontalRule</code></li>
-            <li><code>unorderedList</code></li>
-            <li><code>orderedList</code></li>
-            <li><code>insertLink</code></li>
-            <li><code>insertLineBreak</code></li>
-            <li><code>insertParagraph</code></li>
-            <li><code>formatBold</code></li>
-            <li><code>formatItalic</code></li>
-            <li><code>formatUnderline</code></li>
-            <li><code>formatStrikeThrough</code></li>
-            <li><code>formatSuperscript</code></li>
-            <li><code>formatSubscript</code></li>
-            <li><code>formatJustifyFull</code></li>
-            <li><code>formatJustifyCenter</code></li>
-            <li><code>formatJustifyRight</code></li>
-            <li><code>formatJustifyLeft</code></li>
-            <li><code>formatJustify</code>: combines <code>formatJustifyFull</code>, <code>formatJustifyCenter</code>, <code>formatJustifyRight</code> and <code>formatJustifyLeft</code></li>
-            <li><code>formatIndent</code></li>
-            <li><code>formatOutdent</code></li>
-            <li><code>formatDent</code>: combines <code>formatIndent</code> and <code>formatOutdent</code></li>
-            <li><code>formatSetBlockTextDirection</code></li>
-            <li><code>formatSetInlineTextDirection</code></li>
-            <li><code>formatFontColor</code></li>
-            <li><code>formatBackColor</code></li>
-            <li><code>formatFontName</code></li>
-        </ul>
-        <p>Unless specified, each specified token input controls that would otherwise trigger input events with <a href=https://www.w3.org/TR/input-events-1/#events-inputevents>Input Types</a> [[input-events-1]] of the same value.</p>
+        <p>
+            The {{ElementContentEditable/contentEditableDisabled}} IDL attribute reflects the contenteditabledisabled DOM content attribute.
+        <p>
     </section>
+    <section id="issue-summary">
+    </section>
+    <section id='conformance'></section>
 </body>
 
 </html>
