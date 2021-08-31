@@ -7,6 +7,7 @@
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
+            xref: ["dom", "html", "infra"],
             editors: [
                 {
                     name: "Johannes Wilm",
@@ -150,6 +151,7 @@
     <section data-dfn-for="DOMCommandTokenList">
         <h2>The <dfn>DOMCommandTokenList</dfn></h2>
         <pre class="idl">
+           [Exposed=Window]
            interface DOMCommandTokenList : DOMTokenList {
              [SameObject] readonly attribute DOMString supported;
            };
@@ -159,9 +161,8 @@
     <section id="element-contenteditable-mixin">
         <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
         <pre class="idl">
-            [Exposed=Window]
-            interface ElementContentEditable {
-                [SameObject, PutForwards=value] readonly attribute DOMTokenList contentEditableDisabled;
+            partial interface mixin ElementContentEditable {
+                [SameObject, PutForwards=value] readonly attribute DOMCommandTokenList contentEditableDisabled;
             };
         </pre>
         <p>
