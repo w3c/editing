@@ -66,7 +66,6 @@ The Editing Working Group meets remotely at 9:00AM PST, on second Friday of ever
 For 2021:
 * September 24 (proposed special meeting to continue progress on clipboard pickling/formats)
 * October 8
-* October 29 ([Proposed TPAC group meeting](https://www.w3.org/wiki/TPAC/2021/GroupMeetings#WG.2FIG.2FBG_Group_Meetings_details))
 * November 12
 * December 10
 
