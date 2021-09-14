@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>VirtualKeyboard API</title>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' defer class='remove'></script>
+    <script class='remove'>
+        var respecConfig = {
+            github: "w3c/editing"
+            ,specStatus:   "ED"
+            ,shortName:    "virtual-keyboard"
+            ,editors:      [{ name: "Anupam Snigdha",
+                               mailto: "snianu@microsoft.com",
+                               company: "Microsoft Corporation",
+                               w3cid: 126950},]
+          ,formerEditors:      [{ name: "Grisha Lyukshin",
+                               mailto: "glyuk@microsoft.com",
+                               company: "Microsoft Corporation",
+                               w3cid: 78883},]
+          ,   wgPublicList: "public-editing-tf"
+	  ,   otherLinks: [{
+                  key: 'Participate',
+                  data: [{
+                      value: 'We are on GitHub.',
+                      href: 'https://github.com/w3c/editing'
+                  }, {
+                      value: 'File a bug.',
+                      href: 'https://github.com/w3c/editing/issues'
+                  }, {
+                      value: 'Commit history.',
+                      href: 'https://github.com/w3c/editing/commits/gh-pages'
+                  }, {
+                      value: 'Mailing list.',
+                      href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
+                  }]
+              }]
+          ,   group: "webediting"
+          ,   edDraftURI:   "https://w3c.github.io/editing/docs/virtualKeyboard/"
+          , xref: ["WebIDL"
+          , "DOM"
+          , "HTML"
+          , "geometry-1"]
+        };
+    </script>
+</head>
+
+<body>
+    <section id='abstract'>
+        <p>
+            The {{VirtualKeyboard}} API provides authors with greater control over the visibility of the virtual keyboard (VK), and greater ability to adapt the layout of web pages when VK visibility changes.
+        </p>
+    </section>
+    <section id='sotd'>
+      <p>
+      </p>
+    </section>
+    <section>
+        <h2>Introduction</h2>
+        <P>This section is non-normative.</P>
+        <p>
+            The Virtual Keyboard (VK) is the on-screen keyboard used for input in scenarios where a hardware keyboard may not be available.
+            User agents respond to the presence of the VK, without any exposure of this information to web developers in the following way:
+                1. Repositioning the user agent above the VK
+                2. Reducing the size of the layout viewport so the VK doesn't occlude it
+                3. Reducing the size of the visual viewport and padding the layout viewport to ensure it can be shifted above the VK
+
+            This API provides a fourth option that allows the user agent to leave its layout and visual viewports unchanged and instead
+            provide information about the intersection of the VK and layout viewport so that the author can adapt the layout of their web
+            pages using JavaScript or CSS environment variables.
+
+            <p>
+                Figure showing virtual keyboard on dual screen device
+                <img style="margin-left:auto; margin-right:auto; display: block;" src="dual-screen-device.png" width="500" height="200" alt="Figure showing virtual keyboard on dual screen device"/>
+            </p>
+
+            <p>
+                Figure showing virtual keyboard on single-touch screen device
+                <img style="margin-left:auto; margin-right:auto; display: block;" src="single-touch-screen-device.png" width="500" height="200" alt="Figure showing virtual keyboard on single-touch screen device"/>
+            </p>
+        </p>
+    </section>
+    <section id="conformance">
+        <p>
+          This specification defines conformance criteria that apply to a single
+          product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
+          it contains.
+        </p>
+        <p>
+          Conformance requirements phrased as algorithms or specific steps may be
+          implemented in any manner, so long as the end result is equivalent. (In
+          particular, the algorithms defined in this specification are intended
+          to be easy to follow, and not intended to be performant.)
+        </p>
+      </section>
+    <section data-dfn-for="VirtualKeyboard">
+        <h2>The <dfn>VirtualKeyboard</dfn> Interface</h2>
+        <pre class="idl">
+            partial interface Navigator {
+                [SecureContext, SameObject] readonly attribute VirtualKeyboard virtualKeyboard;
+            };
+
+            [Exposed=Window, SecureContext]
+            interface VirtualKeyboard : EventTarget {
+                undefined show();
+                undefined hide();
+                readonly attribute DOMRect boundingRect;
+                attribute boolean overlaysContent;
+                attribute EventHandler ongeometrychange;
+            };
+        </pre>
+        <p>
+            The {{VirtualKeyboard}} object has an associated:
+        </p>
+        <dfn>boundingRect</dfn>
+        <p>
+            A {{DOMRect}}, initially has zero values.
+        </p>
+        <dfn>overlaysContent</dfn>
+        <p>
+            A boolean, initially `false`. When this attribute is set to `true`, a user agent MUST NOT resize its [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> or <a href="https://wicg.github.io/visual-viewport/#dom-visualviewport">visual viewport</a>.
+        </p>
+        <dl>
+            <dt>
+                <dfn>show()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
+                  </li>
+                  <li>
+                    If |window| does not have [=sticky activation=]</a>, abort these steps.
+                  </li>
+                  <li>
+                    If the focused element is not a form control (such as the value of the [=textarea=] element), or an [=editing host=]</a>  (e.g., using <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable">contenteditable</a>) then abort these steps.
+                  </li>
+                  <li>
+                    If the {{ElementContentEditable/virtualKeyboardPolicy}} is not {{manual}} or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                  </li>
+                  <li>
+                      Call the system API to show the VK.
+                  </li>
+                  <li>
+                    [=In parallel=], follow these steps:
+                    <ol>
+                        <li>Wait for the virtual keyboard to be shown by the system.</li>
+                        <li>Call {{VirtualKeyboard/set the virtual keyboard bounding rect}} with the keyboard's OS reported bounding rectangle and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle.</li>
+                        <li>[=Fire an event=] named "geometrychange" at [=this=].</li>
+                    </ol>
+                   </li>
+                </ol>
+               </dd>
+            <dt>
+                <dfn>hide()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
+                  </li>
+                  <li>
+                    If |window| does not have [=sticky activation=]</a>, abort these steps.
+                  </li>
+                  <li>
+                    If the focused element's {{ElementContentEditable/virtualKeyboardPolicy}} is not {{manual}} or <a href="https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute">inputMode's</a> attribute value is <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-inputmode-keyword-none">none</a> then abort these steps.
+                  </li>
+                  <li>
+                    Call the system API to hide the VK.
+                  </li>
+                  <li>
+                    [=In parallel=], follow these steps:
+                    <ol>
+                        <li>Wait for the virtual keyboard to be hidden by the system.</li>
+                        <li>Call {{VirtualKeyboard/set the virtual keyboard bounding rect}} with the keyboard's OS reported bounding rectangle (which has all 0 values) and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle.</li>
+                        <li>[=Fire an event=] named "geometrychange" at [=this=].</li>
+                    </ol>
+                   </li>
+                </ol>
+               </dd>
+               <p class="note">
+                Platform heuristics may impose additional restrictions on VK {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}}. e.g., on Windows the pointer type MUST be touch or pen.
+              </p>
+              <p class="note">
+                A few people have <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/415">expressed concerns</a> around {{VirtualKeyboard/show()}} and {{VirtualKeyboard/hide()}} methods not being promise-based, but we believe it is a better design for web developers to use {{VirtualKeyboard/ongeometrychange}} event since it is fired when VK visibility changes, making the return values unnecessary.
+              </p>
+            <dt>
+              <p>{{VirtualKeyboard/overlaysContent}}</p>
+            </dt>
+            <dd>
+              <p>
+                The {{VirtualKeyboard/overlaysContent}} getter steps are to return [=this=]'s {{VirtualKeyboard/overlaysContent}}.
+              </p>
+              <p>
+                The {{VirtualKeyboard/overlaysContent}} setter steps are to set [=this=]'s {{VirtualKeyboard/overlaysContent}} to the given value.
+              </p>
+            </dd>
+            <dt>
+              <p>{{VirtualKeyboard/boundingRect}}</p>
+            </dt>
+            <dd>
+            <p>
+                The attribute reports the intersection of the VK with the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> in client coordinates. Call {{VirtualKeyboard/set the virtual keyboard bounding rect}}.
+                <p>
+                    <p><dfn>set the virtual keyboard bounding rect</dfn></p>
+                    To set the virtual keyboard bounding rect, with |osk| (a DOMRect representing the on-screen keyboard rectangle), and |lv| (a DOMRect representing the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> rectangle) as inputs, run the following steps:
+                    <ol>
+                        <li>
+                            Let |osk| be the on-screen keyboard rectangle that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
+                        </li>
+                        <li>
+                            Let |lv| be the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> that is the result of running the algorithm in {{VirtualKeyboard/show()}} or {{VirtualKeyboard/hide()}} on [=this=].
+                        </li>
+                        <li>
+                            Map |osk| to the coordinate space of |lv|.
+                        </li>
+                        <li>
+                            Let |bounds| be a {{DOMRect}} object.
+                        </li>
+                        <li>
+                            Update |bounds| by intersecting |lv| with the |osk|.
+                        </li>
+                        <li>
+                            Map |bounds| to the coordinate space of |lv|.
+                        </li>
+                        <li>
+                            Return |bounds|.
+                        </li>
+                    </ol>
+               </p>
+            </p>
+            <p>
+                The {{VirtualKeyboard/boundingRect}} getter steps are to return [=this=]'s </a>{{VirtualKeyboard/boundingRect}}.
+            </p>
+            </dd>
+            <dt>
+                <dfn>ongeometrychange</dfn>
+              </dt>
+              <dd>
+              <p>
+                  The event is dispatched when the intersection of the VK and the [=document=]'s <a href="https://drafts.csswg.org/css2/#viewport">viewport</a> changes, e.g., in response to the VK being shown or hidden or the browser window being repositioned.
+              </p>
+              </dd>
+        </dl>
+    </section>
+    <section data-dfn-for="ElementContentEditable">
+        <h2>Extensions to the <dfn>ElementContentEditable</dfn> mixin</h2>
+        <pre class="idl">
+            partial interface ElementContentEditable {
+                [CEReactions] attribute DOMString virtualKeyboardPolicy;
+           };
+        </pre>
+        <p class="issue">
+            Add handling of input and textarea.
+          </p>
+        <p>The <dfn>virtualKeyboardPolicy</dfn> is an <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a> whose keywords are the <code>string</code>, <code>auto</code>, and <code>manual</code>. The IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect </a>the respective content attributes of the same name.
+            When specified on an element that is a contenteditable host, <code>auto</code> causes the corresponding editable element to automatically show the VK when it is focused or tapped & <code>manual</code> 
+            decouples focus and tap on the editable element from changes in the VK’s current state - the VK remains as it was.
+            <br>
+            The change in setting of any {{ElementContentEditable/virtualKeyboardPolicy}} attribute value, negates currently defined behavior, unless it is a change from <code>auto</code> to <code >empty string</code> or vice versa.
+            <p class="issue">
+                Specify timing relative to events like focus.
+            </p>
+            <ul>
+                <li>
+                 When <dfn>auto</dfn> enumerated attribute is set, the VK is handled by the browser.
+                </li>
+                <li>
+                 When <dfn>manual</dfn> enumerated attribute is set, it prevents the default handling of the VK in a browser and needs to be handled by the script.
+                </li>
+                <li>
+                When <dfn>empty string</dfn> enumerated attribute is set, the VK is handled by the browser.
+                </li>
+            </ul>
+        </p>
+
+    </section>
+    <section>
+        <h2>
+          Virtual Keyboard Visibility Change CSS environment variables.
+        </h2>
+        <p>
+          The {{VirtualKeyboard}} API proposes six new <a href="https://drafts.csswg.org/css-env-1/#environment">CSS environment variables</a> that the web developers can utilize to calculate the virtual keyboard's size and adjust layout in a declarative way.
+        </p>
+        <p class="note">
+          These CSS env should be added to the <a href="https://drafts.csswg.org/css-env-1/#env-function">CSS env variable spec</a>.
+        </p>
+        <section>
+            <h3>Keyboard inset variables</h3>
+            <table data-for="env()">
+                <tr>
+                    <th>Name
+                    <th>Value
+                <tr>
+                    <td><dfn>keyboard-inset-top</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-right</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-bottom</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-left</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-width</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+                <tr>
+                    <td><dfn>keyboard-inset-height</dfn>
+                    <td><a href="https://drafts.csswg.org/css-values-3/#length-valuehttps://drafts.csswg.org/css-values-3/#length-value"> length</a>
+            </table>
+
+            <p>The keyboard insets are six <a href="https://drafts.csswg.org/css-env-1/#environment">environment variables</a> that define a rectangle by
+            its top, right, bottom, and left insets from the edge of the viewport. Default value of the keyboard insets are "0px" if a fallback value is not provided else it gets updated when {{VirtualKeyboard/boundingRect}} value changes.
+            The width & height insets are calculated from the remaining insets for developer ergonomics.
+            </p>
+        </section>
+    </section>
+    <section>
+        <h2>Examples</h2>
+            <section>
+                <h3>Example with usage of VK control APIs.</h3>
+                <aside class="example" title="VirtualKeyboardPolicy">
+                    <pre>
+                        <xmp>
+                        <div contenteditable virtualkeyboardpolicy="manual" inputmode="text"
+                        style="height:50px;width:300px;border:1px solid black;"data-formula="12+30">42</div>
+                        <script>
+                            let div = document.querySelector("div")
+                            div.addEventListener("focusout", handleFocusOut)
+                            div.addEventListener("dblclick", handleDblClick)
+
+                            function handleFocusOut() {
+                                let formula = parseIntoFormula(div.firstChild.data)
+                                div.setAttribute("data-formula", formula)
+                                div.firstChild.data = evaluateFormula(formula)
+                            }
+
+                            function handleDblClick(e) {
+                                div.firstChild.data = div.getAttribute("data-formula")
+
+                                if (e.pointerType == "touch") {
+                                    navigator.virtualKeyboard.show()
+                                }
+                            }
+
+                            function parseIntoFormula(text) {
+                                return "12+30"
+                            }
+
+                            function evaluateFormula(formula) {
+                                return "42"
+                            }
+
+                            function handleSuccessfulShow() {
+                                // handle success of VK shown
+                            }
+
+                            function handleFailedShow() {
+                                // handle failure of VK shown
+                            }
+                        </script>
+                        </xmp>
+                    </pre>
+                </aside>
+            </section>
+            <section>
+                <h3>Examples with usage of overlaysContent and geometry event as a result of VK showing.</h3>
+                <aside class="example" title="Repositioning Content using CSS with overlaysContent ">
+                    <pre>
+                        <xmp>
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <style>
+                                body {
+                                    display: grid;
+                                    margin: 8px;
+                                    height: calc(100vh - 16px);
+                                    grid-template:
+                                    "messages"  1fr
+                                    "input"     auto
+                                    "keyboard"  env(keyboard-inset-height, 0px);
+                                }
+                                input[type=text]::placeholder {
+                                    color: #444;
+                                }
+                                input[type=text] {
+                                    padding: 10px;
+                                    font-size: 24px;
+                                    border: 4px solid black;
+                                    border-radius: 4px;
+                                    background-color: #86DBF6;
+                                    justify-self: center;
+                                }
+                            </style>
+                            <div id="messages">...</div>
+                            <input type="text" placeholder="type...">
+                            <script>
+                                if ("virtualKeyboard" in navigator) {
+                                    navigator.virtualKeyboard.overlaysContent = true
+                                }
+                            </script>
+                        </xmp>
+                    </pre>
+                    </aside>
+                    <p>
+                        The figure and markup below are a representation of a canvas-based spreadsheet that repositions the active cell when the VK is shown. The `geometrychange` event triggers a paint request for the canvas. The painting code can then use the `boundingRect` property to render the active cell in the proper location.
+                        <img style="margin-left:auto; margin-right:auto; display: block;" src="spreadsheet-example.svg" width="700" height="300" alt="Figure showing virtual keyboard on single-touch screen device"/>
+                    </p>
+                    <aside class="example" title="Repositioning Content using JavaScript geometrychange">
+                        <pre>
+                            <xmp>
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <style>
+                                    body {
+                                        display: grid;
+                                        margin: 0;
+                                        height: 100vh;
+                                        grid-template:
+                                        "controls" min-content
+                                        "cells"    1fr;
+                                    }
+                                    #controls {
+                                        height: 100px;
+                                        background-color: #139CFF;
+                                    }
+                                    canvas {
+                                        justify-self: stretch;
+                                        align-self: stretch;
+                                    }
+                                </style>
+                                <div id="controls">...</div>
+                                <canvas></canvas>
+                                <script type="module">
+                                    navigator.virtualKeyboard.overlaysContent = true
+
+                                    navigator.virtualKeyboard.addEventListener("geometrychange", () => {
+                                        // Request the canvas be repainted so it can reposition
+                                        // the active cell above the virtual keyboard.
+                                        requestAnimationFrame(paintCanvas)
+                                    })
+
+                                    paintCanvas() {
+                                        let keyboardRect = navigator.virtualKeyboard.boundingRect
+                                        // Use keyboard rect in omitted code below to paint cells in the
+                                        // proper position accounting for the keyboard rect along with
+                                        // any panning of the cell area that the user may have performed.
+                                    }
+                                </script>
+                            </xmp>
+                        </pre>
+                        </aside>
+                        The figure below represents a map application that presents a map on one window segment and search results on another.
+                        Using the proposal for <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Foldables/explainer.md">Window Segments</a> and media queries, the search box shown will increase its bottom margin to remain visible whenever the virtual keyboard appears on the left side of the foldable device.
+                        <img style="margin-left:auto; margin-right:auto; display: block;" src="example.png" width="700" height="300" alt="Figure showing virtual keyboard on single-touch screen device"/>
+                        <aside class="example" title="Repositioning Content on Foldable Devices with overlaysContent">
+                        <pre>
+                            <xmp>
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <style>
+                                    @media (spanning: single-fold-vertical) {
+                                        body {
+                                            display: grid;
+                                            margin: 0;
+                                            height: 100vh;
+                                            grid-template-columns: env(fold-left) calc(100vw - env(fold-right));
+                                            grid-column-gap: calc(env(fold-right) - env(fold-left));
+                                        }
+                                        .map {
+                                            grid-column: 1;
+                                            grid-row: 1;
+                                        }
+                                        .search-box {
+                                        /* overlay into same grid column as the map */
+                                            grid-column: 1;
+                                            grid-row: 1;
+
+                                            /* position the search box at the bottom of the cell, centered */
+                                            align-self: end;
+
+                                            /* margin when keyboard not showing on left screen */
+                                            margin: 20px;
+
+                                            /* give it a little style */
+                                            padding: 10px;
+                                            font-size: 24px;
+                                            border: 4px solid black;
+                                            border-radius: 4px;
+                                            background-color: #86DBF6;
+                                        }
+                                        .locations-list {
+                                            grid-column: 2;
+                                            grid-row: 1;
+                                        }
+
+                                        @media (env(keyboard-inset-right) <= env(fold-left)) {
+                                        /* keyboard is on the left screen, adjust search box */
+                                            .search-box {
+                                                margin-bottom: calc(20px + env(keyboard-inset-height));
+                                            }
+                                        }
+                                    }
+                                </style>
+                                <div class="map">...</div>
+                                <input class="search-box" type="search" placeholder="search...">
+                                <div class="locations-list">...</div>
+                                <script type="module">
+                                    navigator.virtualKeyboard.overlaysContent = true
+                                </script>
+                            </xmp>
+                        </pre>
+                        </aside>
+            </section>
+    </section>
+    <section>
+        <h2>Privacy and Security Considerations</h2>
+        Because VirtualKeyboard APIs may reveal some aspects about layout of user's VK, user agents must ensure that no extra information is exposed
+        to the script that it already has through existing APIs.
+
+        To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.
+    <section>
+
+        <h3>{{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} methods</h3>
+        <p>
+            <ul>
+                <li>
+                    User Agent MUST only allow {{VirtualKeyboard/hide()}} and {{VirtualKeyboard/show()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                </li>
+                <li>
+                    User Agent MUST only allow the {{VirtualKeyboard/show()}} method to be called when [=sticky activation=] is present.
+                </li>
+            </ul>
+        </p>
+    </section>
+    <section>
+        <h3>{{VirtualKeyboard/boundingRect}}, {{VirtualKeyboard/overlaysContent}} and {{VirtualKeyboard/ongeometrychange}} attributes</h3>
+        User Agent MUST only allow {{VirtualKeyboard/overlaysContent}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">secure</a>, [= top-level browsing context=].
+    </section>
+    </section>
+    <section id="idl-index" class="appendix">
+        <!-- All the Web IDL will magically appear here -->
+    </section>
+    <section>
+        <h2>Contributors</h2>
+        <p class="ednote">
+            Add contributors
+        </p>
+      </section>
+      <section id="references" class="appendix"></section>
+</body>
+
+</html>
