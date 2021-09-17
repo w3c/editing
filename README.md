@@ -64,10 +64,7 @@ Channel: #editing
 The Editing Working Group meets remotely at 9:00AM PST, on second Friday of every month.
 
 For 2021:
-* June 11
-* July 9
-* August 13
-* September 10
+* September 24 (proposed special meeting to continue progress on clipboard pickling/formats)
 * October 8
 * November 12
 * December 10
