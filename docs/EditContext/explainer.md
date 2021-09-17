@@ -61,26 +61,24 @@ Additionally, the EditContext communicates events driven from text input UI to J
 
 ### EditContext Event Sequence:
 
-This section describes the sequences of events that get fired on the EditContext and focused element when the EditContext has focus and IME is active. In this event sequence, the user types in two characters, then commits to the first IME candidate by hitting 'Space'.
+This section describes the sequences of events that get fired on the EditContext and the focused element when IME is active. In this event sequence, the user types in two characters, then commits the first IME candidate by hitting 'Space'.
 
 |  Event                | EventTarget        |  Related key in sequence
 | -------------         | -----------------  | -------------------
 |  keydown              | focused element    |  Key 1
-|  compositionstart     | active EditContext |  ...
-|  textupdate           | active EditContext |  ...
-|  textformatupdate     | active EditContext |  ...
-|  keyup                | focused element    |  ...
+|  compositionstart     | active EditContext |  
+|  textupdate           | active EditContext |  
+|  textformatupdate     | active EditContext |  
+|  keyup                | focused element    |  Key 1
 |  keydown              | focused element    |  Key 2
-|  textupdate           | active EditContext |  ...
-|  textformatupdate     | active EditContext |  ...
-|  keyup                | focused element    |  ...
+|  textupdate           | active EditContext |  
+|  textformatupdate     | active EditContext |  
+|  keyup                | focused element    |  Key 2
 |  keydown              | focused element    |  Space
 |  textupdate           | active EditContext |  (committed IME characters available in event.updateText)
-|  textformatupdate     | active EditContext |  ...
-|  keyup                | focused element    |  ...
-|  compositionend       | active EditContext |
-
-Note that the composition events are also not fired on the focused element as the composition is operating on the shared buffer that is represented by the EditContext.
+|  textformatupdate     | active EditContext |  
+|  compositionend       | active EditContext |  
+|  keyup                | focused element    |  Space
 
 ### EditContext WebIDL
 ```webidl
@@ -234,6 +232,8 @@ The following table summarizes the difference between div with contentEditable a
     // but the DOM won't be changed while user typing.
     var editContext = new EditContext();
     div.editContext = editContext;
+    // When the associated element is focused, the EditContext is automatically activated.
+    div.focus();
 ```
 
 ### Example 2: Event handler
@@ -284,7 +284,7 @@ The following table summarizes the difference between div with contentEditable a
 ```
 
 ## Example Application
-This [example](canvas_editContext.html) shows how an author can use EditContext with &lt;canvas&gt; to handle IME input.
+This [example](canvas_editContext.html) shows how an author can use EditContext to implement (IME) typing on a &lt;canvas&gt; element.
 
 This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
 
