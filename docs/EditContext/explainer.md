@@ -61,24 +61,24 @@ Additionally, the EditContext communicates events driven from text input UI to J
 
 ### EditContext Event Sequence:
 
-This section describes the sequences of events that get fired on the EditContext and the focused element when IME is active. In this event sequence, the user types in two characters, then commits the first IME candidate by hitting 'Space'.
+This section describes the sequences of events that get fired on the EditContext and the focused element when IME is active. In this example, the user types 's' and 'u' in Japanese, then commits the first candidate '巣' by hitting 'Space'.
 
-|  Event                | EventTarget        |  Related key in sequence
-| -------------         | -----------------  | -------------------
-|  keydown              | focused element    |  Key 1
-|  compositionstart     | active EditContext |  
-|  textupdate           | active EditContext |  
-|  textformatupdate     | active EditContext |  
-|  keyup                | focused element    |  Key 1
-|  keydown              | focused element    |  Key 2
-|  textupdate           | active EditContext |  
-|  textformatupdate     | active EditContext |  
-|  keyup                | focused element    |  Key 2
-|  keydown              | focused element    |  Space
-|  textupdate           | active EditContext |  (committed IME characters available in event.updateText)
-|  textformatupdate     | active EditContext |  
-|  compositionend       | active EditContext |  
-|  keyup                | focused element    |  Space
+|  Event                | EventTarget        |  key code            | event.updateText
+| -------------         | -----------------  | -------------------  | -------------------
+|  keydown              | focused element    |  'S'                 |
+|  compositionstart     | active EditContext |                      |
+|  textupdate           | active EditContext |                      |  'S'
+|  textformatupdate     | active EditContext |                      |
+|  keyup                | focused element    |  'S'                 |
+|  keydown              | focused element    |  'U'                 |
+|  textupdate           | active EditContext |                      |  'す'
+|  textformatupdate     | active EditContext |                      |
+|  keyup                | focused element    |  'U'                 |
+|  keydown              | focused element    |  'Space'             |
+|  textupdate           | active EditContext |                      |  '巣'
+|  textformatupdate     | active EditContext |                      |
+|  compositionend       | active EditContext |                      |
+|  keyup                | focused element    |  'Space'             |
 
 ### EditContext WebIDL
 ```webidl
