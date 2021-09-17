@@ -281,6 +281,7 @@ The following table summarizes the difference between div with contentEditable a
         let s = document.getSelection();
         let selectionBound = s.getRangeAt(0).getBoundingClientRect();
         editContext.updateLayout(controlBound, selectionBound);
+```
 
 ## Example Application
 This [example](canvas_editContext.html) shows how an author can use EditContext with &lt;canvas&gt; to handle IME input.
