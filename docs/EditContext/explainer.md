@@ -227,14 +227,19 @@ The following table summarizes the difference between div with contentEditable a
 |Paste (ctrl+v)|<ul><li>beforeinput (insertFromPaste) -> div</li><li>div.innerHTML gets updated</li><li>input (insertFromPaste) -> div</li></ul>|<ul><li>beforeinput (insertFromPaste) -> div</li></ul>|
 
 ## EditContext Usage
-### Example 1: initialization
+### Example 1: Initialization
 ```javascript
+    // This will make the div behave like a ContentEditable div except the user input will go to 
+    // EditContext instead of the div, i.e., the div will receive beforeInput events, will be focusable, etc
+    // but the DOM won't be changed while user typing.
     var editContext = new EditContext();
     div.editContext = editContext;
 ```
 
-### Example 2: event handler
+### Example 2: Event handler
 ```javascript
+    // When user typing, EditContext will receive textupdate events which has text info that can be used to
+    // update the editor's model, or direclty update the DOM (as shown in this example)
     editContext.addEventListener("textupdate", e => {
         let s = document.getSelection();
         let textNode = s.anchorNode;
@@ -244,199 +249,43 @@ The following table summarizes the difference between div with contentEditable a
         textNode.textContent = string.substring(0, offset) + e.updateText + string.substring(offset);
     });
 
+    // EditContext will also receive textformatupdate event for IME decoration.
+    // Ex. thin/thick underline for the "phrase mode" in Japanese IME.
     editContext.addEventListener("textformatupdate", e => { 
         decoration.style.borderBottom = "3px " + e.underlineStyle;
     });
 ```
-### Example 3: mapping from DOM space to EditContext (plain text) space
+### Example 3: Mapping the selection from DOM space to EditContext (plain text) space
 ```javascript
     document.addEventListener("selectionchange", e => {
         let s = document.getSelection();
 
-        // calculate the offset in plain text
+        // Calculate the offset in plain text
         let range = document.createRange();
         range.setEnd(s.anchorNode, s.anchorOffset);
         range.setStartBefore(parentSpan);
         let plainText = range.toString();
 
+        // EditContext doesn't handle caret navigation, so all the caret navigation/selection happened
+        // in DOM space will need to be mapped to plain text space by web authors and passed to EditContext.
         editContext.updateSelection(plainText.length, plainText.length);
     });
 ```
 
-### Example 4
-Create an EditContext and have it start receiving events when its associated container gets focus. After creating an EditContext, the web application should initialize the text and selection (unless the state of the web application is correctly represented by the empty defaults) via a dictionary passed to the constructor.  Additionally, the layout bounds of selection and conceptual location of the EditContext in the view should be provided by calling `updateBounds`.
-
+### Example 4: Update the control bounds and selection bounds for IME
 ```javascript
-let editContainer = document.querySelector("#editContainer");
-
-let editContextInit = {
-    text: "Hello world",
-    selectionStart: 11,
-    selectionEnd : 11,
-    inputMode: "text",
-    inputPolicy: "auto",
-    enterKeyHint: "enter"
-};
-let editContext = new EditContext(editContextInit);
-
-// EditModel and EditView are author supplied code omitted from this example for brevity.
-let model = new EditModel(editContext, editContextInit.text, editContextInit.selectionStart, editContextInit.selectionEnd);
-let view = new EditView(editContext, model, editContainer);
-
-window.requestAnimationFrame(() => {
-    editContext.updateBounds(editContainer.getBoundingClientRect(), computeSelectionBoundingRect());
-});
-
-editContainer.focus();
-```
-
-The following code registers for `textupdate` and keyboard related events (note that keydown/keyup are still delivered to the edit container, i.e. the activeElement).  Note that `model` represents the document model for the editable content, and `view` represents an object that produces an HTML view of that document.
-
-```javascript
-editContainer.addEventListener("keydown", e => {
-    // Handle control keys that don't result in characters being inserted
-    switch (e.key) {
-        case "Home":
-            model.updateSelection(...);
-            view.queueUpdate();
-            break;
-        case "Backspace":
-            model.deleteCharacters(Direction.BACK);
-            view.queueUpdate();
-            break;
-        ...
-    }
-});
-
-editContext.addEventListener("textupdate", e => {
-    model.updateText(e.newText, e.updateRangeStart, e.updateRangeEnd);
-
-    // Do not call updateText on editContext, as we're accepting
-    // the incoming input.
-
-    view.queueUpdate();
-});
-
-editContext.addEventListener("textformatupdate", e => {
-    view.addFormattedRange(e.formatRangeStart, e.formatRangeEnd)
-});
-```
-
-### Example 5
-
-Example of a user-defined EditModel class that contains the underlying model for the editable content
-```javascript
-// User defined class
-class EditModel {
-    constructor(editContext, text, selectionStart, selectionEnd) {
-        // This specific model uses the underlying buffer of the editContext directly
-        // and so doesn't have a backing text store of its own.
-        this.editContext = editContext;
-        this.text = text;
-        this.selection = new Selection();
-        this.setSelection(selectionStart, selectionEnd);
-    }
-
-    updateText(text, start, end) {
-        this.textRows[this.caretPosition.y].splice(start, end - start, ...text.split(""));
-        this.caretPosition.set(this.caretPosition.x - (end - start) + text.length, this.caretPosition.y);
-        this.desiredCaretX = this.caretPosition.x;
-    }
-
-    setSelection(start, end) {
-        this.selection.start = start;
-        this.selection.end = end;
-    }
-
-    updateSelection(...) {
-        // Compute new selection, based on shift/ctrl state
-        let newSelection = computeSelection(this.editContext.selectionStart, this.editContext.selectionEnd,...);
-        this.setSelection(newSelection.start, newSelection.end);
-        this.editContext.updateSelection(newSelection.start, newSelection.end);
-    }
-
-    deleteCharacters(direction) {
-        if (this.selection.start !== this.selection.end) {
-            // Notify EditContext that things are changing.
-            this.editContext.updateText(this.selection.start, this.selection.end, "");
-            this.editContext.updateSelection(this.selection.start, this.selection.start);
-
-            // Update internal model state
-            this.text = text.slice(0, this.selection.start) +
-                text.slice(this.selection.end, this.text.length)
-            this.setSelection(this.selection.start, this.selection.start);
-        } else {
-            // Delete a single character, based on direction (forward or back).
-            // Notify editContext of changes
-            ...
-        }
-    }
-}
-```
-
-### Example 6
-Example of a user defined class that can compute an HTML view, based on the text model
-```javascript
-class EditableView {
-    constructor(editContext, editModel, editRegionElement) {
-        this.editContext = editContext;
-        this.editModel = editModel;
-        this.editRegionElement = editRegionElement;
-
-        // When the webpage scrolls, the layout position of the editable view
-        // may change - we must tell the EditContext about this.
-        window.addEventListener("scroll", this.notifyLayoutChanged.bind(this));
-
-        // Same response is needed when the window is resized.
-        window.addEventListener("resize", this.notifyLayoutChanged.bind(this));
-    }
-
-    queueUpdate() {
-        if (!this.updateQueued) {
-            requestAnimationFrame(this.renderView.bind(this));
-            this.updateQueued = true;
-        }
-    }
-
-    addFormattedRange(formatRange) {
-        // Replace any previous formatted range by overwriting - there
-        // should only ever be one (specific to the current composition).
-        this.formattedRange = formatRange;
-        this.queueUpdate();
-    }
-
-    renderView() {
-        this.editRegionElement.innerHTML = this.convertTextToHTML(
-            this.editModel.text, this.editModel.selection);
-
-        notifyLayoutChanged();
-
-        this.updateQueued = false;
-    }
-
-    notifyLayoutChanged() {
-        this.editContext.updateBounds(this.computeBoundingBox(), this.computeSelectionBoundingBox());
-    }
-
-    convertTextToHTML(text, selection) {
-        // compute the view (code omitted for brevity):
-        // - if there is no selection, return a string with the text contents
-        // - surround the selection by a <span> that has the
-        //   appropriate background/foreground colors.
-        // - surround the characters represented by this.formatRange
-        //   with a <span> whose style has properties as specified by
-        //   the properties on 'this.formattedRange': color
-        //   backgroundColor, textDecorationColor, textUnderlineStyle
-    }
-}
-```
+        // IME will need the control bounds (i.e. the conceptual location of the EditContext in the view)
+        // and the selection bounds (if no selection, it will be the bounding box for the caret) to show the
+        // candidate window in the right position. The bounds are in the client coordinate space.
+        let controlBound = editView.getBoundingClientRect();
+        let s = document.getSelection();
+        let selectionBound = s.getRangeAt(0).getBoundingClientRect();
+        editContext.updateLayout(controlBound, selectionBound);
 
 ## Example Application
 This [example](canvas_editContext.html) shows how an author can use EditContext with &lt;canvas&gt; to handle IME input.
 
 This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
-
-This [example](edit_context_demo.html) shows how an author might build a simple editor that leverages the EditContext in a more holistic way.
 
 ## Interaction with Other Browser Editing Features
 By decoupling the view from text input, the EditContext opts out of some editing behaviors that are currently only available through the DOM. An inventory of those features and their interaction with the EditContext follows:
