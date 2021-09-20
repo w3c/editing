@@ -85,9 +85,11 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
         selectoinClientX = caretX + canvas.offsetLeft;
         selectoinClientY = caretY + canvas.offsetTop;
         let selectionBound = DOMRect.fromRect({x:selectoinClientX, y:selectoinClientY, width:1, height:10});
-        editContext.updateLayout(controlBound, selectionBound);
 
-        // TODO: render composition decoration, ex dotted underline, using textformatupdate events.
+        controlBound = scaleDOMRect(controlBound, window.devicePixelRatio);
+        selectionBound = scaleDOMRect(selectionBound, window.devicePixelRatio);
+
+        editContext.updateBounds(controlBound, selectionBound);
     }
 
     // when EditContext is active (i.e. the associated element is focused)
@@ -112,4 +114,13 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
         anchorY = event.pageY - elemTop;
         render();
     });
+
+    // To handle zoom levels
+    function scaleDOMRect(rect, scale) {
+        rect.x = rect.x * scale;
+        rect.y = rect.y * scale;
+        rect.width = rect.width * scale;
+        rect.height = rect.height * scale;
+        return rect;
+    }
 </script>
