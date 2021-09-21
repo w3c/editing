@@ -54,27 +54,20 @@
         <h2>Introduction</h2>
         <P>This section is non-normative.</P>
         <p>The web platform provides out-of-the-box editing experiences for single lines of plain-text (input), small amounts of multi-line plain-text (textarea) and a starting point for building an HTML document editing experience (contenteditable elements).</p>
-        <p>Each of the editable elements provided by the web platform comes with built-in editing behaviors that are often inadequate to power the desired editing experience. As a result, web-based editors don't incorporate the web platform's editable elements into their view. Unfortunately, the only API provided by the web platform today to enable advanced text input experiences is to place an editable element in the DOM and focus it.</p>
-        <p>This contradiction of needing an editable element, but not wanting it to be visible, leads web-based editors to create hidden editable elements to facilitate text input. This approach negatively impacts accessibility and increases complexity, leading to buggy behavior.</p>
-        <p>An alternative is to incorporate a contenteditable element into the view of the editor, regardless of whether the editor is editing an HTML document. This approach limits the editor's flexibilty in modifying the view, since the view is also powering the text input experience.</p>
+        <p>Each of the editable elements provided by the web platform comes with built-in editing behaviors that are often inadequate to power the desired editing experience. As a result, web-based editors don't incorporate the web platform's editable elements into their views, but because the only way today to enable advanced text input experiences is to place an editable element in the DOM and focus it, web-based editors have to create hidden editable elements, which negatively impacts accessibility and increases complexity, leading to buggy behaviors.</p>
+        <p>The EditContext addresses the problem by decoupling text input from the HTML DOM view. It functions as a bridge between the text input services and the authors. The text input information that used to go through editable elements is now available directly to the authors through the API surface of the EditContext. Similarly, the information that used to be inferred by the web platform from the HTML DOM view to enable sophisticated text input services, ex., the position of the editable region, or the position of the caret, is now directly provided by the authors through EditContext.</p>
         <section>
-            <h3>Difference between Contenteditable element and the EditContext element</h3>
-            <img style="margin-left:auto; margin-right:auto; display: block;" src="contentEditable_vs_editContext.png" width="700" height="300" alt="Figure showing the difference between a ContentEditable element and a EditContext element"/>
-            <p>One can think of a div with Contenteditable (on the left in the above figure) as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
+            <h3>The model of a contenteditable element</h3>
+            <img style="margin-left:auto; margin-right:auto; display: block;" src="contenteditable_element.jpg" width="500" alt="Figure showing the model of a ContentEditable element"/>
+            <p>A contenteditable div can be considered as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
             </p>
-            <p>When a div is associated with an EditContext (on the right in the above figure), the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
+        </section>
+        <section>
+            <h3>The model of an element with EditContext</h3>
+            <img style="margin-left:auto; margin-right:auto; display: block;" src="editcontext_element.jpg" width="500" alt="Figure showing the model of an element with EditContext"/>
+            <p>When a div is associated with an EditContext, the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
             </p>
-            <p>Note that EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (ex. drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (ex. ctrl+B, outdent/indent) are out of scope of EditContext, however, the beforeinput events for these manipulation will still fire on the div to serve as user intent and it'll be editors's responsibility to handle the editing operations. 
-            </p>
-            <p>Here are several key points when a div is associated with an EditContext:
-                <ol>
-                    <li>The div won't receive any input event, and no text input will directly manipulate the DOM.</li>
-                    <li>The div will receive all beforeinput events  as if it were a contentEditable div except beforeinput(insertCompositionText).</li>
-                    <li>The InsertText, deleteContentBackward and deleteContentForward input event are replaced by TextUpdate event fired on the EditContext. The corresponding beforeinput event can be used to cancel the operation.</li>
-                    <li>CompositionStart and CompositionEnd are fired on the EditContext. There is no CompositionUpdate event.</li>
-                    <li>A new event TextFormatUpdate is fired on the EditContext.</li>
-                    <li>Caret navigation will happen in the DOM space and the web authors will need to map the selection change from the DOM space to the plain text space if they choose to use native selection.</li>
-                </ol>
+            <p class="note">EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (e.g., drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (e.g., ctrl+B, outdent/indent) are out of scope of EditContext, however, the beforeinput events for these manipulation will still fire on the div to serve as user intent and it'll be editors's responsibility to handle the editing operations. 
             </p>
         </section>
     </section>
@@ -90,171 +83,6 @@
           particular, the algorithms defined in this specification are intended
           to be easy to follow, and not intended to be performant.)
         </p>
-      </section>
-    <section data-dfn-for="EditContext">
-        <h2>The <dfn>EditContext</dfn> Interface</h2>
-        <pre class="idl">
-            dictionary EditContextInit {
-                DOMString text;
-                unsigned long selectionStart;
-                unsigned long selectionEnd;
-            };
-
-            [Exposed=Window]
-            interface EditContext : EventTarget {
-            constructor(optional EditContextInit options = {});
-            undefined updateSelection(unsigned long start, unsigned long end);
-            undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
-            undefined updateText(unsigned long start, unsigned long end, DOMString newText);
-        
-            attribute DOMString text;
-            attribute unsigned long selectionStart;
-            attribute unsigned long selectionEnd;
-        
-            // Event handler attributes
-            attribute EventHandler ontextupdate;
-            attribute EventHandler ontextformatupdate;
-            attribute EventHandler oncompositionstart;
-            attribute EventHandler oncompositionend;
-        };
-        </pre>
-        <p>
-            The {{EditContext}} object has an associated:
-        </p>
-        <dfn>text</dfn>
-        <p>
-            A {{DOMString}}, initially empty string.  The attribute represents the plain text view of the editable content.
-        </p>
-        <dfn>selectionStart</dfn>
-        <p>
-            A {{unsigned long}}, initially 0. The attribute indicates the start index of the selection.
-        </p>
-        <dfn>selectionEnd</dfn>
-        <p>
-            A {{unsigned long}}, initially 0. The attribute indicateds the end index of the selection.
-        </p>
-        <dfn>inputMode</dfn>
-        <p>
-            An <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a>, initially `none`.
-        </p>
-        <dfn>inputPanelPolicy</dfn>
-        <p>
-            An <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a>, initially `auto`.
-        </p>
-        <dfn>enterKeyHint</dfn>
-        <p>
-            An <a href=https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute>enumerated attribute</a>, initially `enter`.
-        </p>
-        <dl>
-            <dt>
-                <dfn>updateSelection()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
-                  </li>
-                  <li>
-                    If |window| does not have [=sticky activation=]</a>, abort these steps.
-                  </li>
-                  <li>
-                    If start > end, abort these steps.
-                  </li>
-                  <li>
-                    set `selectionStart` to `start`
-                  </li>
-                  <li>
-                    set `selectionEnd` to `end`
-                  </li>
-                </ol>
-               </dd>
-            <dt>
-                <dfn>updateBounds()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
-                  </li>
-                  <li>
-                    If |window| does not have [=sticky activation=]</a>, abort these steps.
-                  </li>
-                  <li>
-                    Set the control bound to `controlBounds`.
-                  </li>
-                  <li>
-                    Set the selection bound to `selectionBounds`.
-                  </li>
-                </ol>
-              </dd>
-            <dt>
-                <dfn>updateText()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    Let |window| be [=this=]'s [=relevant global object=]. Assert that |window| is a {{Window}} object.
-                  </li>
-                  <li>
-                    If |window| does not have [=sticky activation=]</a>, abort these steps.
-                  </li>
-                  <li>
-                    Replace the string in the range of `start` and `end` with `newText`.
-                  </li>
-                </ol>
-              </dd>
-            <dt>
-                <dfn>ontextupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event is dispatched when the text is updated.
-            </p>
-            </dd>
-            <dt>
-                <dfn>ontextformatupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event is dispatched when the textformat is updated.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionstart</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event is dispatched when the composition starts.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionend</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event is dispatched when the composition ends.
-            </p>
-            </dd>
-        </dl>
-    </section>
-    <section data-dfn-for="Element">
-        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
-        <pre class="idl">
-            partial interface Element {
-                attribute EditContext? editContext;
-           };
-        </pre>
-        <p>The <dfn>editContext</dfn> is activated when the associated element is focused and deactivated when the element is blurred.</p>
-
     </section>
     <section>
         <h2>Examples</h2>
@@ -273,7 +101,7 @@
                         </xmp>
                     </pre>
                 </aside>
-                <aside class="example" title="Event handler">
+                <aside class="example" title="Event handlers for TextUpdateEvent and TextFormatUpdateEvent">
                     <pre>
                         <xmp>
                             // When user typing, EditContext will receive textupdate events which has text info that can be used to
@@ -328,6 +156,281 @@
                 </pre>
                 </aside>
             </section>
+    </section>
+    <section data-dfn-for="EditContextEvents">
+        <h2>EditContext events</h2>
+        <section>
+            <h3>TextUpdateEvent</h3>
+            <pre class="idl">
+                dictionary TextUpdateEventInit {
+                    unsigned long updateRangeStart;
+                    unsigned long updateRangeEnd;
+                    DOMString updateText;
+                    unsigned long newSelectionStart;
+                    unsigned long newSelectionEnd;
+                };
+
+                [Exposed=Window]
+                interface TextUpdateEvent : Event {
+                    constructor(optional TextUpdateEventInit options = {});
+                    readonly attribute unsigned long updateRangeStart;
+                    readonly attribute unsigned long updateRangeEnd;
+                    readonly attribute DOMString updateText;
+                    readonly attribute unsigned long newSelectionStart;
+                    readonly attribute unsigned long newSelectionEnd;
+                };
+            </pre>
+            <dl>
+                <dt>`updateRangeStart`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+                <dt>`updateRangeEnd`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+                <dt>`updateText`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+                <dt>`newSelectionStart`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+                <dt>`newSelectionEnd`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+            </dl>
+        </section>
+        <section>
+            <h3>TextFormatUpdateEvent</h3>
+            <pre class="idl">
+                dictionary TextFormatUpdateEventInit {
+                    unsigned long formatRangeStart;
+                    unsigned long formatRangeEnd;
+                    DOMString underlineColor;
+                    DOMString backgroundColor;
+                    DOMString suggestionHighlightColor;
+                    DOMString textColor;
+                    DOMString underlineThickness;
+                    DOMString underlineStyle;
+                };
+                
+                [Exposed=Window]
+                interface TextFormatUpdateEvent : Event {
+                    constructor(optional TextFormatUpdateEventInit options = {});
+                    readonly attribute unsigned long formatRangeStart;
+                    readonly attribute unsigned long formatRangeEnd;
+                    readonly attribute DOMString underlineColor;
+                    readonly attribute DOMString backgroundColor;
+                    readonly attribute DOMString suggestionHighlightColor;
+                    readonly attribute DOMString textColor;
+                    readonly attribute DOMString underlineThickness;
+                    readonly attribute DOMString underlineStyle;
+                };
+            </pre>
+            <dl>
+                <dt>`formatRangeStart`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+                <dt>`formatRangeEnd`, of type unsigned long, readonly
+                </dt>
+                <dd>Initially 0.
+                </dd>
+                <dt>`underlineColor`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+                <dt>`suggestionHighlightColor`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+                <dt>`textColor`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+                <dt>`underlineThickness`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+                <dt>`underlineStyle`, of type {{DOMString}}, readonly
+                </dt>
+                <dd>Initially empty string.
+                </dd>
+            </dl>
+        </section>
+    </section>
+    <section data-dfn-for="EditContext">
+        <h2>The <dfn>EditContext</dfn> Interface</h2>
+        <pre class="idl">
+            dictionary EditContextInit {
+                DOMString text;
+                unsigned long selectionStart;
+                unsigned long selectionEnd;
+            };
+
+            [Exposed=Window]
+            interface EditContext : EventTarget {
+            constructor(optional EditContextInit options = {});
+            undefined updateSelection(unsigned long start, unsigned long end);
+            undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
+            undefined updateText(unsigned long start, unsigned long end, DOMString newText);
+        
+            attribute DOMString text;
+            attribute unsigned long selectionStart;
+            attribute unsigned long selectionEnd;
+        
+            // Event handler attributes
+            attribute EventHandler ontextupdate;
+            attribute EventHandler ontextformatupdate;
+            attribute EventHandler oncompositionstart;
+            attribute EventHandler oncompositionend;
+        };
+        </pre>
+        <p>
+            <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
+            <dd>Initially empty string.  The attribute represents the plain text view of the editable content.</dd>
+        </p>
+        <p>
+            <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The attribute indicates the start index of the selection.</dd>
+        </p>
+        <p>
+            <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The attribute indicateds the end index of the selection.</dd>
+        </p>
+        <dl>
+            <dt>
+                <dfn>updateSelection()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    If start > end, abort these steps.
+                  </li>
+                  <li>
+                    set `selectionStart` to `start`
+                  </li>
+                  <li>
+                    set `selectionEnd` to `end`
+                  </li>
+                </ol>
+               </dd>
+            <dt>
+                <dfn>updateBounds()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Set the control bound to `controlBounds`.
+                  </li>
+                  <li>
+                    Set the selection bound to `selectionBounds`.
+                  </li>
+                </ol>
+              </dd>
+            <dt>
+                <dfn>updateText()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Replace the string in the range of `start` and `end` with `newText`.
+                  </li>
+                </ol>
+              </dd>
+            <dt>
+                <dfn>ontextupdate</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for {{TextUpdateEvent}}.
+            </p>
+            </dd>
+            <dt>
+                <dfn>ontextformatupdate</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for {{TextFormatUpdateEvent}}.
+            </p>
+            </dd>
+            <dt>
+                <dfn>oncompositionstart</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for the compositionstart event.
+            </p>
+            </dd>
+            <dt>
+                <dfn>oncompositionend</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for the oncompositionend event.
+            </p>
+            </dd>
+        </dl>
+    </section>
+    <section data-dfn-for="Element">
+        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
+        <pre class="idl">
+            partial interface Element {
+                attribute EditContext? editContext;
+           };
+        </pre>
+        <dfn>editContext</dfn>
+        <p>
+            An {{EditContext}}, initially null.
+        </p>
+        <p>An `editContext` is activated when the associated element is focused and deactivated when the element is blurred.</p>
+        <p>When an EditContext is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
+        <ol>
+            <li>
+                Fire relevant beforeinput event on the focused element. If the beforeinput event is cancelled, abort these steps.
+            </li>
+            <li>
+                Update the `text` of the activated EditContext.
+            </li>
+            <li>
+                Fire compositionstart event on the activated EditContext if it's a start of a composition.
+            </li>
+            <li>
+                Fire textupdate event on the activated EditContext.
+            </li>
+            <li>
+                Fire textformateupdate event on the activated EditContext if it's a composition.
+            </li>
+            <li>
+                Fire compositionend event on the activated EditContext if it's an end of a composition.
+            </li>
+        </ol>
+        <p>When an element has an associated EditContext, it behaves like a contenteditable element (e.g., it will be focusable; it will display editing context menu when right-clicking; it will receive beforeinput events) except that its DOM is not changed when there is text input and it doesn't receive any input events.
+        </p>
+        <p class="note">
+            An EditContext can be associated with multiple elements but only the element that has focus will receive events from step 1 above.
+        </p>
     </section>
     <section>
         <h2>Privacy and Security Considerations</h2>
