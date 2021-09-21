@@ -125,40 +125,10 @@ interface TextFormatUpdateEvent : Event {
     readonly attribute DOMString underlineStyle;
 };
 
-enum EditContextInputMode {
-    "none",
-    "text",
-    "decimal",
-    "search",
-    "email",
-    "numeric",
-    "tel",
-    "url",
-    "password"
-};
-
-enum EditContextEnterKeyHint {
-    "enter",
-    "done",
-    "go",
-    "next",
-    "previous",
-    "search",
-    "send"
-};
-
-enum EditContextInputPanelPolicy {
-    "auto",
-    "manual"
-};
-
 dictionary EditContextInit {
     DOMString text;
     unsigned long selectionStart;
     unsigned long selectionEnd;
-    EditContextInputMode inputMode;
-    EditContextInputPolicy inputPolicy;
-    EditContextEnterKeyHint enterKeyHint;
 };
 
 /// @event name="textupdate", type="TextUpdateEvent"
@@ -176,9 +146,6 @@ interface EditContext : EventTarget {
     attribute DOMString text;
     attribute unsigned long selectionStart;
     attribute unsigned long selectionEnd;
-    attribute EditContextInputMode inputMode;
-    attribute EditContextInputPanelPolicy inputPanelPolicy;
-    attribute EditContextEnterKeyHint enterKeyHint;
 
     // Event handler attributes
     attribute EventHandler ontextupdate;
