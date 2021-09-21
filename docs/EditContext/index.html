@@ -94,17 +94,10 @@
     <section data-dfn-for="EditContext">
         <h2>The <dfn>EditContext</dfn> Interface</h2>
         <pre class="idl">
-            enum EditContextInputMode { "none", "text", "decimal", "search", "email", "numeric", "tel", "url", "password" };
-            enum EditContextEnterKeyHint { "enter", "done", "go", "next", "previous", "search", "send" };
-            enum EditContextInputPanelPolicy { "auto", "manual" };
-            
             dictionary EditContextInit {
                 DOMString text;
                 unsigned long selectionStart;
                 unsigned long selectionEnd;
-                EditContextInputMode inputMode;
-                EditContextInputPanelPolicy inputPanelPolicy;
-                EditContextEnterKeyHint enterKeyHint;
             };
 
             [Exposed=Window]
@@ -117,9 +110,6 @@
             attribute DOMString text;
             attribute unsigned long selectionStart;
             attribute unsigned long selectionEnd;
-            attribute EditContextInputMode inputMode;
-            attribute EditContextInputPanelPolicy inputPanelPolicy;
-            attribute EditContextEnterKeyHint enterKeyHint;
         
             // Event handler attributes
             attribute EventHandler ontextupdate;
@@ -257,7 +247,7 @@
         </dl>
     </section>
     <section data-dfn-for="Element">
-        <h2>Extensions to the <dfn>Element</dfn> mixin</h2>
+        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
         <pre class="idl">
             partial interface Element {
                 attribute EditContext? editContext;
