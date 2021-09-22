@@ -64,7 +64,7 @@
             controlBound = scaleDOMRect(controlBound, window.devicePixelRatio);
             let selectionBound = s.getRangeAt(0).getBoundingClientRect();
             selectionBound = scaleDOMRect(selectionBound, window.devicePixelRatio);
-            editContext.updateLayout(controlBound, selectionBound);
+            editContext.updateBounds(controlBound, selectionBound);
 
             // Update decoration
             let range = document.createRange();
