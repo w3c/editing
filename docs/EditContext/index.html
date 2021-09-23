@@ -42,20 +42,65 @@
 
 <body>
     <section id='abstract'>
-        <p>
-            The EditContext is a new API that simplifies the process of integrating a web app with advanced text input methods, improves accessibility and performance, and unlocks new capabilities for web-based editors.
+        <p>The {{EditContext}} is a new API that allows authors to more directly participate in the text input process.
         </p>
     </section>
     <section id='sotd'>
       <p>
       </p>
     </section>
-    <section>
+    <section class="informative">
         <h2>Introduction</h2>
-        <P>This section is non-normative.</P>
-        <p>The web platform provides out-of-the-box editing experiences for single lines of plain-text (input), small amounts of multi-line plain-text (textarea) and a starting point for building an HTML document editing experience (contenteditable elements).</p>
-        <p>Each of the editable elements provided by the web platform comes with built-in editing behaviors that are often inadequate to power the desired editing experience. As a result, web-based editors don't incorporate the web platform's editable elements into their views, but because the only way today to enable advanced text input experiences is to place an editable element in the DOM and focus it, web-based editors have to create hidden editable elements, which negatively impacts accessibility and increases complexity, leading to buggy behaviors.</p>
-        <p>The EditContext addresses the problem by decoupling text input from the HTML DOM view. It functions as a bridge between the text input services and the authors. The text input information that used to go through editable elements is now available directly to the authors through the API surface of the EditContext. Similarly, the information that used to be inferred by the web platform from the HTML DOM view to enable sophisticated text input services, ex., the position of the editable region, or the position of the caret, is now directly provided by the authors through EditContext.</p>
+        <section id="background">
+            <h3>Background and Motivation</h3>
+            <p>Modern operating systems provide mechanisms to produce text in a variety of ways: speech-to-text, virtual keyboards, handwriting recognition and many more.  When an app wants to consume text input from these various sources, it must first provide a view of its currently editable text to the operating system.  The view of editable text provides a common language that apps (having a variety of different document models) and sources of text (having a variety of different input methods) can both understand.  Both the apps and input sources communicate with one another by expressing their desired changes to the state of the common view as an event that the other can handle to facilitate the text input process.</p>
+            <p>For the purposes of this document, a producer of text is known as a <dfn>Text Input Client</dfn>.  The view provided by an app which wants to consume text is called a <dfn>Text Edit Context</dfn>.  The service provided by the OS to facilitate the editing of text in the [=Text Edit Context=] by the [=Text Input Clients=] is called a <dfn>Text Input Service</dfn>.</p>
+            <figure id="many-input-methods">
+                <img src="many-input-methods.svg" alt="">
+                <figcaption>Many [=Text Input Clients=] using a [=Text Input Service=] to communicate with many apps through their [=Text Edit Contexts=].</figcaption>
+            </figure>
+            <p>Here’s a typical flow for the text input process in more detail:</p>
+            <ol>
+                <li>A user places focus into an editable region of the app.</li>
+                <li>The app produces a [=Text Edit Context=] describing its editable region according to the standards set forth by the [=Text Input Service=] and provides that [=Text Edit Context=] to the [=Text Input Service=].</li>
+                <li>The [=Text Input Service=] triggers a [=Text Input Client=] to provide some user interface for capturing text input from the user and provides the [=Text Input Client=] the app generated [=Text Edit Context=].</li>
+                <li>The [=Text Input Client=] reads the location of selection and nearby text from the [=Text Edit Context=] to help tailor its user experience.</li>
+                <li>The [=Text Input Client=] may also read screen coordinates for where the selection and editable region are located so that it can properly position its user interface next to the text being edited.</li>
+                <li>The user interacts with the [=Text Input Client=] user interface to input text in some [=Text Input Client=]-specific way.</li>
+                <li>The [=Text Input Client=] describes its desired modifications to the text and selection in the [=Text Edit Context=] in response to the user’s input.</li>
+                <li>The app handles an event describing the desired modifications to its [=Text Edit Context=] and renders the result to the user.</li>
+            </ol>
+            <figure id="text-input-process">
+                <img src="text-input-process.svg" alt="">
+                <figcaption>A sequence diagram illustrating a typical flow for text input.</figcaption>
+            </figure>
+            <p>Existing user agents handle the details of this text input process so that the author’s responsibility ends at declaring what elements of the document represent an editable region.  Authors express which regions are editable using input elements, textarea elements, contenteditable elements, or by setting the designMode attribute to true to mark an entire document as editable. </p>
+            <p>As an editable region of the document is focused, the user agent automatically produces the [=Text Edit Context=] from the contents of the editable region and the position of the selection within it.  When a [=Text Input Client=] produces text, the user agent translates the events against its [=Text Edit Context=] into a set of DOM and style modifications – only some of which are described using existing events that an author can handle. </p>
+            <p>Authors that want to produce sophisticated editing experiences may be challenged by the current approach.  If, for example, the text and selection are rendered to a canvas, user agents are unable to produce a [=Text Edit Context=] to drive the text input process.  Authors compensate by resorting to offscreen editable elements, but this approach comes with negative implications for accessibility, it deteriorates the input experience, and requires complex code to synchronize the position of the text in the offscreen editable element with the corresponding text in the canvas. </p>
+            <p>With the introduction of this EditContext API, authors can more directly participate in the protocol for text input and avoid the pitfalls described above.</p>
+        </section>
+        <section id="editcontext-model">
+            <h3>The EditContext Model</h3>
+            <p>An {{EditContext}} is a JavaScript projection of the [=Text Edit Context=] concept discussed in the previous section. Using an {{EditContext}}, an author can mark a region of the document editable by associating an instance of an {{EditContext}} with an element.</p>
+            
+            <aside class="example" title="Associate an EditContext with an Element">
+            <pre>
+                &lt;script type="module"> 
+                    let canvas = document.querySelector("canvas") 
+                    canvas.editContext = new EditContext() 
+                &lt;/script>  
+                &lt;canvas>&lt;/canvas> 
+            </pre>
+            </aside>
+            <p>Associating an {{EditContext}} to an element makes that element intrinsically focusable.  When the element is focused, the user agent will use the state of the {{EditContext}} to construct a [=Text Edit Context=] that is provided to the [=Text Input Service=] of the OS:</p>
+            <ol>
+              <li>Instead of deriving the contents of the [=Text Edit Context=] from the DOM, it will be taken from the {{EditContext.text}} property.</li>
+              <li>Instead of deriving the location of selection within that text from the document’s selection, the user agent will use the offsets from the {{EditContext.selectionStart}} and {{EditContext.selectionEnd}} properties.</li>
+              <li>Instead of querying the DOM’s associated CSS boxes for the size and position of selection and the editable region of the document, the {{EditContext.selectionBounds}} and {{EditContext.textBounds}} will be used.</li>
+            </ol>
+          </section>
+
+
         <section>
             <h3>The model of a contenteditable element</h3>
             <img style="margin-left:auto; margin-right:auto; display: block;" src="contenteditable_element.jpg" width="500" alt="Figure showing the model of a ContentEditable element"/>
