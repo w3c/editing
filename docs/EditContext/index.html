@@ -12,6 +12,10 @@
             ,editors:      [{ name: "Shihling Keng",
                                mailto: "shihken@microsoft.com",
                                company: "Microsoft Corporation",
+                               w3cid: 126951},
+                               { name: "Bo Cupp",
+                               mailto: "pcupp@microsoft.com",
+                               company: "Microsoft Corporation",
                                w3cid: 126951},]
           ,   wgPublicList: "public-editing-tf"
 	  ,   otherLinks: [{
@@ -157,6 +161,181 @@
                 </aside>
             </section>
     </section>
+    <section data-dfn-for="Element">
+        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
+        <pre class="idl">
+            partial interface Element {
+                attribute EditContext? editContext;
+           };
+        </pre>
+        <dfn>editContext</dfn>
+        <p>
+            An {{EditContext}}, initially null.
+        </p>
+        <p>An `editContext` is activated when the associated element is focused and deactivated when the element is blurred.</p>
+        <p>When an EditContext is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
+        <ol>
+            <li>
+                Fire relevant beforeinput event on the focused element. If the beforeinput event is cancelled, abort these steps.
+            </li>
+            <li>
+                Update the `text` of the activated EditContext.
+            </li>
+            <li>
+                Fire compositionstart event on the activated EditContext if it's a start of a composition.
+            </li>
+            <li>
+                Fire textupdate event on the activated EditContext.
+            </li>
+            <li>
+                Fire textformateupdate event on the activated EditContext if it's a composition.
+            </li>
+            <li>
+                Fire compositionend event on the activated EditContext if it's an end of a composition.
+            </li>
+        </ol>
+        <p>When an element has an associated EditContext, it behaves like a contenteditable element (e.g., it will be focusable; it will display editing context menu when right-clicking; it will receive beforeinput events) except that its DOM is not changed when there is text input and it doesn't receive any input events.
+        </p>
+        <p class="note">
+            An EditContext can be associated with multiple elements but only the element that has focus will receive events from step 1 above.
+        </p>
+    </section>
+    <section data-dfn-for="EditContext">
+        <h2>The <dfn>EditContext</dfn> Interface</h2>
+        <pre class="idl">
+            dictionary EditContextInit {
+                DOMString text;
+                unsigned long selectionStart;
+                unsigned long selectionEnd;
+            };
+
+            [Exposed=Window]
+            interface EditContext : EventTarget {
+            constructor(optional EditContextInit options = {});
+            undefined updateSelection(unsigned long start, unsigned long end);
+            undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
+            undefined updateText(unsigned long start, unsigned long end, DOMString newText);
+        
+            attribute DOMString text;
+            attribute unsigned long selectionStart;
+            attribute unsigned long selectionEnd;
+            readonly attribute Element viewElements;
+        
+            // Event handler attributes
+            attribute EventHandler ontextupdate;
+            attribute EventHandler ontextformatupdate;
+            attribute EventHandler oncompositionstart;
+            attribute EventHandler oncompositionend;
+        };
+        </pre>
+        <p>
+            <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
+            <dd>Initially empty string.  The plain text view of the editable content.</dd>
+        </p>
+        <p>
+            <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start index of the selection.</dd>
+        </p>
+        <p>
+            <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The end index of the selection.</dd>
+        </p>
+        <p>
+            <dt><dfn>viewElements</dfn>, of type {{Element}}, readonly</dt>
+            <dd>Initially empty array. The elements assoicated with the EditContext.</dd>
+        </p>
+        <dl>
+            <dt>
+                <dfn>updateSelection()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    If start > end, abort these steps.
+                  </li>
+                  <li>
+                    set `selectionStart` to `start`
+                  </li>
+                  <li>
+                    set `selectionEnd` to `end`
+                  </li>
+                </ol>
+               </dd>
+            <dt>
+                <dfn>updateBounds()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Set the control bound to `controlBounds`.
+                  </li>
+                  <li>
+                    Set the selection bound to `selectionBounds`.
+                  </li>
+                </ol>
+              </dd>
+            <dt>
+                <dfn>updateText()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Replace the string in the range of `start` and `end` with `newText`.
+                  </li>
+                </ol>
+              </dd>
+            <dt>
+                <dfn>ontextupdate</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for {{TextUpdateEvent}}.
+            </p>
+            </dd>
+            <dt>
+                <dfn>ontextformatupdate</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for {{TextFormatUpdateEvent}}.
+            </p>
+            </dd>
+            <dt>
+                <dfn>oncompositionstart</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for the compositionstart event.
+            </p>
+            </dd>
+            <dt>
+                <dfn>oncompositionend</dfn>
+            </dt>
+            <dd>
+            <p>
+                The event handler for the oncompositionend event.
+            </p>
+            </dd>
+        </dl>
+    </section>
     <section data-dfn-for="EditContextEvents">
         <h2>EditContext events</h2>
         <section>
@@ -261,176 +440,6 @@
                 </dd>
             </dl>
         </section>
-    </section>
-    <section data-dfn-for="EditContext">
-        <h2>The <dfn>EditContext</dfn> Interface</h2>
-        <pre class="idl">
-            dictionary EditContextInit {
-                DOMString text;
-                unsigned long selectionStart;
-                unsigned long selectionEnd;
-            };
-
-            [Exposed=Window]
-            interface EditContext : EventTarget {
-            constructor(optional EditContextInit options = {});
-            undefined updateSelection(unsigned long start, unsigned long end);
-            undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
-            undefined updateText(unsigned long start, unsigned long end, DOMString newText);
-        
-            attribute DOMString text;
-            attribute unsigned long selectionStart;
-            attribute unsigned long selectionEnd;
-        
-            // Event handler attributes
-            attribute EventHandler ontextupdate;
-            attribute EventHandler ontextformatupdate;
-            attribute EventHandler oncompositionstart;
-            attribute EventHandler oncompositionend;
-        };
-        </pre>
-        <p>
-            <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
-            <dd>Initially empty string.  The attribute represents the plain text view of the editable content.</dd>
-        </p>
-        <p>
-            <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The attribute indicates the start index of the selection.</dd>
-        </p>
-        <p>
-            <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The attribute indicateds the end index of the selection.</dd>
-        </p>
-        <dl>
-            <dt>
-                <dfn>updateSelection()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    If the EditContext is not activated, abort these steps.
-                  </li>
-                  <li>
-                    If start > end, abort these steps.
-                  </li>
-                  <li>
-                    set `selectionStart` to `start`
-                  </li>
-                  <li>
-                    set `selectionEnd` to `end`
-                  </li>
-                </ol>
-               </dd>
-            <dt>
-                <dfn>updateBounds()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    If the EditContext is not activated, abort these steps.
-                  </li>
-                  <li>
-                    Set the control bound to `controlBounds`.
-                  </li>
-                  <li>
-                    Set the selection bound to `selectionBounds`.
-                  </li>
-                </ol>
-              </dd>
-            <dt>
-                <dfn>updateText()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                  The method must follow these steps:
-                </p>
-                <ol>
-                  <li>
-                    If the EditContext is not activated, abort these steps.
-                  </li>
-                  <li>
-                    Replace the string in the range of `start` and `end` with `newText`.
-                  </li>
-                </ol>
-              </dd>
-            <dt>
-                <dfn>ontextupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for {{TextUpdateEvent}}.
-            </p>
-            </dd>
-            <dt>
-                <dfn>ontextformatupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for {{TextFormatUpdateEvent}}.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionstart</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for the compositionstart event.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionend</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for the oncompositionend event.
-            </p>
-            </dd>
-        </dl>
-    </section>
-    <section data-dfn-for="Element">
-        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
-        <pre class="idl">
-            partial interface Element {
-                attribute EditContext? editContext;
-           };
-        </pre>
-        <dfn>editContext</dfn>
-        <p>
-            An {{EditContext}}, initially null.
-        </p>
-        <p>An `editContext` is activated when the associated element is focused and deactivated when the element is blurred.</p>
-        <p>When an EditContext is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
-        <ol>
-            <li>
-                Fire relevant beforeinput event on the focused element. If the beforeinput event is cancelled, abort these steps.
-            </li>
-            <li>
-                Update the `text` of the activated EditContext.
-            </li>
-            <li>
-                Fire compositionstart event on the activated EditContext if it's a start of a composition.
-            </li>
-            <li>
-                Fire textupdate event on the activated EditContext.
-            </li>
-            <li>
-                Fire textformateupdate event on the activated EditContext if it's a composition.
-            </li>
-            <li>
-                Fire compositionend event on the activated EditContext if it's an end of a composition.
-            </li>
-        </ol>
-        <p>When an element has an associated EditContext, it behaves like a contenteditable element (e.g., it will be focusable; it will display editing context menu when right-clicking; it will receive beforeinput events) except that its DOM is not changed when there is text input and it doesn't receive any input events.
-        </p>
-        <p class="note">
-            An EditContext can be associated with multiple elements but only the element that has focus will receive events from step 1 above.
-        </p>
     </section>
     <section>
         <h2>Privacy and Security Considerations</h2>
