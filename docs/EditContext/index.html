@@ -215,11 +215,11 @@
             undefined updateSelection(unsigned long start, unsigned long end);
             undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
             undefined updateText(unsigned long start, unsigned long end, DOMString newText);
+            sequence&lt;Element&gt; viewElements();
         
             attribute DOMString text;
             attribute unsigned long selectionStart;
             attribute unsigned long selectionEnd;
-            readonly attribute Element viewElements;
         
             // Event handler attributes
             attribute EventHandler ontextupdate;
@@ -228,23 +228,13 @@
             attribute EventHandler oncompositionend;
         };
         </pre>
-        <p>
+        <dl>
             <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
             <dd>Initially empty string.  The plain text view of the editable content.</dd>
-        </p>
-        <p>
             <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The start index of the selection.</dd>
-        </p>
-        <p>
             <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The end index of the selection.</dd>
-        </p>
-        <p>
-            <dt><dfn>viewElements</dfn>, of type {{Element}}, readonly</dt>
-            <dd>Initially empty array. The elements assoicated with the EditContext.</dd>
-        </p>
-        <dl>
             <dt>
                 <dfn>updateSelection()</dfn> method
             </dt>
@@ -302,6 +292,14 @@
                   </li>
                 </ol>
               </dd>
+            <dt>
+                <dfn>viewElements()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                    The method returns elements that are associated with the EditContext.
+                </p>
+              </dd>              
             <dt>
                 <dfn>ontextupdate</dfn>
             </dt>
