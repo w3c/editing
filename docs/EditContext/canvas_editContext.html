@@ -95,6 +95,7 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
     // when EditContext is active (i.e. the associated element is focused)
     // it'll receive textupdate events when there is user input.
     editContext.addEventListener("textupdate", e => {
+        console.log(`editcontext.text:[${editContext.text}]`);
         console.log(`textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
         selection = e.newSelectionStart;
         render();
