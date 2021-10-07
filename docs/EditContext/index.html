@@ -96,22 +96,18 @@
 
             <p>Using an EditContext, an author can mark a region of the document editable by associating an EditContext object with an element as shown in the example below. </p>
             <aside class="example" title="Associate an EditContext with an Element">
-                <pre><xmp>
-<script type="module"> 
+                <pre><xmp><script type="module"> 
     let canvas = document.querySelector("canvas") 
     canvas.editContext = new EditContext() 
     // When the associated element is focused, the EditContext is automatically activated.
     canvas.focus();
 </script>
-<canvas></canvas> 
-                </xmp></pre>
-            </aside>
+<canvas></canvas></xmp></pre></aside>
 
             <p>In the example below, the author is using a canvas to draw an editable region that allows the user to input a single line of text rendered with a monospace font.  The text for the editable region is maintained by the author as a String.  The text offsets for the selection in the editable region are maintained by the author as a pair of Numbers: selectionStart and selectionEnd.  The Numbers refer to the count of the number of UTF-16 codepoints to the left of the start and end of the selection respectively.  For the sake of communicating the bounding boxes for the current selection and text to Text Input Services, the author also computes the bounding rectangle in CSS pixels for the text and selection.  The offset of the rectangle is expressed relative to the origin of the canvas element since that is the element to which the author has associated an EditContext.  Since the model for the author’s representation of text and selection location matches the form expected by the EditContext API, the author can simply assign those properties to the EditContext associated with the canvas whenever those values change. </p>
 
             <aside class="example" title="Using EditContext with editing model and view">
-                <pre><xmp>
-<script type="module">
+                <pre><xmp><script type="module">
     class EditingModel {  
         constructor(text, selectionStart, selectionEnd) {  
             this.text = text  
@@ -164,15 +160,12 @@
 
     editingView.render() 
 </script>
-<canvas></canvas> 
-                </xmp></pre>
+<canvas></canvas></xmp></pre>
             </aside>
 
             <p>Building on the previous example, in response to user input, authors should handle the events of both the editable element (in this case a canvas) and the EditContext.  Input events against the DOM continue to describe the user’s intent.  Against the EditContext, the textupdate event describes changes to the text and selection properties of the EditContext.  The textformatupdate event describes changes to the style of the text.  The updates received by the author’s code for text, selection and style changes should be rendered back to the canvas so the user can see what they are typing. </p>
             <aside class="example" title="Event handlers for TextUpdateEvent and TextFormatUpdateEvent">
-                <pre>
-                    <xmp>
-<script>
+                <pre><xmp><script>
     class EditingModel {
         updateText(updateRangeStart, updateRangeEnd, updateText) {
             this.text = this.text.substring(0, updateRangeStart) + updateText + this.text.substring(updateRangeEnd)
@@ -200,9 +193,7 @@
     editContext.addEventListener("textformatupdate", e => {
         editingModel.updateTextFormat(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle);
     });
-</script>
-                    </xmp>
-                </pre>
+</script></xmp></pre>
             </aside>
 
         </section>
@@ -211,9 +202,7 @@
             <p>An author doesn’t have to use a canvas element with an EditContext.  In the example below the author uses a div to establish an editable region of the document and renders the contents into that editable region using various other styled elements, images and text.  This allows the author to leverage other built-in editing primitives from the user agent such as selection and spellcheck. </p>
 
             <aside class="example" title="How native selection can be leveraged to handle caret navigation.">
-                <pre>
-                    <xmp>
-<script>
+                <pre><xmp><script>
     document.addEventListener("selectionchange", e => {
         // Authors are responsible to map the selection from the DOM space to the
         // plain text space. One approach is to use range.toString() to get the plain text
@@ -233,15 +222,11 @@
         // Update EditContext
         canvas.editContext.updateSelection(newSelectionStart, newSelectionEnd)
     });
-</script>
-                    </xmp>
-                </pre>
+</script></xmp></pre>
             </aside>
 
             <aside class="example" title="How beforeinput can be used to catch insertReplacementText to apply spelling changes">
-                <pre>
-                    <xmp>
-<script>
+                <pre><xmp><script>
     editView.spellcheck = true;
     editView.addEventListener("beforeinput", e => {
         if (e.inputType === "insertReplacementText") { // for spellcheck
@@ -263,15 +248,11 @@
             editingView.render()
         }
     });
-</script>
-                    </xmp>
-                </pre>
+</script></xmp></pre>
             </aside>
 
             <aside class="example" title="How beforeinput can be used to catch deleteByDrag and insertFromDrop to apply drag and drop changes">
-                <pre>
-                    <xmp>
-<script>
+                <pre><xmp><script>
     if (e.inputType === "deleteByDrag") {
         // Update model
         editingModel.updateText(this.selectionStart, this.selectionEnd, "") // remove the selection
@@ -299,27 +280,9 @@
         // Update DOM
         editingView.render()
     }
-</script>
-                   </xmp>
-                </pre>
+</script></xmp></pre>
             </aside>            
 
-        </section>
-
-
-        <section>
-            <h3>The model of a contenteditable element</h3>
-            <img style="margin-left:auto; margin-right:auto; display: block;" src="contenteditable_element.jpg" width="500" alt="Figure showing the model of a ContentEditable element"/>
-            <p>A contenteditable div can be considered as a div with a built-in EditContext which maintains a plain text buffer that serves as a plain text view (or IME-facing view) to communicate with various text input services (ex. IME, handwriting recognition, speech detection, etc.) When users initiate text inputs, the text input services will update the plain text buffer through the plain text view. The built-in EditContext then sends internal events to the div which takes the plain text buffer as part of its own model and updates the DOM, which serves as a user-facing view, based on some default editing behaviors defined by the brower.
-            </p>
-        </section>
-        <section>
-            <h3>The model of an element with EditContext</h3>
-            <img style="margin-left:auto; margin-right:auto; display: block;" src="editcontext_element.jpg" width="500" alt="Figure showing the model of an element with EditContext"/>
-            <p>When a div is associated with an EditContext, the "external" EditContext takes over the text input. Instead of directly triggering the default manipulation of the DOM, the text input now updates the plain text buffer in the external EditContext. The external EditContext then sends events to JavaScript and web-based editors can listen to the events, updates their own models, and manipulates the DOM per their desired editing experiences.
-            </p>
-            <p class="note">EditContext only decouples and handles the manipulation of the plain text view coming from the text input services. Manipulation involving the user-facing view (e.g., drag and drop selected text, spell check replacement, up/down arrow keys to move the caret between lines), or manipulation involving formats (e.g., ctrl+B, outdent/indent) are out of scope of EditContext, however, the beforeinput events for these manipulation will still fire on the div to serve as user intent and it'll be editors's responsibility to handle the editing operations. 
-            </p>
         </section>
     </section>
     <section id="conformance">
@@ -343,6 +306,9 @@
                 attribute EditContext? editContext;
            };
         </pre>
+        <p class="issue">
+            Can EditContext be associated with a disconnected element?
+        </p>
         <dfn>editContext</dfn>
         <p>
             An {{EditContext}}, initially null.
@@ -377,32 +343,33 @@
     </section>
     <section data-dfn-for="EditContext">
         <h2>The <dfn>EditContext</dfn> Interface</h2>
-        <pre class="idl">
-            dictionary EditContextInit {
-                DOMString text;
-                unsigned long selectionStart;
-                unsigned long selectionEnd;
-            };
+    <pre class="idl"><xmp>dictionary EditContextInit {
+    DOMString text;
+    unsigned long selectionStart;
+    unsigned long selectionEnd;
+};
 
-            [Exposed=Window]
-            interface EditContext : EventTarget {
-            constructor(optional EditContextInit options = {});
-            undefined updateSelection(unsigned long start, unsigned long end);
-            undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds);
-            undefined updateText(unsigned long start, unsigned long end, DOMString newText);
-            sequence&lt;Element&gt; attachedElements();
-        
-            attribute DOMString text;
-            attribute unsigned long selectionStart;
-            attribute unsigned long selectionEnd;
-        
-            // Event handler attributes
-            attribute EventHandler ontextupdate;
-            attribute EventHandler ontextformatupdate;
-            attribute EventHandler oncompositionstart;
-            attribute EventHandler oncompositionend;
-        };
-        </pre>
+[Exposed=Window]
+interface EditContext : EventTarget {
+    constructor(optional EditContextInit options = {});
+    undefined updateText(unsigned long start, unsigned long end, DOMString newText);
+    undefined updateSelection(unsigned long start, unsigned long end);
+    undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds,
+         sequence<DOMRect> characterBounds);
+    sequence<Element> attachedElements();
+
+    readonly attribute DOMString text;
+    readonly attribute unsigned long selectionStart;
+    readonly attribute unsigned long selectionEnd;
+    readonly attribute unsigned long compositionStart;
+    readonly attribute unsigned long compositionEnd;
+
+    // Event handler attributes
+    attribute EventHandler ontextupdate;
+    attribute EventHandler ontextformatupdate;
+    attribute EventHandler oncompositionstart;
+    attribute EventHandler oncompositionend;
+};</xmp></pre>
         <dl>
             <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
             <dd>Initially empty string.  The plain text view of the editable content.</dd>
@@ -513,25 +480,28 @@
         <h2>EditContext events</h2>
         <section>
             <h3>TextUpdateEvent</h3>
-            <pre class="idl">
-                dictionary TextUpdateEventInit {
-                    unsigned long updateRangeStart;
-                    unsigned long updateRangeEnd;
-                    DOMString updateText;
-                    unsigned long newSelectionStart;
-                    unsigned long newSelectionEnd;
-                };
+            <pre class="idl"><xmp>dictionary TextUpdateEventInit {
+    unsigned long updateRangeStart;
+    unsigned long updateRangeEnd;
+    DOMString updateText;
+    unsigned long SelectionStart;
+    unsigned long SelectionEnd;
+    unsigned long compositionStart;
+    unsigned long compositionEnd;
+};
 
-                [Exposed=Window]
-                interface TextUpdateEvent : Event {
-                    constructor(optional TextUpdateEventInit options = {});
-                    readonly attribute unsigned long updateRangeStart;
-                    readonly attribute unsigned long updateRangeEnd;
-                    readonly attribute DOMString updateText;
-                    readonly attribute unsigned long newSelectionStart;
-                    readonly attribute unsigned long newSelectionEnd;
-                };
-            </pre>
+[Exposed=Window]
+interface TextUpdateEvent : Event {
+    constructor(optional TextUpdateEventInit options = {});
+    readonly attribute unsigned long updateRangeStart;
+    readonly attribute unsigned long updateRangeEnd;
+    readonly attribute DOMString updateText;
+    readonly attribute unsigned long selectionStart;
+    readonly attribute unsigned long selectionEnd;
+    readonly attribute unsigned long compositionStart;
+    readonly attribute unsigned long compositionEnd;
+};
+            </xmp></pre>
             <dl>
                 <dt>`updateRangeStart`, of type unsigned long, readonly
                 </dt>
