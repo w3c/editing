@@ -6,7 +6,7 @@
     </style>
 </head>
 Click somewhere in the Canvas below, start typing Chinese/Japanese/Korean,<br>
-and change candidate characters to see how EditContext works with Canvas regarding IME: <br><br>
+(and change candidate characters) to see how EditContext works with Canvas to handle IME input: <br><br>
 
 To try the "phrase" mode in Japanese IME (on Windows),<br>
 1) type "konosushihaoishiidesu" and press "space".<br>
@@ -15,9 +15,8 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
 <canvas id="myCanvas" width="400" height="200" style="border:1px solid #000000;">
 </canvas>
 
-<br><br>note:
-<br>use <i>"C:\Users\{YOUR ID}\AppData\Local\Microsoft\Edge SxS\Application\msedge.exe" --enable-blink-features=EditContext</i> to enable EditContext.<br>
-(remember to close any running Canary instances before running the command)
+<br><br>Note:
+<br>EditContext can be enabled through <b>#enable-experimental-web-platform-features</b> in about://flags
 
 <script>
     let canvas = document.getElementById("myCanvas");
