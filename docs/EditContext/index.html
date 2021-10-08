@@ -91,7 +91,7 @@
             <ol>
               <li>Instead of deriving the contents of the [=Text Edit Context=] from the DOM, it will be taken from the {{EditContext.text}} property.</li>
               <li>Instead of deriving the location of selection within that text from the document’s selection, the user agent will use the offsets from the {{EditContext.selectionStart}} and {{EditContext.selectionEnd}} properties.</li>
-              <li>Instead of querying the DOM’s associated CSS boxes for the size and position of selection and the editable region of the document, the {{EditContext.selectionBounds}} and {{EditContext.textBounds}} will be used.</li>
+              <li>Instead of querying the DOM’s associated CSS boxes for the size and position of selection and the editable region of the document, the {{EditContext.selectionBound}} and {{EditContext.displaySurfaceBound}} will be used.</li>
             </ol>
 
             <p>Using an EditContext, an author can mark a region of the document editable by associating an EditContext object with an element as shown in the example below. </p>
@@ -352,10 +352,14 @@
 [Exposed=Window]
 interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
-    undefined updateText(unsigned long start, unsigned long end, DOMString newText);
-    undefined updateSelection(unsigned long start, unsigned long end);
-    undefined updateBounds(DOMRect controlBounds, DOMRect selectionBounds,
-         sequence<DOMRect> characterBounds);
+    undefined updateText(unsigned long updateRangeStart, unsigned long updateRangeEnd,
+        DOMString text);
+    undefined updateSelection(unsigned long selectionStart, unsigned long selectionEnd);
+
+    undefined updateDisplaySurfaceBound(DOMRect displaySurfaceBound);
+    undefined updateSelectionBound(DOMRect selectionBound);
+    undefined updateCompositionCharacterBounds(sequence<DOMRect> characterBounds);
+
     sequence<Element> attachedElements();
 
     readonly attribute DOMString text;
@@ -363,6 +367,10 @@ interface EditContext : EventTarget {
     readonly attribute unsigned long selectionEnd;
     readonly attribute unsigned long compositionStart;
     readonly attribute unsigned long compositionEnd;
+    readonly attribute boolean isInComposition;
+    readonly attribute DOMRect displaySurfaceBound;
+    readonly attribute DOMRect selectionBound;
+    readonly attribute DOMRect characterBounds;
 
     // Event handler attributes
     attribute EventHandler ontextupdate;
@@ -377,6 +385,18 @@ interface EditContext : EventTarget {
             <dd>Initially 0. The start index of the selection.</dd>
             <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The end index of the selection.</dd>
+            <dt><dfn>compositionStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start index of the composition.</dd>
+            <dt><dfn>compositionEnd</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The end index of the composition.</dd>
+            <dt><dfn>isInComposition</dfn>, of type {{boolean}}</dt>
+            <dd>Initially false. Whether there is a active composition.</dd>
+            <dt><dfn>displaySurfaceBound</dfn>, of type {{DOMRect}}</dt>
+            <dd>Initially 0s. The bounding box of the display surface where the text is rendered</dd>
+            <dt><dfn>selectionBound</dfn>, of type {{DOMRect}}</dt>
+            <dd>Initially 0s. The bounding box of the selection.</dd>
+            <dt><dfn>characterBounds</dfn>, of type array of {{DOMRect}}</dt>
+            <dd>Initially 0s. The bounding boxes of each character in the active composition. The size of the array equals to the number of characters that are in active composition</dd>
             <dt>
                 <dfn>updateSelection()</dfn> method
             </dt>
@@ -400,7 +420,7 @@ interface EditContext : EventTarget {
                 </ol>
                </dd>
             <dt>
-                <dfn>updateBounds()</dfn> method
+                <dfn>updateSelectionBound()</dfn> method
             </dt>
               <dd>
                 <p>
@@ -411,13 +431,43 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Set the control bound to `controlBounds`.
-                  </li>
-                  <li>
-                    Set the selection bound to `selectionBounds`.
+                    Set the selection bound to `selectionBound`.
                   </li>
                 </ol>
               </dd>
+              <dt>
+                <dfn>updateDisplaySurfaceBound()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Set the display surface bound to `displaySurfaceBound`.
+                  </li>
+                </ol>
+              </dd>
+              <dt>
+                <dfn>updateCompositionCharacterBounds()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Set the character bounds to `characterBounds`.
+                  </li>
+                </ol>
+              </dd>
+
             <dt>
                 <dfn>updateText()</dfn> method
             </dt>
@@ -483,9 +533,9 @@ interface EditContext : EventTarget {
             <pre class="idl"><xmp>dictionary TextUpdateEventInit {
     unsigned long updateRangeStart;
     unsigned long updateRangeEnd;
-    DOMString updateText;
-    unsigned long SelectionStart;
-    unsigned long SelectionEnd;
+    DOMString text;
+    unsigned long selectionStart;
+    unsigned long selectionEnd;
     unsigned long compositionStart;
     unsigned long compositionEnd;
 };
@@ -495,7 +545,7 @@ interface TextUpdateEvent : Event {
     constructor(optional TextUpdateEventInit options = {});
     readonly attribute unsigned long updateRangeStart;
     readonly attribute unsigned long updateRangeEnd;
-    readonly attribute DOMString updateText;
+    readonly attribute DOMString text;
     readonly attribute unsigned long selectionStart;
     readonly attribute unsigned long selectionEnd;
     readonly attribute unsigned long compositionStart;
@@ -587,20 +637,16 @@ interface TextUpdateEvent : Event {
     <section>
         <h2>Privacy and Security Considerations</h2>
         <p>To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.</p>
-        <section>
-            <h3>{{EditContext/updateSelection()}}, {{EditContext/updateBounds()}}, and {{EditContext/updateText()}} methods</h3>
             <p>
                 <ul>
                     <li>
-                        User Agent MUST only allow {{EditContext/updateSelection()}}, {{EditContext/updateBounds()}}, and {{EditContext/updateText()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                        User Agent MUST only allow {{EditContext/updateSelection()}}, {{EditContext/updateText()}}, {{EditContext/updateSelectionBound()}}, {{EditContext/updateDisplaySurfaceBound()}}, and {{EditContext/updateCompositionCharacterBounds()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                    </li>
+                    <li>
+                        User Agent MUST only allow {{EditContext/text}}, {{EditContext/selectionStart}}, and {{EditContext/selectionEnd}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
                     </li>
                 </ul>
             </p>
-        </section>
-        <section>
-            <h3>{{EditContext/text}}, {{EditContext/selectionStart}}, and {{EditContext/selectionEnd}} attributes</h3>
-            User Agent MUST only allow {{EditContext/text}}, {{EditContext/selectionStart}}, and {{EditContext/selectionEnd}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
-        </section>
     </section>
     <section id="idl-index" class="appendix">
         <!-- All the Web IDL will magically appear here -->
