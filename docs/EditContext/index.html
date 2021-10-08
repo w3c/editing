@@ -9,7 +9,7 @@
             github: "w3c/editing"
             ,specStatus:   "ED"
             ,shortName:    "edit-context"
-            ,editors:      [{ name: "Shihling Keng",
+            ,editors:      [{ name: "Shih-ling Keng",
                                mailto: "shihken@microsoft.com",
                                company: "Microsoft Corporation",
                                w3cid: 126951},
@@ -176,7 +176,7 @@
             this.selectionEnd = newSelectionEnd
         }
 
-        updateTextFormat(formatRangeStart, formatRangeEnd, underlineStyle) {
+        updateTextFormat(rangeStart, rangeEnd, underlineStyle) {
             // implementation omitted for brevity
         }
     }
@@ -191,7 +191,7 @@
     // EditContext will also receive textformatupdate event for IME decoration.
     // Ex. thin/thick underline for the "phrase mode" in Japanese IME.
     editContext.addEventListener("textformatupdate", e => {
-        editingModel.updateTextFormat(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle);
+        editingModel.updateTextFormat(e.rangeStart, e.rangeEnd, e.underlineStyle);
     });
 </script></xmp></pre>
             </aside>
@@ -302,7 +302,7 @@
     <section data-dfn-for="Element">
         <h2>Extensions to the <dfn>Element</dfn> interface</h2>
         <pre class="idl">
-            partial interface Element {
+           partial interface Element {
                 attribute EditContext? editContext;
            };
         </pre>
@@ -577,37 +577,46 @@ interface TextUpdateEvent : Event {
         </section>
         <section>
             <h3>TextFormatUpdateEvent</h3>
-            <pre class="idl">
-                dictionary TextFormatUpdateEventInit {
-                    unsigned long formatRangeStart;
-                    unsigned long formatRangeEnd;
-                    DOMString underlineColor;
-                    DOMString backgroundColor;
-                    DOMString suggestionHighlightColor;
-                    DOMString textColor;
-                    DOMString underlineThickness;
-                    DOMString underlineStyle;
-                };
-                
-                [Exposed=Window]
-                interface TextFormatUpdateEvent : Event {
-                    constructor(optional TextFormatUpdateEventInit options = {});
-                    readonly attribute unsigned long formatRangeStart;
-                    readonly attribute unsigned long formatRangeEnd;
-                    readonly attribute DOMString underlineColor;
-                    readonly attribute DOMString backgroundColor;
-                    readonly attribute DOMString suggestionHighlightColor;
-                    readonly attribute DOMString textColor;
-                    readonly attribute DOMString underlineThickness;
-                    readonly attribute DOMString underlineStyle;
-                };
-            </pre>
+            <pre class="idl"><xmp>dictionary TextFormatInit {
+    unsigned long rangeStart;
+    unsigned long rangeEnd;
+    DOMString underlineColor;
+    DOMString backgroundColor;
+    DOMString suggestionHighlightColor;
+    DOMString textColor;
+    DOMString underlineThickness;
+    DOMString underlineStyle;
+};
+
+[Exposed=Window]
+interface TextFormat {
+    constructor(optional TextFormatInit options = {});
+    attribute unsigned long rangeStart;
+    attribute unsigned long rangeEnd;
+    attribute DOMString underlineColor;
+    attribute DOMString backgroundColor;
+    attribute DOMString suggestionHighlightColor;
+    attribute DOMString textColor;
+    attribute DOMString underlineThickness;
+    attribute DOMString underlineStyle;
+};
+
+dictionary TextFormatUpdateEventInit {
+    sequence<TextFormat> textFormats;
+};
+
+[Exposed=Window]
+interface TextFormatUpdateEvent : Event {
+    constructor(optional TextFormatUpdateEventInit options = {});
+
+    sequence<TextFormat> getTextFormats();
+};</xmp></pre>
             <dl>
-                <dt>`formatRangeStart`, of type unsigned long, readonly
+                <dt>`rangeStart`, of type unsigned long, readonly
                 </dt>
                 <dd>Initially 0.
                 </dd>
-                <dt>`formatRangeEnd`, of type unsigned long, readonly
+                <dt>`rangeEnd`, of type unsigned long, readonly
                 </dt>
                 <dd>Initially 0.
                 </dd>
