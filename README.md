@@ -10,11 +10,11 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
 
 ## Actively developed ideas/specs
 
-* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/))
-* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/))
-* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) (this Repo)
-* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/))
-* [EditContextAPI](docs/EditContext/explainer.md) (this Repo)
+* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/)) <a href="https://github.com/w3c/clipboard-apis/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/clipboard-apis/agenda+?label=agenda%2B%20issues)</a>
+* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/)) <a href="https://github.com/w3c/input-events/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/input-events/agenda+?label=agenda%2B%20issues)</a>
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) ([this Repo](https://github.com/w3c/editing/)) <a href="https://github.com/w3c/editing/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/editing/agenda+?label=agenda%2B%20issues)</a>
+* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/)) <a href="https://github.com/w3c/virtual-keyboard/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/virtual-keyboard/agenda+?label=agenda%2B%20issues)</a>
+* [EditContextAPI](docs/EditContext/explainer.md) ([this Repo](https://github.com/w3c/editing/))
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
@@ -67,6 +67,7 @@ The Editing Working Group meets remotely at 9:00AM PST, on the second Friday of 
 The upcoming schedule is below:
 
 * October 8, 2021
+* October 15 (special meeting to continue discussion on [clipboard pickling](https://github.com/w3c/editing/issues/334))
 * October 29, 2021 ([Confirmed TPAC group meeting](https://www.w3.org/wiki/TPAC/2021/GroupMeetings#WG.2FIG.2FBG_Group_Meetings_details))
 * November 12, 2021
 * December 10, 2021 
