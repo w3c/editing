@@ -180,9 +180,9 @@
 <canvas></canvas></xmp></pre>
             </aside>
 
-            <p>Building on the previous example, in response to user input, authors should handle the events of both the editable element (in this case a canvas) and the EditContext.  Input events against the DOM continue to describe the user’s intent.  Against the EditContext, the textupdate event describes changes to the text, the selection, and the composition range properties of the EditContext. The textformatupdate event describes changes to the style of the text. The updates received by the author’s code for text, selection, style, composition range changes should be rendered back to the canvas so the user can see what they are typing. Aganist the EditContext, there is also characterboundsupdate event, wihich describes what character bounds are needed by OS Text Input Service to support various Text Input Methods. The author is responsible to compute the requested character bounds in the event handler and call updateCharacterBounds to update the characterBounds property of the EditContext </p>
+            <p>Building on the previous example, in response to user input, authors should handle the events of both the editable element (in this case a canvas) and the EditContext.  Input events against the DOM continue to describe the user’s intent.  Against the EditContext, the textupdate event describes changes to the text, the selection, and the composition range properties of the EditContext. The textformatupdate event describes changes to the style of the text. The updates received by the author’s code for text, selection, style, composition range changes should be rendered back to the canvas so the user can see what they are typing. Aganist the EditContext, there is also characterboundsupdate event, wihich describes what character bounds are needed by the [=Text Input Service=] to support [=Text Input Method=] to display user interface properly. After receiving the characterboundsupdate event, the author is responsible to compute the requested character bounds and call updateCharacterBounds to update the characterBounds property of the EditContext.</p>
             <p>Below example shows how to handle the textupdate event, the textformatupdate event, and the characterboundsupdate event to update the model and render the result to the canvas.</p>
-            <aside class="example" title="Event handlers for TextUpdateEvent and TextFormatUpdateEvent">
+            <aside class="example" title="Event handlers for TextUpdateEvent, TextFormatUpdateEvent, and CharacterBoundsUpdateEvent">
                 <pre><xmp>// For brevity, this example shows only the delta added to the example 1 and example 2.
 <script>
     class EditingModel {
@@ -264,9 +264,9 @@
         editingcontroller.updateTextFormatsUpdate(e.getTextFormats());
     });
 
-    // When receiving CharacterBoundsUpdate event, the author is responsible to compute the bounds
-    // of characters from rangeStart to rangeEnd and call EditContext.updateCharacterBounds to
-    // update the character bounds in EditContext.
+    // When receiving CharacterBoundsUpdate event, the author is responsible to compute
+    // the bounds of characters from rangeStart to rangeEnd, and call
+    // EditContext.updateCharacterBounds to update the character bounds in EditContext.
     editContext.addEventListener("characterboundsupdate", e => {
         editingcontroller.handleCharacterBoundsUpdate(e.rangeStart, e.rangeEnd);
     });
@@ -431,14 +431,14 @@
         <p>
             An {{EditContext}}, initially null.
         </p>
-        <p>An `editContext` is activated when the associated element is focused and deactivated when the element is blurred.</p>
-        <p>When an EditContext is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
+        <p>An {{EditContext}} is activated when the associated element is focused and deactivated when the associated element is blurred.</p>
+        <p>When an {{EditContext}} is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
         <ol>
             <li>
                 Fire relevant beforeinput event on the focused element. If the beforeinput event is cancelled, abort these steps.
             </li>
             <li>
-                Update the `text` of the activated EditContext.
+                Update the text of the activated EditContext.
             </li>
             <li>
                 Fire compositionstart event on the activated EditContext if it's a start of a composition.
@@ -450,11 +450,12 @@
                 Fire textformateupdate event on the activated EditContext if it's a composition.
             </li>
             <li>
+                Fire characterboundsupdate event on the activated EditContext.
+            </li>
+            <li>
                 Fire compositionend event on the activated EditContext if it's an end of a composition.
             </li>
         </ol>
-        <p>When an element has an associated EditContext, it behaves like a contenteditable element (e.g., it will be focusable; it will display editing context menu when right-clicking; it will receive beforeinput events) except that its DOM is not changed when there is text input and it doesn't receive any input events.
-        </p>
         <p class="note">
             An EditContext can be associated with multiple elements but only the element that has focus will receive events from step 1 above.
         </p>
@@ -472,7 +473,7 @@ interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
     undefined updateText(unsigned long rangeStart, unsigned long rangeEnd,
         DOMString text);
-    undefined updateSelection(unsigned long selectionStart, unsigned long selectionEnd);
+    undefined updateSelection(unsigned long start, unsigned long end);
     undefined updateControlBound(DOMRect controlBound);
     undefined updateSelectionBound(DOMRect selectionBound);
     undefined updateCharacterBounds(unsigned long rangeStart, sequence<DOMRect> characterBounds);
@@ -490,15 +491,14 @@ interface EditContext : EventTarget {
     readonly attribute unsigned long characterBoundsRangeStart;
     sequence<DOMRect> characterBounds();
 
-    // Event handler attributes
     attribute EventHandler ontextupdate;
-    attribute EventHandler oncharactorboundsupdate;
+    attribute EventHandler oncharacterboundsupdate;
     attribute EventHandler ontextformatupdate;
     attribute EventHandler oncompositionstart;
     attribute EventHandler oncompositionend;
 };</xmp></pre>
 <p class="issue">
-    should attachedElements() return elements that are removed from the tree?
+    should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be coufusing/unintuitive that we allow it but attachedElements returns empty.
 </p>
         <dl>
             <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
@@ -507,9 +507,9 @@ interface EditContext : EventTarget {
             <dd>Initially 0. The start index of the selection.</dd>
             <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The end index of the selection.</dd>
-            <dt><dfn>compositionStart</dfn>, of type {{unsigned long}}</dt>
+            <dt><dfn>compositionRangeStart</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The start index of the composition.</dd>
-            <dt><dfn>compositionEnd</dfn>, of type {{unsigned long}}</dt>
+            <dt><dfn>compositionRangeEnd</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The end index of the composition.</dd>
             <dt><dfn>isInComposition</dfn>, of type {{boolean}}</dt>
             <dd>Initially false. Whether there is a active composition.</dd>
@@ -520,8 +520,13 @@ interface EditContext : EventTarget {
             </p>
             <dt><dfn>selectionBound</dfn>, of type {{DOMRect}}</dt>
             <dd>Initially 0s. The bounding box of the selection.</dd>
-            <dt><dfn>characterBounds</dfn>, of type array of {{DOMRect}}</dt>
+
+            <dt><dfn>characterBoundsRangeStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start index of the composition.</dd>
+
+            <dt><dfn>characterBounds()</dfn>, of type array of {{DOMRect}}</dt>
             <dd>Initially 0s. The bounding boxes of each character in the active composition. The size of the array equals to the number of characters that are in active composition</dd>
+
             <dt>
                 <dfn>updateSelection()</dfn> method
             </dt>
@@ -609,46 +614,24 @@ interface EditContext : EventTarget {
                   </li>
                 </ol>
               </dd>
-            <dt>
-                <dfn>attachedElements()</dfn> method
-            </dt>
-              <dd>
-                <p>
-                    The method returns elements that are associated with the EditContext.
-                </p>
-              </dd>              
-            <dt>
-                <dfn>ontextupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for {{TextUpdateEvent}}.
-            </p>
-            </dd>
-            <dt>
-                <dfn>ontextformatupdate</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for {{TextFormatUpdateEvent}}.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionstart</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for the compositionstart event.
-            </p>
-            </dd>
-            <dt>
-                <dfn>oncompositionend</dfn>
-            </dt>
-            <dd>
-            <p>
-                The event handler for the oncompositionend event.
-            </p>
-            </dd>
+
+            <dt><dfn>attachedElements()</dfn> method</dt>
+            <dd><p>The method returns elements that are associated with the EditContext.</p></dd>
+
+            <dt><dfn>ontextupdate</dfn></dt>
+            <dd><p>The event handler for {{TextUpdateEvent}}.</p></dd>
+
+            <dt><dfn>oncharacterboundsupdate</dfn></dt>
+            <dd><p>The event handler for {{CharacterBoundsUpdateEvent}}.</p></dd>
+
+            <dt><dfn>ontextformatupdate</dfn></dt>
+            <dd><p>The event handler for {{TextFormatUpdateEvent}}.</p></dd>
+
+            <dt><dfn>oncompositionstart</dfn></dt>
+            <dd><p>The event handler for the compositionstart event.</p></dd>
+
+            <dt><dfn>oncompositionend</dfn></dt>
+            <dd><p>The event handler for the oncompositionend event.</p></dd>
         </dl>
     </section>
 
