@@ -433,31 +433,48 @@
         </p>
         <p>An {{EditContext}} is activated when the associated element is focused and deactivated when the associated element is blurred.</p>
         <p>When an {{EditContext}} is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
+
+        <p>If in a composition: </p>
         <ol>
             <li>
-                Fire relevant beforeinput event on the focused element. If the beforeinput event is cancelled, abort these steps.
+                [=Fire an event=] named "beforeinput", if applicable to the user text input, at the focused element. If the beforeinput event is cancelled, abort these steps.
             </li>
             <li>
-                Update the text of the activated EditContext.
+                Update the {{EditContext/text}}, {{EditContext/selectionStart}}, {{EditContext/selectionEnd}}, {{EditContext/compositionRangeStart}}, {{EditContext/compositionRangeEnd}}, and {{EditContext/isInComposition}} properties of the activated EditContext.
             </li>
             <li>
-                Fire compositionstart event on the activated EditContext if it's a start of a composition.
+                [=Fire an event=] named "compositionstart" at the activated EditContext if it's a start of a composition.
             </li>
             <li>
-                Fire textupdate event on the activated EditContext.
+                [=Fire an event=] named "textupdate" at the activated EditContext.
             </li>
             <li>
-                Fire textformateupdate event on the activated EditContext if it's a composition.
+                [=Fire an event=] named "textformateupdate" at the activated EditContext.
             </li>
             <li>
-                Fire characterboundsupdate event on the activated EditContext.
+                [=Fire an event=] named "characterboundsupdate" at the activated EditContext.
             </li>
             <li>
-                Fire compositionend event on the activated EditContext if it's an end of a composition.
+                [=Fire an event=] named "compositionend" at the activated EditContext if it's an end of a composition.
             </li>
         </ol>
-        <p class="note">
-            An EditContext can be associated with multiple elements but only the element that has focus will receive events from step 1 above.
+        <p>If not in a composition: </p>
+        <ol>
+            <li>
+                [=Fire an event=] named "beforeinput", if applicable to the user text input, at the focused element. If the beforeinput event is cancelled, abort these steps.
+            </li>
+            <li>
+                Update the {{EditContext/text}}, {{EditContext/selectionStart}}, {{EditContext/selectionEnd}}, {{EditContext/compositionRangeStart}}, {{EditContext/compositionRangeEnd}}, and {{EditContext/isInComposition}} properties of the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "textupdate" at the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "characterboundsupdate" at the activated EditContext.
+            </li>
+        </ol>
+        <p>
+            An {{EditContext}} can be associated with multiple elements but only the element that has focus will receive beforeinput events.
         </p>
     </section>
     <section data-dfn-for="EditContext">
@@ -471,6 +488,7 @@
 [Exposed=Window]
 interface EditContext : EventTarget {
     constructor(optional EditContextInit options = {});
+
     undefined updateText(unsigned long rangeStart, unsigned long rangeEnd,
         DOMString text);
     undefined updateSelection(unsigned long start, unsigned long end);
@@ -492,45 +510,63 @@ interface EditContext : EventTarget {
     sequence<DOMRect> characterBounds();
 
     attribute EventHandler ontextupdate;
-    attribute EventHandler oncharacterboundsupdate;
     attribute EventHandler ontextformatupdate;
+    attribute EventHandler oncharacterboundsupdate;
     attribute EventHandler oncompositionstart;
     attribute EventHandler oncompositionend;
 };</xmp></pre>
-<p class="issue">
-    should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be coufusing/unintuitive that we allow it but attachedElements returns empty.
-</p>
         <dl>
             <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
-            <dd>Initially empty string.  The plain text view of the editable content.</dd>
+            <dd>Initially empty string. The plain text view of the editable content.</dd>
+
             <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The start index of the selection.</dd>
+            <dd>Initially 0. The start position of the selection.</dd>
+
             <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The end index of the selection.</dd>
+            <dd>Initially 0. The end position of the selection.</dd>
+
             <dt><dfn>compositionRangeStart</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The start index of the composition.</dd>
+            <dd>Initially 0. The start position of the composition.</dd>
+
             <dt><dfn>compositionRangeEnd</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The end index of the composition.</dd>
+            <dd>Initially 0. The end position of the composition.</dd>
+
             <dt><dfn>isInComposition</dfn>, of type {{boolean}}</dt>
-            <dd>Initially false. Whether there is a active composition.</dd>
+            <dd>Initially false. Whether there is an active composition.</dd>
+
             <dt><dfn>controlBound</dfn>, of type {{DOMRect}}</dt>
-            <dd>Initially 0s. The bounding box of the display surface where the text is rendered</dd>
-            <p class="note">
-                The control bound may be used by the OS for hittesting to trigger the virtual keyboard.
-            </p>
+            <dd>Initially 0s. The bounding box of the display surface where the text is rendered.</dd>
+
+<p class="note">
+    The control bound may be used by the OS for hittesting to trigger the virtual keyboard.
+</p>
+
             <dt><dfn>selectionBound</dfn>, of type {{DOMRect}}</dt>
-            <dd>Initially 0s. The bounding box of the selection.</dd>
+            <dd>Initially 0s. The bounding box of the selection. If the selection is collapsed, this is the bounding box of the caret.</dd>
 
             <dt><dfn>characterBoundsRangeStart</dfn>, of type {{unsigned long}}</dt>
-            <dd>Initially 0. The start index of the composition.</dd>
+            <dd>Initially 0. The start position of the range where the character bounds are cached.</dd>
 
-            <dt><dfn>characterBounds()</dfn>, of type array of {{DOMRect}}</dt>
-            <dd>Initially 0s. The bounding boxes of each character in the active composition. The size of the array equals to the number of characters that are in active composition</dd>
+            <dt><dfn>characterBounds()</dfn> method</dt>
+            <dd>Initially empty array.
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Return the character bounds that are cached for [=Text Input Service=] to query.
+                  </li>
+                </ol>
+            </dd>
+
 
             <dt>
                 <dfn>updateSelection()</dfn> method
             </dt>
-              <dd>
+            <dd>
                 <p>
                   The method must follow these steps:
                 </p>
@@ -542,13 +578,13 @@ interface EditContext : EventTarget {
                     If start > end, abort these steps.
                   </li>
                   <li>
-                    set `selectionStart` to `start`
+                    set {{EditContext/selectionStart}} to start
                   </li>
                   <li>
-                    set `selectionEnd` to `end`
+                    set {{EditContext/selectionEnd}} to end
                   </li>
                 </ol>
-               </dd>
+            </dd>
             <dt>
                 <dfn>updateSelectionBound()</dfn> method
             </dt>
@@ -561,7 +597,7 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Set the selection bound to `selectionBound`.
+                    set {{EditContext/selectionBound}} to <i>selectoinBound</i>.
                   </li>
                 </ol>
               </dd>
@@ -577,7 +613,7 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Set the display surface bound to `controlBound`.
+                    set {{EditContext/controlBound}} to <i>controlBound</i>.
                   </li>
                 </ol>
               </dd>
@@ -593,7 +629,10 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Set the character bounds to `characterBounds`.
+                    Set {{EditContext/characterBoundsRangeStart}} to <i>rangeStart</i>.
+                  </li>
+                  <li>
+                    Set {{EditContext/controlBounds}} to <i>characterBounds</i>.
                   </li>
                 </ol>
               </dd>
@@ -610,14 +649,17 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Replace the string in the range of `start` and `end` with `newText`.
+                    Replace the string in the range of <i>rangeStart</i> and <i>rangeEnd</i> of {{EditContext/text}} with <i>text</i>.
                   </li>
                 </ol>
               </dd>
 
             <dt><dfn>attachedElements()</dfn> method</dt>
             <dd><p>The method returns elements that are associated with the EditContext.</p></dd>
-
+            <p class="issue">
+                should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be coufusing/unintuitive that we allow it but attachedElements returns empty.
+            </p>
+            
             <dt><dfn>ontextupdate</dfn></dt>
             <dd><p>The event handler for {{TextUpdateEvent}}.</p></dd>
 
@@ -638,7 +680,7 @@ interface EditContext : EventTarget {
     <section data-dfn-for="EditContextEvents">
         <h2>EditContext events</h2>
         <section>
-            <h3>TextUpdateEvent</h3>
+            <h3><dfn>TextUpdateEvent</dfn></h3>
             <pre class="idl"><xmp>dictionary TextUpdateEventInit {
     unsigned long updateRangeStart;
     unsigned long updateRangeEnd;
@@ -659,29 +701,28 @@ interface TextUpdateEvent : Event {
     readonly attribute unsigned long selectionEnd;
     readonly attribute unsigned long compositionStart;
     readonly attribute unsigned long compositionEnd;
-};
-            </xmp></pre>
+};</xmp></pre>
             <dl>
-                <dt>`updateRangeStart`, of type unsigned long, readonly
-                </dt>
-                <dd>Initially 0.
-                </dd>
-                <dt>`updateRangeEnd`, of type unsigned long, readonly
-                </dt>
-                <dd>Initially 0.
-                </dd>
-                <dt>`updateText`, of type {{DOMString}}, readonly
-                </dt>
-                <dd>Initially empty string.
-                </dd>
-                <dt>`newSelectionStart`, of type unsigned long, readonly
-                </dt>
-                <dd>Initially 0.
-                </dd>
-                <dt>`newSelectionEnd`, of type unsigned long, readonly
-                </dt>
-                <dd>Initially 0.
-                </dd>
+                <dt>{{TextUpdateEvent/updateRangeStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the range that is to be replaced.</dd>
+
+                <dt>{{TextUpdateEvent/updateRangeEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the range that is to be replaced.</dd>
+
+                <dt>{{TextUpdateEvent/text}}, of type {{DOMString}}, readonly</dt>
+                <dd>The new string that is to replace the old string in the range.</dd>
+
+                <dt>{{TextUpdateEvent/selectionStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the selection after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/selectionEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the selection after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/compositionStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the composition after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/compositionEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the composition after the text replacement.</dd>
             </dl>
         </section>
         <section>
