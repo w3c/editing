@@ -221,6 +221,11 @@
 
             // render the IME decoration
             this.model.textFormats.forEach( textFormat => {
+                // For brevity, these variables' initialization are omitted:
+                // anchorX: the x coordinate of the beginning of the string
+                // lineY: the y coordinate of the underline
+                // charWidth: the width of the character (here we are using a mono-spaced font)
+                // thickWidth/thinWidth: pre-defined width for thick/thin lines.
                 let lineStartX = anchorX + textFormat.rangeStart * charWidth;
                 let lineEndX = anchorX + textFormat.rangeEnd * charWidth;
                 
@@ -268,7 +273,7 @@
     // EditContext will also receive textformatupdate event for IME decoration.
     // Ex. thin/thick underline for the "phrase mode" in Japanese IME.
     editContext.addEventListener("textformatupdate", e => {
-        editingcontroller.updateTextFormatsUpdate(e.getTextFormats());
+        editingcontroller.handleTextFormatUpdate(e.getTextFormats());
     });
 
     // When receiving CharacterBoundsUpdate event, the author is responsible to compute
@@ -325,7 +330,7 @@
             // plain text space. One approach is to use range.toString() to get the plain text
             // before the selection start/end, and use the text length as the selection index.
             let s = document.getSelection()
-            let range = document.createRange()
+            let range = new Range()
             range.setEnd(s.anchorNode, s.anchorOffset)
             range.setStartBefore(parentContainer)
             let selectionStart = range.toString().length
@@ -724,7 +729,7 @@ interface EditContext : EventTarget {
             <dt><dfn>attachedElements()</dfn> method</dt>
             <dd><p>The method returns elements that are associated with the EditContext.</p></dd>
             <p class="issue">
-                should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be coufusing/unintuitive that we allow it but attachedElements returns empty.
+                should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be confusing/unintuitive that we allow it but attachedElements returns empty.
             </p>
             
             <dt><dfn>ontextupdate</dfn></dt>
