@@ -431,6 +431,9 @@
         <p>
             An {{EditContext}}, initially null.
         </p>
+
+        <p>An element is focusable when it is associated with an {{EditContext}}.</p>
+
         <p>An {{EditContext}} is activated when the associated element is focused and deactivated when the associated element is blurred.</p>
         <p>When an {{EditContext}} is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
 
@@ -476,7 +479,62 @@
         <p>
             An {{EditContext}} can be associated with multiple elements but only the element that has focus will receive beforeinput events.
         </p>
+
+        <section>
+            <h3>Supported elements</h3>
+            <p>Below is the list of elements that can be associated with {{EditContext}}: abbr, 
+                address, 
+                article, 
+                aside, 
+                b, 
+                blockquote, 
+                canvas, 
+                cite, 
+                code, 
+                del, 
+                details, 
+                dfn, 
+                div, 
+                dl, 
+                em, 
+                footer, 
+                form, 
+                h1, 
+                h2, 
+                h3, 
+                h4, 
+                h5, 
+                h6, 
+                hgroup, 
+                i, 
+                ins, 
+                kbd, 
+                label, 
+                mark, 
+                object, 
+                ol, 
+                output, 
+                p, 
+                pre, 
+                q, 
+                ruby, 
+                s, 
+                samp, 
+                section, 
+                small, 
+                span, 
+                strong, 
+                sub, 
+                sup, 
+                table, 
+                time, 
+                u, and
+                ul.
+                </p>
+        </section>
+
     </section>
+
     <section data-dfn-for="EditContext">
         <h2>The <dfn>EditContext</dfn> Interface</h2>
     <pre class="idl"><xmp>dictionary EditContextInit {
@@ -726,7 +784,7 @@ interface TextUpdateEvent : Event {
             </dl>
         </section>
         <section>
-            <h3>TextFormatUpdateEvent</h3>
+            <h3><dfn>TextFormatUpdateEvent</dfn></h3>
             <pre class="idl"><xmp>dictionary TextFormatInit {
     unsigned long rangeStart;
     unsigned long rangeEnd;
@@ -743,12 +801,11 @@ interface TextFormat {
     constructor(optional TextFormatInit options = {});
     attribute unsigned long rangeStart;
     attribute unsigned long rangeEnd;
-    attribute DOMString underlineColor;
-    attribute DOMString backgroundColor;
-    attribute DOMString suggestionHighlightColor;
     attribute DOMString textColor;
-    attribute DOMString underlineThickness;
+    attribute DOMString backgroundColor;
     attribute DOMString underlineStyle;
+    attribute DOMString underlineThickness;
+    attribute DOMString underlineColor;
 };
 
 dictionary TextFormatUpdateEventInit {
@@ -762,33 +819,38 @@ interface TextFormatUpdateEvent : Event {
     sequence<TextFormat> getTextFormats();
 };</xmp></pre>
             <dl>
-                <dt>`rangeStart`, of type unsigned long, readonly
+                <dt>{{TextFormat/rangeStart}}, of type unsigned long, readonly
                 </dt>
-                <dd>Initially 0.
+                <dd>The start position of the range where the format is applied.
                 </dd>
-                <dt>`rangeEnd`, of type unsigned long, readonly
+                <dt>{{TextFormat/rangeEnd}}, of type unsigned long, readonly
                 </dt>
-                <dd>Initially 0.
+                <dd>The end position of the range where the format is applied.
                 </dd>
-                <dt>`underlineColor`, of type {{DOMString}}, readonly
+                <dt>{{TextFormat/textColor}}, of type {{DOMString}}, readonly
                 </dt>
-                <dd>Initially empty string.
+                <dd>The color of the text. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
                 </dd>
-                <dt>`suggestionHighlightColor`, of type {{DOMString}}, readonly
+                <dt>{{TextFormat/backgroundColor}}, of type {{DOMString}}, readonly
                 </dt>
-                <dd>Initially empty string.
+                <dd>The color of the background. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
                 </dd>
-                <dt>`textColor`, of type {{DOMString}}, readonly
+                <dt>{{TextFormat/underlineStyle}}, of type {{DOMString}}, readonly
                 </dt>
-                <dd>Initially empty string.
+                <dd>The style of the underline. The value is one of the following strings: "None", "Solid", "Dotted", "Dashed", and "Squiggle".
                 </dd>
-                <dt>`underlineThickness`, of type {{DOMString}}, readonly
+                <dt>{{TextFormat/underlineThickness}}, of type {{DOMString}}, readonly
                 </dt>
-                <dd>Initially empty string.
+                <dd>The thickness of the underline. The value is one of the following strings: "None", "Thin", and "Thick".
                 </dd>
-                <dt>`underlineStyle`, of type {{DOMString}}, readonly
+                <dt>{{TextFormat/underlineColor}}, of type {{DOMString}}, readonly
                 </dt>
-                <dd>Initially empty string.
+                <dd>The color of the underline. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
+                </dd>
+
+                <dt>{{TextFormatUpdateEvent/getTextFormats}} method
+                </dt>
+                <dd>Returns an array of {{TextFormat}} that describes how {{EditContext/text}} should be formatted in the DOM.
                 </dd>
             </dl>
         </section>
@@ -807,13 +869,13 @@ interface CharacterBoundsUpdateEvent : Event {
     readonly attribute unsigned long rangeEnd;
 };</xmp></pre>
             <dl>
-                <dt>`rangeStart`, of type unsigned long, readonly
+                <dt>{{CharacterBoundsUpdateEvent/rangeStart}}, of type unsigned long, readonly
                 </dt>
-                <dd>Initially 0.
+                <dd>The start position of the range where the character bounds are needed by [=Text Input Service=]
                 </dd>
-                <dt>`rangeEnd`, of type unsigned long, readonly
+                <dt>{{CharacterBoundsUpdateEvent/rangeEnd}}, of type unsigned long, readonly
                 </dt>
-                <dd>Initially 0.
+                <dd>The end position of the range where the character bounds are needed by [=Text Input Service=]
                 </dd>
             </dl>
         </section>
@@ -825,9 +887,6 @@ interface CharacterBoundsUpdateEvent : Event {
                 <ul>
                     <li>
                         User Agent MUST only allow {{EditContext/updateSelection()}}, {{EditContext/updateText()}}, {{EditContext/updateSelectionBound()}}, {{EditContext/updateControlBound()}}, and {{EditContext/updateCharacterBounds()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
-                    </li>
-                    <li>
-                        User Agent MUST only allow {{EditContext/text}}, {{EditContext/selectionStart}}, and {{EditContext/selectionEnd}} to be set in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
                     </li>
                 </ul>
             </p>
