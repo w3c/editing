@@ -602,14 +602,14 @@ interface EditContext : EventTarget {
             <dd>Initially false. Whether there is an active composition.</dd>
 
             <dt><dfn>controlBound</dfn>, of type {{DOMRect}}</dt>
-            <dd>Initially 0s. The bounding box of the display surface where the text is rendered.</dd>
+            <dd>Initially 0s. The bounding box of the display surface where the text is rendered. The offset of the rectangle is expressed relative to the origin of the associated element.</dd>
 
 <p class="note">
     The control bound may be used by the OS for hittesting to trigger the virtual keyboard.
 </p>
 
             <dt><dfn>selectionBound</dfn>, of type {{DOMRect}}</dt>
-            <dd>Initially 0s. The bounding box of the selection. If the selection is collapsed, this is the bounding box of the caret.</dd>
+            <dd>Initially 0s. The bounding box of the selection. The offset of the rectangle is expressed relative to the origin of the associated element. If the selection is collapsed, this is the bounding box of the caret.</dd>
 
             <dt><dfn>characterBoundsRangeStart</dfn>, of type {{unsigned long}}</dt>
             <dd>Initially 0. The start position of the range where the character bounds are cached.</dd>
@@ -624,7 +624,7 @@ interface EditContext : EventTarget {
                     If the EditContext is not activated, abort these steps.
                   </li>
                   <li>
-                    Return the character bounds that are cached for [=Text Input Service=] to query.
+                    Return the cached character bounds. The offset of the rectangle is expressed relative to the origin of the associated element.
                   </li>
                 </ol>
             </dd>
