@@ -1,0 +1,125 @@
+<head>
+    <style>
+        canvas:hover {
+            cursor: default;
+        }
+    </style>
+</head>
+(Note: EditContext can be enabled through <b>#enable-experimental-web-platform-features</b> in about://flags)
+<br><br>
+Click somewhere in the Canvas below, start typing Chinese/Japanese/Korean,<br>
+(and change candidate characters) to see how EditContext works with Canvas to handle IME input: <br><br>
+
+To try the "phrase" mode in Japanese IME (on Windows),<br>
+1) type "konosushihaoishiidesu" and press "space".<br>
+2) use left/right key to move between phrases and press "space" to open the candidate window<br>
+3) use up/down key to choose candidate, press "Esc" to close the candidate window or press "Enter" to commit<br><br>
+<canvas id="myCanvas" width="400" height="200" style="border:1px solid #000000;">
+</canvas>
+
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let canvasContext2D = canvas.getContext("2d");
+    canvasContext2D.font = "30px Arial";
+    let charWidth = 30; // The width of the character is 30px.
+    let caretLength = 30;
+
+    let editContext = new EditContext();
+    canvas.editContext = editContext;
+
+    let anchorX = 0; // the anchor point of the composition
+    let anchorY = 0;
+    let selection = 0; // selection i.e the index of the caret position
+
+    function renderCaret(x, y) {
+        canvasContext2D.beginPath();
+        canvasContext2D.moveTo(x + 2, y + 9);
+        canvasContext2D.lineTo(x + 2, y - caretLength);
+        canvasContext2D.strokeStyle = 'green';
+        canvasContext2D.stroke();
+    }
+
+    function renderUnderlineDecoration(rangeStart, rangeEnd, style, thickness) {
+        let lineStartX = anchorX + rangeStart * charWidth;
+        let offsetX = 2; // space between underlines of different phrases
+        let lineEndX = anchorX + rangeEnd * charWidth - offsetX;
+        let offsetY = 7; // space between chars and the underline
+        let lineY = anchorY + offsetY;
+        let thickWidth = 3;
+        let thinWidth = 2;
+
+        // Japanese IME returns 'Squiggle' while Chinese returns 'Dotted' for active composition.
+        // For simplicity we draw dotted line for both.
+        if (style == 'Squiggle' || style == 'Dotted') {
+            canvasContext2D.setLineDash([1, 1]); // dotted line pattern
+            canvasContext2D.beginPath();
+            canvasContext2D.moveTo(lineStartX,lineY);
+            canvasContext2D.lineTo(lineEndX, lineY);
+            canvasContext2D.stroke();
+            canvasContext2D.setLineDash([]); // reset line pattern
+
+        } else if (style == 'Solid') { // Draw solid lines for "phrases" in Japenese IME
+            canvasContext2D.lineWidth = (thickness == 'Thick')? thickWidth : thinWidth;
+            canvasContext2D.beginPath();
+            canvasContext2D.moveTo(lineStartX, lineY);
+            canvasContext2D.lineTo(lineEndX, lineY);
+            canvasContext2D.stroke();
+            canvasContext2D.lineWidth = 1; // reset line width.
+        }
+    }
+
+    function render() {
+        canvasContext2D.clearRect(0,0, canvas.width, canvas.height);
+        
+        // rener texts in EditContext's buffer
+        canvasContext2D.strokeText(editContext.text, anchorX, anchorY);
+
+        let caretX = anchorX + selection * charWidth;
+        let caretY = anchorY;
+        renderCaret(caretX, caretY);
+
+        // update layout info through EditContext so IME can show candidate window in the correct position.
+        let controlBound = canvas.getBoundingClientRect();
+        selectoinClientX = caretX + canvas.offsetLeft;
+        selectoinClientY = caretY + canvas.offsetTop;
+        let selectionBound = DOMRect.fromRect({x:selectoinClientX, y:selectoinClientY, width:1, height:10});
+
+        controlBound = scaleDOMRect(controlBound, window.devicePixelRatio);
+        selectionBound = scaleDOMRect(selectionBound, window.devicePixelRatio);
+
+        editContext.updateBounds(controlBound, selectionBound);
+    }
+
+    // when EditContext is active (i.e. the associated element is focused)
+    // it'll receive textupdate events when there is user input.
+    editContext.addEventListener("textupdate", e => {
+        console.log(`editcontext.text:[${editContext.text}]`);
+        console.log(`textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
+        selection = e.newSelectionStart;
+        render();
+    });
+
+    editContext.addEventListener("textformatupdate", e => { 
+        console.log(`textformatupdate:range(${e.formatRangeStart}, ${e.formatRangeEnd}),
+        ${e.underlineColor}, ${e.backgroundColor}, ${e.suggestionHighlightColor}
+        ${e.textColor}, ${e.underlineThickness}, ${e.underlineStyle}`);
+        renderUnderlineDecoration(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle, e.underlineThickness);
+    });
+
+    canvas.addEventListener('click', function(event) {
+        let elemLeft = canvas.offsetLeft + canvas.clientLeft;
+        let elemTop = canvas.offsetTop + canvas.clientTop;
+        anchorX = event.pageX - elemLeft;
+        anchorY = event.pageY - elemTop;
+        render();
+    });
+
+    // To handle zoom levels
+    function scaleDOMRect(rect, scale) {
+        rect.x = rect.x * scale;
+        rect.y = rect.y * scale;
+        rect.width = rect.width * scale;
+        rect.height = rect.height * scale;
+        return rect;
+    }
+</script>

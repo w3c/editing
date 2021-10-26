@@ -5,12 +5,12 @@
 <div id="decoration" style="position:absolute"></div>
 
 <br><br>
-<span id=parentSpan style="padding:5px; font-size:40px;white-space:pre;"><span style="font-size: 28px">    一二三 </span><span style="font-weight:800;">hello </span><span style="font-style:italic">world </span><span style="background-color:yellow">四五六</span></span>
+<div id=editView style="padding:5px; font-size:40px;white-space:pre;">    😂😃😄一二三 hello world すし美味しいです</div>
 
 <script>
     var editContext = new EditContext();
-    parentSpan.editContext = editContext;
-    editContext.text = parentSpan.textContent;
+    editView.editContext = editContext;
+    editContext.text = editView.textContent;
 
     let compositionNode = null;
     let compositionStartOffset = null
@@ -19,14 +19,21 @@
         console.log(`editContext::compositionstart: e.data=[${e.data}]`);
         let s = document.getSelection();
         let range = s.getRangeAt(0);
-        //console.log(`compositionstart:Range.startContainer[${range.startContainer}], startOffset[${range.startOffset}]`);
+
         compositionNode = range.startContainer;
         compositionStartOffset = range.startOffset;
     });
 
+    function printEditContextBuffer() {
+        buffer = editContext.text;
+        selectionStart = editContext.selectionStart;
+        selectionEnd = editContext.selectionEnd;
+        return buffer.slice(0,selectionStart) + '{' + buffer.slice(selectionStart, selectionEnd) + '}' + buffer.slice(selectionEnd);
+    }
+
     editContext.addEventListener("textupdate", e => {
         console.log(`editContext::textupdate:[${e.updateText}], composition range (${e.updateRangeStart}, ${e.updateRangeEnd}), selection (${e.newSelectionStart}, ${e.newSelectionEnd})`);
-        console.log(`editContext.text[${editContext.text}]`);
+        console.log('editContext.text[' + printEditContextBuffer() + ']');
 
         let s = document.getSelection();
         console.log(`anchor (${s.anchorNode}, ${s.anchorOffset}), textContent [${s.anchorNode.textContent}], focus (${s.focusNode}, ${s.focusOffset})`);
@@ -34,12 +41,11 @@
     // English typing
         if (!compositionNode) {
             let textNode = s.anchorNode;
-            let offset = s.anchorOffset;
             let string = textNode.textContent;
             // update the text Node
-            textNode.textContent = string.substring(0, offset) + e.updateText + string.substring(offset);
+            textNode.textContent = string.substring(0, e.updateRangeStart) + e.updateText + string.substring(e.updateRangeEnd);
             // update the caret
-            s.collapse(s.anchorNode, offset + e.updateText.length);
+            s.collapse(s.anchorNode, e.newSelectionStart);
             console.log(`After textupdate: textContent[${s.anchorNode.textContent}]`);
     // Composition
         } else {
@@ -54,11 +60,11 @@
             s.collapse(compositionNode, selectionGlobalOffset);
 
             // Update bounds for IME.
-            let controlBound = parentSpan.getBoundingClientRect();
+            let controlBound = editView.getBoundingClientRect();
             controlBound = scaleDOMRect(controlBound, window.devicePixelRatio);
             let selectionBound = s.getRangeAt(0).getBoundingClientRect();
             selectionBound = scaleDOMRect(selectionBound, window.devicePixelRatio);
-            editContext.updateLayout(controlBound, selectionBound);
+            editContext.updateBounds(controlBound, selectionBound);
 
             // Update decoration
             let range = document.createRange();
@@ -75,7 +81,8 @@
 
     editContext.addEventListener("textformatupdate", e => { 
         console.log(`editContext::textformatupdate: e.underlineStyle=[${e.underlineStyle}]`);
-        decoration.style.borderBottom = "3px " + e.underlineStyle;
+        // always use dotted here for convenience since CSS doesn't supprot 'Squiggle' that's returned by Japanese IME.
+        decoration.style.borderBottom = "3px dotted";
     });
 
     editContext.addEventListener("compositionend", e => { 
@@ -87,18 +94,14 @@
     document.addEventListener("selectionchange", e => {
         let s = document.getSelection();
         console.log(`selectionchange:[anchorNode: ${s.anchorNode}: ${s.anchorOffset}], focusNode: ${s.focusNode}: ${s.focusOffset}]`);
-
-        // calculate the offset in plain text
-        let range = document.createRange();
-        range.setEnd(s.anchorNode, s.anchorOffset);
-        range.setStartBefore(parentSpan);
-        // console.log(`Range.startContainer[${range.startContainer}], startOffset[${range.startOffset}], endContainer[${range.endContainer}], endOffset[${range.endOffset}]`);
-        let plainText = range.toString();
-        console.log(`plain text before caret: [${plainText}], length[${plainText.length}]`);
-        editContext.updateSelection(plainText.length, plainText.length);
-        console.log(`editContext.text[${editContext.text}]`);
+        // Update editContext using start/end info from the native selection. (here we assume anchor/focus node are the same)
+        start = Math.min(s.anchorOffset, s.focusOffset);
+        end = Math.max(s.anchorOffset, s.focusOffset);
+        editContext.updateSelection(start, end);
+        console.log('editContext.text[' + printEditContextBuffer() + ']');
     });
 
+    // To handle zoom levels
     function scaleDOMRect(rect, scale) {
         rect.x = rect.x * scale;
         rect.y = rect.y * scale;

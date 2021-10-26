@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>EditContext API</title>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' defer class='remove'></script>
+    <script class='remove'>
+        var respecConfig = {
+            github: "w3c/editing"
+            ,specStatus:   "ED"
+            ,shortName:    "edit-context"
+            ,editors:      [{ name: "Shih-ling Keng",
+                               mailto: "shihken@microsoft.com",
+                               company: "Microsoft Corporation",
+                               w3cid: 126951},
+                               { name: "Bo Cupp",
+                               mailto: "pcupp@microsoft.com",
+                               company: "Microsoft Corporation",
+                               w3cid: 126951},]
+          ,   wgPublicList: "public-editing-tf"
+	  ,   otherLinks: [{
+                  key: 'Participate',
+                  data: [{
+                      value: 'We are on GitHub.',
+                      href: 'https://github.com/w3c/editing'
+                  }, {
+                      value: 'File a bug.',
+                      href: 'https://github.com/w3c/editing/issues'
+                  }, {
+                      value: 'Commit history.',
+                      href: 'https://github.com/w3c/editing/commits/gh-pages'
+                  }, {
+                      value: 'Mailing list.',
+                      href: 'http://lists.w3.org/Archives/Public/public-editing-tf/'
+                  }]
+              }]
+          ,   group: "webediting"
+          ,   edDraftURI:   "https://w3c.github.io/editing/docs/EditContext/"
+          , xref: ["WebIDL"
+          , "DOM"
+          , "HTML"
+          , "geometry-1"]
+        };
+    </script>
+</head>
+
+<body>
+    <section id='abstract'>
+        <p>The {{EditContext}} is a new API that allows authors to more directly participate in the text input process.
+        </p>
+    </section>
+    <section id='sotd'>
+      <p>
+      </p>
+    </section>
+    <section class="informative">
+        <h2>Introduction</h2>
+        <section id="background">
+            <h3>Background and Motivation</h3>
+            <p>Modern operating systems provide mechanisms to produce text in a variety of ways: speech-to-text, virtual keyboards, handwriting recognition and many more.  When an app wants to consume text input from these various sources, it must first provide a view of its currently editable text to the operating system.  The view of editable text provides a common language that apps (having a variety of different document models) and sources of text (having a variety of different input methods) can both understand.  Both the apps and input sources communicate with one another by expressing their desired changes to the state of the common view as an event that the other can handle to facilitate the text input process.</p>
+            <p>For the purposes of this document, a producer of text is known as a <dfn>Text Input Method</dfn>.  The view provided by an app which wants to consume text is called a <dfn>Text Edit Context</dfn>.  The service provided by the OS to facilitate the editing of text in the [=Text Edit Context=] by the [=Text Input Methods=] is called a <dfn>Text Input Service</dfn>.</p>
+            <figure id="many-input-methods">
+                <img src="many-input-methods.jpg" alt="">
+                <figcaption>Many [=Text Input Methods=] using a [=Text Input Service=] to communicate with many apps through their [=Text Edit Contexts=].</figcaption>
+            </figure>
+            <p>Here’s a typical flow for the text input process in more detail:</p>
+            <ol>
+                <li>A user places focus into an editable region of the app.</li>
+                <li>The app produces a [=Text Edit Context=] describing its editable region according to the standards set forth by the [=Text Input Service=] and provides that [=Text Edit Context=] to the [=Text Input Service=].</li>
+                <li>The [=Text Input Service=] triggers a [=Text Input Method=] to provide some user interface for capturing text input from the user and provides the [=Text Input Method=] the app generated [=Text Edit Context=].</li>
+                <li>The [=Text Input Method=] reads the location of selection and nearby text from the [=Text Edit Context=] to help tailor its user experience.</li>
+                <li>The [=Text Input Method=] may also read screen coordinates for where the selection and editable region are located so that it can properly position its user interface next to the text being edited.</li>
+                <li>The user interacts with the [=Text Input Method=] user interface to input text in some [=Text Input Method=]-specific way.</li>
+                <li>The [=Text Input Method=] describes its desired modifications to the text and selection in the [=Text Edit Context=] in response to the user’s input.</li>
+                <li>The app handles an event describing the desired modifications to its [=Text Edit Context=] and renders the result to the user.</li>
+            </ol>
+            <figure id="text-input-process">
+                <img src="text-input-process.jpg" alt="">
+                <figcaption>A sequence diagram illustrating a typical flow for text input.</figcaption>
+            </figure>
+            <p>Existing user agents handle the details of this text input process so that the author’s responsibility ends at declaring what elements of the document represent an editable region.  Authors express which regions are editable using input elements, textarea elements, contenteditable elements, or by setting the designMode attribute to true to mark an entire document as editable. </p>
+            <p>As an editable region of the document is focused, the user agent automatically produces the [=Text Edit Context=] from the contents of the editable region and the position of the selection within it.  When a [=Text Input Method=] produces text, the user agent translates the events against its [=Text Edit Context=] into a set of DOM and style modifications – only some of which are described using existing events that an author can handle. </p>
+            <p>Authors that want to produce sophisticated editing experiences may be challenged by the current approach.  If, for example, the text and selection are rendered to a canvas, user agents are unable to produce a [=Text Edit Context=] to drive the text input process.  Authors compensate by resorting to offscreen editable elements, but this approach comes with negative implications for accessibility, it deteriorates the input experience, and requires complex code to synchronize the position of the text in the offscreen editable element with the corresponding text in the canvas. </p>
+            <p>With the introduction of this EditContext API, authors can more directly participate in the protocol for text input and avoid the pitfalls described above.</p>
+        </section>
+        <section id="editcontext-model">
+            <h3>The EditContext Model</h3>
+            <p>An {{EditContext}} is a JavaScript projection of the [=Text Edit Context=] concept discussed in the previous section. Using an {{EditContext}}, an author can mark a region of the document editable by associating an instance of an {{EditContext}} with an element.</p>
+            
+            <p>Associating an {{EditContext}} to an element makes that element intrinsically focusable.  When the element is focused, the user agent will use the state of the {{EditContext}} to construct a [=Text Edit Context=] that is provided to the [=Text Input Service=] of the OS:</p>
+            <ol>
+              <li>Instead of deriving the contents of the [=Text Edit Context=] from the DOM, it will be taken from the {{EditContext.text}} property.</li>
+              <li>Instead of deriving the location of selection within that text from the document’s selection, the user agent will use the offsets from the {{EditContext.selectionStart}} and {{EditContext.selectionEnd}} properties.</li>
+              <li>Instead of querying the DOM’s associated CSS boxes for the size and position of selection, character bounds, and the editable region of the document, the {{EditContext.selectionBound}}, {{EditContext.characterBounds}} and {{EditContext.controlBound}} will be used.</li>
+            </ol>
+
+            <p>Using an EditContext, an author can mark a region of the document editable by associating an EditContext object with an element as shown in the example below: </p>
+            <aside class="example" title="Associate an EditContext with an Element">
+                <pre><xmp><script type="module"> 
+    let canvas = document.querySelector("canvas") 
+    canvas.editContext = new EditContext() 
+    // When the associated element is focused, the EditContext is automatically activated.
+    canvas.focus();
+</script>
+<canvas></canvas></xmp></pre></aside>
+
+            <p>In the example below, the author is using a canvas to draw an editable region that allows the user to input a single line of text rendered with a monospace font.  The text for the editable region is maintained by the author as a String.  The text offsets for the selection in the editable region are maintained by the author as a pair of Numbers: selectionStart and selectionEnd.  The Numbers refer to the count of the number of UTF-16 codepoints to the left of the start and end of the selection respectively.  For the sake of communicating the bounding boxes for the current selection and the editable region of the document to Text Input Services, the author also computes the bounding rectangle in CSS pixels for the selection and the editable region of the document. The offset of the rectangle is expressed relative to the origin of the canvas element since that is the element to which the author has associated an EditContext. Since the model for the author’s representation of text and selection location matches the form expected by the EditContext API, the author can simply assign those properties to the EditContext associated with the canvas whenever those values change. </p>
+
+            <aside class="example" title="Using EditContext with editing model, view, and controller">
+                <pre><xmp><script type="module">
+    // This example is built on top of example 1.
+    // Only the added logic is shown here for brevity.
+    class EditingModel {
+        constructor(text, selectionStart, selectionEnd, compositionStart, compositionEnd) {
+            this.text = text  
+            this.selectionStart = selectionStart
+            this.selectionEnd = selectionEnd
+            this.compositionStart = compositionStart
+            this.compositionEnd = compositionEnd
+        }  
+    }  
+
+    class EditingView {  
+        constructor(canvas, model) {  
+            this.canvas = canvas 
+            this.model = model 
+        } 
+
+        render() {
+            // render the text
+            let canvasContext2D = this.canvas.getContext("2d");
+            canvasContext2D.strokeText(this.model.text);
+
+            // render the selection (implementation omitted for brevity)
+        } 
+
+        computeSelectionBound() { 
+            // implementation omitted for brevity 
+        } 
+
+        computeControlBound() { 
+            // implementation omitted for brevity 
+        } 
+    }
+
+    class EditingController {
+        constructor(model, view, editContext) {  
+            this.view = view
+            this.model = model
+            this.editContext = editContext
+        }
+
+        render() {
+            view.render()
+
+            // keep EditContext in sync, which essentially means
+            // rendering the plain text view of the model.
+            let editContext = this.canvas.editContext  
+            this.editContext.updateText(0, this.model.text.length, this.model.text)
+            this.editContext.updateSelection(this.model.selectionStart, this.model.selectionEnd)
+
+            let selectionBound = view.computeSelectionBound()  
+            let controlBound = view.computeControlBound()  
+
+            // These bounds have x, y, width and height members  
+            // so they can be assigned directly to EditContext.
+            editContext.updateSelectionBound(selectionBound)
+            editContext.updateControlBound(controlBound)
+        }
+    }
+
+    let canvas = document.querySelector("canvas")
+    canvas.editContext = new EditContext()
+    let editingModel = new EditingModel("", 0, 0, 0, 0)
+    let editingView = new EditingView(canvas, editingModel)
+    let editingController = new EditingController(editingModel,
+        editingView, canvas.editContext);
+
+    editingController.render() 
+</script>
+<canvas></canvas></xmp></pre>
+            </aside>
+
+            <p>Building on the previous example, in response to user input, authors should handle the events of both the editable element (in this case a canvas) and the EditContext.</p>
+            
+            <p>Input events against the DOM continue to describe the user’s intent</p>
+            
+            <p>Against the EditContext, {{TextUpdateEvent}} describes changes to the text, the selection, and the composition range properties of the EditContext. {{TextFormatUpdateEvent}} describes changes to the style of the text. The updates received by the author’s code for text, selection, style, composition range changes should be rendered back to the canvas so the user can see what they are typing. {{CharacterBoundsUpdateEvent}} describes what character bounds are needed by the [=Text Input Service=] to support [=Text Input Method=] to properly display its user interface. After receiving {{CharacterBoundsUpdateEvent}}, the author is responsible to compute the requested character bounds and call {{EditContext/updateCharacterBounds}} to update the character bounds cached in the EditContext.</p>
+            
+            <p>Below example shows how to handle {{TextUpdateEvent}}, {{TextFormatUpdateEvent}}, and {{CharacterBoundsUpdateEvent}} to update the model and render the result to the canvas.</p>
+            <aside class="example" title="Event handlers for TextUpdateEvent, TextFormatUpdateEvent, and CharacterBoundsUpdateEvent">
+                <pre><xmp><script>
+    // This example is built on top of example 1 and example 2.
+    // Only the added logic is shown here for brevity.
+    class EditingModel {
+        updateText(updateRangeStart, updateRangeEnd, updateText) {
+            this.text = this.text.substring(0, updateRangeStart) + updateText
+                        + this.text.substring(updateRangeEnd)
+        }
+
+        updateSelection(selectionStart, selectionEnd) {
+            this.selectionStart = selectionStart
+            this.selectionEnd = selectionEnd
+        }
+
+        updateCompositionRange(compositionStart, compositionEnd) {
+            this.compositionStart = compositionStart
+            this.compositionEnd = compositionEnd
+        }
+
+        updateTextFormats(textFormats) {
+            this.textFormats = textFormats
+        }
+    }
+
+    class EditingView {
+        render() {
+            // render the text (implementation omitted for brevity)
+
+            // render the selection (implementation omitted for brevity)
+
+            // render the IME decoration
+            this.model.textFormats.forEach( textFormat => {
+                // For brevity, these variables' initialization are omitted:
+                // anchorX: the x coordinate of the beginning of the string
+                // lineY: the y coordinate of the underline
+                // charWidth: the width of the character (here we are using a mono-spaced font)
+                // thickWidth/thinWidth: pre-defined width for thick/thin lines.
+                let lineStartX = anchorX + textFormat.rangeStart * charWidth;
+                let lineEndX = anchorX + textFormat.rangeEnd * charWidth;
+                
+                canvasContext2D.lineWidth = (textFormat.underlineThickness == 'Thick')?
+                                            thickWidth : thinWidth;
+                canvasContext2D.beginPath();
+                canvasContext2D.moveTo(lineStartX, lineY);
+                canvasContext2D.lineTo(lineEndX, lineY);
+                canvasContext2D.stroke();
+            })
+        }
+
+        computeCharacterBounds(rangeStart, rangeEnd) {
+            // implementation omitted for brevity
+        }
+    }
+
+    class EditingController {
+        handleTextUpdate(updateRangeStart, updateRangeEnd, updateText, 
+                         newSelectionStart, newSelectionEnd,
+                         compositionStart, compositionEnd) {
+            this.model.updateText(updateRangeStart, updateRangeEnd, updatetext)
+            this.model.updateSelection(newSelectionStart, newSelectionEnd)
+            this.model.updateCompositionRange(compositionStart, compositionEnd)
+        }
+
+        handleTextFormatUpdate(textFormats) {
+            this.model.updateTextFormats(textFormats);
+        }
+
+        handleCharacterBoundsUpdate(rangeStart, rangeEnd) {
+            characterBounds = this.view.computeCharacterBounds(rangeStart, rangeEnd);
+            this.editContext.updateCharacterBounds(rangeStart, characterBounds);
+        }
+    }
+
+    // When user typing, EditContext will receive textupdate events,
+    // which can be used to update the editor's model.
+    editContext.addEventListener("textupdate", e => {
+        editingController.handleTextUpdate(e.updateRangeStart, e.updateRangeEnd, e.updatetext,
+                                        e.newSelectionStart, e.newSelectionEnd,
+                                        e.compositionStart, e.compositionEnd)
+    });
+
+    // EditContext will also receive textformatupdate event for IME decoration.
+    // Ex. thin/thick underline for the "phrase mode" in Japanese IME.
+    editContext.addEventListener("textformatupdate", e => {
+        editingcontroller.handleTextFormatUpdate(e.getTextFormats());
+    });
+
+    // When receiving CharacterBoundsUpdate event, the author is responsible to compute
+    // the bounds of characters from rangeStart to rangeEnd, and call
+    // EditContext.updateCharacterBounds to update the character bounds in EditContext.
+    editContext.addEventListener("characterboundsupdate", e => {
+        editingcontroller.handleCharacterBoundsUpdate(e.rangeStart, e.rangeEnd);
+    });
+</script></xmp></pre>
+            </aside>
+
+        </section>
+        <section id="interactions">
+            <h3>Interactions with Other Editing Primitives </h3>
+            <p>An author doesn’t have to use a canvas element with an EditContext.  In the example below the author uses a div to establish an editable region of the document and renders the contents into that editable region using various other styled elements, images and text.  This allows the author to leverage other built-in editing primitives from the user agent such as selection and spellcheck. </p>
+
+            <aside class="example" title="How native selection can be leveraged to handle caret navigation.">
+                <pre><xmp><div></div>
+<script>
+    // This example reuses EditModel and EditController in Example 2 and 3.
+    let div = document.querySelector("div") 
+    div.editContext = new EditContext() 
+    div.focus();
+
+    class EditingView {  
+        constructor(div, model) {  
+            this.div = div 
+            this.model = model 
+        } 
+
+        render() {
+            // render the text
+            this.div.innerText = this.model.text
+
+            // render the selection (implementation omitted for brevity)
+        }
+
+        computeSelectionBound() { 
+            // implementation omitted for brevity 
+        } 
+
+        computeControlBound() { 
+            // implementation omitted for brevity 
+        } 
+
+        computeCharacterBounds(rangeStart, rangeEnd) {
+            // implementation omitted for brevity
+        }
+    }
+
+    class EditingController {
+        handleSelectionChange() {
+            // Authors are responsible to map the selection from the DOM space to the
+            // plain text space. One approach is to use range.toString() to get the plain text
+            // before the selection start/end, and use the text length as the selection index.
+            let s = document.getSelection()
+            let range = new Range()
+            range.setEnd(s.anchorNode, s.anchorOffset)
+            range.setStartBefore(parentContainer)
+            let selectionStart = range.toString().length
+
+            range.setEnd(s.focusNode, s.focusOffset)
+            range.setStartBefore(parentContainer)
+            let selectionEnd = range.toString().length
+
+            // Update model
+            this.model.updateSelection(selectionStart, selectionEnd)
+
+            this.render()
+        }
+    }
+
+    document.addEventListener("selectionchange", e => {
+        editingController.handleSelectionChange()
+    });
+</script></xmp></pre>
+            </aside>
+
+            <aside class="example" title="How beforeinput can be used to catch insertReplacementText to apply spelling changes">
+                <pre><xmp><script>
+    // This example is built on top of example 4.
+    // Only the added logic is shown here for brevity.
+    class EditingController {
+        handleSpellCheck(newText, range) {
+            let updateRangeStart = range.startOffset
+            let updateRangeEnd = range.endOffset
+
+            // Update model
+            this.model.updateText(updateRangeStart, updateRangeEnd, newText)
+            let newCaretPosition = updateRangeStart + newText.length
+            this.model.updateSelection(newCaretPosition, newCaretPosition)
+
+            this.render()
+        }
+    }
+
+    div.spellcheck = true;
+    div.addEventListener("beforeinput", e => {
+        if (e.inputType === "insertReplacementText") { // for spellcheck
+            let newText = e.dataTransfer.getData("text");
+            let range = e.getTargetRanges()[0];
+            editingController.handleSpellCheck(newText, range)
+        }
+    })
+</script></xmp></pre>
+            </aside>
+
+            <aside class="example" title="How beforeinput can be used to catch deleteByDrag and insertFromDrop to apply drag and drop changes">
+                <pre><xmp><script>
+    // This example is built on top of example 4.
+    // Only the added logic is shown here for brevity.
+    class EditingController {
+        handleDeleteByDrag() {
+            // Update model
+            this.model.updateText(this.model.selectionStart, this.model.selectionEnd, "")
+
+            this.render()
+        }
+
+        handleInsertFromDrop(newText, caretPosition) {
+            // Update model
+            editingModel.updateText(caretPosition, caretPosition, newText)
+            editingModel.updateSelection(caretPosition, caretPosition + newText.length)
+
+            this.render()
+        }
+    }
+
+    div.addEventListener("beforeinput", e => {
+        if (e.inputType === "deleteByDrag") {
+            editingController.handleDeleteByDrag()
+        } 
+        
+        if (e.inputType === "insertFromDrop") {
+            newText = e.dataTransfer.getData('text/plain');
+            let selection = document.getSelection();
+            let caretPosition = selection.anchorOffset;
+
+            editingController.handleInsertFromDrop(newText, caretPosition)
+        }
+    })
+</script></xmp></pre>
+            </aside>            
+
+        </section>
+    </section>
+    <section id="conformance">
+        <p>
+          This specification defines conformance criteria that apply to a single
+          product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
+          it contains.
+        </p>
+        <p>
+          Conformance requirements phrased as algorithms or specific steps may be
+          implemented in any manner, so long as the end result is equivalent. (In
+          particular, the algorithms defined in this specification are intended
+          to be easy to follow, and not intended to be performant.)
+        </p>
+    </section>
+
+    <section data-dfn-for="Element">
+        <h2>Extensions to the <dfn>Element</dfn> interface</h2>
+        <pre class="idl">
+           partial interface Element {
+                attribute EditContext? editContext;
+           };
+        </pre>
+        <dfn>editContext</dfn>
+        <p>
+            An {{EditContext}}, initially null.
+        </p>
+
+        <p>When an element is associated with an {{EditContext}}, it is focusable regardless of whether its contentediable attribute is true or not.</p>
+
+        <p>An {{EditContext}} is activated when the associated element is focused and deactivated when the associated element is blurred.</p>
+
+        <p>When an {{EditContext}} is activated, user text input MUST NOT modify DOM, instead, below steps should be implemented:</p>
+
+        <p>If in a composition: </p>
+        <ol>
+            <li>
+                [=Fire an event=] named "beforeinput", if applicable to the user text input, at the focused element. If the beforeinput event is cancelled, abort these steps.
+            </li>
+            <li>
+                Update the {{EditContext/text}}, {{EditContext/selectionStart}}, {{EditContext/selectionEnd}}, {{EditContext/compositionRangeStart}}, {{EditContext/compositionRangeEnd}}, and {{EditContext/isInComposition}} properties of the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "compositionstart" at the activated EditContext if it's a start of a composition.
+            </li>
+            <li>
+                [=Fire an event=] named "textupdate" at the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "textformateupdate" at the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "characterboundsupdate" at the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "compositionend" at the activated EditContext if it's an end of a composition.
+            </li>
+        </ol>
+        <p>If not in a composition: </p>
+        <ol>
+            <li>
+                [=Fire an event=] named "beforeinput", if applicable to the user text input, at the focused element. If the beforeinput event is cancelled, abort these steps.
+            </li>
+            <li>
+                Update the {{EditContext/text}}, {{EditContext/selectionStart}}, {{EditContext/selectionEnd}}, {{EditContext/compositionRangeStart}}, {{EditContext/compositionRangeEnd}}, and {{EditContext/isInComposition}} properties of the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "textupdate" at the activated EditContext.
+            </li>
+            <li>
+                [=Fire an event=] named "characterboundsupdate" at the activated EditContext.
+            </li>
+        </ol>
+        <p>
+            An {{EditContext}} can be associated with multiple elements but only the element that has focus will receive beforeinput events.
+        </p>
+        <section>
+            <h3>Supported elements</h3>
+            <p>Below is the list of elements that can be associated with {{EditContext}}: abbr, 
+                address, 
+                article, 
+                aside, 
+                b, 
+                blockquote, 
+                canvas, 
+                cite, 
+                code, 
+                del, 
+                details, 
+                dfn, 
+                div, 
+                dl, dd, dt,  
+                em, 
+                footer, 
+                form, 
+                h1, 
+                h2, 
+                h3, 
+                h4, 
+                h5, 
+                h6, 
+                hgroup, 
+                i, 
+                ins, 
+                kbd, 
+                label, 
+                mark, 
+                object, 
+                ol, 
+                output, 
+                p, 
+                pre, 
+                q, 
+                ruby, 
+                s, 
+                samp, 
+                section, 
+                small, 
+                span, 
+                strong, 
+                sub, 
+                sup, 
+                table, 
+                time, 
+                u, and
+                ul.
+                </p>
+        </section>
+
+    </section>
+
+    <section data-dfn-for="EditContext">
+        <h2>The <dfn>EditContext</dfn> Interface</h2>
+    <pre class="idl"><xmp>dictionary EditContextInit {
+    DOMString text;
+    unsigned long selectionStart;
+    unsigned long selectionEnd;
+};
+
+[Exposed=Window]
+interface EditContext : EventTarget {
+    constructor(optional EditContextInit options = {});
+
+    undefined updateText(unsigned long rangeStart, unsigned long rangeEnd,
+        DOMString text);
+    undefined updateSelection(unsigned long start, unsigned long end);
+    undefined updateControlBound(DOMRect controlBound);
+    undefined updateSelectionBound(DOMRect selectionBound);
+    undefined updateCharacterBounds(unsigned long rangeStart, sequence<DOMRect> characterBounds);
+
+    sequence<Element> attachedElements();
+
+    readonly attribute DOMString text;
+    readonly attribute unsigned long selectionStart;
+    readonly attribute unsigned long selectionEnd;
+    readonly attribute unsigned long compositionRangeStart;
+    readonly attribute unsigned long compositionRangeEnd;
+    readonly attribute boolean isInComposition;
+    readonly attribute DOMRect controlBound;
+    readonly attribute DOMRect selectionBound;
+    readonly attribute unsigned long characterBoundsRangeStart;
+    sequence<DOMRect> characterBounds();
+
+    attribute EventHandler ontextupdate;
+    attribute EventHandler ontextformatupdate;
+    attribute EventHandler oncharacterboundsupdate;
+    attribute EventHandler oncompositionstart;
+    attribute EventHandler oncompositionend;
+};</xmp></pre>
+        <dl>
+            <dt><dfn>text</dfn>, of type {{DOMString}}</dt>
+            <dd>Initially empty string. The plain text view of the editable content.</dd>
+
+            <dt><dfn>selectionStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start position of the selection.</dd>
+
+            <dt><dfn>selectionEnd</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The end position of the selection.</dd>
+
+            <dt><dfn>compositionRangeStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start position of the composition.</dd>
+
+            <dt><dfn>compositionRangeEnd</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The end position of the composition.</dd>
+
+            <dt><dfn>isInComposition</dfn>, of type {{boolean}}</dt>
+            <dd>Initially false. Whether there is an active composition.</dd>
+
+            <dt><dfn>controlBound</dfn>, of type {{DOMRect}}</dt>
+            <dd>Initially 0s. The bounding box of the display surface where the text is rendered. The offset of the rectangle is expressed relative to the origin of the associated element.</dd>
+
+<p class="note">
+    The control bound may be used by the OS for hittesting to trigger the virtual keyboard.
+</p>
+
+            <dt><dfn>selectionBound</dfn>, of type {{DOMRect}}</dt>
+            <dd>Initially 0s. The bounding box of the selection. The offset of the rectangle is expressed relative to the origin of the associated element. If the selection is collapsed, this is the bounding box of the caret.</dd>
+
+            <dt><dfn>characterBoundsRangeStart</dfn>, of type {{unsigned long}}</dt>
+            <dd>Initially 0. The start position of the range where the character bounds are cached.</dd>
+
+            <dt><dfn>characterBounds()</dfn> method</dt>
+            <dd>Initially empty array.
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Return the cached character bounds. The offset of the rectangle is expressed relative to the origin of the associated element.
+                  </li>
+                </ol>
+            </dd>
+
+
+            <dt>
+                <dfn>updateSelection()</dfn> method
+            </dt>
+            <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    If start > end, abort these steps.
+                  </li>
+                  <li>
+                    set {{EditContext/selectionStart}} to start
+                  </li>
+                  <li>
+                    set {{EditContext/selectionEnd}} to end
+                  </li>
+                </ol>
+            </dd>
+            <dt>
+                <dfn>updateSelectionBound()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    set {{EditContext/selectionBound}} to <i>selectoinBound</i>.
+                  </li>
+                </ol>
+              </dd>
+              <dt>
+                <dfn>updateControlBound()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    set {{EditContext/controlBound}} to <i>controlBound</i>.
+                  </li>
+                </ol>
+              </dd>
+              <dt>
+                <dfn>updateCharacterBounds()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Set {{EditContext/characterBoundsRangeStart}} to <i>rangeStart</i>.
+                  </li>
+                  <li>
+                    Set cached character bounds to <i>characterBounds</i>.
+                  </li>
+                </ol>
+              </dd>
+
+            <dt>
+                <dfn>updateText()</dfn> method
+            </dt>
+              <dd>
+                <p>
+                  The method must follow these steps:
+                </p>
+                <ol>
+                  <li>
+                    If the EditContext is not activated, abort these steps.
+                  </li>
+                  <li>
+                    Replace the string in the range of <i>rangeStart</i> and <i>rangeEnd</i> of {{EditContext/text}} with <i>text</i>.
+                  </li>
+                </ol>
+              </dd>
+
+            <dt><dfn>attachedElements()</dfn> method</dt>
+            <dd><p>The method returns elements that are associated with the EditContext.</p></dd>
+            <p class="issue">
+                should attachedElements() return elements that are removed from the tree? If yes, the EditContext will keep removed elements alive. If not, we probably shouldn't allow a disconnected element to associate with EditContext, otherwise, it would be confusing/unintuitive that we allow it but attachedElements returns empty.
+            </p>
+            
+            <dt><dfn>ontextupdate</dfn></dt>
+            <dd><p>The event handler for {{TextUpdateEvent}}.</p></dd>
+
+            <dt><dfn>oncharacterboundsupdate</dfn></dt>
+            <dd><p>The event handler for {{CharacterBoundsUpdateEvent}}.</p></dd>
+
+            <dt><dfn>ontextformatupdate</dfn></dt>
+            <dd><p>The event handler for {{TextFormatUpdateEvent}}.</p></dd>
+
+            <dt><dfn>oncompositionstart</dfn></dt>
+            <dd><p>The event handler for the <a href='https://w3c.github.io/uievents/#event-type-compositionstart'>compositionstart</a> event.</p></dd>
+
+            <dt><dfn>oncompositionend</dfn></dt>
+            <dd><p>The event handler for the <a href='https://w3c.github.io/uievents/#event-type-compositionend'>compositionend</a> event.</p></dd>
+        </dl>
+    </section>
+
+    <section data-dfn-for="EditContextEvents">
+        <h2>EditContext events</h2>
+        <section>
+            <h3><dfn>TextUpdateEvent</dfn></h3>
+            <pre class="idl"><xmp>dictionary TextUpdateEventInit {
+    unsigned long updateRangeStart;
+    unsigned long updateRangeEnd;
+    DOMString text;
+    unsigned long selectionStart;
+    unsigned long selectionEnd;
+    unsigned long compositionStart;
+    unsigned long compositionEnd;
+};
+
+[Exposed=Window]
+interface TextUpdateEvent : Event {
+    constructor(optional TextUpdateEventInit options = {});
+    readonly attribute unsigned long updateRangeStart;
+    readonly attribute unsigned long updateRangeEnd;
+    readonly attribute DOMString text;
+    readonly attribute unsigned long selectionStart;
+    readonly attribute unsigned long selectionEnd;
+    readonly attribute unsigned long compositionStart;
+    readonly attribute unsigned long compositionEnd;
+};</xmp></pre>
+            <dl>
+                <dt>{{TextUpdateEvent/updateRangeStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the range that is to be replaced.</dd>
+
+                <dt>{{TextUpdateEvent/updateRangeEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the range that is to be replaced.</dd>
+
+                <dt>{{TextUpdateEvent/text}}, of type {{DOMString}}, readonly</dt>
+                <dd>The new string that is to replace the old string in the range.</dd>
+
+                <dt>{{TextUpdateEvent/selectionStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the selection after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/selectionEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the selection after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/compositionStart}}, of type unsigned long, readonly</dt>
+                <dd>The start position of the composition after the text replacement.</dd>
+
+                <dt>{{TextUpdateEvent/compositionEnd}}, of type unsigned long, readonly</dt>
+                <dd>The end position of the composition after the text replacement.</dd>
+            </dl>
+        </section>
+        <section>
+            <h3><dfn>TextFormatUpdateEvent</dfn></h3>
+            <pre class="idl"><xmp>dictionary TextFormatInit {
+    unsigned long rangeStart;
+    unsigned long rangeEnd;
+    DOMString textColor;
+    DOMString backgroundColor;
+    DOMString underlineStyle;
+    DOMString underlineThickness;
+    DOMString underlineColor;
+};
+
+[Exposed=Window]
+interface TextFormat {
+    constructor(optional TextFormatInit options = {});
+    attribute unsigned long rangeStart;
+    attribute unsigned long rangeEnd;
+    attribute DOMString textColor;
+    attribute DOMString backgroundColor;
+    attribute DOMString underlineStyle;
+    attribute DOMString underlineThickness;
+    attribute DOMString underlineColor;
+};
+
+dictionary TextFormatUpdateEventInit {
+    sequence<TextFormat> textFormats;
+};
+
+[Exposed=Window]
+interface TextFormatUpdateEvent : Event {
+    constructor(optional TextFormatUpdateEventInit options = {});
+
+    sequence<TextFormat> getTextFormats();
+};</xmp></pre>
+            <dl>
+                <dt>{{TextFormat/rangeStart}}, of type unsigned long, readonly
+                </dt>
+                <dd>The start position of the range where the format is applied.
+                </dd>
+                <dt>{{TextFormat/rangeEnd}}, of type unsigned long, readonly
+                </dt>
+                <dd>The end position of the range where the format is applied.
+                </dd>
+                <dt>{{TextFormat/textColor}}, of type {{DOMString}}, readonly
+                </dt>
+                <dd>The color of the text. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
+                </dd>
+                <dt>{{TextFormat/backgroundColor}}, of type {{DOMString}}, readonly
+                </dt>
+                <dd>The color of the background. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
+                </dd>
+                <dt>{{TextFormat/underlineStyle}}, of type {{DOMString}}, readonly
+                </dt>
+                <dd>The style of the underline. The value is one of the following strings: "None", "Solid", "Dotted", "Dashed", and "Squiggle".
+                </dd>
+                <dt>{{TextFormat/underlineThickness}}, of type {{DOMString}}, readonly
+                </dt>
+                <dd>The thickness of the underline. The value is one of the following strings: "None", "Thin", and "Thick".
+                </dd>
+                <dt>{{TextFormat/underlineColor}}, of type {{DOMString}}, readonly
+                </dt>
+                <dd>The color of the underline. The value is a <a href="https://www.w3.org/TR/css-color-4/#serializing-sRGB-values">serialized sRGB values</a>.
+                </dd>
+
+                <dt>{{TextFormatUpdateEvent/getTextFormats}} method
+                </dt>
+                <dd>Returns an array of {{TextFormat}} that describes how {{EditContext/text}} should be formatted in the DOM.
+                </dd>
+            </dl>
+        </section>
+        <section>
+            <h3><dfn>CharacterBoundsUpdateEvent</dfn></h3>
+            <pre class="idl"><xmp>dictionary CharacterBoundsUpdateEventInit {
+    unsigned long rangeStart;
+    unsigned long rangeEnd;
+};
+
+[Exposed=Window]
+interface CharacterBoundsUpdateEvent : Event {
+    constructor(optional CharacterBoundsUpdateEventInit options = {});
+
+    readonly attribute unsigned long rangeStart;
+    readonly attribute unsigned long rangeEnd;
+};</xmp></pre>
+            <dl>
+                <dt>{{CharacterBoundsUpdateEvent/rangeStart}}, of type unsigned long, readonly
+                </dt>
+                <dd>The start position of the range where the character bounds are needed by [=Text Input Service=]
+                </dd>
+                <dt>{{CharacterBoundsUpdateEvent/rangeEnd}}, of type unsigned long, readonly
+                </dt>
+                <dd>The end position of the range where the character bounds are needed by [=Text Input Service=]
+                </dd>
+            </dl>
+        </section>
+    </section>
+    <section>
+        <h2>Privacy and Security Considerations</h2>
+        <p>To mitigate potential security and privacy risks, browsers are expected to follow best practices described below.</p>
+            <p>
+                <ul>
+                    <li>
+                        User Agent MUST only allow {{EditContext/updateSelection()}}, {{EditContext/updateText()}}, {{EditContext/updateSelectionBound()}}, {{EditContext/updateControlBound()}}, and {{EditContext/updateCharacterBounds()}} methods to be called in a <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Context</a>.
+                    </li>
+                </ul>
+            </p>
+    </section>
+    <section id="idl-index" class="appendix">
+        <!-- All the Web IDL will magically appear here -->
+    </section>
+    <section>
+        <h2>Contributors</h2>
+        <p class="ednote">
+            Add contributors
+        </p>
+      </section>
+      <section id="references" class="appendix"></section>
+</body>
+
+</html>
