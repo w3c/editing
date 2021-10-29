@@ -41,8 +41,8 @@ Existing Async Clipboard API write call:
 ```js
 const image = await fetch('myImage.png');
 const text = new Blob(['this is an image'], {type: 'text/plain'});
-const clipboard_item = new ClipboardItem({'text/plain': text, 'image/png': image});
-await navigator.clipboard.write([clipboard_item]);
+const clipboardItem = new ClipboardItem({'text/plain': text, 'image/png': image});
+await navigator.clipboard.write([clipboardItem]);
 ```
 
 Existing Async Clipboard API read call:
@@ -82,7 +82,7 @@ const clipboardItem = new ClipboardItem({
 {unsanitized: ['text/custom']} /* This new list specifies the pickled format
                           'text/custom'. */
 );
-navigator.clipboard.write([clipboard_item]);
+navigator.clipboard.write([clipboardItem]);
 ```
 
 ## Pickling Read
