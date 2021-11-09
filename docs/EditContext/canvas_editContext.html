@@ -130,11 +130,18 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
         }
     });
 
+    function handleTextFormat(textFormat) {
+        console.log(`textformatupdate: range(${textFormat.rangeEnd}, ${textFormat.rangeEnd}),${textFormat.underlineColor}, ${textFormat.backgroundColor}, ${textFormat.textColor},${textFormat.underlineThickness}, ${textFormat.underlineStyle}`);
+        renderUnderlineDecoration(textFormat.rangeStart, textFormat.rangeEnd, textFormat.underlineStyle, textFormat.underlineThickness);
+    }
+
     editContext.addEventListener("textformatupdate", e => { 
-        console.log(`textformatupdate:range(${e.formatRangeStart}, ${e.formatRangeEnd}),
-        ${e.underlineColor}, ${e.backgroundColor}, ${e.suggestionHighlightColor}
-        ${e.textColor}, ${e.underlineThickness}, ${e.underlineStyle}`);
-        renderUnderlineDecoration(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle, e.underlineThickness);
+        let textFormats = e.getTextFormats();
+        console.log(`textformatupdate: size(${textFormats.length})`);
+
+        textFormats.forEach((textFormat) => {
+            handleTextFormat(textFormat);
+        });
     });
 
     canvas.addEventListener('click', function(event) {
