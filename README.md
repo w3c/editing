@@ -10,11 +10,11 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
 
 ## Actively developed ideas/specs
 
-* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/))
-* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/))
-* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) (this Repo)
-* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/))
-* [EditContextAPI](docs/EditContext/explainer.md) (this Repo)
+* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/)) <a href="https://github.com/w3c/clipboard-apis/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/clipboard-apis/agenda+?label=agenda%2B%20issues)</a>
+* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/)) <a href="https://github.com/w3c/input-events/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/input-events/agenda+?label=agenda%2B%20issues)</a>
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) ([this Repo](https://github.com/w3c/editing/)) <a href="https://github.com/w3c/editing/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/editing/agenda+?label=agenda%2B%20issues)</a>
+* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/)) <a href="https://github.com/w3c/virtual-keyboard/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/virtual-keyboard/agenda+?label=agenda%2B%20issues)</a>
+* [EditContextAPI](docs/EditContext/explainer.md) ([this Repo](https://github.com/w3c/editing/))
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
@@ -56,21 +56,31 @@ Channel: #editing
 
 ### Meetings
 
+The Editing Working Group meets remotely at 9:00AM PST, on the second Friday of every month. Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
+
 [Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
 
-[Google Hangouts](https://meet.google.com/pdx-dnmm-cen)
+[Google Hangouts (pdx-dnmm-cen)](https://meet.google.com/pdx-dnmm-cen)
 
-#### Details:
-The Editing Working Group meets remotely at 9:00AM PST, on second Friday of every month.
+#### Schedule
 
-For 2021:
-* September 24 (proposed special meeting to continue progress on clipboard pickling/formats)
-* October 8
-* October 29 ([Confirmed TPAC group meeting](https://www.w3.org/wiki/TPAC/2021/GroupMeetings#WG.2FIG.2FBG_Group_Meetings_details))
-* November 12
-* December 10
+The upcoming schedule is below:
 
-Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
+* November 12, 2021
+* December 10, 2021 
+* January 14, 2022
+* Feburary 11, 2022
+
+Past meetings linked to their minutes:
+
+* [October 29, 2021](https://www.w3.org/2021/10/29-editing-minutes.html) ([Confirmed TPAC group meeting](https://www.w3.org/wiki/TPAC/2021/GroupMeetings#WG.2FIG.2FBG_Group_Meetings_details))
+* [October 15, 2021](docs/meetings/2021-10-15.md) (special meeting to continue discussion on [clipboard pickling](https://github.com/w3c/editing/issues/334))
+* [October 8, 2021](https://www.w3.org/2021/10/08-editing-minutes.html)
+* [September 24, 2021](https://www.w3.org/2021/09/24-editing-minutes.html) (proposed special meeting to continue progress on clipboard pickling/formats)
+* [September 10, 2021](https://www.w3.org/2021/09/10-editing-minutes.html)
+* [August 13, 2021](https://www.w3.org/2021/08/13-editing-minutes.html)
+* [July 9, 2021](https://lists.w3.org/Archives/Public/public-editing-tf/2021Jul/0000.html)
+* [May 14, 2021](https://www.w3.org/2021/05/14-editing-minutes.html)
 
 ## Footnote
 
