@@ -131,7 +131,7 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
     });
 
     function handleTextFormat(textFormat) {
-        console.log(`textformatupdate: range(${textFormat.rangeEnd}, ${textFormat.rangeEnd}),${textFormat.underlineColor}, ${textFormat.backgroundColor}, ${textFormat.textColor},${textFormat.underlineThickness}, ${textFormat.underlineStyle}`);
+        console.log(`textformatupdate: range(${textFormat.rangeStart}, ${textFormat.rangeEnd}),${textFormat.underlineColor}, ${textFormat.backgroundColor}, ${textFormat.textColor},${textFormat.underlineThickness}, ${textFormat.underlineStyle}`);
         renderUnderlineDecoration(textFormat.rangeStart, textFormat.rangeEnd, textFormat.underlineStyle, textFormat.underlineThickness);
     }
 
