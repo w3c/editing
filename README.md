@@ -10,10 +10,22 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
 
 ## Actively developed ideas/specs
 
-* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/)) <a href="https://github.com/w3c/clipboard-apis/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/clipboard-apis/agenda+?label=agenda%2B%20issues)</a>
-* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/)) <a href="https://github.com/w3c/input-events/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/input-events/agenda+?label=agenda%2B%20issues)</a>
-* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) ([this Repo](https://github.com/w3c/editing/)) <a href="https://github.com/w3c/editing/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/editing/agenda+?label=agenda%2B%20issues)</a>
-* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/)) <a href="https://github.com/w3c/virtual-keyboard/labels/agenda+">![GitHub issues by-label](https://img.shields.io/github/issues/w3c/virtual-keyboard/agenda+?label=agenda%2B%20issues)</a>
+* [Clipboard APIs](https://www.w3.org/TR/clipboard-apis/) ([Github Repo](https://github.com/w3c/clipboard-apis/))
+    <a href="https://github.com/w3c/clipboard-apis/labels/agenda+">
+      ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/clipboard-apis?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
+    </a>
+* [Input Events](https://w3c.github.io/input-events/) ([Github Repo](https://github.com/w3c/input-events/)) 
+    <a href="https://github.com/w3c/input-events/labels/agenda+">
+      ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/input-events?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
+    </a>
+* [Content Editable Disabled](https://w3c.github.io/editing/docs/contentEditableDisabled/) ([this Repo](https://github.com/w3c/editing/)) 
+    <a href="https://github.com/w3c/editing/labels/agenda+">
+      ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/editing?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
+    </a>
+* [Virtual Keyboard API](https://www.w3.org/TR/virtual-keyboard/) ([Github Repo](https://github.com/w3c/virtual-keyboard/))
+    <a href="https://github.com/w3c/virtual-keyboard/labels/agenda+">
+      ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/virtual-keyboard?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
+    </a>
 * [EditContextAPI](docs/EditContext/explainer.md) ([this Repo](https://github.com/w3c/editing/))
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
