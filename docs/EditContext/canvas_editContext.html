@@ -21,7 +21,8 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
     let canvas = document.getElementById("myCanvas");
     let canvasContext2D = canvas.getContext("2d");
     canvasContext2D.font = "30px Arial";
-    let charWidth = 30; // The width of the character is 30px.
+    let charWidth = 30; // The width/height of the (Japanese) character is 30px.
+    let charHeight = 30;
     let caretLength = 30;
 
     let editContext = new EditContext();
@@ -99,11 +100,48 @@ To try the "phrase" mode in Japanese IME (on Windows),<br>
         render();
     });
 
+    function computeCharacterBound(offset) {
+        let margin = 10;
+        let charX = canvas.offsetLeft + anchorX + offset * charWidth;
+        let charY = canvas.offsetTop + anchorY;
+        return DOMRect.fromRect({x:charX, y:charY-charHeight, width:charWidth, height:charHeight+margin});
+    }
+
+    editContext.addEventListener("characterboundsupdate", e => {
+        console.log(`editcontext.text:[${editContext.text}]`);
+        console.log(`characterboundsupdate: composition range (${e.rangeStart}, ${e.rangeEnd})`);
+        let rangeStart = e.rangeStart;
+        let rangeEnd = e.rangeEnd;
+
+        // Calculate bounds for each character in the range.
+        if (rangeEnd > rangeStart) {
+            let charBounds = [];
+            for (offset = rangeStart; offset < rangeEnd; offset++) {
+                let bound = computeCharacterBound(offset);
+                bound = scaleDOMRect(bound, window.devicePixelRatio);
+                charBounds.push(bound);
+            }
+            editContext.updateCharacterBounds(rangeStart, charBounds);
+
+            console.log("charcterBoundsRangeStart:");
+            console.log(editContext.characterBoundsRangeStart);
+            console.log("charcterBounds:");
+            console.log(editContext.characterBounds());
+        }
+    });
+
+    function handleTextFormat(textFormat) {
+        console.log(`textformatupdate: range(${textFormat.rangeStart}, ${textFormat.rangeEnd}),${textFormat.underlineColor}, ${textFormat.backgroundColor}, ${textFormat.textColor},${textFormat.underlineThickness}, ${textFormat.underlineStyle}`);
+        renderUnderlineDecoration(textFormat.rangeStart, textFormat.rangeEnd, textFormat.underlineStyle, textFormat.underlineThickness);
+    }
+
     editContext.addEventListener("textformatupdate", e => { 
-        console.log(`textformatupdate:range(${e.formatRangeStart}, ${e.formatRangeEnd}),
-        ${e.underlineColor}, ${e.backgroundColor}, ${e.suggestionHighlightColor}
-        ${e.textColor}, ${e.underlineThickness}, ${e.underlineStyle}`);
-        renderUnderlineDecoration(e.formatRangeStart, e.formatRangeEnd, e.underlineStyle, e.underlineThickness);
+        let textFormats = e.getTextFormats();
+        console.log(`textformatupdate: size(${textFormats.length})`);
+
+        textFormats.forEach((textFormat) => {
+            handleTextFormat(textFormat);
+        });
     });
 
     canvas.addEventListener('click', function(event) {

@@ -251,7 +251,7 @@ The following table summarizes the difference between div with contentEditable a
 ```
 
 ## Example Application
-This [example](canvas_editContext.html) shows how an author can use EditContext to implement (IME) typing on a &lt;canvas&gt; element. ([demo video](https://microsoft-my.sharepoint-df.com/:v:/g/personal/shihken_microsoft_com1/EZxVZX0o4XhIqUj6lXuY-soB2rbXNBRMtNPx1jU40rmpOA))
+This [example](canvas_editContext.html) shows how an author can use EditContext to implement (IME) typing on a &lt;canvas&gt; element. ([demo video](EditContext_tpac2021.mp4))
 
 This [example](native_selection_demo.html) shows how an author can leverage native selection when using EditContext.
 
