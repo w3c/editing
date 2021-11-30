@@ -78,13 +78,13 @@ The Editing Working Group meets remotely at 9:00AM PST, on the second Friday of 
 
 The upcoming schedule is below:
 
-* November 12, 2021
 * December 10, 2021 
 * January 14, 2022
 * Feburary 11, 2022
 
 Past meetings linked to their minutes:
 
+* [November 12, 2021](https://www.w3.org/2021/11/12-editing-minutes.html)
 * [October 29, 2021](https://www.w3.org/2021/10/29-editing-minutes.html) ([Confirmed TPAC group meeting](https://www.w3.org/wiki/TPAC/2021/GroupMeetings#WG.2FIG.2FBG_Group_Meetings_details))
 * [October 15, 2021](docs/meetings/2021-10-15.md) (special meeting to continue discussion on [clipboard pickling](https://github.com/w3c/editing/issues/334))
 * [October 8, 2021](https://www.w3.org/2021/10/08-editing-minutes.html)
