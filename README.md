@@ -26,7 +26,7 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
     <a href="https://github.com/w3c/virtual-keyboard/labels/agenda+">
       ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/virtual-keyboard?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
     </a>
-* [EditContextAPI](docs/EditContext/explainer.md) ([this Repo](https://github.com/w3c/editing/))
+* [EditContextAPI](https://w3c.github.io/editing/docs/EditContext/index.html) ([in this Repo](https://github.com/w3c/editing/tree/gh-pages/docs/EditContext))
 
 ## Graduated <sup id="graddedRef">[1](#graddefFootnote)</sup>
 
