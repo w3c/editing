@@ -1,4 +1,4 @@
-[EditContext API](https://w3c.github.io/editing/docs/EditContext/index.html)
+EditContext API
 
 [Explainer](explainer.md)
 
