@@ -1,0 +1,1202 @@
+<h1>Clipboard API and events</h1>
+
+<pre class="metadata">
+Shortname: clipboard-apis
+Level: none
+Group: webediting
+Status: w3c/ED
+TR: https://www.w3.org/TR/clipboard-apis/
+ED: https://w3c.github.io/clipboard-apis/
+Previous Version: from biblio
+Repository: w3c/clipboard-apis
+!Explainer: <a href="https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc">Async Clipboard API Explainer</a>
+Editor: Anupam Snigdha, Microsoft, snianu@microsoft.com, w3cid 126950
+Abstract:
+	This document describes APIs for accessing data on the system clipboard. It provides
+	operations for overriding the default clipboard actions (cut, copy and paste), and
+	for directly accessing the clipboard contents.
+Status Text: <p> <strong>Changes to this document may be tracked at <a href="https://github.com/w3c/clipboard-apis">https://github.com/w3c/clipboard-apis</a>.</strong> </p>
+</pre>
+
+<pre class="anchors">
+urlPrefix: https://html.spec.whatwg.org/multipage/interaction.html#; type: dfn;
+	text: drag data store mode
+	text: drag data item kind
+	text: drag data item type string
+	text: concept dnd rw
+	text: concept dnd ro
+	text: concept dnd p
+	text: focusable area
+	text: dom anchor
+url: https://html.spec.whatwg.org/multipage/dom.html#the-body-element-2; type: dfn;
+	text: the body element
+spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/system-state.html; type: interface;
+	text: Navigator
+urlPrefix: http://www.w3.org/TR/html5/browsers.html#; type: dfn;
+	text: allowed to show a popup
+urlPrefix: https://dom.spec.whatwg.org/#; type: dfn;
+	text: constructing events
+urlPrefix: http://w3c.github.io/editing/contentEditable.html#dfn-; type: dfn;
+	text: editing host
+spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
+    type: dfn
+        text: Assert; url: sec-algorithm-conventions
+        text: promise; url: sec-promise-objects
+urlPrefix: https://w3c.github.io/permissions/#dom-permissionstate-; type: dfn;
+	text: denied
+	text: granted
+	text: prompt
+urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
+	text: Blob
+	text: type
+	text: blobParts
+</pre>
+
+<pre class="biblio">
+{
+	"MICROSOFT-CLIP-OP": {
+		"title": "About DHTML Data Transfer. Microsoft Developer Network.",
+		"href": "https://msdn.microsoft.com/en-us/ie/ms537658(v=vs.94)"
+	}
+}
+</pre>
+
+
+<h2 id="secintro">Introduction</h2>
+
+	<i>This section is non-normative.</i>
+
+	This specification defines how the system clipboard is exposed to web applications.
+
+	There are two general APIs described in this specification:
+
+	* Clipboard Event API - This API provides a way to hook into the common clipboard
+		operations of cutting, copying and pasting so that web application can
+		adjust the clipboard data as required.
+
+	* Async Clipboard API - This API provides direct access to read and write the
+		clipboard data. Since this is considered to be a <a>powerful feature</a>,
+		access to this API is controlled by a permission.
+
+<h2 id="Cases">Use Cases</h2>
+
+	<i>This section is non-normative.</i>
+
+	<h3 id="change-default-clipboard-ops">Changing Default Clipboard Operations</h3>
+
+		There are many scenarios where it is desireable to change the default clipboard
+		operations (cut/copy/paste). Here are a few examples:
+
+		<ul>
+			<li><strong>Metadata</strong>
+			When copying text from a repository of documents, it can be useful for the
+			copied text to include metadata about the source of the copied content.
+
+			<li><strong>Rich content editing</strong>
+			When copying text which contains hyperlinks or other structure,
+			it is often useful to be able to reformat the content to preserve
+			important information.
+			</li>
+
+			<li><strong>Graphics with built-in semantics</strong>
+			In order to make web applications which allow the manipulation of rich
+			text, or of graphic content such as [[SVG11]], it is useful to provide a
+			mechanism that allows for copying more than just the rendered content.
+			</li>
+
+			<li><strong>Mathematical information</strong>
+			With content such as mathematics, simply copying rendered text and pasting
+			it into another application generally leads to most of the semantics being
+			lost. MathML often needs to be transformed to be copied as plain text, for
+			example to make sure "to the power of" is shown with the caret "^" sign
+			in a formula plain-text input. The XML source could also be placed in the
+			clipboard with the appropriate transformation occurring at paste time.
+			</li>
+		</ul>
+
+	<h3 id="remote-clipboard-sync">Remote Clipboard Synchronization</h3>
+
+		For web applications that communicate with remote devices (e.g., remote access
+		or remote shell applications), there is often a need for the clipboard data
+		to be kept in sync between the two devices.
+
+		One important aspect of this use case is that it requires access to the
+		clipboard in the absense of a user gesture or interaction.
+
+		<div class="example">
+		To copy the clipboard data from a remote device to the local clipboard, a web
+		application would take the remote clipboard data and then {{Clipboard/write()}}
+		the data to the local clipboard.
+		</div>
+
+		<div class="example">
+		To copy the local clipboard data to a remote device, a web application would
+		listen for [=clipboardchange=] events, {{Clipboard/read()}} from the clipboard
+		whenever it is updated, and then send the new clipboard data to the remote device.
+		</div>
+
+	<h3 id="trigger-clipboard-actions">Trigger Clipboard Actions</h3>
+
+		Applications that provide an alternate interface to a user agent sometimes need
+		to be able to trigger clipboard actions in the user agent.
+
+		As an example, consider a screen reader application that provides a more accessible
+		interface to a standard web browser. While the reader can display content and
+		allow the user to interact with it, actions like clipboard copy need
+		to occur in the underlying browser to ensure that the clipboard content is set
+		correctly (with any metadata added by the browser during copy).
+
+<h2 id="terminolofy">Terminology</h2>
+
+	The term <dfn>editable context</dfn> means any element that is either an
+	[=editing host=], a textarea element, or an input element with its type
+	attribute set to any of "text", "search", "tel",
+	"url", "email", "password" or "number".
+
+
+<h2 id="model">Model</h2>
+
+	The platform provides a <dfn>system clipboard</dfn>.
+
+	The [=system clipboard=] has a list of clipboard items that are collectively
+	called the <dfn>system clipboard data</dfn>.
+
+	* For the [[#async-clipboard-api]], the [=system clipboard data=] is
+		exposed as a sequence of [=/clipboard item=] objects that mirrors the contents of
+		the clipboard.
+
+<h2 id="clipboard-events-and-interfaces">Clipboard Events</h2>
+
+	<h3 id="clipboard-event-definitions">Clipboard events</h3>
+
+		<h4 id="clipboard-event-clipboardchange">The <dfn>clipboardchange</dfn> event</h4>
+
+			The [=clipboardchange=] event fires whenever the contents of the
+			[=system clipboard=] are changed. These changes could be due to any of the
+			following (non-exhaustive):
+
+			* User-initiated cut or copy actions
+			* Scripts that use the [[#async-clipboard-api]] to write to the clipboard
+			* Actions that update the clipboard outside the user agent
+
+			If the clipboard contents are changed outside the user agent, then the
+			[=clipboardchange=] event MUST fire when the user agent regains focus.
+
+			Since synthetic cut and copy events do not update the [=system clipboard=],
+			they will not trigger a "clipboardchange" event.
+
+<h2 id="async-clipboard-api">Asynchronous Clipboard API</h2>
+
+	<h3 id="mandatory-data-types-x"><dfn>Mandatory data types</dfn></h3>
+
+		The implementation must recognise the native OS clipboard format description
+		for the following data types, to be able to populate the
+		{{DataTransferItemList}} with the correct description for paste events, and
+		set the correct data format on the OS clipboard in response to copy and cut
+		events.
+
+		<h4 id="reading-from-clipboard">Reading from the clipboard</h4>
+
+			These data types must be exposed by <em>paste</em> events if a
+			corresponding native type exists on the clipboard:
+
+			* text/plain
+			* text/html
+			* image/png
+
+		<h4 id="writing-to-clipboard">Writing to the clipboard</h4>
+
+			These data types must be placed on the clipboard with a corresponding
+			native type description if added to a {{DataTransfer}} object during
+			<em>copy</em> and <em>cut</em> events.
+
+			* text/plain
+			* text/html
+			* image/png
+
+			Advisement: Warning! The data types that untrusted scripts are allowed to write to the
+			clipboard are limited as a security precaution. Untrusted scripts can
+			attempt to exploit security vulnerabilities in local software by placing
+			data known to trigger those vulnerabilities on the clipboard.
+
+	<h3 id="navigator-interface">Navigator Interface</h3>
+
+		<pre class="idl" data-highlight="webidl">
+		partial interface Navigator {
+		  [SecureContext, SameObject] readonly attribute Clipboard clipboard;
+		};
+		</pre>
+
+		<div id="navigator-idl" dfn-for="Navigator">
+
+		<div class="algorithm" data-algorithm="navigator-clipboard">
+		<h4 id="h-navigator-clipboard">clipboard</h4>
+		It is used to execute read/write operations from/to the [=system clipboard=].
+		The {{Navigator/clipboard}} getter steps are to return [=this=]'s [=clipboard=] object.
+		</div>
+
+		</div><!-- dfn-for Navigator -->
+
+	<h3 id="clipboard-item-interface">ClipboardItem Interface</h3>
+		<pre class="idl" data-highlight="webidl">
+			typedef Promise&lt;(DOMString or Blob)&gt; ClipboardItemData;
+
+			[SecureContext, Exposed=Window]
+			interface ClipboardItem {
+				constructor(record&lt;DOMString, ClipboardItemData> items,
+				            optional ClipboardItemOptions options = {});
+
+				readonly attribute PresentationStyle presentationStyle;
+				readonly attribute FrozenArray&lt;DOMString> types;
+
+				Promise&lt;Blob&gt; getType(DOMString type);
+			};
+
+			enum PresentationStyle { "unspecified", "inline", "attachment" };
+
+			dictionary ClipboardItemOptions {
+				PresentationStyle presentationStyle = "unspecified";
+				sequence&lt;DOMString&gt; unsanitized;
+			};
+		</pre>
+
+		<dl class=note>
+			<dt><code><var>clipboardItem</var> = new ClipboardItem([<var>items</var>, <var>options</var>])</code>
+			<dd>
+			Creates a new {{ClipboardItem}} object. <var>items</var> are used to fill its MIME types and [=Promise=]s to {{Blob}}s or {{DOMString}}s corresponding to the MIME types, <var>options</var> can be used to fill its {{ClipboardItemOptions}},
+			as per the example below.
+
+				<pre class="example javascript" highlight=js>
+					const format1 = 'text/plain';
+					const promise_text_blob = Promise.resolve(new Blob(['hello'], {type: format1}));
+					const clipboardItemInput = new ClipboardItem(
+						{[format1]: promise_text_blob},
+						{presentationStyle: "unspecified"});
+				</pre>
+
+			<dt><code><var>clipboardItem</var>.getType(<var>type</var>)</code>
+			<dd><p>Returns a [=Promise=] to the {{Blob}} corresponding to <var>type</var>.</p>
+
+			<dt><code><var>clipboardItem</var>.<var>types</var></code>
+			<dd><p>Returns the list of <var>types</var> contained in the <var>clipboardItem</var> object.
+
+		</dl>
+
+		<h4 id="clipboard-item">Clipboard Item</h4>
+
+		A <dfn>clipboard item</dfn> is conceptually data that the user has expressed a desire to make shareable by invoking a "cut" or "copy" command.
+
+		<p class=note>
+			For example, if a user copies a range of cells from a spreadsheet of a native application, it will result in one [=/clipboard item=]. If a user copies a set of files from their desktop, that list of files will be represented by multiple [=/clipboard item=]s.
+		</p>
+
+		Some platforms may support having more than one [=/clipboard item=] at a time on the [=clipboard=], while other platforms replace the previous [=/clipboard item=] with the new one.
+
+		A [=/clipboard item=] has a <dfn>list of representations</dfn>, each <dfn>representation</dfn> with an associated <dfn for=representation>mime type</dfn> (a [=/MIME type=]) and <dfn for=representation>data</dfn> (a {{ClipboardItemData}}).
+
+		<p class=note>
+			In the example where the user copies a range of cells from a spreadsheet, it may be represented as an image (image/png), an HTML table (text/html), or plain text (text/plain).
+		</p>
+
+		Each of these [=/MIME type=]s describe a different [=representation=] of the same [=/clipboard item=] at different levels of fidelity and make the [=/clipboard item=] more consumable by target applications during paste.
+
+		<p class=note>
+			Making the range of cells available as an image will allow the user to paste the cells into a photo editing app, while the text/plain format can be used by text editor apps.
+		</p>
+
+		A [=/clipboard item=] can also optionally have a <dfn>presentation style</dfn> that helps distinguish whether apps "pasting" a [=/clipboard item=] should insert the contents of an appropriate [=representation=] inline at the point of paste or if it should be treated as an attachment.
+
+		Apps that support pasting only a single [=/clipboard item=] should use the first [=/clipboard item=].
+		Apps that support pasting more than one [=/clipboard item=] could, for example, provide a user interface that previews the contents of each [=/clipboard item=] and allow the user to choose which one to paste.
+		Further, apps are expected to enumerate the [=/MIME type=]s of the [=/clipboard item=] they are pasting and select the one best-suited for the app according to some app-specific algorithm.
+		Alternatively, an app can present the user with options on how to paste a [=/clipboard item=], e.g. "paste as image" or "paste formatted text", etc.
+
+		A {{ClipboardItem}} object has an associated <dfn for="ClipboardItem">clipboard item</dfn>, which is a [=/clipboard item=].
+
+		A {{ClipboardItem}} object has an associated <dfn for="ClipboardItem">types array</dfn>, which is a {{FrozenArray}}.
+
+		To <dfn>create a {{ClipboardItem}} object</dfn>, given a [=/clipboard item=] |clipboardItem| and a Realm |realm|, run these steps:
+			1. Let |clipboardItemObject| be a [=new=] {{ClipboardItem}} with |realm|.
+
+			1. Set |clipboardItemObject|'s [=/clipboard item=] to |clipboardItem|.
+
+		The <dfn constructor for="ClipboardItem" lt="ClipboardItem(items, options)"><code>new ClipboardItem(<var>items</var>, <var>options</var>)</code></dfn> constructor steps are:
+			1. Set [=this=]'s [=ClipboardItem/clipboard item=] to a new [=/clipboard item=].
+
+			1. Set [=this=]'s [=ClipboardItem/clipboard item=]'s [=presentation style=] to |options|["{{ClipboardItemOptions/presentationStyle}}"].
+
+			1. Let |types| be a list of {{DOMString}}.
+
+			1. For each (|key|, |value|) in |items|:
+
+				1. Let |mimeType| be the result of [=parsing a MIME type=] given |key|.
+
+				1. If |mimeType| is failure, then throw a {{TypeError}}.
+
+				1. If [=this=]'s [=ClipboardItem/clipboard item=]'s [=list of representations=] [=list/contains=] a [=representation=] whose [=representation/MIME type=] is |mimeType|, then throw a {{TypeError}}. 
+
+				1. Let |representation| be a new [=representation=].
+
+				1. Set |representation|'s [=representation/MIME type=] to |mimeType|.
+
+				1. Set |representation|'s [=representation/data=] to |value|.
+
+				1. Append |representation| to [=this=]'s [=ClipboardItem/clipboard item=]'s [=list of representations=].
+
+				1. Let |mimeTypeString| be the result of [=serializing a MIME type=] with |mimeType|.
+				
+				1. Add |mimeTypeString| to |types|.
+
+			1. Set [=this=]'s [=ClipboardItem/types array=] to the result of running [=create a frozen array=] from |types|.
+
+		<h4 attribute for=ClipboardItem lt=presentationStyle>presentationStyle</h4>
+		<p>
+			The {{ClipboardItem/presentationStyle}} getter steps are to return [=this=]'s [=ClipboardItem/clipboard item=]'s [=presentation style=].
+		</p>
+
+		<h4 attribute for=ClipboardItem lt=types>types</h4>
+		<p>
+			The {{ClipboardItem/types}} getter steps are to return [=this=]'s [=ClipboardItem/types array=].
+		</p>
+
+		<h4 method for=ClipboardItem lt=getType(type)>getType(type)</h4>
+		
+			This method must run the below steps:
+
+			1. Let |realm| be [=this=]'s [=relevant realm=].
+
+			1. Let |mimeType| be the result of [=parsing a MIME type=] given |type|.
+
+			1. If |mimeType| is failure, then throw a {{TypeError}}.
+
+			1. Let |itemTypeList| be [=this=]'s [=ClipboardItem/clipboard item=]'s [=list of representations=].
+
+			1. Let |p| be [=a new promise=] in |realm|.
+
+			1. For each |representation| in |itemTypeList|:
+
+				1. If |representation|'s [=representation/MIME type=] is |mimeType|, then:
+
+					1. Let |representationDataPromise| be the |representation|'s [=representation/data=].
+
+					1. [=promise/React=] to |representationDataPromise|:
+
+						1. If |representationDataPromise| was fulfilled with value |v|, then:
+
+							1. If |v| is a {{DOMString}}, then follow the below steps:
+
+								1. Let |dataAsBytes| be the result of [=UTF-8 encoding=] |v|.
+
+								1. Let |blobData| be a {{Blob}} created using |dataAsBytes| with its {{Blob/type}} set to |mimeType|, [=serialize a MIME type|serialized=].
+
+								1. Resolve |p| with |blobData|.
+
+							1. If |v| is a {{Blob}}, then follow the below steps:
+
+								1. Resolve |p| with |v|.
+
+						1. If |representationDataPromise| was rejected, then:
+
+							1. [=Reject=] |p| with {{"NotFoundError"}} {{DOMException}} in |realm|.
+
+					1. Return |p|.
+
+			1. [=Reject=] |p| with {{"NotFoundError"}} {{DOMException}} in |realm|.
+
+			1. Return |p|.
+
+	<h3 id="clipboard-interface">Clipboard Interface</h3>
+
+		<pre class="idl" data-highlight="webidl">
+		typedef sequence&lt;ClipboardItem&gt; ClipboardItems;
+
+		[SecureContext, Exposed=Window]
+		interface Clipboard : EventTarget {
+			Promise&lt;ClipboardItems&gt; read(optional ClipboardItemOptions options);
+			Promise&lt;DOMString&gt; readText();
+			Promise&lt;undefined&gt; write(ClipboardItems data);
+			Promise&lt;undefined&gt; writeText(DOMString data);
+		};
+		</pre>
+
+		The methods of the {{Clipboard}} interface take or return multiple {{ClipboardItem}} objects, and their specification is written to deal with the generic case. However, not all platforms support more than one [=/clipboard item=]; on such platforms, the algorithms below will ignore any {{ClipboardItem}} objects beyond the first one that are passed to {{Clipboard/write()}}, and {{Clipboard/read()}} and {{Clipboard/readText()}} will only ever return a single-item array.
+
+		A {{Clipboard}} object has an associated <dfn>clipboard</dfn>, which is a [=clipboard=].
+		A <dfn>clipboard items</dfn> object is a [=sequence=] of [=/clipboard item=]s.
+
+		<p class="note">
+		A web author needs to create a |data| which is an array of {{ClipboardItem}}s in order to write content to [=system clipboard=] using the {{Clipboard/write(data)}} method.
+		{{Clipboard/read()}} returns a [=Promise=] to [=clipboard items=] object that represents contents of [=system clipboard=].
+		</p>
+
+		The <dfn>clipboard task source</dfn> is triggered in response to reading or writing of [=system clipboard data=].
+
+		<div id="clipboard-idl" dfn-for="Clipboard">
+		<div class="algorithm" data-algorithm="clipboard-read">
+		<h4 method for="Clipboard">read()</h4>
+		The {{Clipboard/read()}} method must run these steps:
+
+			1. Let |realm| be [=this=]'s [=relevant realm=].
+
+			1. Let |p| be [=a new promise=] in |realm|.
+
+			1. Run the following steps [=in parallel=]:
+
+				1. Let |r| be the result of running [=check clipboard read permission=].
+
+					Note: Clipboard permission is not supported on Safari. However, the read() method must be called inside
+					a user gesture event and the user must select the paste option from the native context menu that pops up
+					when read() is called from JS, otherwise, the promise will be rejected.
+
+				1. If |r| is false, then:
+				
+					1. [=Queue a global task=] on the [=permission task source=], given |realm|'s [=Realm/global object=], to [=reject=] |p| with {{"NotAllowedError"}} {{DOMException}} in |realm|.
+
+					1. Abort these steps.
+
+				1. Let |data| be a copy of the [=system clipboard data=] represented as [=clipboard items=]. For the MIME types defined in the [=mandatory data types=] list, |data| contains the sanitized copy of text/html format, but image/png format has unsanitized payload to preserve meta data.
+
+					Note: As further described in [[#image-transcode]] this explicitly does not transcode images.
+					Rather the original unmodified image data should be exposed to the website.
+
+				1. [=Queue a global task=] on the [=clipboard task source=], given |realm|'s [=Realm/global object=], to perform the below steps:
+
+					1. Let |items| be a [=sequence=]&lt;{{ClipboardItem}}&gt;.
+
+					1. For each [=/clipboard item=] |underlyingItem| of |data|:
+
+						1. Let |item| be the result of running the steps of [=create a ClipboardItem object=] given |underlyingItem|.
+
+						1. Append |item| to |items|.
+
+					1. Resolve |p| with |items|.
+
+			1. Return |p|.
+
+			<div></div>
+
+			<pre class="example javascript" highlight=js>
+				const items = await navigator.clipboard.read();
+				const textBlob = await items[0].getType("text/plain");
+				const text = await (new Response(textBlob)).text();
+			</pre>
+			<pre class="example javascript" highlight=js>
+				// Pickling read example. ClipboardItems returned by clipboard.read() may 
+				// contain pickled formats.
+				const clipboardItems = await navigator.clipboard.read(
+					{unsanitized: ['text/custom']} /* This new list specifies the pickled format
+											'text/custom' for all read ClipboardItems. */
+				);
+				const clipboardItem = clipboardItems[0];
+				const textBlob = await clipboardItem.getType('text/plain');
+				// This format reads as a pickled format, only if it is included in the unsanitized
+				// format list.
+				const customTextBlob = await clipboardItem.getType('text/custom');
+			</pre>
+
+		</div><!-- read() -->
+
+		<div class="algorithm" data-algorithm="clipboard-readtext">
+		<h4 method for="Clipboard">readText()</h4>
+		The {{Clipboard/readText()}} method must run these steps:
+
+			1. Let |realm| be [=this=]'s [=relevant realm=].
+
+			1. Let |p| be [=a new promise=] in |realm|.
+
+			1. Run the following steps [=in parallel=]:
+
+				1. Let |r| be the result of running [=check clipboard read permission=].
+
+					Note: Clipboard permission is not supported on Safari. However, the readText() method must be called inside
+					a user gesture event and the user must select the paste option from the native context menu that pops up
+					when readText() is called from JS, otherwise, the promise will be rejected.
+
+				1. If |r| is false, then:
+				
+					1. [=Queue a global task=] on the [=permission task source=], given |realm|'s [=Realm/global object=], to [=reject=] |p| with {{"NotAllowedError"}} {{DOMException}} in |realm|.
+
+					1. Abort these steps.
+
+				1. Let |data| be a copy of the [=system clipboard data=] represented as [=clipboard items=]. For the MIME types defined in the [=mandatory data types=] list, |data| contains the sanitized copy of text/plain format.
+
+				1. [=Queue a global task=] on the [=clipboard task source=], given |realm|'s [=Realm/global object=], to perform the below steps:
+
+					1. Let |itemTypeList| be |data|'s [=ClipboardItem/clipboard item=]'s [=list of representations=].
+
+					1. For each |representation| in |itemTypeList|:
+
+						1. If |representation|'s [=representation/MIME type=] [=MIME type/essence=] is "text/plain", then:
+
+							1. Let |representationDataPromise| be the |representation|'s [=representation/data=].
+
+							1. [=promise/React=] to |representationDataPromise|:
+
+								1. If |representationDataPromise| was fulfilled with value |v|, then:
+
+									1. If |v| is a {{DOMString}}, then follow the below steps:
+
+										1. Resolve |p| with |v|.
+
+									1. If |v| is a {{Blob}}, then follow the below steps:
+
+										1. Let |string| be the result of [=UTF-8 decoding=] |v|'s underlying byte sequence.
+
+										1. Resolve |p| with |string|.
+
+								1. If |representationDataPromise| was rejected, then:
+
+									1. [=Reject=] |p| with {{"NotFoundError"}} {{DOMException}} in |realm|.
+
+					1. [=Reject=] |p| with {{"NotFoundError"}} {{DOMException}} in |realm|.
+
+					1. Return |p|.
+
+			<div></div>
+
+			<pre class="example javascript" highlight=js>
+				navigator.clipboard.readText().then(function(data) {
+					console.log("Your string: ", data);
+				});
+			</pre>
+
+		</div><!-- readText() -->
+
+		<div class="algorithm" data-algorithm="clipboard-write">
+		<h4 method for="Clipboard">write(|data|)</h4>
+		The {{Clipboard/write(data)}} method must run these steps:
+
+			1. Let |realm| be [=this=]'s [=relevant realm=].
+
+			1. Let |p| be [=a new promise=] in |realm|.
+
+			1. Run the following steps [=in parallel=]:
+
+				1. Let |r| be the result of running [=check clipboard write permission=].
+
+					Note: Clipboard permission is not supported on Safari. However, the write() method must be called inside
+					a user gesture event and the user must select the paste option from the native context menu that pops up
+					when write() is called from JS, otherwise, the promise will be rejected.
+
+				1. If |r| is false, then:
+				
+					1. [=Queue a global task=] on the [=permission task source=], given |realm|'s [=Realm/global object=], to [=reject=] |p| with {{"NotAllowedError"}} {{DOMException}} in |realm|.
+
+					1. Abort these steps.
+
+				1. [=Queue a global task=] on the [=clipboard task source=], given |realm|'s [=Realm/global object=], to perform the below steps:
+
+					1. Let |itemList| and |cleanItemList| be an empty [=sequence=]&lt;{{Blob}}&gt;.
+
+					1. If |data|'s [=list/size=] is greater than 1, and the current operating system does not support multiple [=/clipboard item=]s on the [=system clipboard data=], then set |data| to « |data|[0] ».
+
+					1. For each |clipboardItem| in |data|:
+
+						1. For each |representation| in |clipboardItem|'s [=ClipboardItem/clipboard item=]'s [=list of representations=]:
+
+							1. Let |representationDataPromise| be the |representation|'s [=representation/data=].
+
+							1. [=promise/React=] to |representationDataPromise|:
+
+								1. If |representationDataPromise| was fulfilled with value |v|, then:
+
+									1. If |v| is a {{DOMString}}, then follow the below steps:
+
+										1. Let |dataAsBytes| be the result of [=UTF-8 encoding=] |v|.
+
+										1. Let |blobData| be a {{Blob}} created using |dataAsBytes| with its {{Blob/type}} set to |representation|'s [=representation/MIME type=].
+
+										1. Add |blobData| to |itemList|.
+
+									1. If |v| is a {{Blob}}, then add |v| to |itemList|.
+
+								1. If |representationDataPromise| was rejected, then:
+
+									1. [=Reject=] |p| with {{"NotAllowedError"}} {{DOMException}} in |realm|.
+
+									1. Abort these steps.
+
+						1. For each |blob| in |itemList|:
+
+							1. Let |type| be the |blob|'s {{Blob/type}}.
+
+							1. If |type| is not in the [=mandatory data types=] list, then [=reject=] |p| with {{"NotAllowedError"}} {{DOMException}} in |realm| and abort these steps.
+
+							1. Let |cleanItem| be a sanitized copy of |blob|.
+
+								Issue: Add definition of sanitized copy.
+
+							1. If unable to create a sanitized copy, then follow the below steps:
+							
+								1. [=Reject=] |p| with {{"NotAllowedError"}} DOMException in |realm|.
+
+								1. Abort these steps.
+
+							1. Append |cleanItem| to |cleanItemList|.
+
+						1. Let |option| be |clipboardItem|'s [=ClipboardItem/clipboard item=]'s [=presentation style=].
+
+						1. [=Write blobs and option to the clipboard=] with |cleanItemList| and |option|.
+
+					1. Resolve |p|.
+
+			1. Return |p|.
+
+			<div></div>
+
+			<pre class="example javascript" highlight=js>
+				var data = [new ClipboardItem({ "text/plain": Promise.resolve(new Blob(["Text data"], { type: "text/plain" }) }))];
+				navigator.clipboard.write(data).then(function() {
+					console.log("Copied to clipboard successfully!");
+				}, function() {
+					console.error("Unable to write to clipboard. :-(");
+				});
+			</pre>
+			<pre class="example javascript" highlight=js>
+				// Pickling write example.
+				// This format 'text/plain' is recognized by the Clipboard API, so will be
+				// written as usual.
+				const text = new Blob(['text'], {type: 'text/plain'});
+				// This format 'text/custom' is not sanitized by the Clipboard API. It will be
+				// pickled if the format is specified in the {unsanitized: []} formats list.
+				const customText = new Blob(
+				['&lt;custom_markup&gt; pickled_text&lt;/custom_markup&gt;'], {type: 'text/custom'});
+
+				// Clipboard format ordering: Pickled formats will be written before sanitized
+				// formats by the browser, since they're more "custom" and likely more targeted
+				// towards this use case.
+				const clipboardItem = new ClipboardItem({
+				  'text/plain': text,       /* Sanitized format. */
+				  'text/custom': customText /* Pickled format. This new format will be accepted
+											and written without rejection, as long as the new
+											unsanitized list contains this format. */
+				}, 
+				{unsanitized: ['text/custom']} /* This new list specifies the pickled format
+										'text/custom'. */
+				);
+				navigator.clipboard.write([clipboard_item]);
+			</pre>
+
+		</div><!-- write() -->
+
+		<div class="algorithm" data-algorithm="clipboard-writetext">
+		<h4 method for="Clipboard">writeText(|data|)</h4>
+		The {{Clipboard/writeText(data)}} method must run these steps:
+
+			1. Let |realm| be [=this=]'s [=relevant realm=].
+
+			1. Let |p| be [=a new promise=] in |realm|.
+
+			1. Run the following steps [=in parallel=]:
+
+				1. Let |r| be the result of running [=check clipboard write permission=].
+
+					Note: Clipboard permission is not supported on Safari. However, the writeText() method must be called inside
+					a user gesture event and the user must select the paste option from the native context menu that pops up
+					when writeText() is called from JS, otherwise, the promise will be rejected.
+
+				1. If |r| is false, then:
+				
+					1. [=Queue a global task=] on the [=permission task source=], given |realm|'s [=Realm/global object=], to [=reject=] |p| with {{"NotAllowedError"}} DOMException in |realm|.
+
+					1. Abort these steps.
+
+				1. [=Queue a global task=] on the [=clipboard task source=], given |realm|'s [=Realm/global object=], to perform the below steps:
+
+					1. Let |newItemList| be empty [=/list=] of [=/clipboard item=]s.
+
+					1. Let |textBlob| be a new {{Blob}} created with:
+						{{Blob/type}} attribute set to "<code>text/plain;charset=utf-8</code>", and
+						its underlying byte sequence set to the [=UTF-8 encoding=] of |data|.
+
+					1. Let |newItem| be a new [=/clipboard item=] created with a single
+						[=representation=]:
+						[=representation/MIME type=] set to the result of [=parse a MIME type|parsing=] "<code>text/plain;charset=utf-8</code>", and
+						[=representation/data=] set to [=a promise resolved with=] |textBlob|.
+
+					1. Add |newItem| to |newItemList|.
+
+					1. Replace the [=system clipboard data=] with |newItemList|.
+
+					1. Resolve |p|.
+
+			1. Return |p|.
+
+			<div></div>
+
+			<pre class="example javascript" highlight=js>
+				await navigator.clipboard.writeText("Howdy, partner!");
+			</pre>
+
+		</div><!-- writeText() -->
+
+		</div><!-- dfn-for Clipboard -->
+
+
+<h2 id="clipboard-permissions">Permissions API Integration</h2>
+
+	The [[permissions]] API provides a uniform way for websites to access
+	<a>powerful feature</a>s like the clipboard. It allows websites to request permissions
+	from users and query which permissions they have.
+
+	For the clipboard, one permission is defined:
+	<dfn enum-value for="PermissionName">"clipboard-write"</dfn>
+
+	Note: Clipboard permissions currently only apply to the Async Clipboard API.
+	Future versions of this specification may be updated to apply this permission
+	to other Clipboard interactions.
+
+	These clipboard permissions are <a>powerful feature</a>s
+	permission-related algorithms and types are defined as follows:
+
+	<dl>
+	<dt>
+		<a>permission descriptor type</a>
+	</dt>
+	<dd>
+		<pre class="idl">
+			dictionary ClipboardPermissionDescriptor : PermissionDescriptor {
+				boolean allowWithoutGesture = false;
+			};
+		</pre>
+	</dd>
+
+	There are 4 clipboard permissions:
+
+	* { name: "clipboard-write", allowWithoutGesture: false }
+	* { name: "clipboard-write", allowWithoutGesture: true }
+
+	With the following relationships:
+
+	* <code>{ "clipboard-write" + true }</code> is stronger than <code>{ "clipboard-write" + false }</code>
+
+	While user agents MUST support the {{ClipboardPermissionDescriptor}} as described
+	in this specification, they, of course, retain complete control over the default
+	settings and how (or if) they are exposed to the user.
+
+	<div class="example">
+		A user agent that wants to have separate user-settable write controls over the clipboard
+		and always require a user gesture would handle each descriptor as follows:
+
+		* <code class="perm">{ "clipboard-write" + false }</code> is exposed for user control
+		* <code class="perm">{ "clipboard-write" + true }</code> is always <a>denied</a>
+	</div>
+
+	<h3 id="read-permission">Clipboard read permission</h3>
+
+		<div class="algorithm" data-algorithm="clipboard-read-permission">
+		<h4 id="h-clipboard-read-permission"><dfn>check clipboard read permission</dfn></h4>
+
+		1. Let |hasGesture| be true if the [=relevant global object=] of [=this=] has
+		    [=transient activation=], false otherwise.
+
+		1. If |hasGesture| then,
+
+			<!-- System paste buttons don't require permission -->
+			1. Return true if the current script is running as a result of user
+				interaction with a "Paste" element created by the user agent or operating
+				system.
+
+		1. Return false.
+
+		</div><!-- algorithm -->
+
+	<h3 id="write-permission">Clipboard write permission</h3>
+
+		<div class="algorithm" data-algorithm="clipboard-write-permission">
+		<h4 id="h-clipboard-write-permission"><dfn>check clipboard write permission</dfn></h4>
+
+		1. Let |writeWithoutGesture| be the [=permission state=] of the
+			<code>{ name: "clipboard-write", allowWithoutGesture: true }</code>
+			permission.
+
+		1. If |writeWithoutGesture| is <a>granted</a>, then return true.
+
+		1. Let |hasGesture| be true if the [=relevant global object=] of [=this=]
+		    has [=transient activation=], false otherwise.
+
+		1. If |hasGesture| then,
+
+			<!-- System paste buttons don't require permission -->
+			1. Let |systemCopy| be true if the current script is running as a result of user
+				interaction with a "cut" or "copy" element created by the user agent or operating
+				system.
+
+			1. If |systemCopy| is true, then return true.
+
+			1. Return the result of [=request permission to use=] the
+				<code>{ name: "clipboard-write", allowWithoutGesture: false }</code>
+				permission.
+
+				Note: User agents may choose to request a stronger permission that
+				will implicitly update this permission.
+
+		1. Return the result of [=request permission to use=] the
+			<code>{ name: "clipboard-write", allowWithoutGesture: true }</code>
+			permission.
+
+		</div><!-- algorithm -->
+
+
+<h2 id="security">Security Considerations</h2>
+
+	Enabling authors to change what is copied by a user, or to make an automated
+	copy of something that was never selected and allowing unrestricted calls to
+	paste information can raise various security concerns.
+
+	Some example scenarios include:
+
+	* A user selects a link and copies it, but a different link is copied to the clipboard.
+		The effect of this can range from an unexpected result on pasting to an attempted
+		"phishing" attack.
+	* (Self-XSS) Shell commands or executable script can be placed in the clipboard with the
+		intent that the user will run the pasted content.
+	* An image that is specially crafted to exploit bugs in the core OS image handling
+		code can be written to the clipboard.
+
+	<h3 id="pasting-html">Pasting HTML and multi-part data</h3>
+
+		<em>This section is non-normative.</em>
+
+		There are certain security risks associated with pasting formatted or
+		multi-part data.
+
+		* The user might paste hidden data without realising it is there. This may
+			happen if, for example, the markup includes
+			&lt;input type="hidden"&gt; tags or HTML comments. Such hidden data
+			might contain sensitive information.
+		* The user might paste malicious JavaScript into a trusted page.
+		* The implementation might grant scripts access to local files the user
+			did not intend to expose.
+
+		To determine what policies to use, the factors we consider are:
+
+		* The origin of the data being pasted
+		* The origin of data sub-parts such as referenced images
+		* The origin of the running script
+
+		This is an overview of the scenarios and the possible security policies:
+
+		<table class="simple">
+			<tr>
+				<th>Origin of data</th>
+				<th>Origin of script</th>
+				<th>Rules</th>
+			</tr>
+			<tr>
+				<td rowspan="2">Originates from online source</td>
+				<td>Same as data</td>
+				<td>Do not sanitize HTML. Do not access any local files.</td>
+			</tr>
+			<tr>
+				<!-- cell span from previous row -->
+				<td>Different origin</td>
+				<td>Optionally sanitize content. Do not access any local files.</td>
+			</tr>
+			<tr>
+				<td>Originates from local application</td>
+				<td>Any</td>
+				<td>Do not sanitize HTML. Grant access to local files</td>
+			</tr>
+		</table>
+
+		Some implementations mitigate the risks associated with pasting rich
+		text by stripping potentially malicious content such as SCRIPT elements
+		and javascript: links by default when pasting rich text, but allow a
+		paste event handler to retrieve and process the original, un-sanitized
+		data.
+
+	<h3 id="general-security-policies">General security policies</h3>
+
+		The implementation <em>must not</em> download referenced online
+		resources, or expose their contents in the {{DataTransfer/files}} list
+		or {{DataTransferItemList}}.
+
+		If the data on the clipboard is not from a local application, the
+		implementation <em>must not</em> give access to any referenced local
+		files. For example, if the data contains
+		&lt;img src="file://localhost/example.jpg"&gt;
+		but the data's origin is an online resource, the implementation must not
+		add an entry for example.jpg to the clipboardData.items list.
+
+	<h3 id="image-transcode">Transcoding images</h3>
+
+		To prevent malicious image data from being placed on the clipboard, the image
+		data may be transcoded to produce a safe version of the image. This prevents websites
+		from trying to exploit security vulnerabilities in other applications.
+
+		Implementations should not transcode images being read from the clipboard.
+		Transcoding images can lose important metadata (such as the physical resolution
+		of an image).
+		This is also consistent with other methods in which images can be shared
+		with a website (such as `&lt;input type=file&gt;`).
+
+	<h3 id="nuisances">Nuisance considerations</h3>
+
+		Scripts may use the {{DataTransfer}} API to annoy and confuse users by
+		altering the data on the system clipboard from copy and cut events. This
+		specification does not attempt to prevent such nuisances, though
+		implementations may add additional restrictions.
+
+		Implementations must handle scripts that try to place excessive amounts
+		of data on the clipboard gracefully.
+
+
+<h2 id="privacy">Privacy Considerations</h2>
+
+	Because these APIs provide access to the user's clipboard data, there are serious
+	privacy concerns due to the possibility that the clipboard will contain
+	personally-identifiable information (PII) like names, addresses, or passwords.
+
+	In general, user agents <em>must</em> ensure that untrusted scripts do not get
+	uncontrolled access to a user's clipboard data through these APIs.
+
+	<h3 id="privacy-async">Privacy and the Asychronous Clipboard API</h3>
+
+		The Asynchronous Clipboard API is a powerful feature because it can allow access
+		to the clipboard data from any script (access is not restricted to Clipboard Event
+		handlers) and data can be accessed in the absence of a user provided gesture.
+
+		To help prevent abuse, this API <em>must not</em> be available unless the script
+		is executing in the context of a document that [=has focus steps|has focus=].
+
+		<h4 id="privacy-permission">Privacy and Clipboard Permission</h4>
+
+			The Clipboard Permission gates access to this API, but user agents get to choose
+			the permission defaults and which of these permission settings can be set by the
+			user. For example, a user agent may choose to only allow access to the
+			Asynchronous Clipboard API when a user gesture is present and always deny script
+			requests for access without a gesture.
+
+			User agents may opt to have this permission automatically expire sometime after
+			the user grants permission, for example, by having the permission expire:
+
+			* After a set time from when the permission was first granted
+			* After a set time from the user's last visit to a site
+			* When the user navigates away from the page
+
+	<h3 id="privacy-other">Other Privacy Concerns</h3>
+
+		If the user agent allows clipboard data to be read using
+		<code>document.execCommand("paste")</code> then the user agent <em>must</em>
+		ensure that the user has explicitly allowed that access to take place.
+
+
+<h2 id="acknowledge">Acknowledgements</h2>
+
+	<em>This section is non-normative</em>
+
+	The editors would like to acknowledge the contributions of the former
+	editors who helped shepherd this specification through various
+	meetings and mailing-list discussions to bring it to its current state.
+
+	* Hallvord R. M. Steen
+
+	The editors would also like to acknowledge their intellectual debt to the
+	documentation of Data Transfer functionalities from Microsoft
+	[[MICROSOFT-CLIP-OP]] and earlier drafts of the [[HTML5]] specification.
+	We are also grateful for the draft "safe copy and paste" from Paul Libbrecht
+	(this draft is no longer available on the Web).
+
+	And finally, we would like to acknowledge the contributions made by the following:
+
+	Adam Barth,
+	Shawn Carnell,
+	Daniel Cheng,
+	Daniel Dardailler,
+	Domenic Denicola,
+	Al Gilman,
+	James Graham,
+	James Greene,
+	Ian Hickson,
+	Darwin Huang,
+	Lachlan Hunt,
+	Philip Jägenstedt,
+	Anne van Kesteren,
+	Marijn Kruisselbrink,
+	Aaron Leventhal,
+	Jim Ley,
+	Paul Libbrecht,
+	"Martijn",
+	Glenn Maynard,
+	Chris Mills,
+	ms2ger,
+	Ryosuke Niwa,
+	Robert O'Callahan,
+	Dave Poehlman,
+	"ROBO Design",
+	Janina Sajka,
+	Rich Schwerdtfeger,
+	Jonas Sicking,
+	Maciej Stachowiak,
+	Mihai Sucan,
+	Dmitry Titov,
+	Ojan Vafai,
+	Tarquin Wilton-Jones,
+	Tom Wlodkowski,
+	Bo Cupp,
+	mbrodesser
+	and Boris Zbarsky.
+
+
+<h2 id="algorithms">Appendix A: Algorithms</h2>
+
+	<div class="algorithm" data-algorithm="write-blobs-to-clipboard">
+	<h3 id="to-write-blobs-to-clipboard"><dfn>write blobs and option to the clipboard</dfn></h3>
+
+		: Input
+		:: |items|, a [=sequence=]&lt;{{Blob}}&gt; list of {{Blob}}s to write
+		:: |presentationStyle|, a [=ClipboardItem/clipboard item=]'s [=presentation style=]
+
+		: Output
+		:: None
+
+		1. For each |item| in |items|:
+
+			1. If data type is <i>text/plain</i>, then
+
+				1. Ensure encoding is correct per OS and locale conventions
+
+				1. Normalize line endings according to platform conventions
+
+				1. Place text on clipboard with the appropriate OS clipboard
+					format description
+				
+				1. Set the [=presentation style=] to |presentationStyle|.
+
+			1. Else, if data is of a type listed in the
+				[=mandatory data types=] list, then
+
+				1. Place |item| on clipboard with the appropriate OS clipboard
+					format description
+
+				1. Set the [=presentation style=] to |presentationStyle|.
+
+			1. Else
+
+				1. This is left to the implementation...
+
+					Issue: It's not good to leave things up to the
+					implementation. What should happen here?
+
+					Note: Due to limitations in the implementation of operating
+					system clipboards, scripts should not assume that custom
+					formats will be available to other applications on the
+					system. For example, there is a limit to how many custom
+					clipboard formats can be registered in Microsoft Windows.
+					While it is possible to use any string for
+					<a>setData()</a>'s type argument, sticking to the
+					[=mandatory data types=] is strongly recommended.
+
+	</div><!-- algorithm -->
+
+	<div class="algorithm" data-algorithm="read-unsanitized-format">
+	<i>This section is non-normative.</i>
+	<h3 id="to-read-unsanitized-format"><dfn>read unsanitized format</dfn></h3>
+
+		: Input
+		:: |mimeType|, a string
+
+		: Output
+		:: |item|, a {{Blob}}
+
+		1. Let |webCustomFormatMap| be the [=os specific custom map name=].
+
+		1. Read |webCustomFormatMap| from the [=system clipboard=].
+
+		1. Let |webCustomFormatMapString| be the JSON string deserialized from |webCustomFormatMap|.
+
+			Note: Need a JSON reader to deserialize the content from the |webCustomFormatMap|.
+
+		1. Let |webCustomFormat| be the value corresponding to the |mimeType| key in |webCustomFormatMapString|.
+
+		1. Let |item| be a {{Blob}}.
+
+		1. Read |webCustomFormat| from the [=system clipboard=] and store the resulting data into |item|.
+
+		1. Return |item|.
+
+	</div><!-- algorithm -->
+
+	<h3 id="to-write-unsanitized-format"><dfn>write unsanitized format</dfn></h3>
+
+		: Input
+		:: |items|, {{Blob}}s
+		:: |mimeType|, a string
+
+		1. Let |idx| be a number initialized to 0.
+
+		1. Let |webCustomFormatMap| be the [=os specific custom map name=].
+
+		1. For each |item| in |items|:
+
+			1. Let |webCustomFormat| be the [=os specific custom name=].
+
+			1. Let |webCustomFormatIdx| be the result of appending |idx| to |webCustomFormat|.
+
+			1. Insert |mimeType| as key and |webCustomFormatIdx| as value into the |webCustomFormatMap|.
+
+				Note: Need a JSON writer to serialize the content into the |webCustomFormatMap|.
+
+			1. Insert the |item| into the [=system clipboard=] using |webCustomFormatIdx| as the format.
+
+			1. Increment |idx|.
+
+		1. Insert the |webCustomFormatMap| into the [=system clipboard=].
+
+
+	</div><!-- algorithm -->
+
+	<div class="algorithm" data-algorithm="os-specific-custom-map-name">
+	<i>This section is non-normative.</i>
+	<h3 id="to-os-specific-custom-map-name"><dfn>os specific custom map name</dfn></h3>
+
+		: Output
+		:: |webCustomFormatMap|, a string
+
+		On Windows, follow the convention described below:
+
+		1. Assign "Web Custom Format Map" to |webCustomFormatMap|.
+
+		1. Return |webCustomFormatMap|.
+
+		On MacOS, follow the convention described below:
+
+		1. Assign "com.web.custom.format.map" to |webCustomFormatMap|.
+
+		1. Return |webCustomFormatMap|.
+
+		On Linux, ChromeOS, and Android, follow the convention described below:
+
+		1. Assign "application/web;type=\"custom/formatmap\"" to |webCustomFormatMap|.
+
+		1. Return |webCustomFormatMap|.
+
+	</div><!-- algorithm -->
+
+	<div class="algorithm" data-algorithm="os-specific-custom-name">
+	<i>This section is non-normative.</i>
+	<h3 id="to-os-specific-custom-name"><dfn>os specific custom name</dfn></h3>
+
+		: Output
+		:: |webCustomFormat|, a string
+
+		On Windows, follow the convention described below:
+
+		1. Assign "Web Custom Format" to |webCustomFormat|.
+
+		1. Return |webCustomFormat|.
+
+		On MacOS, follow the convention described below:
+
+		1. Assign "com.web.custom.format" to |webCustomFormat|.
+
+		1. Return |webCustomFormat|.
+
+		On Linux, ChromeOS, and Android, follow the convention described below:
+
+		1. Assign "application/web;type="custom/format" to |webCustomFormat|.
+
+		1. Return |webCustomFormat|.
+
+	</div><!-- algorithm -->
