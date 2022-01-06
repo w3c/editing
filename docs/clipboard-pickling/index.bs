@@ -1051,6 +1051,8 @@ urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
 		: Output
 		:: None
 
+		1. Let |unsanitizedBlobList| be a [=/list=] of {{Blob}}s.
+
 		1. For each |item| in |items|:
 
 			1. If data type is <i>text/plain</i>, then
@@ -1074,25 +1076,15 @@ urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
 
 			1. Else
 
-				1. This is left to the implementation...
+				1. Add |item| to |unsanitizedBlobList|.
 
-					Issue: It's not good to leave things up to the
-					implementation. What should happen here?
-
-					Note: Due to limitations in the implementation of operating
-					system clipboards, scripts should not assume that custom
-					formats will be available to other applications on the
-					system. For example, there is a limit to how many custom
-					clipboard formats can be registered in Microsoft Windows.
-					While it is possible to use any string for
-					<a>setData()</a>'s type argument, sticking to the
-					[=mandatory data types=] is strongly recommended.
+			1. [=Write unsanitized format=] using |unsanitizedBlobList|.
 
 	</div><!-- algorithm -->
 
 	<div class="algorithm" data-algorithm="read-unsanitized-format">
-	<i>This section is non-normative.</i>
 	<h3 id="to-read-unsanitized-format"><dfn>read unsanitized format</dfn></h3>
+	<i>This section is non-normative.</i>
 
 		: Input
 		:: |mimeType|, a string
@@ -1119,6 +1111,7 @@ urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
 	</div><!-- algorithm -->
 
 	<h3 id="to-write-unsanitized-format"><dfn>write unsanitized format</dfn></h3>
+	<i>This section is non-normative.</i>
 
 		: Input
 		:: |items|, {{Blob}}s
@@ -1148,8 +1141,8 @@ urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
 	</div><!-- algorithm -->
 
 	<div class="algorithm" data-algorithm="os-specific-custom-map-name">
-	<i>This section is non-normative.</i>
 	<h3 id="to-os-specific-custom-map-name"><dfn>os specific custom map name</dfn></h3>
+	<i>This section is non-normative.</i>
 
 		: Output
 		:: |webCustomFormatMap|, a string
@@ -1175,8 +1168,8 @@ urlPrefix: https://w3c.github.io/FileAPI/#dfn-; type: dfn;
 	</div><!-- algorithm -->
 
 	<div class="algorithm" data-algorithm="os-specific-custom-name">
-	<i>This section is non-normative.</i>
 	<h3 id="to-os-specific-custom-name"><dfn>os specific custom name</dfn></h3>
+	<i>This section is non-normative.</i>
 
 		: Output
 		:: |webCustomFormat|, a string
