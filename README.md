@@ -68,7 +68,9 @@ Channel: #editing
 
 ### Meetings
 
-The Editing Working Group meets remotely at 9:00AM PST, on the second Friday of every month. Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
+**⚠ New Meeting day/time ⚠**
+
+The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UTC during DST March 13th - November 6th, 2022)**, on the second **Thursday** of every month. Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
 
 [Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
 
@@ -78,10 +80,25 @@ The Editing Working Group meets remotely at 9:00AM PST, on the second Friday of 
 
 The upcoming schedule is below:
 
-* January 14, 2022
-* Feburary 11, 2022
+* TBD (special meeting for continuing discussion on sanitized/unsanitized clipboard content)
+* Feburary 10, 2022
+* March 10, 2022
+* April 14, 2022
+* May 12, 2022
+* June 9, 2022
+* July 14, 2022
+* August 11, 2022
+* September 12 - 16, 2022 (TPAC Meetings--Vancouver BC, Canada; Editing WG meeting schedule TBD)
+* October 13, 2022
+* November 10, 2022
+* December 8, 2022
 
 Past meetings linked to their minutes:
+
+* [January 14, 2022](https://www.w3.org/2022/01/14-editing-minutes.html)
+
+<details>
+    <summary>2021 Meetings</summary>
 
 * [December 10, 2021](https://www.w3.org/2021/12/10-editing-irc)
 * [November 12, 2021](https://www.w3.org/2021/11/12-editing-minutes.html)
@@ -94,6 +111,8 @@ Past meetings linked to their minutes:
 * [July 9, 2021](https://lists.w3.org/Archives/Public/public-editing-tf/2021Jul/0000.html)
 * [May 14, 2021](https://www.w3.org/2021/05/14-editing-minutes.html)
 
+</details>
+    
 ## Footnote
 
 <b id="graddefFootnote">1 </b>Proposals that resulted in being sent to the appropriate WG as a recommendation to be specced.[↩](#graddedRef)
