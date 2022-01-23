@@ -80,7 +80,7 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 The upcoming schedule is below:
 
-* TBD (special meeting for continuing discussion on sanitized/unsanitized clipboard content)
+* January 27, 2022 7:30am-9:00am Pacific Time (special meeting for continuing discussion on sanitized/unsanitized clipboard content) **Note: Meeting will take place on [jitsi](https://meet.jit.si/W3CEditingCall).**
 * February 10, 2022
 * March 10, 2022
 * April 14, 2022
