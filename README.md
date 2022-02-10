@@ -74,7 +74,7 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 [Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
 
-[Google Hangouts (pdx-dnmm-cen)](https://meet.google.com/pdx-dnmm-cen)
+[Jitsi video conference call link](https://meet.jit.si/W3CEditingCall)
 
 #### Schedule
 
