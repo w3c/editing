@@ -5,6 +5,10 @@
 *   huangdarwin@chromium.org
 *   snianu@microsoft.com
 
+## Link to the old proposal
+
+[Pickling API](explainer_previous.md)
+
 ## Introduction
 Powerful web applications would like to exchange data payloads with web and native applications via the OS clipboard (copy-paste). The existing Web Platform has an API that supports the most popular standardized data types (text, image, rich text) across all platforms. However, this API does not scale to the long tail of specialized formats. In particular, custom formats, non-web-standard formats like TIFF (a large image format), and proprietary formats like .docx (a document format), are not supported by the current Web Platform. Pickling for Async Clipboard API aims to provide a solution to this problem, by letting web applications read and write custom, unsanitized, web-originated payloads using a standardized pickling format.
 
