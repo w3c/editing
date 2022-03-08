@@ -1,4 +1,4 @@
-# Pickling for Async Clipboard API
+# Web Custom formats for Async Clipboard API
 
 
 ## Author:
@@ -10,14 +10,14 @@
 [Pickling API](explainer_previous.md)
 
 ## Introduction
-Powerful web applications would like to exchange data payloads with web and native applications via the OS clipboard (copy-paste). The existing Web Platform has an API that supports the most popular standardized data types (text, image, rich text) across all platforms. However, this API does not scale to the long tail of specialized formats. In particular, custom formats, non-web-standard formats like TIFF (a large image format), and proprietary formats like .docx (a document format), are not supported by the current Web Platform. Pickling for Async Clipboard API aims to provide a solution to this problem, by letting web applications read and write custom, unsanitized, web-originated payloads using a standardized pickling format.
+Powerful web applications would like to exchange data payloads with web and native applications via the OS clipboard (copy-paste). The existing Web Platform has an API that supports the most popular standardized data types (text, image, rich text) across all platforms. However, this API does not scale to the long tail of specialized formats. In particular, custom formats, non-web-standard formats like TIFF (a large image format), and proprietary formats like .docx (a document format), are not supported by the current Web Platform. Web custom formats for Async Clipboard API aims to provide a solution to this problem, by letting web applications read and write custom, unsanitized, web-originated payloads using a standardized web custom format.
 
-Pickling could be used by:
+Web custom formats could be used by:
 *   Web Apps to support popular but not-web-standardized formats like GIFs, like [Figma](https://crbug.com/150835#c73) or Photopea.
-*   Web Apps to support application-specific types, for example to copy and paste within or between Google Docs and Google Sheets, (or Office 365’s Word and Excel products) using pickled formats.
+*   Web Apps to support application-specific types, for example to copy and paste within or between Google Docs and Google Sheets, (or Office 365’s Word and Excel products) using custom formats.
 *   Developers owning both a web and native application, like SketchUp, to communicate between their applications.
 
-The existing Async Clipboard API is still encouraged for use cases requiring only standardized types already supported by the web platform as it is easier to use and the types are widely-interoperable with existing applications, but pickling allows web applications with more specific or sophisticated clipboard needs to meet those needs.
+The existing Async Clipboard API is still encouraged for use cases requiring only standardized types already supported by the web platform as it is easier to use and the types are widely-interoperable with existing applications, but custom formats allow web applications with more specific or sophisticated clipboard needs to meet those needs.
 
 ## Goals
 *   Allow sites to represent and interact with more clipboard formats, with fine-grained control. These types will:
@@ -32,11 +32,11 @@ The existing Async Clipboard API is still encouraged for use cases requiring onl
 
 ## Non-goals
 *   Allow interoperability with legacy native applications, without update. This was explored in a [raw clipboard proposal](https://github.com/WICG/raw-clipboard-access/blob/master/explainer.md), and may be explored further in the future, but comes with significant security challenges (remote code execution in system native applications).
-*   Modify design of original Async Clipboard API, where not relevant to pickling.
-*   Anything not related to Async Clipboard API, including the DataTransfer API or Drag-and-Drop. Pickling as described in this explainer should be extensible to also work for Drag-and-Drop, but this explainer's scope is limited to clipboard.
+*   Modify design of original Async Clipboard API, where not relevant to web custom types.
+*   Anything not related to Async Clipboard API, including the DataTransfer API or Drag-and-Drop. Web custom formats as described in this explainer should be extensible to also work for Drag-and-Drop, but this explainer's scope is limited to clipboard.
 
 ## Additional Background
-This design aims to allow access to custom, web-originated formats. This is referred to as Pickling, because this is [historically](https://bugzilla.mozilla.org/show_bug.cgi?id=860857) what web platform engineers have [referred to this idea as](https://github.com/w3ctag/design-reviews/issues/406#issuecomment-542310250). This name likely originates from a [Python serialization structure](https://docs.python.org/3/library/pickle.html) of the same name, as WebKit and Blink both offer unstandardized (and minimally documented) implementations of custom formats via similar implementations involving serialized structures. This proposal aims not only to add this support to the Async Clipboard API, but also to standardize such behavior, opening up related unstandardized DataTransfer implementations to become standardized in the future.
+This design aims to allow access to custom, web-originated formats. WebKit, Blink & Firefox offer unstandardized (and minimally documented) implementations of custom formats. This proposal aims not only to add this support to the Async Clipboard API, but also to standardize such behavior, opening up related unstandardized DataTransfer implementations to become standardized in the future.
 
 ## Existing Async Clipboard API read and write
 The existing [Async Clipboard API](https://w3c.github.io/clipboard-apis/#async-clipboard-api) already provides for reading or writing multiple items from or to the clipboard.
@@ -98,7 +98,7 @@ navigator.clipboard.write([clipboardItem])
 ### Custom Format Read
 To read custom formats, the author can use the Async Clipboard API per usual, but add the "web " prefix as discussed above.
 
-In the example below, the author prefers to use their "custom markup" if available, and otherwise will use a version of HTML, either from the pickled version of the HTML or its well-known representation.
+In the example below, the author prefers to use their "custom markup" if available, and otherwise will use a version of HTML, either from the web custom format version of the HTML or its well-known representation.
 
 ```js
 const items = await navigator.clipboard.read()
@@ -126,7 +126,7 @@ Note that native apps (or web apps) are free to provide an alternative form of w
 ## Detailed design discussion
 
 ### OS-Interaction: Format Naming
-Native applications will only be able to interact with these formats if they explicitly add support for these pickled formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
+Native applications will only be able to interact with these formats if they explicitly add support for these web custom formats. Different platforms / OS’s often have different conventions for a clipboard format’s name, so formats will be named accordingly per OS. Payloads will be unaffected/unmodified between different OS’s.
 
 On Windows & Linux, generation of clipboard formats dynamically risks exhaustion of the atom pool. On Windows, there is room for around [16,000 registered window messages and clipboard formats](https://devblogs.microsoft.com/oldnewthing/20150319-00/?p=44433). Once those are exhausted, things will start behaving erratically because window classes use the same pool of atoms as clipboard formats. Applications will not be able to register window classes until the user logs off and back on. Linux has a limitation on the atom space as well, so an approach to overcome these limitations needs to be devised.
 
@@ -171,7 +171,7 @@ e.g. The web custom format map will have the below payload
 
 The value in the JSON payload mentioned above contains the actual payload of the custom MIME type. It will be serialized in terms of raw bytes and will have the below formatting naming convention:
 
-On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"text/html"` will be transformed to `"com.web.custom.format0"`. Note that the pickling prefix `"com.web"` precedes the transformed format name `"custom.format0"`.
+On MacOS (and iOS), clipboard formats are named using the UTI reverse-DNS naming convention. Therefore, a MIME type `"text/html"` will be transformed to `"com.web.custom.format0"`. Note that the web custom format prefix `"com.web"` precedes the transformed format name `"custom.format0"`.
 
 On Windows, clipboard formats are often named using capital words separated by a space. Therefore, a MIME type `"text/html"` will be transformed to `"Web Custom Format0`.
 
@@ -182,7 +182,7 @@ On Test and Headless platforms, MIME types will be used for consistency with Lin
 ## Considered alternatives
 
 ### Alternative Considered: unsanitized:list of well known MIME types.
-If a site is reading `"text/html"` on the assumption that it returns a sanitized fragment which the site can then insert directly into the DOM, then this option would be helpful to give the authors the ability to pick either the sanitized fragment (from `"text/html"`) or the pickled format(from the web custom format map), but not both. The unsanitized option will only contain the list of mandatory formats supported by the browser. If a format is in the unsanitized list, then it doesn't go through the sanitization process in the browser.
+If a site is reading `"text/html"` on the assumption that it returns a sanitized fragment which the site can then insert directly into the DOM, then this option would be helpful to give the authors the ability to pick either the sanitized fragment (from `"text/html"`) or the web custom format(from the web custom format map), but not both. The unsanitized option will only contain the list of mandatory formats supported by the browser. If a format is in the unsanitized list, then it doesn't go through the sanitization process in the browser.
 
 From a backward compatibility point of view, this option is better than the proposed custom format read/write approach as it requires the web authors to explicitly opt into the unsanitized version of the mandatory formats that are currently supported by the browser. However, this option has some issues as listed below:
 1. Creates interop differences between various browsers that don't want to support the unsanitized option. 
@@ -194,48 +194,48 @@ This option is certainly viable, but there are sites like Excel Online that rely
 An example of this approach is shown below:
 
 ```js
-// Pickling read example. ClipboardItems returned by clipboard.read() may 
-// contain pickled formats.
+// web custom format read example. ClipboardItems returned by clipboard.read() may
+// contain web custom format formats.
 const clipboardItems = await navigator.clipboard.read({unsanitized: ['text/html', 'text/plain']});
 const clipboardItem = clipboardItems[0];
 
 const types = clipboardItem.types;
 if (types.includes("web text/html")) {
-  // There is a pickled version of the standard HTML format that is fetched from the custom format map.
+  // There is a web custom format version of the standard HTML format that is fetched from the custom format map.
   // Process it here...
   const htmlBlob = await clipboardItem.getType('web text/html');
 } else if (types.includes("text/html")) {
   // Process the payload fetched from the standard HTML format...
   const htmlBlob = await clipboardItem.getType('text/html');
 } else if (types.includes("web text/custom")) {
-  // This format reads as a pickled format, only if it is available in the custom format map.
+  // This format reads as a web custom format format, only if it is available in the custom format map.
   const customTextBlob = await clipboardItem.getType('web text/custom');
 }
 
 ```
 
 ```js
-// Pickling write example.
+// web custom format write example.
 // This format 'text/html' is recognized by the Clipboard API, so will be
-// written to the standard HTML format and a pickled version ("web text/html")
+// written to the standard HTML format and a web custom format version ("web text/html")
 // added to the web custom format map. 
 const textInput = '<html><head><style>color:blue</style><head><body><p>Hello</p></body></html>';
 const htmlBlobInput = new Blob([textInput], {type: 'text/html'});
 // This format 'text/custom' is not sanitized by the Clipboard API. It will be
-// pickled if the format is specified in the {unsanitized: []} formats list.
+// web custom format if the format is specified in the {unsanitized: []} formats list.
 const customText = new Blob(
   ['<custom_markup>pickled_text</custom_markup>'], {type: 'web text/custom'});
 
-// Clipboard format ordering: Pickled formats will be written before sanitized
+// Clipboard format ordering: web custom formats will be written before sanitized
 // formats by the browser, since they're more "custom" and likely more targeted
 // towards this use case.
 const clipboardItem = new ClipboardItem({
  'text/html': htmlBlobInput, /* Sanitized format. */
- 'web text/custom': customText /* Pickled format. This new format will be accepted
+ 'web text/custom': customText /* web custom format. This new format will be accepted
                             and written without rejection, as long as the new
                             unsanitized list contains this format. */
 },
-{unsanitized: ['text/html']} /* This new list specifies the pickled format for
+{unsanitized: ['text/html']} /* This new list specifies the web custom format for
                              'text/html'. */
 );
 navigator.clipboard.write([clipboardItem]);
@@ -243,18 +243,18 @@ navigator.clipboard.write([clipboardItem]);
 ```
 
 ### Alternative Considered: unsanitized:true.
-Instead of providing a long list of formats, which requires repeating formats sites would like to be unsanitized, sites could simply offer a `unsanitized: true` flag, and read or write all formats not supported by the Async Clipboard API as pickled formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
+Instead of providing a long list of formats, which requires repeating formats sites would like to be unsanitized, sites could simply offer a `unsanitized: true` flag, and read or write all formats not supported by the Async Clipboard API as web custom format formats. This would be a `ClipboardItemOption`, like `allowWithoutGesture`.
 
-That said, this would make it impossible to specify which `ClipboardItem`s should be unsanitized. When writing a `{unsanitized: true}` ClipboardItem, a site would have to write all sanitized payloads with their pickled equivalents, even if they only intended to use one unsanitized format, resulting in much longer time to write. Similarly, when reading, this would mean that all ClipboardItems must have all formats be unsanitized or not.
+That said, this would make it impossible to specify which `ClipboardItem`s should be unsanitized. When writing a `{unsanitized: true}` ClipboardItem, a site would have to write all sanitized payloads with their web custom format equivalents, even if they only intended to use one unsanitized format, resulting in much longer time to write. Similarly, when reading, this would mean that all ClipboardItems must have all formats be unsanitized or not.
 
 ### Alternative Considered: unsanitized if not supported by the Async Clipboard API.
-A much simpler approach would be to simply omit any `unsanitized` `ClipboardItemOption` at all, and simply read or write a pickled format whenever the Async Clipboard API doesn’t already support a sanitized version of the format. This has the same caveats as `unsanitized:true`, as it operates like `unsanitized:true` always being applied. In addition, it makes it difficult to apply a user gesture requirement for unsanitized clipboard, as it would be awkward and unclear for this requirement to be only active when a pickled format is requested, and not when only sanitized formats are requested.
+A much simpler approach would be to simply omit any `unsanitized` `ClipboardItemOption` at all, and simply read or write a web custom format whenever the Async Clipboard API doesn’t already support a sanitized version of the format. This has the same caveats as `unsanitized:true`, as it operates like `unsanitized:true` always being applied. In addition, it makes it difficult to apply a user gesture requirement for unsanitized clipboard, as it would be awkward and unclear for this requirement to be only active when a web custom format is requested, and not when only sanitized formats are requested.
 
 ## Risks
-Pickling clipboard API proposal consists of the below parts:
+Web custom formats proposal consists of the below parts:
 
-1. Shape of the API to read/write pickled data.
-2. Format of pickled data on the native clipboard.
+1. Shape of the API to read/write web custom format data.
+2. Format of web custom format data on the native clipboard.
 
 For #1 we need to update all browsers and convince web developers to migrate to the new API.
 For #2 we need to update all browsers and native apps to consume this new custom format. This has backward compatibility concern, but since this is an explicit opt-in and doesn't affect reading/writing of the standard formats such as HTML, plain-text etc if these formats are written along with custom formats, we don't expect any copy-paste regressions for the existing formats.
