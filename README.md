@@ -80,7 +80,6 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 The upcoming schedule is below:
 
-* April 14, 2022
 * May 12, 2022
 * June 9, 2022
 * July 14, 2022
@@ -92,6 +91,7 @@ The upcoming schedule is below:
 
 Past meetings linked to their minutes:
 
+* [April 14, 2022](https://www.w3.org/2022/04/14-editing-minutes.html)
 * [March 10, 2022](https://www.w3.org/2022/03/10-editing-minutes.html)
 * [February 10, 2022](https://www.w3.org/2022/02/10-editing-minutes.html)
 * [January 27, 2022](https://www.w3.org/2022/01/27-editing-minutes.html) (special meeting for continuing discussion on sanitized/unsanitized clipboard content)
