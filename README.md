@@ -83,7 +83,6 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 The upcoming schedule is below:
 
-* June 9, 2022
 * July 14, 2022
 * August 11, 2022
 * September 12 - 16, 2022 (TPAC Meetings--Vancouver BC, Canada; Editing WG meeting schedule TBD)
@@ -93,6 +92,7 @@ The upcoming schedule is below:
 
 Past meetings linked to their minutes:
 
+* [June 9, 2022](https://www.w3.org/2022/06/09-editing-minutes.html)
 * [May 12, 2022](https://www.w3.org/2022/05/12-editing-minutes.html)
 * [April 14, 2022](https://www.w3.org/2022/04/14-editing-minutes.html)
 * [March 10, 2022](https://www.w3.org/2022/03/10-editing-minutes.html)
