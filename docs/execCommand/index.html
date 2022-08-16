@@ -321,9 +321,6 @@
           probably be quite complicated.
           </li>
         </ul>
-        <p>
-          Also need to look at contenteditable=plaintext-only.
-        </p>
       </div>
       <p>
         Things that would be useful to address for the future but aren't
@@ -4119,6 +4116,10 @@
           <dfn>The <code title="">backColor</code> command</dfn>
         </h3>
         <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
+        <p class="note">
           For historical reasons, backColor and hiliteColor behave identically.
         </p>
         <div class="note">
@@ -4202,6 +4203,10 @@
           <dfn>The <code title="">bold</code> command</dfn>
         </h3>
         <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
+        <p class="note">
           If the selection is collapsed (but not if it contains nothing but is
           not collapsed), IE9 wraps the whole line in a &lt;strong&gt;. This
           seems bizarre and no one else does it, so I don't do it. It's a
@@ -4257,6 +4262,10 @@
         <h3 id="the-createlink-command">
           <dfn>The <code title="">createLink</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <p>
             If the selection doesn't contain anything (meaning, e.g.,
@@ -4361,6 +4370,10 @@
         <h3 id="the-fontname-command">
           <dfn>The <code title="">fontName</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <p>
             UAs differ a bit in the details here:
@@ -4469,6 +4482,10 @@
         <h3 id="the-fontsize-command">
           <dfn>The <code title="">fontSize</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <dl>
             <dt>
@@ -4760,6 +4777,10 @@
         <h3 id="the-forecolor-command">
           <dfn>The <code title="">foreColor</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <p>
             Color interpretations:
@@ -4915,6 +4936,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
           <dfn>The <code title="">hiliteColor</code> command</dfn>
         </h3>
         <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
+        <p class="note">
           For historical reasons, backColor and hiliteColor behave identically.
         </p>
         <div class="note">
@@ -4996,6 +5021,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <h3 id="the-italic-command">
           <dfn>The <code title="">italic</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#action">Action</a>: If <code title=
           "queryCommandState()"><a href=
@@ -5016,6 +5045,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <h3 id="the-removeformat-command">
           <dfn>The <code title="">removeFormat</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <p>
             See <a href=
@@ -5224,6 +5257,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
           <dfn>The <code title="">strikethrough</code> command</dfn>
         </h3>
         <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
+        <p class="note">
           TODO: See underline TODO.
         </p>
         <p>
@@ -5244,6 +5281,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <h3 id="the-subscript-command">
           <dfn>The <code title="">subscript</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#action">Action</a>:
         </p>
@@ -5299,6 +5340,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <h3 id="the-superscript-command">
           <dfn>The <code title="">superscript</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#action">Action</a>:
         </p>
@@ -5339,6 +5384,10 @@ currentColor            #c0e000       currentcolor             rgba(0, 0, 0, 0) 
         <h3 id="the-underline-command">
           <dfn>The <code title="">underline</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <p>
             TODO: There are a lot of problems with underline color and
@@ -12472,6 +12521,10 @@ foo&lt;br&gt;bar
         <h3 id="the-indent-command">
           <dfn>The <code title="">indent</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <div class="note">
           <dl>
             <dt>
@@ -12650,6 +12703,10 @@ foo&lt;br&gt;bar
         <h3 id="the-inserthorizontalrule-command">
           <dfn>The <code title="">insertHorizontalRule</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -13007,6 +13064,10 @@ foo&lt;br&gt;bar
         <h3 id="the-insertimage-command">
           <dfn>The <code title="">insertImage</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -13267,6 +13328,10 @@ foo&lt;br&gt;bar
         <h3 id="the-insertorderedlist-command">
           <dfn>The <code title="">insertOrderedList</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14256,6 +14321,10 @@ foo&lt;br&gt;bar
         <h3 id="the-insertunorderedlist-command">
           <dfn>The <code title="">insertUnorderedList</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14282,6 +14351,10 @@ foo&lt;br&gt;bar
         <h3 id="the-justifycenter-command">
           <dfn>The <code title="">justifyCenter</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14397,6 +14470,10 @@ foo&lt;br&gt;bar
         <h3 id="the-justifyfull-command">
           <dfn>The <code title="">justifyFull</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14456,6 +14533,10 @@ foo&lt;br&gt;bar
         <h3 id="the-justifyleft-command">
           <dfn>The <code title="">justifyLeft</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14515,6 +14596,10 @@ foo&lt;br&gt;bar
         <h3 id="the-justifyright-command">
           <dfn>The <code title="">justifyRight</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -14574,6 +14659,10 @@ foo&lt;br&gt;bar
         <h3 id="the-outdent-command">
           <dfn>The <code title="">outdent</code> command</dfn>
         </h3>
+        <p class="note">
+          Applies when the <a data-cite="html">editing host</a>
+          is set to <i>contenteditable=true</i>.
+        </p>
         <p>
           <a href="#preserves-overrides">Preserves overrides</a>
         </p>
@@ -15162,7 +15251,9 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
         The user agent may allow the user to make other changes to editable
         content, such as causing Ctrl-B to call <code title=
         "execCommand()"><a href=
-        "#execcommand()">execCommand("bold")</a></code>. Any such change must
+        "#execcommand()">execCommand("bold")</a></code>,
+        when the <a data-cite="html">editing host</a>
+        is set to <i>contenteditable=true</i>. Any such change must
         be accomplished by calling <code><a href=
         "#execcommand()">execCommand()</a></code>, so that in particular,
         "beforeinput" and "input" events fire as appropriate. The <a href=
