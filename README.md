@@ -71,8 +71,6 @@ Channel: #editing
 
 ### Meetings
 
-**⚠ New Meeting day/time ⚠**
-
 The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UTC during DST March 13th - November 6th, 2022)**, on the second **Thursday** of every month. Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
 
 [Meeting Invite](https://calendar.google.com/event?action=TEMPLATE&tmeid=MDVjYWxldXFiNDhiN3JmMHFqY3FiamRoOTdfMjAyMDEyMTFUMTcwMDAwWiAxN2xtdTNwaHZoamhlaDJpdTljYmppZnI3Y0Bn&tmsrc=17lmu3phvhjheh2iu9cbjifr7c%40group.calendar.google.com&scp=ALL)
@@ -83,14 +81,15 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 The upcoming schedule is below:
 
-* August 11, 2022
-* September 12 - 16, 2022 (TPAC Meetings--Vancouver BC, Canada; Editing WG meeting schedule TBD)
+* September 15, 2022 (part of TPAC Meetings--Vancouver BC, Canada; [Editing WG meeting invite](https://www.w3.org/events/meetings/51055800-c727-4589-b82b-735bec90d77e))
 * October 13, 2022
 * November 10, 2022
 * December 8, 2022
+* January 12, 2023
 
 Past meetings linked to their minutes:
 
+* [August 11, 2022](https://www.w3.org/2022/08/11-editing-minutes.html)
 * [July 14, 2022](https://www.w3.org/2022/07/14-editing-minutes.html)
 * [June 9, 2022](https://www.w3.org/2022/06/09-editing-minutes.html)
 * [May 12, 2022](https://www.w3.org/2022/05/12-editing-minutes.html)
