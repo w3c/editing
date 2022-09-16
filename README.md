@@ -88,7 +88,7 @@ The upcoming schedule is below:
 
 Past meetings linked to their minutes:
 
-* [September 15, 2022](https://www.w3.org/2022/09/15-editing-minutes.html)(part of TPAC Meetings--Vancouver BC, Canada;)
+* [September 15, 2022](https://www.w3.org/2022/09/15-editing-minutes.html) (part of TPAC Meetings--Vancouver BC, Canada;)
 * [August 11, 2022](https://www.w3.org/2022/08/11-editing-minutes.html)
 * [July 14, 2022](https://www.w3.org/2022/07/14-editing-minutes.html)
 * [June 9, 2022](https://www.w3.org/2022/06/09-editing-minutes.html)
