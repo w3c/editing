@@ -84,6 +84,13 @@ The upcoming schedule is below:
 * November 10, 2022
 * December 8, 2022
 * January 12, 2023
+* February 9, 2023
+* March 9, 2023
+* April 13, 2023
+* May 11, 2023
+* June 8, 2023
+* July 13, 2023
+* August 10, 2023
 
 Past meetings linked to their minutes:
 
