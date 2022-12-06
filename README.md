@@ -81,7 +81,6 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 The upcoming schedule is below:
 
-* November 10, 2022
 * December 8, 2022
 * January 12, 2023
 * February 9, 2023
