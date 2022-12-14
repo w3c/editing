@@ -92,7 +92,7 @@ const item = new ClipboardItem({
  'text/html': html_blob,
  'web text/custom': custom_blob
 })
-navigator.clipboard.write([clipboardItem])
+navigator.clipboard.write([item])
 ```
 
 ### Custom Format Read
