@@ -6,7 +6,7 @@
 *   snianu@microsoft.com
 
 ## Introduction
-Using DataTransfer object's setData and async clipboard write method, we are seeing interop differences in how the HTML content is sanitized and written to the clipboard. It'd be beneficial for the web authors if async clipboard and setData APIs provide the same HTML content during copy operation so round tripping is possible without any interop differences.
+Using DataTransfer object's setData and async clipboard write method, there are interop differences in how the HTML content is sanitized and written to the clipboard. It'd be beneficial for the web authors if async clipboard and setData APIs provide the same HTML content during copy operation so round tripping is possible without any interop differences.
 Also creating a fragment and inlining the styles bloats the payload and [strips out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics.
 
 ## Goals
