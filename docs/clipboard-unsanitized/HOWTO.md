@@ -5,9 +5,11 @@ Reading and writing unsanitized HTML to and from the clipboard is currently avai
 1. Download Microsoft Edge ([Canary Channel](https://www.microsoftedgeinsider.com/en-us/download/canary)).
 2. Launch Edge with the command line flag `--enable-blink-features=ClipboardUnsanitizedContentNavigate`.
 
+A similar process can be followed for Chrome ([Canary Channel](https://www.google.com/chrome/canary/)).
+
 ## Example
 
-The write method doesn't change it's shape:
+There is no change in the API shape for write() method:
 ```javascript
 const textInput = '<style>p { color: blue; }</style><p>Hello, World!</p>';
 const blobInput = new Blob([textInput], { type: 'text/html' });
@@ -20,12 +22,12 @@ Writing unsanitized HTML to the clipboard:
 <style>p { color: blue; }</style><p>Hello, World!</p>
 ```
 
-For reference, this would be the sanitized output:
+For reference, this would be the sanitized HTML output:
 ```html
 <p style="color: blue; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Hello, World!</p>
 ```
 
-The read method now accepts a dictionary with the `unsanitized` keyword and the `text/html` MIME type.
+The read method now accepts a dictionary with the `unsanitized` keyword and only `text/html` MIME type.
 ```javascript
 const clipboardItems = await navigator.clipboard.read({ unsanitized: ['text/html'] });
 const blobOutput = await clipboardItems[0].getType('text/html');
