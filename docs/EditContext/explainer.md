@@ -1,4 +1,7 @@
 # EditContext API Explainer
+
+# ⚠⚠⚠ ARCHIVED. This document is now maintained at https://github.com/w3c/edit-context/blob/gh-pages/explainer.md. Please refer to that for the latest content. ⚠⚠⚠
+
 ## Introduction
 The EditContext is a new API that simplifies the process of integrating a web app with [advanced text input methods](#example-text-input-methods), improves accessibility and performance, and unlocks new capabilities for web-based editors.
 
