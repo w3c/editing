@@ -1,4 +1,4 @@
-# Unsanitized HTML for Async Clipboard API
+# Async Clipboard API: Read unsanitized HTML and write well-formed HTML format.
 
 
 ## Author:
@@ -6,12 +6,11 @@
 *   snianu@microsoft.com
 
 ## Introduction
-Using DataTransfer object's setData and async clipboard write method, there are interop differences in how the HTML content is sanitized and written to the clipboard. It'd be beneficial for the web authors if async clipboard and setData APIs provide the same HTML content during copy operation so round tripping is possible without any interop differences.
-Also creating a fragment and inlining the styles bloats the payload and [strips out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics.
+Using DataTransfer object's setData and async clipboard write method, there are interop differences in how the HTML content is sanitized and written to the clipboard. It'd be beneficial for the web authors if async clipboard and setData APIs provide similar level of fidelity of HTML content during copy & paste operations so round tripping is possible without any interop differences such as losing formats, meta tags etc.
+If we use the built-in sanitizer that produces an HTML fragment, the styles that get inlined bloat the payload and [strip out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics.
 
 ## Goals
-*   Interoperability with legacy DataTransfer API used to read/write HTML format.
-*   Preserve privacy, by requiring user gesture to avoid unintended data leakage.
+*   Preserve fidelity of the HTML format just like the legacy DataTransfer API used to read/write HTML format.
 *   Build on the existing Async Clipboard API, by leveraging existing:
     *   Structure, like asynchronous design and ClipboardItem.
     *   Protections, like permissions model, and secure-context/active-frame requirements of the API.
@@ -143,7 +142,7 @@ navigator.clipboard.write([
 
 ## Proposal
 
-With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the content is round trippable i.e. `read()` would return the content without any sanitization. On [write](https://w3c.github.io/clipboard-apis/#dom-clipboard-write) method call, we will always write unsanitized HTML content if `text/html` is provided in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface).
+With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the content is round trippable i.e. `read()` would return the content without any sanitization. On [write](https://w3c.github.io/clipboard-apis/#dom-clipboard-write) method call, we will always write a well-formed HTML document if `text/html` is provided in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface).
 
 ### IDL changes
 ```
@@ -163,8 +162,13 @@ dictionary ClipboardUnsanitizedFormats {
 
 ### Write(data)
 Follow the algorithm specified in [write](https://w3c.github.io/clipboard-apis/#dom-clipboard-write) except for the below steps:
-1. If `text/html` representation is present in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface), then store the blobData as-is without any sanitization.
-2. On Windows follow the below platform specific header format before writing it to the system clipboard:
+1. If `text/html` representation is present in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface), then run the below steps:
+    1. Create a DOMParser using blink::DOMParser::Create.
+    2. Call DOMParser’s parseFromString method to parse the html string provided by the web authors.
+    3. Serialize the document returned from step 2.
+    4. Return the serialized html string from step 3.
+
+2. On Windows follow the below platform specific header format before writing the serialized html from step 1 to the system clipboard:
 ```
 Version:0.9
 StartHTML:<start offset of the start html tag>
@@ -252,6 +256,7 @@ Many thanks for valuable feedback and advice from:
 *   jsbell@chromium.org
 *   mek@chromium.org
 *   pwnall@chromium.org
+*   estade@chromium.org
 *   pcupp@microsoft.com
 *   [annevk](https://github.com/annevk)
 
