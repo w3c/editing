@@ -187,7 +187,7 @@ EndFragment:<start offset of the end fragment comment tag>
 ### Read()
 Follow the algorithm specified in [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) except for the below steps:
 1. If `text/html` representation is present in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface) and `text/html` is present in the `unsanitized` list, then follow the below steps:
-    1. If size of `unsanitized` list is greater than 1, then throw `Support to read multiple unsanitized formats is not supported.` exception.
+    1. If size of `unsanitized` list is greater than 1, then throw `Reading multiple unsanitized formats is not supported.` exception.
     2. If `text/html` is not at the first position in the `unsanitized` list, then throw `The unsanitized type` {formatName} `is not supported.` exception.
     3. else, return the blobData as-is without any sanitization.
 2. Else, follow the existing sanitization behavior as mentioned in [step-3](https://w3c.github.io/clipboard-apis/#dom-clipboard-read).
