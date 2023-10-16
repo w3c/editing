@@ -73,9 +73,9 @@ Channel: #editing
 
 The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UTC during DST March 13th - November 6th, 2022)**, on the second **Thursday** of every month. Meetings will cover issues [marked with the "Agenda+" label](https://github.com/w3c/editing/labels/Agenda%2B). **If you would like to discuss an existing issue, please tag it with "Agenda+" label so it can show up in the agenda query. If it is a new issue, please [create](https://github.com/w3c/editing/issues/new) and tag it with "Agenda+" label.**
 
-[Meeting Invite](https://w3c.github.io/editing/meeting-invite.ics)
+[Meeting Invite](https://www.w3.org/groups/wg/webediting/calendar/export/)
 
-[Jitsi video conference call link](https://meet.jit.si/W3CEditingCall)
+Zoom Meeting [Joining Instructions](https://www.w3.org/groups/wg/webediting/calendar/)
 
 #### Schedule
 
