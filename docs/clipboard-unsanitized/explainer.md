@@ -40,7 +40,7 @@ document.addEventListener('copy', function(e) {
 This API is called via navigator.clipboard object and is used to read/write HTML to the clipboard asynchronously without depending on clipboard event or execCommand implementation. This provides more flexibility to the web authors in terms of the type of the HTML content and when the data needs to be read/written to the clipboard. E.g.
 
 ```js
-async () => { 
+async () => {
 try {
 const html_text = new Blob([
                   '<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=ProgId content=Excel.Sheet><meta name=Generator content=\"Microsoft Excel 15\"><style>display:none</style></head></html>'], {type: 'text/html'});
@@ -195,14 +195,18 @@ Follow the algorithm specified in [read()](https://w3c.github.io/clipboard-apis/
 ### JS example
 
 ```js
-const html_text = new Blob([
-                  '<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=ProgId content=Excel.Sheet><meta name=Generator content=\"Microsoft Excel 15\"><style>body {font-family: HK Grotesk; background-color: var(--color-bg);}</style></head><body><div>hello</div></body></html>'], {type: 'text/html'});
+const html_text = new Blob(['<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=ProgId content=Excel.Sheet><meta name=Generator content=\"Microsoft Excel 15\">'
+'<style>body {font-family: HK Grotesk; background-color: var(--color-bg);}</style></head><body><div>hello</div></body></html>'], {type: 'text/html'});
 
-              const clipboard_item = new ClipboardItem({
-                'text/html': html_text     /* Sanitized format. */
-              });
+const clipboard_item = new ClipboardItem({
+'text/html': html_text     /* Sanitized format. */
+});
               
-              navigator.clipboard.write([clipboard_item]);
+await navigator.clipboard.write([clipboard_item]);
+
+// Read the unsanitized HTML format using the `unsanitized` option.
+const clipboardItems = await navigator.clipboard.read({ unsanitized: ['text/html'] });
+const blobOutput = await clipboardItems[0].getType('text/html');
 
 ```
 
@@ -247,6 +251,7 @@ Due to concerns regarding permission fatigue and comprehensibility, and due to t
 *   Stakeholders:
     *   Excel Online : Positive
     *   Adobe : Positive
+    *   Google Sheets : Positive
 
 More discussion on this proposal: https://github.com/w3c/clipboard-apis/issues/165, 
 
