@@ -238,7 +238,7 @@ This feature introduces an `unsanitized` option that has unsanitized `text/html`
 
 Websites or native apps are already reading unsanitized content via DataTransfer APIs using `setData()` & `getData()` methods. In this proposal, web authors are required to explicitly specify `unsanitized` option in the async clipboard `read()` method to access the raw `text/html` content from the clipboard. This feature uses async clipboard API that already has a [user gesture requirement](https://w3c.github.io/clipboard-apis/#check-clipboard-read-permission) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
 
-For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardPickle/tag-security-privacy.md) doc.
+For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardAPI/tag-security-privacy-clipboard-unsanitized-read.md) doc.
 
 ### User Gesture Requirement
 On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a [transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#transient-activation), so that the site will not be able to silently read or write clipboard information.
