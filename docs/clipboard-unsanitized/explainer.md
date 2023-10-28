@@ -6,12 +6,13 @@
 *   snianu@microsoft.com
 
 ## Introduction
-DataTransfer object's `getData` and async clipboard `read()` methods have interop differences in how the HTML content is sanitized during paste operation. `getData` method returns unsanitized HTML content, but `read()` method uses the Browser sanitizer to strip out content from the HTML markup. It'd be beneficial for the web authors if async clipboard `read()` method and `getData` methods provide similar level of fidelity of HTML content during paste operations so web apps can read the HTML content written by the native apps without any interop differences such as losing formats, meta tags etc.
+DataTransfer object's `getData` and async clipboard `read()` methods have interop differences in how the HTML content is sanitized during a paste operation. The `getData` method returns unsanitized HTML content, but the `read()` method uses the browser's sanitizer to strip out content (ex. global styles, scripts, meta tags) from the HTML markup.
 
-If we use the built-in sanitizer that produces an HTML fragment, the styles that get inlined and bloat the payload and [strip out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics.
+If we use the built-in sanitizer that produces an HTML fragment, the styles that get inlined and bloat the payload and [strip out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics. It'd be beneficial for the web authors if async clipboard `read()` method and `getData` methods provide similar level of fidelity of HTML content during paste operations.
 
 ## Goals
-*   Preserve fidelity of the HTML format just like the legacy DataTransfer API.
+*   Preserve fidelity of the HTML format.
+*   Have parity with the existing DataTransfer object's `getData`method.
 *   Build on the existing Async Clipboard API, by leveraging existing:
     *   Structure, like asynchronous design and ClipboardItem.
     *   Protections, like permissions model, and secure-context/active-frame requirements of the API.
@@ -22,7 +23,9 @@ If we use the built-in sanitizer that produces an HTML fragment, the styles that
 *   Drag-and-Drop APIs.
 
 ## Additional Background
-HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. Web custom formats can be used to exchange unsanitized HTML, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the Browser sanitizer in `read()`. This makes the `read()` method less useful as the Browser sanitizer strips out content from the HTML markup which results in format loss, bloating of payload due to inlining of style etc. Currently sites are using the DataTransfer object's `getData` method to read unsanitized HTML content, so sites do not want to regress HTML paste operation by migrating to async clipboard `read()` method.
+HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. The `read()` method uses the browser sanitizer by-default. This makes the `read()` method less useful as the Browser sanitizer strips out content from the HTML markup which results in format loss, bloating of payload due to inlining of styles etc. Currently sites are using the DataTransfer object's `getData` method to read unsanitized HTML content, so sites do not want to regress HTML paste operation by migrating to async clipboard `read()` method.
+
+Web custom formats can be used to exchange unsanitized HTML, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the Browser sanitizer in `read()` that would result in loss of fidelity.
 
 HTML format is being supported by three APIs:
 
@@ -30,9 +33,9 @@ HTML format is being supported by three APIs:
 DataTransfer object can be accessed via the paste event handler. It can then be used to get the clipboard data and preventDefault the browser's default paste operation. That way authors can read the unsanitized HTML content and process the HTML markup in their document model during paste. E.g.
 ```js
 document.addEventListener('paste', function(e) {
-            e.clipboardData.getData('text/html');
-            e.preventDefault();
-        });
+    e.clipboardData.getData('text/html');
+    e.preventDefault();
+});
 ```
 
 ### Copy/paste execCommand
