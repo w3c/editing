@@ -13,12 +13,12 @@ Clipboard content:
 ```
 Version:0.9
 StartHTML:0000000105
-EndHTML:0000000312
+EndHTML:0000000363
 StartFragment:0000000141
-EndFragment:0000000276
+EndFragment:0000000327
 <html>
 <body>
-<!--StartFragment--><head><script>alert('hello');</script><style> p {font-color: red; background-color: blue;}</style></head> <body><p>html text</p></body><!--EndFragment-->
+<!--StartFragment--><head><script>alert('hello');</script><style> p {font-color: red; background-color: blue;mso-font-charset:0;mso-ignore:padding;mso-rotate:0;}</style></head> <body><p>html text</p></body><!--EndFragment-->
 </body>
 </html>
 
@@ -30,7 +30,7 @@ After `read()` was called with the default sanitizer, the HTML markup returned w
 
 ```
 
-In the above example, `script`, `style` tags were removed and style associated with `<p>` element was inlined.
+In the above example, `script`, `style` tags were removed and custom `mso` styles were stripped out and styles associated with `<p>` element were inlined.
 
 These problems mean that web developers may not get the same HTML paste quality and performance with the async clipboard `read` API as they do with the DataTransfer object's `getData` method. This proposal aims to solve these problems so that the `read` can work just as well as `getData` when pasting HTML content.
 
@@ -192,7 +192,7 @@ This requirement is now enforced for the Async Clipboard API overall. It may be 
 Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for unsanitized clipboard. Given that Clipboard API read and write are already permitted, unsanitized clipboard read and write will be permitted as-is.
 
 ## Alternatives considered 
-Web custom formats can be used to exchange unsanitized HTML if both source and target apps have support for it, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the Browser sanitizer in `read()` that would result in loss of fidelity.
+Web custom formats can be used to exchange unsanitized HTML if both source and target apps have support for it, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the browser's sanitizer in `read()` that would result in loss of fidelity.
 
 ## Stakeholder Feedback / Opposition
 *   Implementers:
