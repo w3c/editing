@@ -6,15 +6,38 @@
 *   snianu@microsoft.com
 
 ## Introduction
-HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. DataTransfer object's `getData` and async clipboard `read()` methods have interop differences in how the HTML content is sanitized during a paste operation. The `getData` method returns unsanitized HTML content, but the `read()` method uses the browser's sanitizer to strip out content (ex. global `<style>`s, `<script>`s, `<meta>` tags) from the HTML markup which results in format loss, bloating of payload due to inlining of styles etc.
+HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. DataTransfer object's `getData` and async clipboard `read()` methods have interop differences in how the HTML content is sanitized during a paste operation. The `getData` method returns unsanitized HTML content, but the `read()` method uses the browser's sanitizer to strip out content (ex. global `<style>`s, `<script>`s, `<meta>` tags) from the HTML markup which results in format loss, and bloating of payload due to inlining of styles.
 
-Currently sites that are using the DataTransfer object's `getData` method to read unsanitized HTML content, do not want to regress HTML paste operation by migrating to async clipboard `read()` method. It'd be beneficial for the web authors if async clipboard `read()` method and `getData` methods provide similar level of fidelity of HTML content during paste operations. This would also allow browsers that write unsanitized HTML content into the clipboard to roundtrip HTML content better.
+### Example of content getting stripped out and styles getting inlined
+Clipboard content:
+```
+Version:0.9
+StartHTML:0000000105
+EndHTML:0000000312
+StartFragment:0000000141
+EndFragment:0000000276
+<html>
+<body>
+<!--StartFragment--><head><script>alert('hello');</script><style> p {font-color: red; background-color: blue;}</style></head> <body><p>html text</p></body><!--EndFragment-->
+</body>
+</html>
 
-Web custom formats can be used to exchange unsanitized HTML if both source and target apps have support for it, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the Browser sanitizer in `read()` that would result in loss of fidelity.
+```
+After `read()` was called with the default sanitizer, the HTML markup returned was:
+
+```js
+<p style="background-color: blue; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">html text</p>
+
+```
+
+In the above example, `script`, `style` tags were removed and style associated with `<p>` element was inlined.
+
+These problems mean that web developers may not get the same HTML paste quality and performance with the async clipboard `read` API as they do with the DataTransfer object's `getData` method. This proposal aims to solve these problems so that the `read` can work just as well as `getData` when pasting HTML content.
 
 ## Goals
 *   Preserve copy/paste fidelity when reading/writing the HTML format on the clipboard.
 *   Have parity with the existing DataTransfer object's `getData`method.
+*   Allow browsers that write unsanitized HTML content to the clipboard to roundtrip HTML content better.
 *   Build on the existing Async Clipboard API, by leveraging existing:
     *   Structure, like asynchronous design and ClipboardItem.
     *   Protections, like permissions model, and secure-context/active-frame requirements of the API.
@@ -107,7 +130,7 @@ When `getData` is called, the HTML string is read without sanitization i.e. glob
 
 ## Proposal
 
-With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the HTML content can be read without any loss of information i.e. `read()` would return the content without any sanitization.
+With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the HTML content can be read without any loss of information i.e. `read({ unsanitized: ['text/html'] })` would return the content without any sanitization.
 
 ### IDL changes
 ```
@@ -158,8 +181,6 @@ Websites or native apps are already reading unsanitized content via DataTransfer
 
 For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardAPI/tag-security-privacy-clipboard-unsanitized-read.md) doc.
 
-[Here](https://docs.google.com/document/d/1QLt50Q8UnlQksVltZ2PNkDZVdk9N58Pq7P0lzGTKh-U/edit?usp=sharing) is a threat model document for this feature.
-
 Some [examples](https://docs.google.com/document/d/1O2vtCS23nB_6aJy7_xcdaWKw7TtqYm0fERzEjtLyv5M/edit?usp=sharing) of native apps that do sanitization themselves during paste.
 
 ### User Gesture Requirement
@@ -169,6 +190,9 @@ This requirement is now enforced for the Async Clipboard API overall. It may be 
 
 ### Permissions
 Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for unsanitized clipboard. Given that Clipboard API read and write are already permitted, unsanitized clipboard read and write will be permitted as-is.
+
+## Alternatives considered 
+Web custom formats can be used to exchange unsanitized HTML if both source and target apps have support for it, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the Browser sanitizer in `read()` that would result in loss of fidelity.
 
 ## Stakeholder Feedback / Opposition
 *   Implementers:
