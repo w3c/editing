@@ -1,4 +1,4 @@
-# Async Clipboard API: Read unsanitized HTML and write well-formed HTML format.
+# Async Clipboard API: Read unsanitized HTML.
 
 
 ## Author:
@@ -6,11 +6,38 @@
 *   snianu@microsoft.com
 
 ## Introduction
-Using DataTransfer object's setData and async clipboard write method, there are interop differences in how the HTML content is sanitized and written to the clipboard. It'd be beneficial for the web authors if async clipboard and setData APIs provide similar level of fidelity of HTML content during copy & paste operations so round tripping is possible without any interop differences such as losing formats, meta tags etc.
-If we use the built-in sanitizer that produces an HTML fragment, the styles that get inlined bloat the payload and [strip out the custom styles](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) inserted by sites like Excel online that are used to preserve excel specific semantics.
+HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. DataTransfer object's `getData` and async clipboard `read()` methods have interop differences in how the HTML content is sanitized during a paste operation. The `getData` method returns unsanitized HTML content, but the `read()` method uses the browser's sanitizer to strip out content (ex. global `<style>`s, `<script>`s, `<meta>` tags) from the HTML markup which results in format loss, and bloating of payload due to inlining of styles.
+
+### Example of content getting stripped out and styles getting inlined
+Clipboard content:
+```
+Version:0.9
+StartHTML:0000000105
+EndHTML:0000000363
+StartFragment:0000000141
+EndFragment:0000000327
+<html>
+<body>
+<!--StartFragment--><head><script>alert('hello');</script><style> p {font-color: red; background-color: blue;mso-font-charset:0;mso-ignore:padding;mso-rotate:0;}</style></head> <body><p>html text</p></body><!--EndFragment-->
+</body>
+</html>
+
+```
+After `read()` was called with the default sanitizer, the HTML markup returned was:
+
+```js
+<p style="background-color: blue; color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">html text</p>
+
+```
+
+In the above example, `script`, `style` tags were removed and custom `mso` styles were stripped out and styles associated with `<p>` element were inlined.
+
+These problems mean that web developers may not get the same HTML paste quality and performance with the async clipboard `read` API as they do with the DataTransfer object's `getData` method. This proposal aims to solve these problems so that the `read` can work just as well as `getData` when pasting HTML content.
 
 ## Goals
-*   Preserve fidelity of the HTML format just like the legacy DataTransfer API used to read/write HTML format.
+*   Preserve copy/paste fidelity when reading/writing the HTML format on the clipboard.
+*   Have parity with the existing DataTransfer object's `getData`method.
+*   Allow browsers that write unsanitized HTML content to the clipboard to roundtrip HTML content better.
 *   Build on the existing Async Clipboard API, by leveraging existing:
     *   Structure, like asynchronous design and ClipboardItem.
     *   Protections, like permissions model, and secure-context/active-frame requirements of the API.
@@ -21,40 +48,51 @@ If we use the built-in sanitizer that produces an HTML fragment, the styles that
 *   Drag-and-Drop APIs.
 
 ## Additional Background
-HTML content is essential for supporting copy/paste operation of high fidelity content from native apps to web sites and vice versa, especially in sites supporting document editing. Currently it is being supported by three APIs:
 
-### DataTransfer object's setData
-DataTransfer object can be accessed via the copy/paste event handler. It can then be used to set the clipboard data and preventDefault the browser's default copy operation. That way authors have some control over the HTML content that they want the browser to write to the native clipboard. E.g.
+HTML format is being supported by three APIs:
+
+### DataTransfer object's getData
+The `DataTransfer` object can be accessed via the paste event handler and `getData` can be used to get the clipboard data in a specific format. Authors can call `preventDefault` to prevent the browser's default paste action and create their own app-specific paste implementation. The `getData` API does not perform sanitization and always returns unsanitized HTML to the caller. E.g.
 ```js
-document.addEventListener('copy', function(e) {
-            e.clipboardData.setData('text/html', '<p>hello</p>');
-            e.preventDefault();
-        });
+document.addEventListener('paste', function(e) {
+    e.clipboardData.getData('text/html');
+    e.preventDefault();
+});
 ```
 
 ### Copy/paste execCommand
 `execCommand` is used to invoke the copy/paste command which uses the browser's default logic to read/write the clipboard content.
 
-### Async HTML read/write APIs
-This API is called via navigator.clipboard object and is used to read/write HTML to the clipboard asynchronously without depending on clipboard event or execCommand implementation. This provides more flexibility to the web authors in terms of the type of the HTML content and when the data needs to be read/written to the clipboard. E.g.
+```js
+pasteExecCommandBtn.addEventListener("click", function(e) {
+  var pasteTarget = document.createElement("textarea");
+  pasteTarget.contentEditable = true;
+  document.body.appendChild(pasteTarget);
+  pasteTarget.focus();
+  const result = document.execCommand("paste");
+});
+
+```
+
+### Async HTML read APIs
+This API is called via the `navigator.clipboard` object and is used to read HTML to the clipboard asynchronously without listening for a clipboard event or calling `execCommand`. This provides more flexibility and better performance to web authors than the other APIs. E.g.
 
 ```js
-async () => {
-try {
-const html_text = new Blob([
-                  '<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=ProgId content=Excel.Sheet><meta name=Generator content=\"Microsoft Excel 15\"><style>display:none</style></head></html>'], {type: 'text/html'});
-navigator.clipboard.write([
-                new ClipboardItem({
-                    "text/html": html_text
-                }),
-            ]);
-} catch(e) {
-}
-}
+paste.onclick = async () => {
+    try {
+        const clipboardItems = await navigator.clipboard.read();
+        const clipboardItem = clipboardItems[0];
+        const customTextBlob = await clipboardItem.getType('text/html');
+        logDiv.innerText = await customTextBlob.text();
+        console.log('Text pasted.');
+        } catch(e) {
+        console.log('Failed to read clipboard');
+        }
+};
 ```
-Using any of the above mentioned APIs, web authors should be able to round trip HTML content and also be compatible with other browsers.
+All of the above-mentioned APIs should allow web authors to read HTML content with equally high fidelity.
 
-## Copy HTML text using setData
+## Paste HTML content using getData
 
 ### Chrome
 ```
@@ -85,64 +123,14 @@ EndFragment:00000463
 ```
 
 ### Safari
-In standard html format, Safari inserts both sanitized & unsanitized version of html content. It inserts the html content provided in the setData API into the clipboard using a custom webkit format type(`com.apple.Webkit.custom-pasteboard-data`). When `getData` is called, the HTML content in the custom webkit format type is returned (makes round tripping possible).
+When content is copied in the `text/html` MIME type via `setData` method, Safari inserts both sanitized & unsanitized versions of html content. It inserts the unsanitized html content into a custom webkit format type(`com.apple.Webkit.custom-pasteboard-data`), but the built-in `public.html` format contains the sanitized fragment. When `getData` is called from a site that is within the same origin as copy, the HTML content in the custom webkit format type is returned (makes round tripping possible). For cross-origin sites, the sanitized HTML fragment is returned from the `public.html` format.
 
 ### In Chromium & FF:
-During `setData` call, the HTML string is written without sanitization i.e. we don't remove tags such as `<meta>, <script>, <style>` etc from the HTML markup provided in the `setData`.
-In Chromium, the header of the HTML is hardcoded([`ui::clipboard_util::HtmlToCFHtml`](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/clipboard/clipboard_util_win.cc;drc=9cc9ba08c27cb1172fb4a876ceb432f72bebfe72;l=845)) and then written to the clipboard.
-
-## Copy HTML text using async clipboard write
-```
-Version:0.9
-StartHTML:0000000105
-EndHTML:0000000252
-StartFragment:0000000141
-EndFragment:0000000216
-<html>
-<body>
-<!--StartFragment--><p style="color: red; font-style: oblique;">This text was copied </p><!--EndFragment-->
-</body>
-</html>
-
-```
-Async clipboard writer API uses sanitizers to strip out content such as `<meta>, <style>, <script>` tags etc  from the HTML. This creates issues as it's not interop with DataTransfer's `setData` API so web authors that use `setData` (to write HTML) and async clipboard api (to write other formats) don't get the same content compared to using just the async clipboard write APIs for both HTML and other formats.
-
-## Copy HTML text using copy command
-```
-Version:0.9
-StartHTML:0000000170
-EndHTML:0000000770
-StartFragment:0000000206
-EndFragment:0000000734
-SourceURL:file:///C:/Users/snianu.REDMOND/Downloads/index0.html
-<html>
-<body>
-<!--StartFragment--><span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Some text</span><!--EndFragment-->
-</body>
-</html>
-
-```
-
-Here the clipboard content is sanitized and tags such as `<meta>, <script>, <style>` etc are not included while copying contents to the clipboard.
-Another issue for HTML write: If web authors want to write the entire HTML markup using async clipboard write, then currently in Chromium it fails silently. E.g.
-```js
-async () => {
-try {
-      const html_text = new Blob([
-                  '<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><meta name=ProgId content=Excel.Sheet><meta name=Generator content=\"Microsoft Excel 15\"><style>display:none</style></head></html>'], {type: 'text/html'});
-navigator.clipboard.write([
-                new ClipboardItem({
-                    "text/html": html_text
-                }),
-]);
-} catch(e) {}
-}
-
-```
+When `getData` is called, the HTML string is read without sanitization i.e. global styles, script tags, meta tags are not removed from the markup. On Windows, it also contains the header information which is hardcoded([`ui::clipboard_util::HtmlToCFHtml`](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/clipboard/clipboard_util_win.cc;drc=9cc9ba08c27cb1172fb4a876ceb432f72bebfe72;l=845)) during copy and then written to the clipboard.
 
 ## Proposal
 
-With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the content is round trippable i.e. `read()` would return the content without any sanitization. On [write](https://w3c.github.io/clipboard-apis/#dom-clipboard-write) method call, we will always write a well-formed HTML document if `text/html` is provided in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface).
+With this new proposal, we will be introducing a new `unsanitized` parameter in the [read()](https://w3c.github.io/clipboard-apis/#dom-clipboard-read) method so the HTML content can be read without any loss of information i.e. `read({ unsanitized: ['text/html'] })` would return the content without any sanitization.
 
 ### IDL changes
 ```
@@ -157,34 +145,6 @@ dictionary ClipboardUnsanitizedFormats {
     [CallWith=ScriptState]
     Promise<sequence<ClipboardItem>> read(ClipboardUnsanitizedFormats formats);
 };
-
-```
-
-### Write(data)
-Follow the algorithm specified in [write](https://w3c.github.io/clipboard-apis/#dom-clipboard-write) except for the below steps:
-1. If `text/html` representation is present in the [ClipboardItem](https://w3c.github.io/clipboard-apis/#clipboard-item-interface), then run the below steps:
-    1. Create a DOMParser using blink::DOMParser::Create.
-    2. Call DOMParser’s parseFromString method to parse the html string provided by the web authors.
-    3. Serialize the document returned from step 2.
-    4. Return the serialized html string from step 3.
-
-2. On Windows follow the below platform specific header format before writing the serialized html from step 1 to the system clipboard:
-```
-Version:0.9
-StartHTML:<start offset of the start html tag>
-EndHTML:<start offset of the end html tag>
-StartFragment:<start offset of the start fragment comment tag>
-EndFragment:<start offset of the end fragment comment tag>
-<!--StartFragment-->
-<html>
-<head>
-<head content goes here>
-</head>
-<body>
-<body content goes here>
-</body>
-</html>
-<!--EndFragment-->
 
 ```
 
@@ -214,31 +174,14 @@ const blobOutput = await clipboardItems[0].getType('text/html');
 
 ```
 
-### Clipboard output on Windows
-
-```
-Version:0.9
-StartHTML:0000000105
-EndHTML:0000000436
-StartFragment:0000000400
-EndFragment:0000000400
-<!--StartFragment-->
-<html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="ProgId" content="Excel.Sheet"><meta name="Generator" content="Microsoft Excel 15"><style>body {font-family: HK Grotesk; background-color: var(--color-bg);}</style>
-</head>
-<body><div>hello</div>
-</body>
-</html>
-<!--EndFragment-->
-
-```
-
 ## Privacy and Security
 This feature introduces an `unsanitized` option that has unsanitized `text/html` content. This will be exposed to both native apps and websites.
 
-Websites or native apps are already reading unsanitized content via DataTransfer APIs using `setData()` & `getData()` methods. In this proposal, web authors are required to explicitly specify `unsanitized` option in the async clipboard `read()` method to access the raw `text/html` content from the clipboard. This feature uses async clipboard API that already has a [user gesture requirement](https://w3c.github.io/clipboard-apis/#check-clipboard-read-permission) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
+Websites or native apps are already reading unsanitized content via DataTransfer APIs using `getData()` method. In this proposal, web authors are required to explicitly specify `unsanitized` option in the async clipboard `read()` method to access the raw `text/html` content from the clipboard. This feature uses async clipboard API that has a [user gesture requirement](https://w3c.github.io/clipboard-apis/#check-clipboard-read-permission) on top of [existing](https://github.com/dway123/clipboard-pickling/blob/main/explainer.md#permissions) async clipboard API security measures to mitigate security and privacy concerns.
 
 For more details see the [security-privacy](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ClipboardAPI/tag-security-privacy-clipboard-unsanitized-read.md) doc.
+
+Some [examples](https://docs.google.com/document/d/1O2vtCS23nB_6aJy7_xcdaWKw7TtqYm0fERzEjtLyv5M/edit?usp=sharing) of native apps that do sanitization themselves during paste.
 
 ### User Gesture Requirement
 On top of Async Clipboard API requirements for focus, secure context, and permission, use of this API will require a [transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#transient-activation), so that the site will not be able to silently read or write clipboard information.
@@ -247,6 +190,9 @@ This requirement is now enforced for the Async Clipboard API overall. It may be 
 
 ### Permissions
 Due to concerns regarding permission fatigue and comprehensibility, and due to the limited utility of a permission, no new permission would be implemented for unsanitized clipboard. Given that Clipboard API read and write are already permitted, unsanitized clipboard read and write will be permitted as-is.
+
+## Alternatives considered 
+Web custom formats can be used to exchange unsanitized HTML if both source and target apps have support for it, but there are many native apps that don't have support for web custom formats, so contents copied from these apps in the HTML format would have to go through the browser's sanitizer in `read()` that would result in loss of fidelity.
 
 ## Stakeholder Feedback / Opposition
 *   Implementers:
@@ -257,7 +203,14 @@ Due to concerns regarding permission fatigue and comprehensibility, and due to t
     *   Adobe : Positive
     *   Google Sheets : Positive
 
-More discussion on this proposal: https://github.com/w3c/clipboard-apis/issues/165, 
+### Excel's issues with sanitization
+
+[Custom Office styles are stripped out](https://drive.google.com/file/d/1Nsyp1rUKc_NF4l0n-O05snAKabHAKeiG/view) if the default sanitizer is used to read HTML data from the clipboard. These styles are inserted by Excel app that are used to preserve excel specific semantics.
+Additional problems are discussed in [this](https://docs.google.com/document/d/1nLny6t3w0u9yxEzusgFJSj-D6DZmDIAzkr1DdgWcZXA/edit?usp=sharing) doc.
+
+### Google Sheet's issues with sanitization
+
+crbug.com/1493388: The empty table cells are dropped because of a bug in the sanitizer.
 
 ## References & acknowledgements
 Many thanks for valuable feedback and advice from:
