@@ -590,9 +590,15 @@
           "command">commands</a> defined here are <a href=
           "#enabled">enabled</a> if the <a href="#active-range">active
           range</a> is not null, its [=range/start node=] is either <a href=
-          "#editable">editable</a> or an [=editing host=], its [=range/end
-          node=] is either <a href="#editable">editable</a> or an [=editing
-          host=], and there is some [=editing host=] that is an
+          "#editable">editable</a> or an [=editing host=], the <a href="#editing-host-of">editing
+          host of</a> its [=range/start node=] is not an
+          <a href="https://w3c.github.io/edit-context/#dfn-editcontext-editing-host">EditContext
+          editing host</a>, its [=range/end node=] is either <a href="#editable">editable</a> or
+          an [=editing host=], the <a href="#editing-host-of">editing host of</a>
+          its [=range/end node=] is not an
+          <a href="https://w3c.github.io/edit-context/#dfn-editcontext-editing-host">EditContext
+          editing host</a>,
+          and there is some [=editing host=] that is an
           [=tree/inclusive ancestor=] of both its [=range/start node=] and its
           [=range/end node=].
         </p>
