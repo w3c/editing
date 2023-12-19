@@ -77,21 +77,15 @@ The Editing Working Group meets remotely at **8:00AM PST / 4:00PM UTC (3:00PM UT
 
 Zoom Meeting [Joining Instructions](https://www.w3.org/groups/wg/webediting/calendar/)
 
-#### Schedule
+#### Meeting notes
 
-The upcoming schedule is below:
+Meeting notes are currently mailed out to the [mailing list](https://lists.w3.org/Archives/Public/public-editing-tf/). 
 
-* December 8, 2022
-* January 12, 2023
-* February 9, 2023
-* March 9, 2023
-* April 13, 2023
-* May 11, 2023
-* June 8, 2023
-* July 13, 2023
-* August 10, 2023
 
-Past meetings linked to their minutes:
+Previously, meeting notes were archived here:
+
+<details>
+    <summary>2022 Meetings</summary>
 
 * [October 13, 2022](https://www.w3.org/2022/10/13-editing-minutes.html)
 * [September 15, 2022](https://www.w3.org/2022/09/15-editing-minutes.html) (part of TPAC Meetings--Vancouver BC, Canada;)
@@ -104,6 +98,8 @@ Past meetings linked to their minutes:
 * [February 10, 2022](https://www.w3.org/2022/02/10-editing-minutes.html)
 * [January 27, 2022](https://www.w3.org/2022/01/27-editing-minutes.html) (special meeting for continuing discussion on sanitized/unsanitized clipboard content)
 * [January 14, 2022](https://www.w3.org/2022/01/14-editing-minutes.html)
+
+</details>
 
 <details>
     <summary>2021 Meetings</summary>
