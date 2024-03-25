@@ -608,6 +608,17 @@
       <h2 id="methods-to-query-and-execute-commands">
         Methods to query and execute commands
       </h2>
+
+      <pre class="idl">
+        partial interface Document {
+          [CEReactions] boolean execCommand(DOMString commandId, optional boolean showUI = false, optional (DOMString or TrustedHTML) value = "");
+        };
+      </pre>
+
+      <p class="note">
+        TODO: Add IDL for queryCommand* functions.
+      </p>
+
       <p class="note">
         TODO: Define behavior for <var title="">show UI</var>.
       </p>
@@ -15207,6 +15218,17 @@ foo&lt;ol&gt;&lt;li&gt;bar&lt;/li&gt;&lt;/ol&gt;.
           Authors are encouraged to use [=the styleWithCSS command=] instead.
         </p>
       </section>
+    </section>
+    <section>
+      <h2 id="dependencies">
+        Dependencies
+      </h2>
+
+      The Trusted Types [[TRUSTED-TYPES]] specification defines:
+
+      <ul>
+        <li>The <dfn data-lt="TrustedHTML"><a href="https://w3c.github.io/trusted-types/dist/spec/#trustedhtml">TrustedHTML</a></dfn> IDL <a>interface</a>
+      </ul>
     </section>
     <section>
       <h2 id="additional-requirements">
