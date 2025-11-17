@@ -1,0 +1,38 @@
+<!--
+	insertReplacementText not fired
+
+	See: https://github.com/w3c/editing/issues/494
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+				editable.onbeforeinput = (event) => {
+					console.log("inputType:", event.inputType, "event", event);
+					// event.preventDefault();
+				};
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			Select the wrongly spelled "wrld" and replace it using the native spell
+			checker of browsers. <br />
+			Expects inputType: 'insertReplacementText' (not fired on Safari Desktop)
+		</div>
+		<div id="editable" contenteditable="true">Hello wrld.</div>
+	</body>
+</html>

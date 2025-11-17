@@ -1,0 +1,37 @@
+<!--
+	Safari Desktop Doesn't fire inputType 'formatBold', 'formatItalic' etc. in beforeinput [WEBKIT]
+
+	See: https://github.com/w3c/editing/issues/492
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+				editable.onbeforeinput = (event) => {
+					console.log("inputType:", event.inputType);
+					event.preventDefault();
+				};
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			Select text and press CMD+B to format it. Console is expected to log
+			'inputType: formatBold'
+		</div>
+		<div id="editable" contenteditable="true">Some text.</div>
+	</body>
+</html>

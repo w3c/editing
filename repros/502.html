@@ -1,0 +1,50 @@
+<!--
+ 	Firefox: Clicking a placeholder inside a contenteditable element does not focus the element
+
+	See: https://github.com/w3c/editing/issues/502
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {};
+		</script>
+		<style>
+			.editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.editable [placeholder].empty::before {
+				color: #ccc;
+				content: attr(placeholder);
+			}
+
+			.editable .field.centered {
+				text-align: center;
+			}
+
+			.editable .block {
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="max-width: 500px">
+			CONTEXT: By adding a placeholder, one can make an empty element selectable
+			and addressable.<br />
+			NOTE: This is an alternative to adding a &lt;br&gt; element to make a
+			field addressable.<br /><br />
+			Clicking the placeholder "Heading 3" does not focus the element in
+			Firefox. However, in Chrome/Safari it does.
+		</div>
+		<div class="editable" contenteditable="true">
+			<h3 class="centered field empty" placeholder="Heading 3"></h3>
+		</div>
+	</body>
+</html>

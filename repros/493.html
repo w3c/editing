@@ -1,0 +1,38 @@
+<!--
+	Firefox: event.getTargetRanges() in beforeinput not consistent with window.getSelection()
+
+	See: https://github.com/w3c/editing/issues/493
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+				editable.addEventListener("beforeinput", (event) => {
+					console.log('event.getTargetRanges()[0].startContainer', event.getTargetRanges()[0].startContainer); // returns the div
+					console.log('window.getSelection().anchorNode', window.getSelection().anchorNode); // returns the "Hello world" text node
+				});
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body style="padding: 40px;"">
+		<div>
+			Select all text via CTRL+A (or triple click). Now type a character or press backspace.<br><br><br>
+			Expected: event.getTargetRanges()[0].startContainer should be equal to window.getSelection().anchorNode<br>
+			Actual (in Firefox): window.getSelection().anchorNode is the div, while event.getTargetRanges()[0].startContainer is the text node.<br><br>
+		</div>
+		<div id="editable" contenteditable="true">Hello world</div>
+	</body>
+</html>

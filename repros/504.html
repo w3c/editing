@@ -1,0 +1,39 @@
+<!--
+	Chrome Desktop + Android: document.execCommand does not trigger a 'historyUndo' onbeforinput event after running document.execCommand('undo')
+
+	See: https://github.com/w3c/editing/issues/504
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+				editable.addEventListener("beforeinput", (event) => {
+					console.log("inputType:", event.inputType);
+				});
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body style="padding: 40px;"">
+		<div>
+			Type something, then click the undo button (which runs document.execCommand('undo'))<br><br>
+			Expected: inputType: historyUndo<br>
+			Actual (in Chrome Desktop + Android): not fired<br>
+		</div>
+
+		<div id="editable" contenteditable="true"><br /></div>
+		<button onclick="document.execCommand('undo');">Undo</button>
+	</body>
+</html>
