@@ -1,0 +1,58 @@
+<!--
+ 	Safari Desktop: Conditional Show/ Hide of br element in contenteditable element make caret disappear
+
+	See: https://github.com/michael/editing/issues/498
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+			};
+		</script>
+		<style>
+			.editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.editable [placeholder].empty::before {
+				color: #ccc;
+			  content: attr(placeholder);
+			}
+
+			.editable .field.centered {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body style="padding: 40px;"">
+		<div>
+			When you select one of these placeholders:<br><br>
+			Safari & Firefox render the cursor after the placeholder (desired)<br>
+			Chrome renders the cursor before the placeholder<br><br>
+		</div>
+		<div class="editable" contenteditable="true">
+			<div class="field empty focused" placeholder="First multi-line placeholder. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla urna massa. Maecenas eu ligula id quam sollicitudin cursus at eu purus."><br></div>
+			<div class="field empty focused" placeholder="Second multi-line placeholder. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla urna massa. Maecenas eu ligula id quam sollicitudin cursus at eu purus."><br></div>
+		</div>
+		<div>
+			However, ultimately, editor developer will search for a solution,<br>
+			where placeholders "just work" in all situations. E.g. for elements with centered text.<br>
+			This currently only works when the &lt;br/&gt; element is removed as soon as a field is focused.<br>
+			See also: https://github.com/michael/web-editing/issues/5<br><br>
+
+			When the br is removed, Safari/Chrome render this correctly, <br>
+			but in Firefox the cursor is always rendered at the very beginning, ignoring the centering.<br><br>
+		</div>
+		<div class="editable" contenteditable="true">
+			<div class="field centered empty" placeholder="First multi-line placeholder. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla urna massa. Maecenas eu ligula id quam sollicitudin cursus at eu purus."></div>
+			<div class="field centered empty" placeholder="First multi-line placeholder. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla urna massa. Maecenas eu ligula id quam sollicitudin cursus at eu purus."></div>
+		</div>
+	</body>
+</html>

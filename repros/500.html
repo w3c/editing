@@ -1,0 +1,46 @@
+<!--
+ 	Firefox: Empty fields with placeholder are not keyboard selectable
+
+	See: https://github.com/w3c/editing/issues/500
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {};
+		</script>
+		<style>
+			.editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.editable [placeholder].empty::before {
+				color: #ccc;
+				content: attr(placeholder);
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			By adding a placeholder, one can make an empty element selectable and
+			addressable.<br />
+			NOTE: This is an alternative to adding a &lt;br&gt; element to make a
+			field addressable.<br /><br />
+			In Chrome and Safari, you can select each empty field using the up/down
+			arrow keys.<br />
+			However, in Firefox, some fields are missed.
+		</div>
+		<div class="editable" contenteditable="true">
+			<h3 class="field empty" placeholder="Heading 3"></h3>
+			<h3 class="field empty" placeholder="Heading 3"></h3>
+			<h3 class="field empty" placeholder="Heading 3"></h3>
+			<h3 class="field empty" placeholder="Heading 3"></h3>
+		</div>
+	</body>
+</html>

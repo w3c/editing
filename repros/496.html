@@ -1,0 +1,44 @@
+<!--
+	Safari Desktop: position: relative on parent of empty text div makes content leak outside the text div.
+
+	See: https://github.com/w3c/editing/issues/496
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			.editable-wrapper {
+				/* REMOVE BELOW RULE, THEN IT WORKS AS EXPECTED */
+				position: relative;
+				/* NOTE: Setting position: relative on .editable-wrapper also works fine. */
+				/* Seems like the problem is only caused when set on the direct parent of div that has the content */
+			}
+			.editable-field {
+				border: 1px dashed blue;
+				outline: none;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			When you open this in Safari on the Desktop (I used 26.1), and start a
+			composition in the empty contenteditable field.<br /><br />
+			E.g. use the dead key <code>^</code> and then press
+			<code>a</code>).<br /><br />
+			Notice how the original editable-field div gets destroyed (the blue dashed
+			border disappears).<br /><br />
+			Now, comment out the position: relative rule, and try again. Now it works
+			as expected. Placing a position: relative rule changes the behavior of
+			contenteditable. 😱😱😱<br /><br />
+			In Chrome/Firefox, this problem does not occur.<br /><br />
+		</div>
+		<div class="editable-canvas" contenteditable="true">
+			<div class="editable-wrapper">
+				<div class="editable-field"><br /></div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!--
+	Safari Desktop: Editing an empty `<a>` makes content leak outside the `<a>`
+
+	See: https://github.com/w3c/editing/issues/497
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			.editable-field {
+				border: 1px dashed blue;
+				outline: none;
+				padding: 5px;
+				display: block;
+				min-width: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			When you open this in Safari on the Desktop (I used 26.1), and start a
+			composition inside the empty `<a>` field.<br /><br />
+			E.g. use the dead key <code>^</code> and then press
+			<code>a</code>).<br /><br />
+			Notice how the original editable-field `<a>` gets destroyed (the blue dashed
+			border disappears).<br /><br />
+			Now change the `<a>` to a `<div>` and try again. Now it works.
+			as expected.
+
+			In Chrome/Firefox, this problem does not occur.<br /><br />
+		</div>
+		<div class="editable-canvas" contenteditable="true">
+			<div class="editable-wrapper">
+				<a href="#xyz" class="editable-field"><br /></a>
+			</div>
+		</div>
+	</body>
+</html>

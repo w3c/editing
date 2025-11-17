@@ -1,0 +1,62 @@
+<!--
+ 	Safari Desktop: Conditional Show/ Hide of br element in contenteditable element make caret disappear
+
+	See: https://github.com/w3c/editing/issues/499
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+
+				document.addEventListener("selectionchange", () => {
+					const selection = window.getSelection();
+					const range = selection.getRangeAt(0);
+					let reference_node = range.startContainer;
+
+					if (reference_node.nodeType !== Node.ELEMENT_NODE) {
+						reference_node = reference_node.parentElement;
+					}
+
+					const field = reference_node.closest(".field");
+					console.log("reference_node/field", reference_node, field);
+					if (field) {
+						document.querySelectorAll('.field.empty.focused').forEach(el => el.classList.remove("focused"));
+						field.classList.add("focused");
+					}
+				});
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			#editable [placeholder].empty::before {
+				color: #ccc;
+			  content: attr(placeholder);
+			}
+
+		  #editable [placeholder].empty.focused br {
+		    display:none;
+		  }
+		</style>
+	</head>
+	<body style="padding: 40px;"">
+		<div>
+			Try navigating between the two placeholders with the cursor keys in Safari<br><br>
+			IN Destkop Safari: Caret disappears because of the conditional show/hide of the br.<br><br>
+		</div>
+		<div id="editable" contenteditable="true">
+			<div class="field empty focused" placeholder="Hello"><br></div>
+			<div class="field empty" placeholder="Hello"><br></div>
+		</div>
+	</body>
+</html>
