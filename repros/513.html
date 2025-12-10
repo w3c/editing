@@ -1,0 +1,89 @@
+<!--
+	Safari/Chrome: Caret movement with up/down arrow keys breaks when DOM is constructed programmatically
+
+	See: https://github.com/w3c/editing/issues/513
+	Also see: https://github.com/sveltejs/svelte/issues/17164
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script>
+      window.onload = () => {
+        function create_text(value = "") {
+          return document.createTextNode(value);
+        }
+        function comment() {
+          var frag = document.createDocumentFragment();
+          var start = document.createComment("");
+          var anchor = create_text();
+          frag.append(start, anchor);
+          return frag;
+        }
+        function first_child(fragment) {
+          return Object.getOwnPropertyDescriptor(
+            Node.prototype,
+            "firstChild",
+          )?.get?.call(fragment);
+        }
+        function element(node, tag, render) {
+          const el = document.createElement(tag);
+          el.append(create_text());
+          render(el);
+          node.before(el);
+        }
+        function render(root) {
+          for (let i = 0; i < 4; i++) {
+            const f = comment();
+            const n = first_child(f);
+            element(n, "h3", (el) => {
+              el.className = "centered field empty";
+              el.setAttribute("placeholder", "Hello");
+            });
+            root.append(f);
+          }
+        }
+        render(document.getElementById("root"));
+      };
+    </script>
+    <style>
+      .editable {
+        max-width: 500px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .editable [placeholder].empty::before {
+        color: #ccc;
+        content: attr(placeholder);
+      }
+
+      .editable .field.centered {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Cursor navigation with up/down arrow keys works with static HTML:</div>
+    <div class="editable" contenteditable="true">
+      <h3 class="centered field empty" placeholder="Hello"></h3>
+      <!---->
+      <h3 class="centered field empty" placeholder="Hello"></h3>
+      <!---->
+      <h3 class="centered field empty" placeholder="Hello"></h3>
+      <!---->
+      <h3 class="centered field empty" placeholder="Hello"></h3>
+      <!---->
+    </div>
+
+    <div style="max-width: 500px">
+      However, when using a programmatic approach (see script in this web page),
+      cursor movement with up/down arrow keys break, even though the DOM has the
+      same structure.
+    </div>
+    <div id="root" class="editable" contenteditable="true"></div>
+  </body>
+</html>
