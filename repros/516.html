@@ -1,0 +1,71 @@
+<!--
+ 	Safari: Adding an empty span to an otherwise empty element, makes the element unselectable in Safari.
+
+	See: https://github.com/w3c/editing/issues/516
+
+	Likely related to: https://github.com/w3c/editing/issues/499
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+
+				document.addEventListener("selectionchange", () => {
+					const selection = window.getSelection();
+					const range = selection.getRangeAt(0);
+					let reference_node = range.startContainer;
+					if (reference_node.nodeType !== Node.ELEMENT_NODE) {
+						reference_node = reference_node.parentElement;
+					}
+					const field = reference_node.closest(".field");
+					if (field) {
+						document.querySelectorAll('.field.empty.focused').forEach(el => el.classList.remove("focused"));
+						field.classList.add("focused");
+					}
+				});
+			};
+		</script>
+    <style>
+      .editable {
+        max-width: 500px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .editable [placeholder].empty::before {
+        color: #ccc;
+        content: attr(placeholder);
+      }
+
+      .editable .block {
+        position: relative;
+      }
+
+      .editable [placeholder].empty.focused br {
+		    display:none;
+		  }
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 500px">
+      CONTEXT: As an editor developer I need a way to position popovers relative
+      to a collapsed cursor.<br>
+      That's why I'm rendering an additional span at the cursor position with an anchor-name,
+      so I can use CSS anchor positioning to position a popover/prompt (e.g. for adding a
+      new link).<br>
+
+      BUG: With the extra span in place, in Safari the field(s) are no longer
+      selectable. While in Chrome and Firefox it works just fine.<br>
+    </div>
+    <div class="editable" contenteditable="true">
+      <h3 class="field empty" placeholder="Heading 3"><span class="selection-highlight" style="anchor-name: --selection-highlight"></span><br></h3>
+      <h3 class="field empty" placeholder="Heading 3"><span class="selection-highlight" style="anchor-name: --selection-highlight"></span><br></h3>
+    </div>
+  </body>
+</html>
