@@ -1,0 +1,40 @@
+<!--
+	Safari Desktop: Safari Desktop: When aborting a composition after
+	pressing a dead key (e.g. ^) in oncompositionend event.data will
+	have "" while "^" is expected
+
+	See: https://github.com/w3c/editing/issues/505
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+				editable.addEventListener("compositionend", (event) => {
+					console.log("event.data:", event.data);
+				});
+			};
+		</script>
+		<style>
+			#editable {
+				max-width: 500px;
+				padding: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+		  Bug in Safari: Start a composition (e.g. pressing ^) and then click outside the editable area.<br><br>
+			Expected behavior: In oncompositionend event.data should contain the dead key character.<br>
+			Actual behavior: event.data has "".<br>
+			NOTE: Chrome and Firefox behave correctly.
+		</div>
+		<div id="editable" contenteditable="true">Some text.</div>
+	</body>
+</html>
