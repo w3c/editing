@@ -1,0 +1,140 @@
+<!--
+	Firefox: Up/Down arrow navigation doesn't work with absolutely positioned elements in contenteditable
+
+	DISCLAIMER: Repro has been generated with Claude Sonnet 4.5
+
+	See: https://github.com/w3c/editing/issues/523
+
+	Description:
+	In Firefox, when a contenteditable element contains absolutely positioned child elements,
+	arrow key navigation behaves inconsistently:
+	- Left/Right arrow keys work correctly (follow DOM order)
+	- Up/Down arrow keys fail to navigate to/from absolutely positioned elements
+
+	This works correctly in Chrome and Safari.
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Firefox: Absolute Position Arrow Navigation Bug</title>
+		<script>
+			window.onload = () => {
+				const editable = document.getElementById("editable");
+
+				document.addEventListener("selectionchange", () => {
+					const selection = window.getSelection();
+					if (selection.rangeCount === 0) return;
+
+					const range = selection.getRangeAt(0);
+					let reference_node = range.startContainer;
+
+					if (reference_node.nodeType !== Node.ELEMENT_NODE) {
+						reference_node = reference_node.parentElement;
+					}
+
+					const field = reference_node.closest(".field");
+					if (field) {
+						document.querySelectorAll('.field.focused').forEach(el => el.classList.remove("focused"));
+						field.classList.add("focused");
+
+						// Log which field is focused
+						const fieldType = field.classList.contains('absolute') ? 'absolutely positioned' : 'normal';
+						console.log(`Focused: ${fieldType} field`);
+					}
+				});
+			};
+		</script>
+		<style>
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				padding: 40px;
+			}
+
+			.instructions {
+				max-width: 600px;
+				margin-bottom: 30px;
+				padding: 15px;
+				background: #f5f5f5;
+				border-radius: 4px;
+			}
+
+			.instructions h2 {
+				margin-top: 0;
+			}
+
+			.instructions code {
+				background: #e0e0e0;
+				padding: 2px 6px;
+				border-radius: 3px;
+			}
+
+			#editable {
+				position: relative;
+				max-width: 500px;
+				min-height: 200px;
+				padding: 20px;
+				border: 2px solid #ccc;
+				border-radius: 4px;
+				background: white;
+			}
+
+			.field {
+				min-height: 20px;
+				padding: 5px;
+				border: 1px dashed transparent;
+			}
+
+			.field.focused {
+				border: 1px dashed #007bff;
+				background: #e7f3ff;
+			}
+
+			.field.absolute {
+				position: absolute;
+				bottom: -10px;
+				left: 0;
+				right: 0;
+				height: 20px;
+				background: #ffe7e7;
+			}
+
+			.field.absolute.focused {
+				background: #ffcccc;
+			}
+
+			.status {
+				margin-top: 20px;
+				padding: 10px;
+				background: #fff3cd;
+				border: 1px solid #ffc107;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="instructions">
+			<h2>Firefox Bug: Absolute Position + Arrow Navigation</h2>
+			<p><strong>Steps to reproduce:</strong></p>
+			<ol>
+				<li>Click into the first (normal) field below</li>
+				<li>Try pressing <code>Down Arrow</code> to navigate to the absolutely positioned field at the bottom</li>
+				<li>Notice: In Firefox, the cursor does NOT move to the absolutely positioned field</li>
+				<li>Now try <code>Right Arrow</code> repeatedly - it WILL navigate to the absolute field</li>
+			</ol>
+			<p><strong>Expected behavior:</strong> Up/Down arrows should navigate to absolutely positioned elements (works in Chrome/Safari)</p>
+			<p><strong>Actual behavior:</strong> Only Left/Right arrows work for absolutely positioned elements in Firefox</p>
+		</div>
+
+		<div id="editable" contenteditable="true">
+			<div class="field focused">First field (normal positioning)<br></div>
+			<div class="field">Second field (normal positioning)<br></div>
+			<div class="field absolute">Absolutely positioned field - try reaching me with arrow keys!<br></div>
+		</div>
+
+		<div class="status">
+			<strong>Current focus:</strong> Check the console or look for the blue dashed border
+		</div>
+	</body>
+</html>
