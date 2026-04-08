@@ -1,0 +1,86 @@
+<!--
+	Safari: `height: 100%` changes layout when the parent height is defined via `aspect-ratio`
+
+	DISCLAIMER: Repro has been generated with GPT 5.4
+
+	See: https://github.com/w3c/editing/issues/524
+
+	Description:
+	The outer div has a fixed width and its height is defined via `aspect-ratio`.
+	Toggling an inner div with `width: 100%; height: 100%` on and off should not change
+	the outer div's height at all.
+
+	This works as expected in Chrome: the outer height stays exactly the same.
+	In Safari, the outer height shifts by a few pixels when the inner div is enabled.
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Safari aspect-ratio + height: 100% repro</title>
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				padding: 24px;
+				line-height: 1.4;
+			}
+
+			#outer {
+				background: blue;
+				width: 500px;
+				aspect-ratio: 7882 / 5257;
+			}
+
+			#inner {
+				background: yellow;
+				opacity: 0.4;
+				width: 100%;
+				height: 100%;
+			}
+
+			pre {
+				margin-top: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			Expected: toggling the inner div on and off should not change the outer box height at all,
+			even when the outer div uses a non-standard aspect ratio like <code>7882 / 5257</code>.
+			The inner div uses <code>width: 100%</code> and <code>height: 100%</code> to fill the
+			parent box, which is the expected setup.
+			Chrome keeps the height stable, which is the expected behavior.
+			In Safari, the height shifts by a few pixels when the inner div is enabled.
+		</p>
+
+		<label>
+			<input id="toggle" type="checkbox" checked />
+			Include inner div
+		</label>
+
+		<div id="outer"></div>
+
+		<pre id="log"></pre>
+
+		<script>
+			const toggle = document.getElementById("toggle");
+			const outer = document.getElementById("outer");
+			const log = document.getElementById("log");
+
+			function render() {
+				outer.innerHTML = toggle.checked
+					? '<div id="inner"></div>'
+					: '';
+
+				const inner = document.getElementById("inner");
+				log.textContent =
+					"outer height: " + outer.getBoundingClientRect().height.toFixed(3) + "px\n" +
+					"inner height: " + (inner ? inner.getBoundingClientRect().height.toFixed(3) + "px" : "not rendered");
+			}
+
+			toggle.addEventListener("change", render);
+			render();
+		</script>
+	</body>
+</html>
