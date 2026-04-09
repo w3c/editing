@@ -79,7 +79,7 @@ The Editing Working Group meets remotely at **8:00AM PST**, on the second **Thur
 
 [Meeting Invite](https://www.w3.org/groups/wg/webediting/calendar/export/)
 
-Zoom Meeting [Joining Instructions](https://www.w3.org/groups/wg/webediting/calendar/)
+Google Meet Meeting [Joining Instructions](https://www.w3.org/groups/wg/webediting/calendar/)
 
 #### Meeting notes
 
