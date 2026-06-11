@@ -1,0 +1,124 @@
+<!--
+	Chrome contenteditable details selection barrier
+
+	DISCLAIMER: Repro has been generated with GPT 5.4
+
+	See: https://github.com/w3c/editing/issues/538
+
+	A small self-contained HTML example using native <details> and <summary>
+	elements for an interactive FAQ accordion.
+
+	Bug:
+	When the accordion is contenteditable, Chrome does not allow selecting text
+	across separate <details> items. Safari and Firefox allow the cross-item selection.
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chrome contenteditable details selection barrier</title>
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				padding: 24px;
+				line-height: 1.4;
+			}
+
+			.accordion {
+				width: 500px;
+				border: 1px solid black;
+			}
+
+			details + details {
+				border-top: 1px solid black;
+			}
+
+			summary {
+				cursor: pointer;
+				font-weight: 600;
+				padding: 12px 16px;
+				background: #f2f2f2;
+			}
+
+			details[open] summary {
+				background: #e2e2e2;
+			}
+
+			.answer {
+				padding: 12px 16px 16px;
+			}
+
+			.answer p {
+				margin: 0;
+			}
+
+			pre {
+				margin-top: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			Expected: with <code>contenteditable</code> enabled, dragging a text selection
+			from the first open FAQ item into the second open FAQ item should create one
+			continuous selection across both <code>&lt;details&gt;</code> elements.
+			Safari and Firefox allow this. In Chrome, the selection is blocked at the
+			boundary between accordion items.
+		</p>
+
+		<label>
+			<input id="contenteditable-toggle" type="checkbox" checked />
+			Enable contenteditable on accordion
+		</label>
+
+		<div id="accordion" class="accordion">
+			<details open>
+				<summary>What is this example?</summary>
+				<div class="answer">
+					<p>
+						This is a small FAQ-style accordion built with native
+						<code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements.
+						Try starting a selection in this paragraph and dragging into the next item.
+					</p>
+				</div>
+			</details>
+
+			<details open>
+				<summary>Does it need JavaScript?</summary>
+				<div class="answer">
+					<p>
+						No. Browsers provide the expand/collapse interaction automatically for
+						<code>&lt;details&gt;</code> elements. This second paragraph is here so the
+						selection can cross from one accordion item into another.
+					</p>
+				</div>
+			</details>
+		</div>
+
+		<pre id="log"></pre>
+
+		<script>
+			const contenteditable_toggle = document.getElementById("contenteditable-toggle");
+			const accordion = document.getElementById("accordion");
+			const log = document.getElementById("log");
+
+			function render() {
+				if (contenteditable_toggle.checked) {
+					accordion.setAttribute("contenteditable", "true");
+				} else {
+					accordion.removeAttribute("contenteditable");
+				}
+
+				log.textContent =
+					"Bug name: Selection barrier at details element when contenteditable=true\n" +
+					"contenteditable: " + (contenteditable_toggle.checked ? "on" : "off") + "\n" +
+					"Test: drag-select from text in the first item into text in the second item.\n" +
+					"Expected: continuous selection works in Safari and Firefox; Chrome blocks it.";
+			}
+
+			contenteditable_toggle.addEventListener("change", render);
+			render();
+		</script>
+	</body>
+</html>
