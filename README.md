@@ -34,6 +34,11 @@ Details can be found in the [Web Editing Working Group Charter](https://www.w3.o
   ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c/editing?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
   </a>
 
+* [Web Editing Community Group (Incubation)](https://w2c-cg.github.io/web-editing/) ([Github Repo](https://github.com/w3c-cg/web-editing))
+  <a href="https://github.com/w3c-cg/web-editing/labels/agenda+">
+      ![GitHub open Agenda+ labeled issues and PRs](https://img.shields.io/github/issues-search/w3c-cg/web-editing?query=is%3Aopen%20label%3Aagenda%2B&label=agenda%2B)
+    </a>
+
 ## Potential deliveries <sup id="potentialRef">[2](#potentialdefFootnote)</sup>
 
 * [execCommand](http://w3c.github.io/editing/docs/execCommand/) ([Github Repo](https://github.com/w3c/execCommand/))
